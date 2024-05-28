@@ -15,11 +15,29 @@ export default function UpcomingElections() {
                 <Button variant="contained" className='p-4 m-4 rounded-2xl bg-white text-blue-700 border-blue-800 border-4 hover:bg-gray-100' >How do I register</Button>
                 <p className='text-red-500'>Deadline to register: <strong>Aug 24, 2024</strong></p>
             </div>
+            <div className="flex items-center justify-center flex-wrap">
+                <div className='bg-gray-100 m-4 rounded-xl grid grid-cols-2 p-4 max-w-md align-center'>
+                    <p className="font-semibold text-red-500 m-2 text-center ">SEPT 2 @ 5PM</p>
+                    <p className='m-2 text-left'>Deadline for registration of voters for Preliminary Municipal Election.</p>
+                </div>
 
-            <div>
-                <h2>Boston’s Municipal Election Dates</h2>
+                <div className='bg-gray-100 m-4 rounded-xl grid grid-cols-2 p-4 max-w-md align-center'>
+                    <p className="font-semibold text-red-500 m-2 text-center ">SEPT 2 @ 5PM</p>
+                    <p className='m-2 text-left'>Deadline for registration of voters for Preliminary Municipal Election.</p>
+                </div>
 
+                <div className='bg-gray-100 m-4 rounded-xl grid grid-cols-2 p-4 max-w-md align-center'>
+                    <p className="font-semibold text-red-500 m-2 text-center ">SEPT 2 @ 5PM</p>
+                    <p className='m-2 text-left'>Deadline for registration of voters for Preliminary Municipal Election.</p>
+                </div>
+
+                <div className='bg-gray-100 m-4 rounded-xl grid grid-cols-2 p-4 max-w-md align-center'>
+                    <p className="font-semibold text-red-500 m-2 text-center ">SEPT 2 @ 5PM</p>
+                    <p className='m-2 text-left'>Deadline for registration of voters for Preliminary Municipal Election.</p>
+                </div>
             </div>
+
+
         </div>
     )
 }
