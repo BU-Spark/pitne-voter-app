@@ -8,7 +8,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "server/**/*.ts"
+    "server/**/*.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "/app/*",
   ],
   "exclude": [
     "node_modules"
