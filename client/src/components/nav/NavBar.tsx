@@ -25,9 +25,10 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{backgroundColor: "#cbd5e1", boxShadow: "none", color: "#1d4ed8"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* NOTE: THE ICON BELOW SHOULD BE REPLACED WITH THE STAR LOGO */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -44,7 +45,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            PAGE NAME
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -77,12 +78,13 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu} >
+                  <Typography textAlign="center" sx={{color: "#1d4ed8", '&:hover': {textDecoration: 'underline'}}}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+          {/* NOTE: THE ICON BELOW SHOULD BE REPLACED WITH THE STAR LOGO */}
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -102,12 +104,12 @@ function NavBar() {
           >
             PAGE NAME
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'right' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: "#1d4ed8", display: 'block', '&:hover': {textDecoration: 'underline'} }}
               >
                 {page}
               </Button>

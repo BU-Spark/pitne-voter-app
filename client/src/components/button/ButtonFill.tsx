@@ -17,8 +17,9 @@ const ButtonFill = ({ name, description, onClick, variant = "contained" }: Props
     return (
         <div className={styles.container}>
             <Button
+            style={{backgroundColor: "#1d4ed8"}}
+            className="rounded-3xl"
             variant={variant}
-            color="secondary"
             size="large"
             onClick={onClick}
             disableElevation>
