@@ -1,11 +1,19 @@
+'use client';
 import React from 'react'
-import Nav from '../components/nav'
-import UpcomingElections from '../pages/upcomingElections'
+import NavBar from '../components/nav/NavBar'
+import ButtonFill from '@/components/button/ButtonFill'
+import UpcomingElections from '@/pages/upcomingElections';
 export default function Home() {
   return (
     <div>
-      <Nav />
-      <UpcomingElections />
+        <NavBar />
+        <ButtonFill
+            // variant="outlined"
+            name="My Button"
+            description="Description"
+            onClick={() => console.log("Clicked")}
+        />
+        <UpcomingElections />
     </div>
   )
 }
