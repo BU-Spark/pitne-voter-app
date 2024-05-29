@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { AppBar, Box, Button, Tooltip, MenuItem, Toolbar, IconButton, Typography, Menu, Container, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+import StarIcon from '@mui/icons-material/Star';
 import styles from './NavBar.module.css';
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Early Voting', 'Ballot Info', 'Drop Box Locations'];
@@ -26,7 +26,7 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}
-          <AdbIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1 }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '30px' }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h6"
             noWrap
@@ -82,7 +82,7 @@ function NavBar() {
             </Menu>
           </Box>
           {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1 }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1 }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h5"
             noWrap
