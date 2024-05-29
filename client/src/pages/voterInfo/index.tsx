@@ -20,6 +20,11 @@ export default function VoterInfo() {
                 <p className='mt-8 mb-4'>Reminder: You can vote at any polling location during the early voting period,<br/>but you must vote at the location below during election day.</p>
                 <p className='p-4 bg-blue-200 rounded-full w-1/2'>Eastover Elementary School<br/> 500 Cherokee Rd<br/> Boston, MA, 02215<br/></p>
             </div>
+
+            <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
+                <h1 className='font-semibold text-l'>Now that you know where you can vote, let’s explore exactly who and what you are voting for.</h1>
+                <Button variant="contained" className='p-4 m-4 rounded-full bg-blue-700 text-white'>Early Voting Options</Button>
+            </div>
         </div>
 
     )
