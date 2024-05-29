@@ -4,11 +4,12 @@ import React, { useEffect } from 'react';
 import styles from './ButtonFill.module.css';
 
 // Button name, description, variant, and onClick event are customizable
+// Note that description and variant are optional
 type Props = {
     name: string;
-    description: string;
+    description?: string;
     onClick: () => void;
-    variant?: ButtonProps['variant']; // Note variant is optional
+    variant?: ButtonProps['variant'];
 };
 
 
