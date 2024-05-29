@@ -12,7 +12,7 @@ export default function VoterInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 my-4'>
                 <h1 className='font-semibold text-left' style={{ marginLeft: '0px', paddingLeft: '550px' }} >Basic Voter Info</h1>
-                <p className='p-4 bg-blue-200 rounded-full w-1/2'><strong> County: </strong>Suffolk</p>
+                <p className='p-4 bg-blue-200 rounded-full w-1/2 text-center'><strong> County: </strong>Suffolk</p>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-4'>
