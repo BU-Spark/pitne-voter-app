@@ -22,7 +22,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" style={{backgroundColor: "#cbd5e1", boxShadow: "none", color: "#1e293b"}}>
+    <AppBar position="static" style={{backgroundColor: "transparent", boxShadow: "none", color: "#1e293b"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}

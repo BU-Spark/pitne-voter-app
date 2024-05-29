@@ -1,7 +1,7 @@
 /* Styling for links within the nav bar */
 .pageLink {
     color: #1d4ed8 !important;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     padding-right: 10px;
 }
