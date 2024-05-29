@@ -23,7 +23,7 @@ export default function VoterInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='font-semibold text-l'>Now that you know where you can vote, let’s explore exactly who and what you are voting for.</h1>
-                <Button variant="contained" className='p-4 m-4 rounded-full bg-blue-700 text-white'>Early Voting Options</Button>
+                <Button variant="contained" className='p-4 m-4 rounded-full bg-blue-700 text-white'>Ballot Info</Button>
             </div>
         </div>
 
