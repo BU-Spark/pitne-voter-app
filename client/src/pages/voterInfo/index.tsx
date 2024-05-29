@@ -11,7 +11,13 @@ export default function VoterInfo() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-4'>
-                <h1 className='text-left'>Basic Voter Info</h1>
+                <h1 className='font-semibold text-left'>Basic Voter Info</h1>
+                <p className='p-4 bg-blue-200 rounded-full w-1/2'>County: <strong>Suffolk</strong></p>
+            </div>
+
+            <div className='flex flex-col justify-center items-center p-4 my-4'>
+                <h1 className='font-semibold text-left'>Polling Location</h1>
+                <p className='mt-8 mb-4'>Reminder: You can vote at any polling location during the early voting period, but you must vote at the location below during election day.</p>
                 <p className='p-4 bg-blue-200 rounded-full w-1/2'>County: <strong>Suffolk</strong></p>
             </div>
         </div>
