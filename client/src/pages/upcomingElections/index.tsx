@@ -23,7 +23,7 @@ export default function UpcomingElections() {
 
             <div className='flex flex-col justify-center items-center p-4'>
                 <ButtonFill name='Your Voter Info' onClick={() => handleClick('/voterInfo')} className='p-4 m-4 rounded-full bg-blue-700 text-white' />
-                <ButtonFill name='How do I register' onClick={() => handleClick('/earlyVoting')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='How do I register' onClick={() => handleClick('https://www.sec.state.ma.us/divisions/elections/voter-resources/registering-to-vote.htm')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
                 <p className='text-red-500'>Deadline to register: <strong>Aug 24, 2024</strong></p>
             </div>
 
@@ -38,9 +38,8 @@ export default function UpcomingElections() {
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
                 <p className=' font-semibold p-4'>You may be wondering.....</p>
-                <Button variant="outlined" className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100'>What&#39;s on the Ballot </Button>
-                <Button variant="outlined" className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' >What are my voting options </Button>
-
+                <ButtonFill name='What&#39;s on the Ballot' onClick={() => handleClick('/ballotInfo')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='What are my voting options' onClick={() => handleClick('/earlyVoting')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
             </div>
 
 
