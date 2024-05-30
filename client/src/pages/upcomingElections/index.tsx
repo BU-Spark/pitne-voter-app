@@ -9,8 +9,8 @@ export default function UpcomingElections() {
     return (
         <div className=''>
             <div className='flex flex-col justify-center items-center p-4 text-center'>
-                <h1 className='text-blue-700 font-bold text-8xl '>LET’S VOTE!</h1>
-                <p className='p-5'>The most important information about Boston&#39;s municiple elections to help you naviagte your voting journey</p>
+                <h1 className='text-blue-700 font-bold text-7xl '>LET’S VOTE!</h1>
+                <p className='p-5 text-xl'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey</p>
             </div>
 
 
