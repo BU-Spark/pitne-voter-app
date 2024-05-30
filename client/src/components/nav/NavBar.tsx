@@ -2,16 +2,26 @@
  * https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu 
  * If wanting to add user icon with dropdown to the nav bar, see code linked
  * above (removed from this version bc not implementing) */
+'use client';
 import * as React from 'react';
 import { AppBar, Box, Button, Tooltip, MenuItem, Toolbar, IconButton, Typography, Menu, Container, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
-import styles from './NavBar.module.css';
+import { useRouter } from 'next/navigation';
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Early Voting', 'Ballot Info', 'Drop Box Locations'];
+const links: Record<string, string> = {
+  'Upcoming Elections': '/upcomingElections',
+  'Your Voter Info': '/voterInfo',
+  'Early Voting': '/earlyVoting',
+  'Ballot Info': '/ballotInfo',
+  'Drop Box Locations': '/dropBoxLocations'
+};
+
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const router = useRouter()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -20,6 +30,11 @@ function NavBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleClick = (page: string) => {
+    handleCloseNavMenu();
+    router.push(links[page]);
+  }
 
   return (
     <AppBar position="static" className="bg-transparent shadow-none text-gray-800 my-4">
@@ -74,9 +89,8 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
-
-                  <Typography textAlign="center" className='hover:underline hover:bg-transparent m-4' >{page} </Typography>
+                <MenuItem key={page} onClick={() => handleClick(page)}>
+                  <Typography textAlign="center" className='hover:underline hover:bg-transparent m-4'>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -106,7 +120,7 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleClick(page)}
                 className='hover:underline hover:bg-transparent m-4'
                 sx={{ my: 2, display: 'block' }}
               >

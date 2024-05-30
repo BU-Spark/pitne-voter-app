@@ -1,9 +1,9 @@
 import '@/app/globals.css'
 
-export default function VoterInfo() {
+export default function EarlyVoting() {
     return (
         <div>
-            <h1>Voter Info</h1>
+            Early Voting Page
         </div>
     )
 }
