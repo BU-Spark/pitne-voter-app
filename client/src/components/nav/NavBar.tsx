@@ -2,16 +2,26 @@
  * https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu 
  * If wanting to add user icon with dropdown to the nav bar, see code linked
  * above (removed from this version bc not implementing) */
+'use client';
 import * as React from 'react';
 import { AppBar, Box, Button, Tooltip, MenuItem, Toolbar, IconButton, Typography, Menu, Container, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
-import styles from './NavBar.module.css';
+import { useRouter } from 'next/navigation';
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Early Voting', 'Ballot Info', 'Drop Box Locations'];
+const links: Record<string, string> = {
+  'Upcoming Elections': '/upcomingElections',
+  'Your Voter Info': '/voterInfo',
+  'Early Voting': '/earlyVoting',
+  'Ballot Info': '/ballotInfo',
+  'Drop Box Locations': '/dropBoxLocations'
+};
+
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const router = useRouter()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -21,8 +31,13 @@ function NavBar() {
     setAnchorElNav(null);
   };
 
+  const handleClick = (page: string) => {
+    handleCloseNavMenu();
+    router.push(links[page]);
+  }
+
   return (
-    <AppBar position="static" style={{backgroundColor: "transparent", boxShadow: "none", color: "#1e293b"}}>
+    <AppBar position="static" className="bg-transparent shadow-none text-gray-800 my-4">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}
@@ -35,14 +50,14 @@ function NavBar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'none', lg: 'flex' },
-              fontFamily: 'monospace',
               fontWeight: 700,
               fontSize: '28px',
               color: 'inherit',
               textDecoration: 'none',
             }}
+            onClick={() => router.push('/upcomingElections')}
           >
-            PAGE NAME
+            Boston Voter
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
@@ -75,12 +90,14 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
-                  <Typography textAlign="center" className={styles.pageLink}>{page}</Typography>
+                <MenuItem key={page} onClick={() => handleClick(page)}>
+                  <Typography textAlign="center" className='hover:underline hover:bg-transparent m-4'>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
+
           {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
           <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1 }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
@@ -92,22 +109,21 @@ function NavBar() {
               mr: 2,
               display: { xs: 'flex', md: 'flex', lg: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
               fontSize: '35px',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            PAGE NAME
+            Boston Voter
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'none', lg: 'flex' }, justifyContent: 'right' }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
-                className={styles.pageLink}
-                sx={{ my: 2, display: 'block'}}
+                onClick={() => handleClick(page)}
+                className='hover:underline hover:bg-transparent m-4'
+                sx={{ my: 2, display: 'block' }}
               >
                 {page}
               </Button>

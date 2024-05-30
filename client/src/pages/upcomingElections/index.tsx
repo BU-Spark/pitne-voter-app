@@ -1,6 +1,7 @@
 import React from "react";
 import Button from '@mui/material/Button';
 import ElectionDates from './electionDates'
+import '@/app/globals.css'
 
 export default function UpcomingElections() {
     return (
