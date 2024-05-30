@@ -47,6 +47,7 @@ const dropdownData = [
 
 const DropDownInfo = () => {
   return (
+    <>
     <Grid container spacing={2} style={{paddingLeft: '24px', paddingRight: '24px'}}>
       {dropdownData.map((item, index) => (
         <Grid item xs={12} sm={12} md={6} key={index}>
@@ -126,6 +127,12 @@ const DropDownInfo = () => {
         </Grid>
         ))}
     </Grid>
+    <div style={{textAlign: 'center', marginTop: '60px', color: '#1e293b'}}>
+        <p>Need more information?</p><br/>
+        <p><strong>617-635-8683</strong></p>
+        <p><strong>election@boston.gov</strong></p>
+    </div>
+    </>
   );
 };
 
