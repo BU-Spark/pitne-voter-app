@@ -1,6 +1,4 @@
 import React from 'react'
-import Button from '@mui/material/Button';
-import NavBar from "@/components/nav/NavBar";
 import DropDownInfo from './DropDownInfo';
 
 const EarlyVoting = () => {

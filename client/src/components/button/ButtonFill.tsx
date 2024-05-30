@@ -1,7 +1,7 @@
 'use client';
 import { Button, ButtonProps } from '@mui/material';
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 // Button name, description, variant, and onClick event are customizable
 // Note that description and variant are optional
