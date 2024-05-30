@@ -7,3 +7,6 @@ All Pull Requests must follow the Pull Request Template, with a title formatted 
 
 Status of Deployment:
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2475ff74-781c-4ac2-b8c6-3966fa276ea6/deploy-status)](https://app.netlify.com/sites/pitne-voter/deploys)
+
+
+https://pitne-voter.netlify.app
