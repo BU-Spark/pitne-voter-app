@@ -1,17 +1,10 @@
-'use client';
+
 import React from "react";
-import Button from '@mui/material/Button';
 import ElectionDates from './electionDates'
-import { useRouter } from 'next/navigation';
 import ButtonFill from "@/components/button/ButtonFill";
 
 
 export default function UpcomingElections() {
-    const router = useRouter();
-
-    const handleClick = (page: string) => {
-        router.push(page);
-    }
 
     return (
         <div className=''>
@@ -22,8 +15,8 @@ export default function UpcomingElections() {
 
 
             <div className='flex flex-col justify-center items-center p-4'>
-                <ButtonFill name='Your Voter Info' onClick={() => handleClick('/voterInfo')} className='p-4 m-4 rounded-full bg-blue-700 text-white' />
-                <ButtonFill name='How do I register' onClick={() => handleClick('https://www.sec.state.ma.us/divisions/elections/voter-resources/registering-to-vote.htm')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='Your Voter Info' link='/voterInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
+                <ButtonFill name='How do I register' link='https://www.sec.state.ma.us/divisions/elections/voter-resources/registering-to-vote.htm' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
                 <p className='text-red-500'>Deadline to register: <strong>Aug 24, 2024</strong></p>
             </div>
 
@@ -38,8 +31,8 @@ export default function UpcomingElections() {
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
                 <p className=' font-semibold p-4'>You may be wondering.....</p>
-                <ButtonFill name='What&#39;s on the Ballot' onClick={() => handleClick('/ballotInfo')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
-                <ButtonFill name='What are my voting options' onClick={() => handleClick('/earlyVoting')} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='What are my voting options' link='/earlyVoting' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
             </div>
 
 
