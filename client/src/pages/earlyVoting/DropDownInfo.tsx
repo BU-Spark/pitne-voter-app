@@ -79,16 +79,16 @@ const DropDownInfo = () => {
                     )}
 
                     {/* all have atleast 1 paragraph and button */}
-                    <Typography paragraph sx={{fontSize: '18px'}}>
+                    <Typography sx={{fontSize: '18px'}}>
                         {item.content.paragraph1}
                     </Typography>
-                    <Button variant="contained" className='h-12 p-5 m-2 rounded-full bg-blue-700 text-white'>
+                    <Button variant="contained" className='h-16 p-5 my-8 rounded-full bg-blue-700 text-white text-lg'>
                         {item.content.button1Text}
                     </Button>
 
                     {/* other paragraphs/buttons are only on certain dropdowns */}
                     {item.content.paragraph2 && (
-                        <Typography paragraph sx={{fontSize: '18px'}}>
+                        <Typography sx={{fontSize: '18px'}}>
                             {item.content.paragraph2}
                         </Typography>
                     )}
@@ -96,7 +96,7 @@ const DropDownInfo = () => {
                     {/* address card is only for first dropdown */}
                     {(item.title === 'Request Absentee Ballot') && (
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Card sx={{marginBottom: '15px', maxWidth: 275}}>
+                        <Card sx={{maxWidth: 275}} className='mb-8 mt-4'>
                             <CardContent sx={{textAlign: 'left' }}>
                                 <Typography sx={{fontSize: '18px'}}>Boston Election Department</Typography>
                                 <Typography sx={{fontSize: '18px'}}>1 City Hall Square, Room 241</Typography>
@@ -108,17 +108,17 @@ const DropDownInfo = () => {
 
                     {/* additional paragraphs and buttons */}
                     {item.content.paragraph3 && (
-                        <Typography paragraph sx={{fontSize: '18px'}}>
+                        <Typography sx={{fontSize: '18px'}}>
                             {item.content.paragraph3}
                         </Typography>
                     )}
                     {item.content.paragraphRed && (
-                        <Typography paragraph className="text-red-600" sx={{fontSize: '18px'}}>
+                        <Typography className="text-red-600" sx={{fontSize: '18px'}}>
                             {item.content.paragraphRed}
                         </Typography>
                     )}
                     {item.content.button2Text && (
-                        <Button variant="contained" className='h-12 px-5 m-2 rounded-full bg-blue-700 text-white'>
+                        <Button variant="contained" className='h-16 p-5 my-8 rounded-full bg-blue-700 text-white text-lg'>
                             {item.content.button2Text}
                         </Button>
                     )}
