@@ -41,14 +41,13 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}
-          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '30px' }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '26px' }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
               display: { xs: 'none', md: 'none', lg: 'flex' },
               fontWeight: 700,
               fontSize: '28px',
@@ -60,6 +59,7 @@ function NavBar() {
             Boston Voter
           </Typography>
 
+            {/* Page links below */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
             <IconButton
               size="large"
@@ -99,7 +99,7 @@ function NavBar() {
 
 
           {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
-          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1 }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '30px' }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h5"
             noWrap
