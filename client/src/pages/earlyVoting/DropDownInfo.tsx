@@ -68,7 +68,7 @@ const DropDownInfo = () => {
                     {(item.title === 'Drop-Off Ballot') && (
                         <div style={{display: 'flex', justifyContent: 'center'}}>
                             <div style={{textAlign: 'left', maxWidth: '700px'}}>
-                                <Typography className="text-slate-800" sx={{fontSize: '18px'}}>Ballots can be delivered via:</Typography>
+                                <Typography sx={{fontSize: '18px'}}>Ballots can be delivered via:</Typography>
                                 <ul className={"list-disc list-inside"} style={{fontSize: '18px'}}>
                                     <li>In person to your local election office</li>
                                     <li>Drop box in Boston</li>
@@ -79,7 +79,7 @@ const DropDownInfo = () => {
                     )}
 
                     {/* all have atleast 1 paragraph and button */}
-                    <Typography paragraph className="text-slate-800" sx={{fontSize: '18px'}}>
+                    <Typography paragraph sx={{fontSize: '18px'}}>
                         {item.content.paragraph1}
                     </Typography>
                     <Button variant="contained" className='h-12 p-5 m-2 rounded-full bg-blue-700 text-white'>
@@ -88,7 +88,7 @@ const DropDownInfo = () => {
 
                     {/* other paragraphs/buttons are only on certain dropdowns */}
                     {item.content.paragraph2 && (
-                        <Typography paragraph className="text-slate-800" sx={{fontSize: '18px'}}>
+                        <Typography paragraph sx={{fontSize: '18px'}}>
                             {item.content.paragraph2}
                         </Typography>
                     )}
@@ -108,7 +108,7 @@ const DropDownInfo = () => {
 
                     {/* additional paragraphs and buttons */}
                     {item.content.paragraph3 && (
-                        <Typography paragraph className="text-slate-800" sx={{fontSize: '18px'}}>
+                        <Typography paragraph sx={{fontSize: '18px'}}>
                             {item.content.paragraph3}
                         </Typography>
                     )}
@@ -127,7 +127,7 @@ const DropDownInfo = () => {
         </Grid>
         ))}
     </Grid>
-    <div style={{textAlign: 'center', marginTop: '60px', color: '#1e293b'}}>
+    <div style={{textAlign: 'center', marginTop: '60px'}}>
         <p>Need more information?</p><br/>
         <p><strong>617-635-8683</strong></p>
         <p><strong>election@boston.gov</strong></p>
