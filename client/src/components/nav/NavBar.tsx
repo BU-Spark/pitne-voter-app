@@ -55,6 +55,7 @@ function NavBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            onClick={() => router.push('/upcomingElections')}
           >
             Boston Voter
           </Typography>
