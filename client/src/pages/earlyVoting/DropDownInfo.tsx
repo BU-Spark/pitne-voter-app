@@ -104,7 +104,7 @@ const DropDownInfo = () => {
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Card sx={{ maxWidth: 275 }} className='mb-8 mt-4'>
                       <CardContent sx={{ textAlign: 'left' }}>
-                        <Typography sx={{ fontSize: '18px' }}>Boston Election Department</Typography>
+                        <Typography sx={{ fontSize: '18px' }}>Boston Elections Department</Typography>
                         <Typography sx={{ fontSize: '18px' }}>1 City Hall Square, Room 241</Typography>
                         <Typography sx={{ fontSize: '18px' }}>Boston, MA 02201</Typography>
                       </CardContent>
