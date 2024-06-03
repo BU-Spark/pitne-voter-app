@@ -32,7 +32,7 @@ export default function UpcomingElections() {
             <div className='flex flex-col justify-center items-center p-4 my-10'>
                 <p className=' font-semibold p-4'>You may be wondering.....</p>
                 <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
-                <ButtonFill name='What are my voting options' link='/earlyVoting' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+                <ButtonFill name='What are my voting options' link='/votingOptions' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
             </div>
 
 
