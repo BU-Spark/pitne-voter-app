@@ -14,7 +14,7 @@ export default function VoterInfo() {
                 <h1 className='text-blue-700 font-bold text-6xl '>Your Voter Info</h1>
                 <h1 className='font-semibold text-xl p-5 mt-2'>Here is everything you need to know about your <br />voter status and personal voting logistics!</h1>
                 <p className=''>Can’t vote in person or want to vote early?</p>
-                <ButtonFill name='Early Voting Options' link='/earlyVoting' className='p-4 mt-4 rounded-full bg-blue-700 text-white border-blue-800 ' />
+                <ButtonFill name='Early Voting Options' link='/votingOptions' className='p-4 mt-4 rounded-full bg-blue-700 text-white border-blue-800 ' />
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
@@ -29,7 +29,7 @@ export default function VoterInfo() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-                <h1 className='font-semibold text-l'>Now that you know where you can vote, let’s explore exactly who and what you are voting for.</h1>
+                <h1 className='font-semibold text-l'>Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.</h1>
                 <ButtonFill name='Ballot Info' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
             </div>
         </div>
