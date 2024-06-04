@@ -9,7 +9,7 @@ export const dropDownData = [
                 affliation: 'Non-Partisan',
                 picture: '/ShawnNelson.png',
                 link: 'https://www.boston.gov/departments/city-council/shawn-nelson',
-                
+
             },
             person2: {
                 name: 'Clifton A Braithwaite',
