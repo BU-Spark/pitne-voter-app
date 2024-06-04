@@ -66,8 +66,8 @@ export default function BallotInfo() {
             </div>
 
 
-            <div className='flex flex-col justify-center items-center p-4 my-6'>
-                <h1 className='font-semibold text-center my-4 text-2xl'>Whats on the Ballot</h1>
+            <div className='flex flex-col justify-center items-center p-8 my-6'>
+                <h1 className='font-semibold text-center mx-6 my-4 text-xl'><strong>What's on the Ballot?</strong></h1>
                 <DropDown ></DropDown>
             </div>
 
