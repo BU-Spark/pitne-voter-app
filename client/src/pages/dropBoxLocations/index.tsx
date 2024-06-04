@@ -24,7 +24,7 @@ export default function DropBoxLocations() {
                     </div>
                 </div>
             </div> 
-            
+
             <div className='relative flex flex-row justify-center items-center p-4 m-10'  style={{ left: '-8%' }}>
                 <Box component="img" sx={{height: 400, width: 400}} alt="Map" src="/Map.png"/>
                 <div className='absolute flex flex-col justify-center items-center p-4'  style={{ top: '60%', left: '78%', transform: 'translate(-50%, -50%)' }}>
