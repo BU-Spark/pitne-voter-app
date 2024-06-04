@@ -11,7 +11,7 @@ import { dropDownData } from './dropDownData';
 
 export default function DropDown() {
     return (
-        <div className='p-4 text-center w-full sm:w-3/4 md:w-1/2'>
+        <div className='p-4 text-center w-full sm:w-3/4 '>
             {dropDownData.map((item, index) => (
                 <Accordion key={index}>
                     <AccordionSummary
@@ -25,7 +25,7 @@ export default function DropDown() {
                     <AccordionDetails>
                         {/* Map over the content of each item */}
                         {Object.values(item.content).map((person, idx) => (
-                            <div key={idx} className=''>
+                            <div key={idx} className='m-4'>
                                 <PeopleCard name={person.name} affliation={person.affliation} picture={person.picture} link={person.link} />
                             </div>
                         ))}

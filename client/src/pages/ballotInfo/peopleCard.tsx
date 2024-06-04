@@ -26,7 +26,7 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
 
     return (
         <Card onClick={() => handleClick(link)}>
-            <CardActionArea className='grid grid-cols-2 grid-flow-row'>
+            <CardActionArea className='grid grid-cols-2 grid-flow-row '>
 
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -39,11 +39,10 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
 
                 <CardMedia
                     component="img"
-                    height="140"
                     image={picture}
                     alt={name}
+                    className='object-cover w-auto h-full sm:w-full sm:h-48 md:h-48 md:w-full lg:h-48 lg:w-full xl:h-48 xl:w-full 2xl:h-48 2xl:w-full'
 
-                    className='w-36 h-36 object-cover'
                 />
 
             </CardActionArea>

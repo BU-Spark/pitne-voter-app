@@ -29,16 +29,15 @@ export default function BallotInfo() {
             </div>
 
 
-            <div className='flex flex-col items-center'>
-                <div className="space-y-8 mx-10 my-8 p-8 rounded-lg border border-black max-w-2xl">
-                    <div className="space-y-4 w-full px-4 ">
+            <div className='grid grid-cols-4'>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
+                <div className="space-y-8 mx-10 my-8 p-8 rounded-lg border border-black  col-span-4 lg:col-span-2">
+                    <div className="space-y-4 w-full px-4">
                         <div className='flex justify-between items-center'>
                             <h1 className='text-xl'>Preliminary Municipal Election</h1>
-                            <Checkbox
-                                checked={checked}
-                                onChange={handleChange}
-                                inputProps={{ 'aria-label': 'controlled' }}
-                            />
+                            {/* Replace with your Checkbox component with proper props */}
+                            {/* <Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} /> */}
                         </div>
                         <div className="border-b border-gray-300"></div> {/* Line between rows */}
                         <div className="flex justify-between items-center">
@@ -49,21 +48,23 @@ export default function BallotInfo() {
 
                     <div className="space-y-4 w-full px-4">
                         <div className='flex justify-between items-center'>
-                            <h1 className='text-xl'>Preliminary Municipal Election</h1>
-                            <Checkbox
-                                checked={checked}
-                                onChange={handleChange}
-                                inputProps={{ 'aria-label': 'controlled' }}
-                            />
+                            <h1 className='text-xl'> Municipal Election</h1>
+                            {/* Replace with your Checkbox component with proper props */}
+                            {/* <Checkbox checked={checked} onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} /> */}
                         </div>
                         <div className="border-b border-gray-300"></div> {/* Line between rows */}
                         <div className="flex justify-between items-center">
-                            <h1 className='font-bold'>Sept 12, 2023</h1>
-                            <h1 className='font-bold'>155 days</h1>
+                            <h1 className='font-bold'>Nov 7, 2023</h1>
+                            <h1 className='font-bold'>211 days</h1>
                         </div>
                     </div>
                 </div>
+
+                <div className='md:col-span-1 hidden md:block'>
+
+                </div>
             </div>
+
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
                 <h1 className='font-semibold text-center my-4 text-2xl'>Whats on the Ballot</h1>
