@@ -4,21 +4,9 @@ import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import DropDown from './dropDown';
 import HelpIcon from '@mui/icons-material/Help';
+import BoxAddress from "./boxAddress";
 
-function BoxAddress() {
-    return (
-        <Box
-            component="form"
-            sx={{
-                '& > :not(style)': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <TextField id="outlined-basic" label="Address" variant="outlined" />
-        </Box>
-    );
-}
+
 
 
 export default function BallotInfo() {
