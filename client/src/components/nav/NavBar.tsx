@@ -21,6 +21,8 @@ const links: Record<string, string> = {
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [activePage, setActivePage] = React.useState<string>('null');
+
   const router = useRouter()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,6 +34,8 @@ function NavBar() {
   };
 
   const handleClick = (page: string) => {
+    setActivePage(page);
+    console.log(activePage)
     handleCloseNavMenu();
     router.push(links[page]);
   }
@@ -91,7 +95,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => handleClick(page)}>
-                  <Typography textAlign="center" className='hover:underline hover:bg-transparent m-4'>{page}</Typography>
+                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${activePage === page ? 'text-blue-600 ' : ''}`}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -122,7 +126,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
-                className='hover:underline hover:bg-transparent m-4'
+                className={`hover:underline hover:bg-transparent m-4 ${activePage === page ? 'bg-blue-700 rounded-full text-white px-2' : ''}`}
                 sx={{ my: 2, display: 'block' }}
               >
                 {page}
