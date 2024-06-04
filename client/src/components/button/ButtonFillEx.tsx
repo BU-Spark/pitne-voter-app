@@ -14,11 +14,11 @@ type Props = {
 
 
 // By default, variant is contained
-const ButtonFill = ({ name, link, variant = "contained", className }: Props) => {
+const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) => {
 
     const router = useRouter();
     const handleClick = (page: string) => {
-        router.push(page);
+        window.open(page, '_blank');
     }
 
 
@@ -34,5 +34,5 @@ const ButtonFill = ({ name, link, variant = "contained", className }: Props) => 
     );
 };
 
-export default ButtonFill;
+export default ButtonFillEx;
 
