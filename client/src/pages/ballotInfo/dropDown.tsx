@@ -9,11 +9,13 @@ import PeopleCard from './peopleCard';
 import { dropDownData } from './dropDownData';
 
 
+
+
 export default function DropDown() {
     return (
-        <div className='p-4 text-center w-full sm:w-3/4 '>
+        <div className='p-4 text-center w-full sm:w-3/4 ' style={{ paddingLeft: '24px', paddingRight: '24px' }}>
             {dropDownData.map((item, index) => (
-                <Accordion key={index}>
+                <Accordion key={index} sx={{ backgroundColor: '#e2e8f0' }}>
                     <AccordionSummary
                         expandIcon={<ArrowDropDownIcon />}
                         aria-controls={`panel${index + 1}-content`}
