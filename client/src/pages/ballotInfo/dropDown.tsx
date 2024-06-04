@@ -18,7 +18,7 @@ export default function DropDown() {
                         aria-controls={`panel${index + 1}-content`}
                         id={`panel${index + 1}-header`}
                     >
-                        <Typography>{item.title}</Typography>
+                        <Typography sx={{ color: '#1d4ed8' }}>{item.title}</Typography>
                     </AccordionSummary>
 
                     <AccordionDetails>

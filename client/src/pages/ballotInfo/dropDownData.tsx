@@ -9,6 +9,7 @@ export const dropDownData = [
                 affliation: 'Non-Partisan',
                 picture: '/ShawnNelson.png',
                 link: 'https://www.boston.gov/departments/city-council/shawn-nelson',
+                
             },
             person2: {
                 name: 'Clifton A Braithwaite',
@@ -52,7 +53,7 @@ export const dropDownData = [
 
     },
     {
-        title: "County Clerk of Courts Civl Business",
+        title: "County Clerk of Courts Civil Business",
         content: {
             person1: {
                 name: 'Shawn Nelson',
