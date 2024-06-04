@@ -41,7 +41,8 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
                     component="img"
                     image={picture}
                     alt={name}
-                    className='object-cover w-auto h-full sm:w-full sm:h-48 md:h-48 md:w-full lg:h-48 lg:w-full xl:h-48 xl:w-full 2xl:h-48 2xl:w-full'
+                    className='object-cover w-auto h-48 sm:w-full sm:h-auto md:h-auto md:w-auto lg:h-auto xl:h-48 xl:w-full xl:h-58 xl:w-full'
+
 
                 />
 
