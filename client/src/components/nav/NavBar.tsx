@@ -9,11 +9,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
 
-const pages = ['Upcoming Elections', 'Your Voter Info', 'Early Voting', 'Ballot Info', 'Drop Box Locations'];
+const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Ballot Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
   'Upcoming Elections': '/upcomingElections',
   'Your Voter Info': '/voterInfo',
-  'Early Voting': '/earlyVoting',
+  'Voting Options': '/votingOptions',
   'Ballot Info': '/ballotInfo',
   'Drop Box Locations': '/dropBoxLocations'
 };
