@@ -7,20 +7,20 @@ import HelpIcon from '@mui/icons-material/Help';
 
 function BoxAddress() {
     return (
-      <Box
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField id="outlined-basic" label="Address" variant="outlined" />
-      </Box>
+        <Box
+            component="form"
+            sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            <TextField id="outlined-basic" label="Address" variant="outlined" />
+        </Box>
     );
-  }
+}
 
-  
+
 export default function BallotInfo() {
 
     const [checked, setChecked] = React.useState(true);
@@ -38,7 +38,7 @@ export default function BallotInfo() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-2'>
-                <BoxAddress/>
+                <BoxAddress />
                 <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
 
             </div>
@@ -82,7 +82,7 @@ export default function BallotInfo() {
 
 
             <div className='flex flex-col justify-center items-center p-8 my-6'>
-                <h1 className='font-semibold text-center mx-6 my-4 text-xl' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What's on the Ballot?</strong></h1>
+                <h1 className='font-semibold text-center mx-6 my-4 text-xl' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
                 <DropDown ></DropDown>
             </div>
 
