@@ -59,7 +59,7 @@ function NavBar() {
             Boston Voter
           </Typography>
 
-            {/* Page links below */}
+          {/* Page links below */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
             <IconButton
               size="large"

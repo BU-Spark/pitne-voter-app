@@ -44,7 +44,7 @@ const dropdownData = [
   {
     title: 'In-Person Early Voting',
     content: {
-      paragraph1: "During the early voting period, you don't have to vote at your assigned polling location, but any location that is convenient for you.",
+      paragraph1: "During the early voting period, you don&apos;t have to vote at your assigned polling location, but any location that is convenient for you.",
       button1Text: 'Early Voting Locations',
       button1Link: '/dropBoxLocations',
       paragraphRed: 'You have until 12 p.m. the Monday before the election to vote in person.'
@@ -94,7 +94,7 @@ const DropDownInfo = () => {
 
                 {/* Add translation link to Absentee Ballot dropdown */}
                 {(item.title === 'Request Absentee Ballot') && (
-                    <Typography className='hover:underline mb-8' sx={{ fontSize: '14px'}}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm'>Click here for translated applications</a></Typography>
+                  <Typography className='hover:underline mb-8' sx={{ fontSize: '14px' }}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm'>Click here for translated applications</a></Typography>
                 )}
 
                 {/* other paragraphs/buttons are only on certain dropdowns */}
@@ -141,7 +141,7 @@ const DropDownInfo = () => {
                         <li>Any other printed identification which contains your name and address</li>
                       </ul>
                     </div>
-                   </div>
+                  </div>
                 )}
 
                 {/* additional paragraphs and buttons */}
@@ -167,8 +167,8 @@ const DropDownInfo = () => {
 
       {/* Additional info button */}
       <div className="w-full max-w-full mt-10 text-center">
-            <Typography sx={{ fontSize: '18px' }}>Want to learn more about early voting in Boston?</Typography>
-            <ButtonFill name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200'/>
+        <Typography sx={{ fontSize: '18px' }}>Want to learn more about early voting in Boston?</Typography>
+        <ButtonFill name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
       </div>
 
       {/* Contact info of Boston Elections Department */}
