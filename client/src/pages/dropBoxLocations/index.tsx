@@ -24,12 +24,12 @@ export default function DropBoxLocations() {
                     </div>
                 </div>
             </div> 
-
-            <div className='flex flex-row justify-center items-center p-4 my-10 space-x-6'>
+            
+            <div className='relative flex flex-row justify-center items-center p-4 m-10'  style={{ left: '-8%' }}>
                 <Box component="img" sx={{height: 400, width: 400}}
                 alt="Map" src="/Map.png"/>
-                <div className='flex flex-col justify-center items-center p-4 my-6'>
-                <p className='px-40 py-40 bg-gray-300 rounded-lg text-center text-lg'><strong> County: </strong>Suffolk</p>
+                <div className='absolute flex flex-col justify-center items-center p-4'  style={{ top: '60%', left: '78%', transform: 'translate(-50%, -50%)' }}>
+                <p className='px-40 py-40 bg-gray-200 rounded-lg'><strong>Ballot Dropbox: </strong> 149 Dudley</p>
                 </div>
             </div>     
 
