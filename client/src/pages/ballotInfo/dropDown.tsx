@@ -6,88 +6,12 @@ import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PeopleCard from './peopleCard';
+import { dropDownData } from './dropDownData';
 
-const dropDownData = [
-    {
-        title: "City Counselors at Large",
-        content: {
-            person1: {
-                name: 'Shawn Nelson',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/nelson.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/shawn-nelson',
-            },
-            person2: {
-                name: 'Clifton A Braithwaite',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/braithwaite.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/clifton-braithwaite',
-            },
-            person3: {
-                name: 'Julia Mejia',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/mejia.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/julia-mejia',
-            }
 
-        },
-
-    },
-    {
-        title: "Register of Probate",
-        content: {
-            person1: {
-                name: 'Shawn Nelson',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/nelson.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/shawn-nelson',
-            },
-            person2: {
-                name: 'Clifton A Braithwaite',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/braithwaite.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/clifton-braithwaite',
-            },
-            person3: {
-                name: 'Julia Mejia',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/mejia.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/julia-mejia',
-            }
-
-        },
-
-    },
-    {
-        title: "County Clerk of Courts Civl Business",
-        content: {
-            person1: {
-                name: 'Shawn Nelson',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/nelson.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/shawn-nelson',
-            },
-            person2: {
-                name: 'Clifton A Braithwaite',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/braithwaite.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/clifton-braithwaite',
-            },
-            person3: {
-                name: 'Julia Mejia',
-                affliation: 'Non-Partisan',
-                picture: 'https://www.boston.gov/sites/default/files/styles/city_councilor_profile/public/city-councilor-profile/mejia.jpg?itok=3Z6J9Q9v',
-                link: 'https://www.boston.gov/departments/city-council/julia-mejia',
-            }
-
-        },
-
-    },
-
-]
 export default function DropDown() {
     return (
-        <div className='p-4 w-1/2 text-center'>
+        <div className='p-4 text-center w-full sm:w-3/4 md:w-1/2'>
             {dropDownData.map((item, index) => (
                 <Accordion key={index}>
                     <AccordionSummary
@@ -101,8 +25,7 @@ export default function DropDown() {
                     <AccordionDetails>
                         {/* Map over the content of each item */}
                         {Object.values(item.content).map((person, idx) => (
-
-                            <div key={idx}>
+                            <div key={idx} className=''>
                                 <PeopleCard name={person.name} affliation={person.affliation} picture={person.picture} link={person.link} />
                             </div>
                         ))}

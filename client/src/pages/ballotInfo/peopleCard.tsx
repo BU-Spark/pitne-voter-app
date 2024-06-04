@@ -25,14 +25,9 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
     }
 
     return (
-        <Card sx={{ maxWidth: 345 }} onClick={() => handleClick(link)}>
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={picture}
-                    alt={name}
-                />
+        <Card onClick={() => handleClick(link)}>
+            <CardActionArea className='grid grid-cols-2 grid-flow-row'>
+
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {name}
@@ -41,6 +36,16 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
                         {affliation}
                     </Typography>
                 </CardContent>
+
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={picture}
+                    alt={name}
+
+                    className='w-36 h-36 object-cover'
+                />
+
             </CardActionArea>
         </Card>
     );
