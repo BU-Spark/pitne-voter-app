@@ -44,7 +44,7 @@ const dropdownData = [
   {
     title: 'In-Person Early Voting',
     content: {
-      paragraph1: "During the early voting period, you don&apos;t have to vote at your assigned polling location, but any location that is convenient for you.",
+      paragraph1: "During the early voting period, you do not have to vote at your assigned polling location, but any location that is convenient for you.",
       button1Text: 'Early Voting Locations',
       button1Link: '/dropBoxLocations',
       paragraphRed: 'You have until 12 p.m. the Monday before the election to vote in person.'
@@ -132,7 +132,7 @@ const DropDownInfo = () => {
                       <Typography sx={{ fontSize: '18px', marginTop: '32px' }}>Identification needs to show your name and the address where you are registered to vote. Examples of acceptable identification are:</Typography>
                       <br />
                       <ul className={"list-disc list-outside"} style={{ fontSize: '18px', marginLeft: '18px' }}>
-                        <li>A driver's license</li>
+                        <li>A driver&apos;s license</li>
                         <li>A state ID card</li>
                         <li>A recent utility bill</li>
                         <li>A rent receipt or lease</li>
