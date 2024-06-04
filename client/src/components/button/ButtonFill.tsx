@@ -34,4 +34,24 @@ const ButtonFill = ({ name, link, variant = "contained", className }: Props) => 
     );
 };
 
+const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) => {
+
+    const router = useRouter();
+    const handleClick = (page: string) => {
+        window.open(page, '_blank');
+    }
+
+
+    return (
+        <Button
+            className={className}
+            variant={variant}
+            onClick={() => handleClick(link)}
+            disableElevation>
+            {name}
+        </Button>
+
+    );
+};
+
 export default ButtonFill;
