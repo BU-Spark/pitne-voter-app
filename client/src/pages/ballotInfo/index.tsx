@@ -17,14 +17,14 @@ export default function BallotInfo() {
 
             <div className='p-4 text-center '>
                 <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
-                <h1 className='font-semibold text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
+                <h1 className='text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
                     personalized to your community.</h1>
             </div>
 
             <div className='flex flex-col justify-center items-center p-2'>
-                <h1 className="font-semibold text-center my-2">Address</h1>
-                <p className='p-4 bg-blue-100 rounded-full w-1/2 text-center'>500 Cherokee RD Boston MA, 02215</p>
-                <ButtonFill name='Change Address' link='/changeAddress' className='p-4 mt-4 rounded-full bg-blue-700 text-white border-blue-800 ' />
+                <h1 className="font-semibold text-xl text-center my-2">Address:</h1>
+                <p className='p-4 bg-blue-100 rounded-xl w-3/4 sm:w-1/2 md:w-1/4 text-center'>500 Cherokee RD Boston MA, 02215</p>
+                <ButtonFill name='Change Address' link='/changeAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
 
             </div>
 
