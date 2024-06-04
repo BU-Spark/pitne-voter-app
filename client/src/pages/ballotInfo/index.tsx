@@ -1,6 +1,7 @@
 import ButtonFill from "@/components/button/ButtonFill"
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
+import DropDown from './dropDown';
 
 
 
@@ -14,25 +15,21 @@ export default function BallotInfo() {
     return (
         <div className=''>
 
-            <div className='p-4 text-center mb-10'>
+            <div className='p-4 text-center '>
                 <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
-            </div>
-
-            <div className='flex flex-col justify-center items-center p-2'>
-                <h1 className='font-semibold text-center text-2xl my-2'  >LEARN. PLAN.</h1>
-                <h1 className='font-semibold text-center'  >Explore the elections, candidates, and crucial issues
+                <h1 className='font-semibold text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
                     personalized to your community.</h1>
             </div>
 
             <div className='flex flex-col justify-center items-center p-2'>
                 <h1 className="font-semibold text-center my-2">Address</h1>
-                <p className='p-4 bg-blue-100 rounded-full w-1/2 text-center'>500 Cherokee RD <br />Boston MA, 02215</p>
+                <p className='p-4 bg-blue-100 rounded-full w-1/2 text-center'>500 Cherokee RD Boston MA, 02215</p>
                 <ButtonFill name='Change Address' link='/changeAddress' className='p-4 mt-4 rounded-full bg-blue-700 text-white border-blue-800 ' />
 
             </div>
 
 
-            <div className='flex justify-center'>
+            <div className='flex flex-col items-center'>
                 <div className="space-y-8 mx-10 my-8 p-8 rounded-lg border border-black max-w-2xl">
                     <div className="space-y-4 w-full px-4 ">
                         <div className='flex justify-between items-center'>
@@ -70,7 +67,7 @@ export default function BallotInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
                 <h1 className='font-semibold text-center my-4 text-2xl'>Whats on the Ballot</h1>
-                <p className='p-4 bg-blue-100 rounded-full w-1/2 text-center'>Insert Information about what's on the ballo </p>
+                <DropDown ></DropDown>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
