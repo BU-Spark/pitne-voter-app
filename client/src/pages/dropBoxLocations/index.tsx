@@ -31,7 +31,7 @@ export default function DropBoxLocations() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
-                <p className='p-4 bg-white rounded-full w-1/2 text-center'><strong> County: </strong>Suffolk</p>
+                <p className='p-4 bg-blue-100  rounded-full w-1/2 text-center'><strong> County: </strong>Suffolk</p>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
