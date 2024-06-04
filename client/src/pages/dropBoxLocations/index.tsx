@@ -25,14 +25,13 @@ export default function DropBoxLocations() {
                 </div>
             </div> 
 
-            <div className='flex flex-col justify-center items-center p-4 my-10'>
+            <div className='flex flex-row justify-center items-center p-4 my-10 space-x-6'>
                 <Box component="img" sx={{height: 400, width: 400}}
                 alt="Map" src="/Map.png"/>
-            </div>
-
-            <div className='flex flex-col justify-center items-center p-4 my-6'>
-                <p className='p-4 bg-blue-100  rounded-full w-1/2 text-center'><strong> County: </strong>Suffolk</p>
-            </div>
+                <div className='flex flex-col justify-center items-center p-4 my-6'>
+                <p className='px-40 py-40 bg-gray-300 rounded-lg text-center text-lg'><strong> County: </strong>Suffolk</p>
+                </div>
+            </div>     
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
                 <p className=' font-semibold p-4'>You may be wondering.....</p>
