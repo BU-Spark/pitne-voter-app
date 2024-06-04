@@ -35,10 +35,11 @@ function NavBar() {
 
   const handleClick = (page: string) => {
     setActivePage(page);
-    console.log(activePage)
     handleCloseNavMenu();
     router.push(links[page]);
   }
+
+
 
   return (
     <AppBar position="static" className="bg-transparent shadow-none text-gray-800 my-4">
@@ -58,7 +59,10 @@ function NavBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-            onClick={() => router.push('/upcomingElections')}
+            onClick={() => {
+              setActivePage('Upcoming Elections');
+              router.push('/upcomingElections')
+            }}
           >
             Boston Voter
           </Typography>
@@ -117,6 +121,10 @@ function NavBar() {
               fontSize: '35px',
               color: 'inherit',
               textDecoration: 'none',
+            }}
+            onClick={() => {
+              setActivePage('Upcoming Elections');
+              router.push('/upcomingElections')
             }}
           >
             Boston Voter
