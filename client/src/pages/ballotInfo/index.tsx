@@ -1,10 +1,25 @@
 import ButtonFill from "@/components/button/ButtonFill"
+import { Box, TextField } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import DropDown from './dropDown';
 
+function BoxAddress() {
+    return (
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField id="outlined-basic" label="Address" variant="outlined" />
+      </Box>
+    );
+  }
 
-
+  
 export default function BallotInfo() {
 
     const [checked, setChecked] = React.useState(true);
@@ -22,9 +37,8 @@ export default function BallotInfo() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-2'>
-                <h1 className="font-semibold text-xl text-center my-2">Address:</h1>
-                <p className='p-4 bg-blue-100 rounded-xl w-3/4 sm:w-1/2 md:w-1/4 text-center'>500 Cherokee RD Boston MA, 02215</p>
-                <ButtonFill name='Change Address' link='/changeAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
+                <BoxAddress/>
+                <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
 
             </div>
 
