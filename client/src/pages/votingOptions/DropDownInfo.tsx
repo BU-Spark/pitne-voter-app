@@ -18,20 +18,20 @@ const dropdownData = [
     title: 'Request Absentee Ballot',
     content: {
       paragraph1: 'Start your early voting process by requesting a absentee ballot for you or a family member. A few clicks is all it takes to ensure your participation in the upcoming election.',
-      button1Text: 'Official absentee ballot application',
-      button1Link: 'https://www.sec.state.ma.us/divisions/elections/download/absentee-ballot-applications/Absentee-Ballot-Application-English.pdf',
+      buttonEx1Text: 'Official absentee ballot application',
+      buttonEx1Link: 'https://www.sec.state.ma.us/divisions/elections/download/absentee-ballot-applications/Absentee-Ballot-Application-English.pdf',
       paragraph2: 'Mail your completed application to:',
       paragraph3: 'Living outside of the US but still want to engage in Boston area elections?',
-      button2Text: 'Overseas Assistance',
-      button2Link: 'https://www.sec.state.ma.us/divisions/elections/voting-information/military-and-overseas-voters.htm',
+      buttonEx2Text: 'Overseas Assistance',
+      buttonEx2Link: 'https://www.sec.state.ma.us/divisions/elections/voting-information/military-and-overseas-voters.htm',
     }
   },
   {
     title: 'Mail-In Ballot',
     content: {
       paragraph1: 'After completing and submitting your application, an Absentee Ballot will be sent to you in the mail with a set of return envelopes and mail-instructions. Follow the instructions and track your ballot to ensure it is received.',
-      button1Text: 'Track Your Ballot',
-      button1Link: 'https://www.sec.state.ma.us/WhereDoIVoteMA/TrackMyBallot'
+      buttonEx1Text: 'Track Your Ballot',
+      buttonEx1Link: 'https://www.sec.state.ma.us/WhereDoIVoteMA/TrackMyBallot'
     }
   },
   {
@@ -86,12 +86,18 @@ const DropDownInfo = () => {
                   </div>
                 )}
 
-                {/* all have atleast 1 paragraph and button */}
+                {/* All have first paragraph */}
                 <Typography sx={{ fontSize: '18px' }}>
                   {item.content.paragraph1}
                 </Typography>
 
-                <ButtonFill name={item.content.button1Text} link={item.content.button1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                {/* Do button1 or buttonEx1 */}
+                {item.content.button1Text && (
+                  <ButtonFill name={item.content.button1Text} link={item.content.button1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                )}
+                {item.content.buttonEx1Text && (
+                  <ButtonFillEx name={item.content.buttonEx1Text} link={item.content.buttonEx1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                )}
 
                 {/* Add translation link to Absentee Ballot dropdown */}
                 {(item.title === 'Request Absentee Ballot') && (
@@ -156,8 +162,8 @@ const DropDownInfo = () => {
                     {item.content.paragraphRed}
                   </Typography>
                 )}
-                {item.content.button2Text && (
-                  <ButtonFill name={item.content.button2Text} link={item.content.button2Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                {item.content.buttonEx2Text && (
+                  <ButtonFillEx name={item.content.buttonEx2Text} link={item.content.buttonEx2Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
 
                 )}
               </AccordionDetails>
