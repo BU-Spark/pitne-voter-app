@@ -21,6 +21,8 @@ const links: Record<string, string> = {
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [activePage, setActivePage] = React.useState<string>('null');
+
   const router = useRouter()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,9 +34,12 @@ function NavBar() {
   };
 
   const handleClick = (page: string) => {
+    setActivePage(page);
     handleCloseNavMenu();
     router.push(links[page]);
   }
+
+
 
   return (
     <AppBar position="static" className="bg-transparent shadow-none text-gray-800 my-4">
@@ -54,12 +59,15 @@ function NavBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-            onClick={() => router.push('/upcomingElections')}
+            onClick={() => {
+              setActivePage('Upcoming Elections');
+              router.push('/upcomingElections')
+            }}
           >
             Boston Voter
           </Typography>
 
-            {/* Page links below */}
+          {/* Page links below */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
             <IconButton
               size="large"
@@ -91,7 +99,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => handleClick(page)}>
-                  <Typography textAlign="center" className='hover:underline hover:bg-transparent m-4'>{page}</Typography>
+                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${activePage === page ? 'text-blue-600 ' : ''}`}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,6 +122,10 @@ function NavBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            onClick={() => {
+              setActivePage('Upcoming Elections');
+              router.push('/upcomingElections')
+            }}
           >
             Boston Voter
           </Typography>
@@ -122,7 +134,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
-                className='hover:underline hover:bg-transparent m-4'
+                className={`hover:underline hover:bg-transparent m-4 ${activePage === page ? 'bg-blue-700 rounded-full text-white px-2' : ''}`}
                 sx={{ my: 2, display: 'block' }}
               >
                 {page}

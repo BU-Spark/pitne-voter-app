@@ -1,7 +1,7 @@
-
 import React from "react";
 import ElectionDates from './electionDates'
 import ButtonFill from "@/components/button/ButtonFill";
+import ButtonFillEx from "@/components/button/ButtonFillEx";
 
 
 export default function UpcomingElections() {
@@ -16,7 +16,7 @@ export default function UpcomingElections() {
 
             <div className='flex flex-col justify-center items-center p-4'>
                 <ButtonFill name='Your Voter Info' link='/voterInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
-                <ButtonFill name='How do I register' link='https://www.boston.gov/departments/elections/how-register-vote' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+                <ButtonFillEx name='How do I register' link='https://www.boston.gov/departments/elections/how-register-vote' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
                 <p className='text-red-500'>Deadline to register: <strong>Aug 24, 2024</strong></p>
             </div>
 

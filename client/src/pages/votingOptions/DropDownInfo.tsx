@@ -2,6 +2,7 @@ import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Button, Card, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ButtonFill from '@/components/button/ButtonFill';
+import ButtonFillEx from '@/components/button/ButtonFillEx';
 
 // Define the info for the dropdown menu
 const dropdownData = [
@@ -17,20 +18,20 @@ const dropdownData = [
     title: 'Request Absentee Ballot',
     content: {
       paragraph1: 'Start your early voting process by requesting a absentee ballot for you or a family member. A few clicks is all it takes to ensure your participation in the upcoming election.',
-      button1Text: 'Official absentee ballot application',
-      button1Link: 'https://www.sec.state.ma.us/divisions/elections/download/absentee-ballot-applications/Absentee-Ballot-Application-English.pdf',
+      buttonEx1Text: 'Official absentee ballot application',
+      buttonEx1Link: 'https://www.sec.state.ma.us/divisions/elections/download/absentee-ballot-applications/Absentee-Ballot-Application-English.pdf',
       paragraph2: 'Mail your completed application to:',
       paragraph3: 'Living outside of the US but still want to engage in Boston area elections?',
-      button2Text: 'Overseas Assistance',
-      button2Link: 'https://www.sec.state.ma.us/divisions/elections/voting-information/military-and-overseas-voters.htm',
+      buttonEx2Text: 'Overseas Assistance',
+      buttonEx2Link: 'https://www.sec.state.ma.us/divisions/elections/voting-information/military-and-overseas-voters.htm',
     }
   },
   {
     title: 'Mail-In Ballot',
     content: {
       paragraph1: 'After completing and submitting your application, an Absentee Ballot will be sent to you in the mail with a set of return envelopes and mail-instructions. Follow the instructions and track your ballot to ensure it is received.',
-      button1Text: 'Track Your Ballot',
-      button1Link: 'https://www.sec.state.ma.us/WhereDoIVoteMA/TrackMyBallot'
+      buttonEx1Text: 'Track Your Ballot',
+      buttonEx1Link: 'https://www.sec.state.ma.us/WhereDoIVoteMA/TrackMyBallot'
     }
   },
   {
@@ -44,7 +45,7 @@ const dropdownData = [
   {
     title: 'In-Person Early Voting',
     content: {
-      paragraph1: "During the early voting period, you don't have to vote at your assigned polling location, but any location that is convenient for you.",
+      paragraph1: "During the early voting period, you do not have to vote at your assigned polling location, but any location that is convenient for you.",
       button1Text: 'Early Voting Locations',
       button1Link: '/dropBoxLocations',
       paragraphRed: 'You have until 12 p.m. the Monday before the election to vote in person.'
@@ -85,16 +86,22 @@ const DropDownInfo = () => {
                   </div>
                 )}
 
-                {/* all have atleast 1 paragraph and button */}
+                {/* All have first paragraph */}
                 <Typography sx={{ fontSize: '18px' }}>
                   {item.content.paragraph1}
                 </Typography>
 
-                <ButtonFill name={item.content.button1Text} link={item.content.button1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                {/* Do button1 or buttonEx1 */}
+                {item.content.button1Text && (
+                  <ButtonFill name={item.content.button1Text} link={item.content.button1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                )}
+                {item.content.buttonEx1Text && (
+                  <ButtonFillEx name={item.content.buttonEx1Text} link={item.content.buttonEx1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                )}
 
                 {/* Add translation link to Absentee Ballot dropdown */}
                 {(item.title === 'Request Absentee Ballot') && (
-                    <Typography className='hover:underline mb-8' sx={{ fontSize: '14px'}}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm'>Click here for translated applications</a></Typography>
+                  <Typography className='hover:underline mb-8' sx={{ fontSize: '14px' }}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm'>Click here for translated applications</a></Typography>
                 )}
 
                 {/* other paragraphs/buttons are only on certain dropdowns */}
@@ -132,7 +139,7 @@ const DropDownInfo = () => {
                       <Typography sx={{ fontSize: '18px', marginTop: '32px' }}>Identification needs to show your name and the address where you are registered to vote. Examples of acceptable identification are:</Typography>
                       <br />
                       <ul className={"list-disc list-outside"} style={{ fontSize: '18px', marginLeft: '18px' }}>
-                        <li>A driver's license</li>
+                        <li>A driver&apos;s license</li>
                         <li>A state ID card</li>
                         <li>A recent utility bill</li>
                         <li>A rent receipt or lease</li>
@@ -141,7 +148,7 @@ const DropDownInfo = () => {
                         <li>Any other printed identification which contains your name and address</li>
                       </ul>
                     </div>
-                   </div>
+                  </div>
                 )}
 
                 {/* additional paragraphs and buttons */}
@@ -155,8 +162,8 @@ const DropDownInfo = () => {
                     {item.content.paragraphRed}
                   </Typography>
                 )}
-                {item.content.button2Text && (
-                  <ButtonFill name={item.content.button2Text} link={item.content.button2Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                {item.content.buttonEx2Text && (
+                  <ButtonFillEx name={item.content.buttonEx2Text} link={item.content.buttonEx2Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
 
                 )}
               </AccordionDetails>
@@ -167,8 +174,8 @@ const DropDownInfo = () => {
 
       {/* Additional info button */}
       <div className="w-full max-w-full mt-10 text-center">
-            <Typography sx={{ fontSize: '18px' }}>Want to learn more about early voting in Boston?</Typography>
-            <ButtonFill name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200'/>
+        <Typography sx={{ fontSize: '18px' }}>Want to learn more about early voting in Boston?</Typography>
+        <ButtonFill name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
       </div>
 
       {/* Contact info of Boston Elections Department */}
