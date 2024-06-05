@@ -21,7 +21,6 @@ const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) =
         window.open(page, '_blank');
     }
 
-
     return (
         <Button
             className={className}
@@ -30,7 +29,6 @@ const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) =
             disableElevation>
             {name}
         </Button>
-
     );
 };
 
