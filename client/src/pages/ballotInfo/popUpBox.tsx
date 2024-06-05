@@ -8,9 +8,7 @@ type Props = {
 
 const PopUpBox = ({ open, onClose }: Props) => {
     return (
-        <Dialog open={open} onClose={onClose} 
-         >
-            
+        <Dialog open={open} onClose={onClose} >
             <DialogContent>
                 <p style={{ fontSize: '88px' }}>Councilors are elected every two years by the citizens of Boston. The council is made up of four at-large councilors that represent the entire City, and nine district councilors that represent specific areas of the City. The City Council serves as a link between the citizens of Boston and their municipal government.</p>
             </DialogContent>
