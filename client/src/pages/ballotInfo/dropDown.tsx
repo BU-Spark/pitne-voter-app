@@ -8,7 +8,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PeopleCard from './peopleCard';
 import HelpIcon from '@mui/icons-material/Help';
 import { dropDownData } from '@/utliity/BallotInfo/dropDownData'
-import PopUpBox from './popupBox';
+import PopUpBox from './popUpBox';
 import { useState } from 'react';
 
 
@@ -32,7 +32,7 @@ export default function DropDown() {
                         aria-controls={`panel${index + 1}-content`}
                         id={`panel${index + 1}-header`}
                     >
-                        <Typography sx={{ color: '#1d4ed8' }}>{item.title}<HelpIcon sx={{ ml: 2, color: '#F8481C', borderRadius: '50%' }} onClick={handleClickOpen}/></Typography>
+                        <Typography sx={{ color: '#1d4ed8' }}>{item.title}<HelpIcon sx={{ ml: 2, color: '#F8481C', borderRadius: '50%' }} onClick={handleClickOpen} /></Typography>
                     </AccordionSummary>
 
                     <AccordionDetails>
@@ -45,9 +45,9 @@ export default function DropDown() {
                     </AccordionDetails>
                 </Accordion>
             ))}
-                <div className='rounded-xl'>
-                    <PopUpBox  open={open} onClose={handleClose} /> {/* Add the PopUpBox component */}
-                </div>
+            <div className='rounded-xl'>
+                <PopUpBox open={open} onClose={handleClose} /> {/* Add the PopUpBox component */}
+            </div>
         </div>
     )
 }
