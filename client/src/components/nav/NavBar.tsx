@@ -99,7 +99,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => handleClick(page)}>
-                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${activePage === page ? 'text-blue-600 ' : ''}`}>{page}</Typography>
+                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${activePage === page ? 'text-blue-700 ' : ''}`}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -134,7 +134,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
-                className={`hover:underline hover:bg-transparent m-4 ${activePage === page ? 'bg-blue-700 rounded-full text-white px-2' : ''}`}
+                className={`hover:underline hover:bg-transparent m-4 ${activePage === page ? 'bg-blue-700 rounded-full text-white px-2 hover:text-blue-700' : ''}`}
                 sx={{ my: 2, display: 'block' }}
               >
                 {page}
