@@ -25,14 +25,18 @@ export default function DropBoxLocations() {
                 </div>
             </div> 
 
-            <div className='relative flex flex-row justify-center items-center p-4 m-10'  style={{ left: '-8%' }}>
-                <Box component="img" sx={{height: 400, width: 400}} alt="Map" src="/Map.png"/>
-                <div className='absolute flex flex-col justify-center items-center p-4'  style={{ top: '60%', left: '78%', transform: 'translate(-50%, -50%)' }}>
+            <div className='flex flex-row justify-center items-center p-4 m-10' > 
+                <Box component="img"  alt="Map" src="/Map.png"/>
+            </div>
+
+            <div className='flex flex-col justify-center items-center p-2' >
+            <Box sx={{ backgroundColor: 'gray.200', padding: 4, borderRadius: 2 }}>
+
                     <p className='px-40 py-40 bg-gray-200 rounded-lg'>
                         <strong>Ballot Dropbox:</strong>
                         149 Dudley
                     </p>
-                </div>
+                    </Box>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
