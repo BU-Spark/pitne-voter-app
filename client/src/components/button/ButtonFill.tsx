@@ -1,3 +1,4 @@
+// Buttons for internal site links only (they open the link in the same tab)
 'use client';
 import { Button, ButtonProps } from '@mui/material';
 import React from 'react';
