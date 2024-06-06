@@ -21,7 +21,7 @@ export default function BallotInfo() {
 
             <div className='p-4 text-center '>
                 <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
-                <h1 className='text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
+                <h1 className='font-semibold text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
                     personalized to your community.</h1>
             </div>
 
