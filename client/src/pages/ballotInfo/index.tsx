@@ -73,7 +73,7 @@ export default function BallotInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                 <h1 className='font-semibold text-l'>You may be wondering ...</h1>
-                <ButtonFill name='What are my Voting Options' link='/earlyVoting' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <ButtonFill name='What are my Voting Options' link='/votingOptions' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
 
             </div>
