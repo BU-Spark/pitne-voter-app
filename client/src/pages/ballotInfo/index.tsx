@@ -48,7 +48,6 @@ export default function BallotInfo() {
                             <h1 className='font-semibold'>155 days</h1>
                         </div>
                     </div>
-
                     <div className="space-y-4 w-full px-4">
                         <div className='flex justify-between items-center'>
                             <h1 className='text-xl text-gray-600'> Municipal Election</h1>
@@ -62,9 +61,7 @@ export default function BallotInfo() {
                         </div>
                     </div>
                 </div>
-
                 <div className='md:col-span-1 hidden md:block'>
-
                 </div>
             </div>
 

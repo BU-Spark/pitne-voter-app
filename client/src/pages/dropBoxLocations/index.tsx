@@ -29,14 +29,31 @@ export default function DropBoxLocations() {
                 <Box component="img"  alt="Map" src="/Map.png"/>
             </div>
 
-            <div className='flex flex-col justify-center items-center p-2' >
-            <Box sx={{ backgroundColor: 'gray.200', padding: 4, borderRadius: 2 }}>
-
-                    <p className='px-40 py-40 bg-gray-200 rounded-lg'>
-                        <strong>Ballot Dropbox:</strong>
-                        149 Dudley
-                    </p>
-                    </Box>
+            <div className='grid grid-cols-4'>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
+                <div className="space-y-8 mx-10 my-8 p-8 rounded-2xl shadow-2xl border border-gray-200  col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 w-full px-4">
+                        <div className='flex justify-between items-center'>
+                            <h1 className='text-2xl text-black-600 font-semibold'>BALLOT DROPBOX: ROXBURY BRANCH LIBRARY</h1>
+                        </div>
+                        <div className="border-b border-gray-300"></div> {/* Line between rows */}
+                        <div className="flex justify-between items-center">
+                            <h1 className='text-gray-600 font-semibold'>149 Dudley St., Roxbury, MA 02119</h1>
+                        </div>
+                    </div>
+                    <div className="space-y-4 w-full px-4">
+                        <div className='flex justify-between items-center'>
+                            <h1 className='text-xl text-black-600 font-semibold'>Hours</h1>
+                        </div>
+                        <div className="border-b border-gray-300"></div> 
+                        <div className="flex justify-between items-center">
+                            <h1 className='text-gray-600 font-semibold'>Available every day all day before 8 P.M. on election day</h1>
+                        </div>
+                    </div>
+                </div>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
