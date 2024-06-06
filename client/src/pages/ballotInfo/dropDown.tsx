@@ -45,7 +45,7 @@ export default function DropDown() {
                     </AccordionDetails>
                 </Accordion>
             ))}
-                <div className='rounded-sm'>
+                <div className='rounded-xl'>
                     <PopUpBox  open={open} onClose={handleClose} /> {/* Add the PopUpBox component */}
                 </div>
         </div>
