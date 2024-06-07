@@ -24,10 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <ActivePageProvider>
-            {/* <div className='mx-4'> */}
-                {/* <NavBar /> */}
+            <div className='mx-4'>
                 <Component {...pageProps} />
-            {/* </div> */}
+            </div>
         </ActivePageProvider>
     );
 }
