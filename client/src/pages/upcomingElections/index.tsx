@@ -2,12 +2,14 @@ import React from "react";
 import ElectionDates from './electionDates'
 import ButtonFill from "@/components/button/ButtonFill";
 import ButtonFillEx from "@/components/button/ButtonFillEx";
+import NavBar from "@/components/nav/NavBar";
 
 
 export default function UpcomingElections() {
 
     return (
         <div className=''>
+            <NavBar />
             <div className='flex flex-col justify-center items-center p-4 text-center'>
                 <h1 className='text-blue-700 font-bold text-7xl '>LET&#39;S VOTE!</h1>
                 <p className='font-semibold text-xl p-5'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey</p>

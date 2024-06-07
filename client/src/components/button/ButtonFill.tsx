@@ -3,6 +3,7 @@
 import { Button, ButtonProps } from '@mui/material';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useActivePage } from '@/contexts/ActivePageContext';
 
 // Button name, description, variant, and onClick event are customizable
 // Note that description and variant are optional
@@ -13,12 +14,22 @@ type Props = {
     className?: string;
 };
 
+const pageNameMap: Record<string, string> = {
+    '/votingOptions': 'Voting Options',
+    '/voterInfo': 'Your Voter Info',
+    '/ballotInfo': 'Ballot Info',
+    '/dropBoxLocations': 'Drop Box Locations',
+    '/upcomingElections': 'Upcoming Elections',
+};
 
 // By default, variant is contained
 const ButtonFill = ({ name, link, variant = "contained", className }: Props) => {
 
+    const { setActivePage } = useActivePage();
+
     const router = useRouter();
     const handleClick = (page: string) => {
+        setActivePage(pageNameMap[page]);
         router.push(page);
     }
 

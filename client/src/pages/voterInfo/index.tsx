@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import '@/app/globals.css'
 import ButtonFill from '@/components/button/ButtonFill';
 import { useRouter } from 'next/router';
+import NavBar from '@/components/nav/NavBar';
 
 export default function VoterInfo() {
 
@@ -10,6 +11,7 @@ export default function VoterInfo() {
 
     return (
         <div>
+            <NavBar />
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl '>Your Voter Info</h1>
                 <h1 className='font-semibold text-xl p-5 mt-2'>Here is everything you need to know about your <br />voter status and personal voting logistics!</h1>

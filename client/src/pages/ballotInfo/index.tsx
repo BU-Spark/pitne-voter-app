@@ -5,6 +5,7 @@ import * as React from 'react';
 import DropDown from './dropDown';
 import HelpIcon from '@mui/icons-material/Help';
 import BoxAddress from "./boxAddress";
+import NavBar from "@/components/nav/NavBar";
 
 
 
@@ -18,6 +19,7 @@ export default function BallotInfo() {
     };
     return (
         <div className=''>
+            <NavBar />
 
             <div className='p-4 text-center '>
                 <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
