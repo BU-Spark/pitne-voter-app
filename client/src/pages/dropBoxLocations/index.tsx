@@ -6,11 +6,13 @@ import BoxField from '@/components/box/BoxField';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
 import Image from 'next/image'
+import NavBar from '@/components/nav/NavBar';
 
 
 export default function DropBoxLocations() {
     return (
         <div>
+            <NavBar />
             <div className='flex flex-col justify-center items-center p-4 text-center mb-10'>
                 <h1 className='text-blue-700 font-bold text-6xl '>Drop Box Locations</h1>
                 <h1 className='font-semibold text-xl p-5'>Find the nearest ballot drop-off station and early voting locations in your area</h1>

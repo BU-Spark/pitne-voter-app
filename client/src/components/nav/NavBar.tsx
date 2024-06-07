@@ -8,6 +8,7 @@ import { AppBar, Box, Button, Tooltip, MenuItem, Toolbar, IconButton, Typography
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
+import { useActivePage } from '@/contexts/ActivePageContext';
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Ballot Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
@@ -21,7 +22,7 @@ const links: Record<string, string> = {
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [activePage, setActivePage] = React.useState<string>('null');
+  const { activePage, setActivePage } = useActivePage();
 
   const router = useRouter()
 
