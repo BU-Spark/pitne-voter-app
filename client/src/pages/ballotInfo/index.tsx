@@ -3,10 +3,10 @@ import { Box, TextField } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import DropDown from './dropDown';
-import HelpIcon from '@mui/icons-material/Help';
 import BoxAddress from "./boxAddress";
 import NavBar from "@/components/nav/NavBar";
-
+import BallotInitDropDown from "./ballotInitDropDown";
+import ButtonFillEx from "@/components/button/ButtonFillEx";
 
 
 
@@ -21,19 +21,20 @@ export default function BallotInfo() {
         <div className=''>
             <NavBar />
 
+            {/* Header */}
             <div className='p-4 text-center '>
                 <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
                 <h1 className='font-semibold text-xl p-5 mt-2' >Explore the elections, candidates, and crucial issues
                     personalized to your community.</h1>
             </div>
 
+            {/* Address form */}
             <div className='flex flex-col justify-center items-center p-2'>
                 <BoxAddress />
                 <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
-
             </div>
 
-
+            {/* Election checkbox card */}
             <div className='grid grid-cols-4'>
                 <div className='md:col-span-1 hidden md:block'>
                 </div>
@@ -67,23 +68,24 @@ export default function BallotInfo() {
                 </div>
             </div>
 
-
+            {/* What's on the Ballot dropdown */}
             <div className='flex flex-col justify-center items-center p-8 my-6'>
-                <h1 className='font-semibold text-center mx-6 my-4 text-xl' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
+                <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
+                
+                <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 <DropDown ></DropDown>
+
+                <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
+                <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white'/>
+                <BallotInitDropDown />
             </div>
 
+            {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                 <h1 className='font-semibold text-l'>You may be wondering ...</h1>
                 <ButtonFill name='What are my Voting Options' link='/votingOptions' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
-
             </div>
-
-
         </div>
-
-
-
     )
 }
