@@ -21,8 +21,20 @@ export default function VoterInfo() {
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
-                <h1 className='font-semibold text-center my-4'  >Basic Voter Info</h1>
-                <p className='p-4 bg-blue-100 rounded-full w-1/2 text-center'><strong> County: </strong>Suffolk</p>
+                <h1 className='font-semibold text-center my-4 text-xl'>Basic Voter Info</h1>
+            <div className='grid grid-cols-4 mt-1'>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
+                <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200  col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 w-full px-4">
+                        <div className="w-full px-4 text-center">
+                            <p className='text-l text-black-600 '><strong> County: </strong>Suffolk</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
+            </div>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
