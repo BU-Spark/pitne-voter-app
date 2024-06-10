@@ -9,6 +9,8 @@ import ElectionCard from './electionCard';
 export default function ElectionDates() {
     const [electionDates, setElectionDates] = useState([])
     const [isLoading, setIsLoading] = useState(true);
+    const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
+
 
     useEffect(() => {
         const fetchElectionDates = async () => {
@@ -40,12 +42,11 @@ export default function ElectionDates() {
 
     useEffect(() => {
         if (electionDates.length > 0) {
-            console.log(electionDates)
-            console.log(electionDates[0].id)
-            console.log(electionDates[0].attributes.ElectionName)
-            console.log(electionDates[0].attributes.ElectionDate)
+            setIsLoading(false)
         }
     }, [electionDates])
+
+
 
 
     return (
@@ -59,9 +60,7 @@ export default function ElectionDates() {
                     ) : (
                         <div className="flex items-center justify-center flex-wrap">
                             {electionDates.map((election, index) => (
-
-                                <ElectionCard electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate} />
-
+                                <ElectionCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate} />
                             ))}
                         </div>
                     )}

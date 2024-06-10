@@ -13,31 +13,30 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
 
     useEffect(() => {
+        if (electionDate && electionName) {
+            // Create a new Date object and set the time to midnight local time
+            const electionDateObj = new Date(electionDate);
+            electionDateObj.setHours(0, 0, 0, 0);
 
-        if (electionDate !== undefined && electionName !== undefined) {
-
-
-            const formattedElectionDate = new Date(electionDate).toLocaleDateString('en-US', {
+            const formattedElectionDate = electionDateObj.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
             });
             setDisplayElectionDate(formattedElectionDate);
 
-            const registrationDate = new Date(electionDate);
+            // Calculate the registration date and set the time to midnight local time
+            const registrationDate = new Date(electionDateObj);
             registrationDate.setDate(registrationDate.getDate() - 10);
+            registrationDate.setHours(0, 0, 0, 0);
             const formattedRegistrationDate = registrationDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
             });
             setDisplayRegistrationDate(formattedRegistrationDate);
-            console.log(formattedElectionDate)
-            console.log(formattedRegistrationDate)
-
         }
-
-    }, [electionName, electionDate])
+    }, [electionName, electionDate]);
 
     return (
         <div>
