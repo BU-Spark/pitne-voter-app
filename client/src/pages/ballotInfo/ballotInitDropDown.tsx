@@ -18,6 +18,7 @@ export default function BallotInitDropDown() {
                         aria-controls={`panel${index + 1}-content`}
                         id={`panel${index + 1}-header`}
                     >
+                        
                         <Typography className='text-blue-700 text-lg'>{item.title}</Typography>
                     </AccordionSummary>
 
