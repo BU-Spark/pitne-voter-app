@@ -28,14 +28,25 @@ export default function BallotInitDropDown() {
                             {item.content.proponent.email}<br/>
                             {item.content.proponent.phone}<br/>
                         </div>
-
+                        
                         <Card className='my-8' sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography className='text-xl underline'>What is a vote YES?</Typography>
                                 <ul className='list-disc list-outside text-lg pr-8 text-left pl-16 py-2'>
-                                    {/* NOTE: BELOW BULLETS SHOULD BE CHANGED TO A MAPPING (NOT HARDCODED NUMBER) */}
-                                    <li>{item.content.yes.bullet1}</li>
-                                    <li>{item.content.yes.bullet2}</li>
+                                    {item.content.yes.bullets.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+
+                        <Card className='my-8' sx={{ minWidth: 275 }}>
+                            <CardContent>
+                                <Typography className='text-xl underline'>What is a vote NO?</Typography>
+                                <ul className='list-disc list-outside text-lg pr-8 text-left pl-16 py-2'>
+                                    {item.content.no.bullets.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
                                 </ul>
                             </CardContent>
                         </Card>
