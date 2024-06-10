@@ -39,7 +39,7 @@ export default function BallotInitDropDown() {
                                 </ul>
                             </CardContent>
                         </Card>
-
+                        
                         <Card className='my-8' sx={{ minWidth: 275 }}>
                             <CardContent>
                                 <Typography className='text-xl underline'>What is a vote NO?</Typography>
@@ -50,6 +50,7 @@ export default function BallotInitDropDown() {
                                 </ul>
                             </CardContent>
                         </Card>
+                        
                     </AccordionDetails>
                 </Accordion>
             ))}
