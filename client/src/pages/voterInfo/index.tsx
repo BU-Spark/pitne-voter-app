@@ -29,8 +29,21 @@ export default function VoterInfo() {
                 <h1 className='font-semibold text-left mb-2' >Polling Location</h1>
                 <p className='my-2 text-center md:w-1/2 lg:w-1/2 italic'>Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day based on your address.</p>
                 <BoxAddress />
-                <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
-                <p className='mt-6 p-4 bg-blue-100 rounded-full w-1/2 lg:w-1/2 w-2/3 text-center' > Eastover Elementary School<br /> 500 Cherokee Rd<br /> Boston, MA, 02215<br /></p>
+                <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' /> 
+           </div>
+
+            <div className='grid grid-cols-4 mt-1'>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
+                <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200  col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 w-full px-4">
+                        <div className="w-full px-4 text-center">
+                            <h1 className='text-2xl text-black-600 font-semibold'>Eastover Elementary School<br />500 Cherokee Rd<br />Boston, MA, 02215</h1>
+                        </div>
+                    </div>
+                </div>
+                <div className='md:col-span-1 hidden md:block'>
+                </div>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
