@@ -24,9 +24,6 @@ export default function UpcomingElections() {
 
             <div className="flex items-center justify-center flex-wrap">
                 <ElectionDates /> {/* just have 1 component */}
-                <ElectionDates />
-                <ElectionDates />
-                <ElectionDates />
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 my-10'>
