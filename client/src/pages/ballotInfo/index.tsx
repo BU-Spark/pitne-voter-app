@@ -4,7 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import DropDown from './dropDown';
 import HelpIcon from '@mui/icons-material/Help';
-import BoxAddress from "./boxAddress";
+import BoxAddress from "../../components/button/boxAddress";
 import NavBar from "@/components/nav/NavBar";
 
 
@@ -31,7 +31,6 @@ export default function BallotInfo() {
             <div className='flex flex-col justify-center items-center p-2'>
                 <BoxAddress />
                 <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
-
             </div>
 
 

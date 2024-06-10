@@ -4,6 +4,7 @@ import '@/app/globals.css'
 import ButtonFill from '@/components/button/ButtonFill';
 import { useRouter } from 'next/router';
 import NavBar from '@/components/nav/NavBar';
+import BoxAddress from "../../components/button/boxAddress";
 
 export default function VoterInfo() {
 
@@ -26,8 +27,10 @@ export default function VoterInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 my-6'>
                 <h1 className='font-semibold text-left mb-2' >Polling Location</h1>
-                <p className='my-2 text-center md:w-1/2 lg:w-1/2 italic'>Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day.</p>
-                <p className='p-4 bg-blue-100 rounded-full md:w-1/2 lg:w-1/2 w-2/3 text-center' > Eastover Elementary School<br /> 500 Cherokee Rd<br /> Boston, MA, 02215<br /></p>
+                <p className='my-2 text-center md:w-1/2 lg:w-1/2 italic'>Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day based on your address.</p>
+                <BoxAddress />
+                <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
+                <p className='mt-6 p-4 bg-blue-100 rounded-full w-1/2 lg:w-1/2 w-2/3 text-center' > Eastover Elementary School<br /> 500 Cherokee Rd<br /> Boston, MA, 02215<br /></p>
             </div>
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
