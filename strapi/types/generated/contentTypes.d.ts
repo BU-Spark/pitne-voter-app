@@ -362,6 +362,39 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBostonMunicipalElectionDateBostonMunicipalElectionDate
+  extends Schema.CollectionType {
+  collectionName: 'boston_municipal_election_dates';
+  info: {
+    singularName: 'boston-municipal-election-date';
+    pluralName: 'boston-municipal-election-dates';
+    displayName: 'Boston Municipal Election Dates';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ElectionName: Attribute.String;
+    ElectionDate: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::boston-municipal-election-date.boston-municipal-election-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::boston-municipal-election-date.boston-municipal-election-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -798,6 +831,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::boston-municipal-election-date.boston-municipal-election-date': ApiBostonMunicipalElectionDateBostonMunicipalElectionDate;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

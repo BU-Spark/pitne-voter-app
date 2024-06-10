@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boston_municipal_election_dates",
+  "info": {
+    "singularName": "boston-municipal-election-date",
+    "pluralName": "boston-municipal-election-dates",
+    "displayName": "Boston Municipal Election Dates",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ElectionName": {
+      "type": "string"
+    },
+    "ElectionDate": {
+      "type": "date"
+    }
+  }
+}

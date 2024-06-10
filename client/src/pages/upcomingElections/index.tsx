@@ -23,7 +23,7 @@ export default function UpcomingElections() {
             <h1 className="text-center font-semibold text-3xl m-10">Boston&#39;s Municipal Election Dates</h1>
 
             <div className="flex items-center justify-center flex-wrap">
-                <ElectionDates />
+                <ElectionDates /> {/* just have 1 component */}
                 <ElectionDates />
                 <ElectionDates />
                 <ElectionDates />
