@@ -4,7 +4,8 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Streetview } from '@mui/icons-material';
 
 
 // Set base URL for Axios
@@ -15,7 +16,10 @@ const api = axios.create({
 
 const AddressForm: React.FC = () => {
     // Functions and variables to set polling data
-    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
     const [pollingLocation, setPollingLocation] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [pollingStreet, setPollingStreet] = useState<string | null>(null);
@@ -26,6 +30,8 @@ const AddressForm: React.FC = () => {
 
     // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
+
+        // Reset past data
         event.preventDefault();
         setPollingLocation(null);
         setPollingStreet(null);
@@ -34,6 +40,9 @@ const AddressForm: React.FC = () => {
         setPollingZip(null);
         setPollingHours(null);
         setError(null);
+
+        // Set address
+        const address = `${street} ${city}, ${state} ${zip}`;
 
         try {
             const response = await api.get('/api/lookup', {
@@ -60,23 +69,62 @@ const AddressForm: React.FC = () => {
 
     // Address form and displayed polling location
     return (
-        <div className='flex flex-col justify-center items-center p-4 my-6'>
+        <div className='flex flex-col justify-center items-center p-4 my-6 flex-wrap'>
 
             {/* Address form */}
-            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 300 }}>
-            <TextField
-                label="Address"
-                variant="outlined"
-                fullWidth
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-                sx={{ mb: 2 }}
-            />
-            <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100'>
-                Submit Address
-            </Button>
-            </form>
+            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                        label="Street Number and Name"
+                        variant="outlined"
+                        fullWidth
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
+                        required
+                        sx={{ mb: 2 }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                        label="City"
+                        variant="outlined"
+                        fullWidth
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        required
+                        sx={{ mb: 2 }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                        label="State"
+                        variant="outlined"
+                        fullWidth
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        required
+                        sx={{ mb: 2 }}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                        label="Zipcode"
+                        variant="outlined"
+                        fullWidth
+                        value={zip}
+                        onChange={(e) => setZip(e.target.value)}
+                        required
+                        sx={{ mb: 2 }}
+                        />
+                    </Grid>
+                </Grid>
+                <div className="flex justify-center">
+                    <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100'>
+                        Submit Address
+                    </Button>
+                </div>
+                </form>
 
             {/* Polling location if found, error if not */}
             {(pollingLocation || error) && (
