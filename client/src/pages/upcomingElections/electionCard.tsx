@@ -18,6 +18,8 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
             const electionDateObj = new Date(electionDate);
             electionDateObj.setHours(0, 0, 0, 0);
 
+            electionDateObj.setDate(electionDateObj.getDate() + 1)
+
             const formattedElectionDate = electionDateObj.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',

@@ -57,6 +57,9 @@ export default function DeadlineToRegister() {
 
             minDate.setDate(minDate.getDate() - 10);
             minDate.setHours(0, 0, 0, 0);
+
+            minDate.setDate(minDate.getDate() + 1)
+
             const formattedRegistrationDate = minDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
