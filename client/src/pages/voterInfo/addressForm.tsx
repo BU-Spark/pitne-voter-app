@@ -28,6 +28,11 @@ const AddressForm: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setPollingLocation(null);
+        setPollingStreet(null);
+        setPollingCity(null);
+        setPollingState(null);
+        setPollingZip(null);
+        setPollingHours(null);
         setError(null);
 
         try {
@@ -46,7 +51,7 @@ const AddressForm: React.FC = () => {
                 setPollingZip(data.pollingLocations[0].address.zip);
                 setPollingHours(data.pollingLocations[0].pollingHours);
             } else {
-                setPollingLocation('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
+                setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
             }
         } catch (error) {
             setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
@@ -83,11 +88,11 @@ const AddressForm: React.FC = () => {
                             <div className="w-full px-4 text-left text-lg">
                                 {pollingLocation && (
                                     <div>
-                                    <p>{pollingLocation}</p>
-                                    <p>{pollingStreet}</p>
-                                    <p>{pollingCity}, {pollingState}</p>
-                                    <p>{pollingZip}</p>
-                                    <br/><p><strong>Polling Hours: {pollingHours}</strong></p>
+                                        <p>{pollingLocation}</p>
+                                        <p>{pollingStreet}</p>
+                                        <p>{pollingCity}, {pollingState}</p>
+                                        <p>{pollingZip}</p>
+                                        <br/><p><strong>Polling Hours: {pollingHours}</strong></p>
                                     </div>
                                 )}
                                 {error && (
