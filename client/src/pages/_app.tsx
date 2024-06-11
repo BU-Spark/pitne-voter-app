@@ -5,6 +5,7 @@ import NavBar from '../components/nav/NavBar'; // Import the NavBar component
 import { AppProps } from 'next/app'; // Import AppProps from Next.js
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { ActivePageProvider } from '@/contexts/ActivePageContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -22,10 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [router.events]);
 
     return (
-        <div className='mx-4'>
-            <NavBar />
-            <Component {...pageProps} />
-        </div>
+        <ActivePageProvider>
+            <div className='mx-4'>
+                <Component {...pageProps} />
+            </div>
+        </ActivePageProvider>
     );
 }
 
