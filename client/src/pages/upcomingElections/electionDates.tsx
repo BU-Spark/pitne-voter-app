@@ -9,7 +9,7 @@ import ElectionCard from './electionCard';
 export default function ElectionDates() {
     const [electionDates, setElectionDates] = useState([])
     const [isLoading, setIsLoading] = useState(true);
-    const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
+    const [sortedElectionDates, setSortedElectionDates] = useState([])
 
 
     useEffect(() => {
@@ -22,6 +22,7 @@ export default function ElectionDates() {
                         'Content-Type': 'application/json',
                     },
                 });
+
                 if (response.ok) {
                     const electionData = await response.json();
                     setElectionDates(electionData.data)
@@ -42,11 +43,13 @@ export default function ElectionDates() {
 
     useEffect(() => {
         if (electionDates.length > 0) {
-            setIsLoading(false)
+            const sortedDates = electionDates.sort((a, b) => {
+                return new Date(a.attributes.ElectionDate) - new Date(b.attributes.ElectionDate);
+            });
+            setSortedElectionDates(sortedDates);
         }
-    }, [electionDates])
 
-
+    }, [electionDates]);
 
 
     return (
@@ -55,11 +58,11 @@ export default function ElectionDates() {
                 <p>Loading...</p>
             ) : (
                 <div>
-                    {electionDates.length === 0 ? (
+                    {sortedElectionDates.length === 0 ? (
                         <p>No election dates found</p>
                     ) : (
                         <div className="flex items-center justify-center flex-wrap">
-                            {electionDates.map((election, index) => (
+                            {sortedElectionDates.map((election, index) => (
                                 <ElectionCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate} />
                             ))}
                         </div>

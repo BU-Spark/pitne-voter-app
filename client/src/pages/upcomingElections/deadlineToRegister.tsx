@@ -73,9 +73,13 @@ export default function DeadlineToRegister() {
 
     return (
         <div>
-            <p className='text-red-500'>Deadline to register: <strong>{displayRegistrationDate}</strong> </p>
+            {isLoading ? (
+                <p>Loading Deadlines to Register...</p>
+            ) : (
+                <div>
+                    {<p className='text-red-500'>Deadline to register: <strong>{displayRegistrationDate}</strong> </p>}
+                </div>)}
         </div>
-
     )
 
 } 
