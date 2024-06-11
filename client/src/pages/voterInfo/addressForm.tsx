@@ -9,41 +9,47 @@ import { Button, TextField, Typography } from '@mui/material';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: 'http://localhost:3001', // Point this to your server URL
+    baseURL: 'http://localhost:3001', // Point this to server URL
 });
 
 
 const AddressForm: React.FC = () => {
+    // Functions and variables to set polling data
     const [address, setAddress] = useState('');
     const [pollingLocation, setPollingLocation] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-    //add another one for setting the address of the polling location
+    const [pollingStreet, setPollingStreet] = useState<string | null>(null);
+    const [pollingCity, setPollingCity] = useState<string | null>(null);
+    const [pollingState, setPollingState] = useState<string | null>(null);
+    const [pollingZip, setPollingZip] = useState<string | null>(null);
+    const [pollingHours, setPollingHours] = useState<string | null>(null);
 
+    // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setPollingLocation(null);
         setError(null);
-
-        console.log("Address: " + address);
 
         try {
             const response = await api.get('/api/lookup', {
                 params: { address },
             });
 
-            console.log("CHECK");
-
             const data = response.data;
 
+            // Set polling location and hours or error if no polls
             if (data.pollingLocations && data.pollingLocations.length > 0) {
                 setPollingLocation(data.pollingLocations[0].address.locationName);
-                //set the address of the polling location here
+                setPollingStreet(data.pollingLocations[0].address.line1);
+                setPollingCity(data.pollingLocations[0].address.city);
+                setPollingState(data.pollingLocations[0].address.state);
+                setPollingZip(data.pollingLocations[0].address.zip);
+                setPollingHours(data.pollingLocations[0].pollingHours);
             } else {
-                setPollingLocation('No polling location found for this address.');
+                setPollingLocation('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
             }
-            
         } catch (error) {
-            setError('Error fetching polling location. Please try again.');
+            setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
         }
     };
 
@@ -51,6 +57,7 @@ const AddressForm: React.FC = () => {
     return (
         <div className='flex flex-col justify-center items-center p-4 my-6'>
 
+            {/* Address form */}
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 300 }}>
             <TextField
                 label="Address"
@@ -67,15 +74,31 @@ const AddressForm: React.FC = () => {
             </form>
 
             {/* Polling location if found, error if not */}
-            {pollingLocation && (
-                <Typography variant="h6" color="textPrimary" sx={{ mt: 2 }}>
-                    Polling Location: {pollingLocation}
-                </Typography>
-            )}
-            {error && (
-                <Typography variant="h6" color="error" sx={{ mt: 2 }}>
-                    {error}
-                </Typography>
+            {(pollingLocation || error) && (
+                <div className='grid grid-cols-4 mt-8'>
+                    <div className='md:col-span-1 hidden md:block'>
+                    </div>
+                    <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200  col-span-4 lg:col-span-2 bg-white">
+                        <div className="space-y-4 w-full px-4">
+                            <div className="w-full px-4 text-left text-lg">
+                                {pollingLocation && (
+                                    <div>
+                                    <p>{pollingLocation}</p>
+                                    <p>{pollingStreet}</p>
+                                    <p>{pollingCity}, {pollingState}</p>
+                                    <p>{pollingZip}</p>
+                                    <br/><p><strong>Polling Hours: {pollingHours}</strong></p>
+                                    </div>
+                                )}
+                                {error && (
+                                    <Typography variant="h6" color="error">{error}</Typography>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className='md:col-span-1 hidden md:block'>
+                    </div>
+                </div>
             )}
       </div>
   );
