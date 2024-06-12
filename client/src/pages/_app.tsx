@@ -23,8 +23,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [router.events]);
 
     return (
-        <ActivePageProvider>
-            <div className='mx-4'>
+        <ActivePageProvider >
+            <div className='mx-4 '>
                 <Component {...pageProps} />
             </div>
         </ActivePageProvider>
