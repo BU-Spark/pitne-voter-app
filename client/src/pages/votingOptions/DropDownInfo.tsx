@@ -46,8 +46,8 @@ const dropdownData = [
     title: 'In-Person Early Voting',
     content: {
       paragraph1: "During the early voting period, you do not have to vote at your assigned polling location, but any location that is convenient for you.",
-      button1Text: 'Early Voting Locations',
-      button1Link: '/dropBoxLocations',
+      buttonEx1Text: 'Early Voting Locations',
+      buttonEx1Link: 'https://www.boston.gov/departments/elections/early-voting-boston#map--737516',
       paragraphRed: 'You have until 12 p.m. the Monday before the election to vote in person.'
     }
   },
