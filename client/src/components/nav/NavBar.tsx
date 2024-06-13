@@ -9,6 +9,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
 import { useActivePage } from '@/contexts/ActivePageContext';
+import { keyframes } from '@mui/system';
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Ballot Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
@@ -47,7 +59,7 @@ function NavBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}
-          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '26px' }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '26px', color: '#204cdc', animation: `${slideIn} 1s ease-out` }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h6"
             noWrap
@@ -57,8 +69,9 @@ function NavBar() {
               display: { xs: 'none', md: 'none', lg: 'flex' },
               fontWeight: 700,
               fontSize: '28px',
-              color: 'inherit',
+              color: '#204cdc',
               textDecoration: 'none',
+              animation: `${slideIn} 1s ease-out`, 
             }}
             onClick={() => {
               setActivePage('Upcoming Elections');
