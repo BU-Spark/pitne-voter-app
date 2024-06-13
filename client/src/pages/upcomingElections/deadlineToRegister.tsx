@@ -11,11 +11,14 @@ export default function DeadlineToRegister() {
     const [electionDates, setElectionDates] = useState([])
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
 
+    const electionDateAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
+    const electionDateAPI2 = 'https://strapi-production-f614.up.railway.app/api/boston-municipal-election-dates'
+
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('http://localhost:1337/api/boston-municipal-election-dates', {
+                const response = await fetch(electionDateAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

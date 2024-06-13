@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bu_sparks",
+  "info": {
+    "singularName": "bu-spark",
+    "pluralName": "bu-sparks",
+    "displayName": "BUSpark"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Phone": {
+      "type": "text"
+    }
+  }
+}

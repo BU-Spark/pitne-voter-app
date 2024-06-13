@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chickencows",
+  "info": {
+    "singularName": "chickencow",
+    "pluralName": "chickencows",
+    "displayName": "chickencow"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Username": {
+      "type": "string"
+    }
+  }
+}
