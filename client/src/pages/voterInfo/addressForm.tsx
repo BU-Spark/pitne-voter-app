@@ -73,8 +73,8 @@ const AddressForm: React.FC = () => {
 
             {/* Address form */}
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                <Grid container spacing={2} >
+                    <Grid item xs={12} sm={6} >
                         <TextField
                         label="Street Number and Name"
                         variant="outlined"

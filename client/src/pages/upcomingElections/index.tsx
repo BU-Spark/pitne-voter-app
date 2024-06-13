@@ -14,7 +14,7 @@ export default function UpcomingElections() {
             <NavBar />
             <div className='flex flex-col justify-center items-center p-4 text-center'>
                <div className='flex items-center'>
-                <h1 className='text-blue-700 font-bold text-7xl'>LET&#39;S VOTE! </h1>
+                <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>LET&#39;S VOTE! </h1>
                 <img src='/StarColor.png' alt='Star' className='ml-4 w-24 h-24' />
                 </div>
                 <p className='font-semibold text-xl p-5'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey</p>

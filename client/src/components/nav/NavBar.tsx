@@ -77,6 +77,7 @@ function NavBar() {
               setActivePage('Upcoming Elections');
               router.push('/upcomingElections')
             }}
+        
           >
             Boston Voter
           </Typography>
