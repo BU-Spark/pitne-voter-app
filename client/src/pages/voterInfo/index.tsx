@@ -17,7 +17,12 @@ export default function VoterInfo() {
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl '>Your Voter Info</h1>
-                <h1 className='font-semibold text-2xl p-5 mt-2'>Here is everything you need to know about your <br />voter status and personal voting logistics!</h1>
+                <h1 className='font-semibold text-2xl p-5 mt-2' style={{ 
+         backgroundImage: 'url(/StarColor.png)', 
+         backgroundPosition: 'left center', 
+         backgroundSize: '36%', 
+         backgroundRepeat: 'no-repeat',
+     }}>Here is everything you need to know about your <br />voter status and personal voting logistics!</h1>
                 <p className='text-xl mt-10'>Can&#39;t vote in person or want to vote early?</p>
                 <ButtonFill name='Early Voting Options' link='/votingOptions' className='p-4 mt-4 rounded-full bg-blue-700 text-white border-blue-800 ' />
             </div>

@@ -13,17 +13,18 @@ export default function UpcomingElections() {
         <div className=''>
             <NavBar />
             <div className='flex flex-col justify-center items-center p-4 text-center'>
-                <h1 className='text-blue-700 font-bold text-7xl '>LET&#39;S VOTE!</h1>
+               <div className='flex items-center'>
+                <h1 className='text-blue-700 font-bold text-7xl'>LET&#39;S VOTE! </h1>
+                <img src='/StarColor.png' alt='Star' className='ml-4 w-16 h-16' />
+                </div>
                 <p className='font-semibold text-xl p-5'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey</p>
             </div>
 
 
-            <div className='flex flex-col justify-center items-center p-4'>
+            <div className='flex flex-col justify-center items-center p-4' >
                 <ButtonFill name='Your Voter Info' link='/voterInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
                 <ButtonFillEx name='How do I register' link='https://www.boston.gov/departments/elections/how-register-vote' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
-
                 <DeadlineToRegister />
-
             </div>
 
             <h1 className="text-center font-semibold text-3xl m-10">Boston&#39;s Upcoming Election Dates</h1>
