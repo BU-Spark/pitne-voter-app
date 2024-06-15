@@ -11,11 +11,14 @@ export default function DeadlineToRegister() {
     const [electionDates, setElectionDates] = useState([])
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
 
+    const localAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
+    const deployedAPI = 'https://pitne-voter-app-production.up.railway.app/api/boston-municipal-election-dates'
+
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('http://localhost:1337/api/boston-municipal-election-dates', {
+                const response = await fetch(deployedAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,7 +47,7 @@ export default function DeadlineToRegister() {
             setIsLoading(false);
 
             const sortedDates = electionDates
-                .map(date => new Date(date.attributes.ElectionDate))
+                .map((date: string) => new Date(date.attributes.ElectionDate))
                 .sort((a, b) => a - b);
 
 
