@@ -21,6 +21,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec ts-node ./app/index.ts",
-    "build": "next build"
+    "build": "next build",
+    "start": "next start"
   }
 }
