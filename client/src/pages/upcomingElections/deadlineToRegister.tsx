@@ -6,6 +6,15 @@ type Props = {
     deadline: String;
 }
 
+interface ElectionDateAttributes {
+    ElectionDate: string;
+}
+
+interface ElectionDateObject {
+    attributes: ElectionDateAttributes;
+}
+
+
 export default function DeadlineToRegister() {
     const [isLoading, setIsLoading] = useState(true);
     const [electionDates, setElectionDates] = useState([])
@@ -45,34 +54,35 @@ export default function DeadlineToRegister() {
     useEffect(() => {
         if (electionDates.length > 0) {
             setIsLoading(false);
-    
+
             const sortedDates = electionDates
-                .map((dateObj) => new Date(dateObj.attributes.ElectionDate))
-                .sort((a, b) => a - b);
-    
+                .map((dateObj: ElectionDateObject) => new Date(dateObj.attributes.ElectionDate))
+                .sort((a, b) => a.getTime() - b.getTime());
+
+
             let minDate = sortedDates[0];
-    
+
             sortedDates.forEach(date => {
                 if (date < minDate) {
                     minDate = date;
                 }
             });
-    
+
             minDate.setDate(minDate.getDate() - 10);
             minDate.setHours(0, 0, 0, 0);
-    
+
             minDate.setDate(minDate.getDate() + 1)
-    
+
             const formattedRegistrationDate = minDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
             });
-    
+
             setDisplayRegistrationDate(formattedRegistrationDate);
         }
     }, [electionDates]);
-    
+
 
     return (
         <div>
