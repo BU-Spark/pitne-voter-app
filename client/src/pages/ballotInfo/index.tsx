@@ -1,13 +1,12 @@
 import ButtonFill from "@/components/button/ButtonFill"
-import { Box, TextField } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import DropDown from './dropDown';
-import HelpIcon from '@mui/icons-material/Help';
 import BoxAddress from "../../components/button/boxAddress";
 import NavBar from "@/components/nav/NavBar";
 import BallotInitDropDown from "./ballotInitDropDown";
 import ButtonFillEx from "@/components/button/ButtonFillEx";
+import DistrictForm from "./districtForm";
 
 
 
@@ -29,11 +28,12 @@ export default function BallotInfo() {
                 <h1 className='font-semibold text-xl p-3 mt-2'>Explore the elections, candidates, and crucial issues personalized to your community.</h1>
             </div>
 
+
             {/* Address form */}
-            <div className='flex flex-col justify-center items-center p-2'>
-                <BoxAddress />
-                <ButtonFill name='Submit Address' link='/submitAddress' variant='outlined' className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100' />
+            <div className='flex flex-col justify-center items-center'>
+                <DistrictForm />
             </div>
+
 
             {/* Election checkbox card */}
             <div className='grid grid-cols-4'>
@@ -69,6 +69,7 @@ export default function BallotInfo() {
                 </div>
             </div>
 
+
             {/* What's on the Ballot dropdown */}
             <div className='flex flex-col justify-center items-center p-8 my-6'>
                 <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
@@ -81,6 +82,7 @@ export default function BallotInfo() {
                 <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white'/>
                 <BallotInitDropDown />
             </div>
+
 
             {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
