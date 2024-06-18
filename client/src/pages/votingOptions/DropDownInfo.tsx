@@ -59,7 +59,7 @@ const DropDownInfo = () => {
       <Grid container spacing={2} style={{ paddingLeft: '24px', paddingRight: '24px' }}>
         {dropdownData.map((item, index) => (
           <Grid item xs={12} sm={12} md={6} key={index}>
-            <Accordion sx={{ backgroundColor: '#e2e8f0' }}>
+            <Accordion className='bg-white'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel${index}-content`}
@@ -101,7 +101,7 @@ const DropDownInfo = () => {
 
                 {/* Add translation link to Absentee Ballot dropdown */}
                 {(item.title === 'Request Absentee Ballot') && (
-                  <Typography className='hover:underline mb-8' sx={{ fontSize: '14px' }}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm'>Click here for translated applications</a></Typography>
+                  <Typography className='hover:underline mb-8' sx={{ fontSize: '14px' }}><a href='https://www.sec.state.ma.us/divisions/elections/languages/vote-by-mail-applications.htm' target="_blank">Click here for translated applications</a></Typography>
                 )}
 
                 {/* other paragraphs/buttons are only on certain dropdowns */}
@@ -114,7 +114,7 @@ const DropDownInfo = () => {
                 {/* address card is only for Request Absentee Ballot dropdown */}
                 {(item.title === 'Request Absentee Ballot') && (
                   <div className="flex justify-center">
-                    <Card sx={{ maxWidth: 275 }} className='mb-8 mt-4'>
+                    <Card sx={{ maxWidth: 275 }} className='mb-8 mt-4 bg-slate-200'>
                       <CardContent sx={{ textAlign: 'left' }}>
                         <Typography sx={{ fontSize: '18px' }}>Boston Elections Department</Typography>
                         <Typography sx={{ fontSize: '18px' }}>1 City Hall Square, Room 241</Typography>

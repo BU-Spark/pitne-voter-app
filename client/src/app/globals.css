@@ -7,3 +7,27 @@ body {
     margin: 0;
     padding: 0;
   }
+
+  @media (max-width: 640px) {
+    .text-6xl {
+        font-size: 3rem; /* Adjust as needed */
+    }
+    .text-2xl {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+    .w-24 {
+        width: 6rem; /* Adjust as needed */
+    }
+    .h-24 {
+        height: 6rem; /* Adjust as needed */
+    }
+    .p-4 {
+        padding: 1rem; /* Adjust as needed */
+    }
+    .mt-10 {
+        margin-top: 2.5rem; /* Adjust as needed */
+    }
+    .mt-4 {
+        margin-top: 1rem; /* Adjust as needed */
+    }
+}
