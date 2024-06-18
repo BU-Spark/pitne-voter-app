@@ -47,7 +47,7 @@ export default function DeadlineToRegister() {
             setIsLoading(false);
 
             const sortedDates = electionDates
-                .map((date: string) => new Date(date.attributes.ElectionDate))
+                .map((dateObj) => new Date(date.attributes.ElectionDate))
                 .sort((a, b) => a - b);
 
 
