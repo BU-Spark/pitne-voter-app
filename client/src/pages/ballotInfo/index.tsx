@@ -23,11 +23,10 @@ export default function BallotInfo() {
             <NavBar />
 
             {/* Header */}
-            <div className='p-4 text-center '>
+            <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Ballot Info</h1>
                 <h1 className='p-5 mt-2 text-blue-700 font-bold text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>LEARN. PLAN.</h1>
-                <h1 className='font-semibold text-xl p-3 mt-2' >Explore the elections, candidates, and crucial issues
-                    personalized to your community.</h1>
+                <h1 className='font-semibold text-xl p-3 mt-2'>Explore the elections, candidates, and crucial issues personalized to your community.</h1>
             </div>
 
             {/* Address form */}
