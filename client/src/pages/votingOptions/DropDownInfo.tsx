@@ -163,7 +163,7 @@ const DropDownInfo = () => {
                   </Typography>
                 )}
                 {item.content.buttonEx2Text && (
-                  <ButtonFillEx name={item.content.buttonEx2Text} link={item.content.buttonEx2Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                  <ButtonFillEx name={item.content.buttonEx2Text} link={item.content.buttonEx2Link} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
 
                 )}
               </AccordionDetails>
