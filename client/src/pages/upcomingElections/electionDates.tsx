@@ -3,13 +3,19 @@ import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCard from './electionCard';
 
+interface ElectionDateAttributes {
+    ElectionDate: string;
+}
 
+interface ElectionDateObject {
+    attributes: ElectionDateAttributes;
+}
 
 // use this to map over the election dates from strapi 
 export default function ElectionDates() {
-    const [electionDates, setElectionDates] = useState([])
+    const [electionDates, setElectionDates] = useState<ElectionDateObject[]>([])
     const [isLoading, setIsLoading] = useState(true);
-    const [sortedElectionDates, setSortedElectionDates] = useState([])
+    const [sortedElectionDates, setSortedElectionDates] = useState<ElectionDateObject[]>([])
 
     const localAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
     const deployedAPI = 'https://pitne-voter-app-production.up.railway.app/api/boston-municipal-election-dates'
@@ -45,8 +51,8 @@ export default function ElectionDates() {
 
     useEffect(() => {
         if (electionDates.length > 0) {
-            const sortedDates = electionDates.sort((a, b) => {
-                return new Date(a.attributes.ElectionDate) - new Date(b.attributes.ElectionDate);
+            const sortedDates = electionDates.sort((a: ElectionDateObject, b: ElectionDateObject) => {
+                return new Date(a.attributes.ElectionDate).getTime() - new Date(b.attributes.ElectionDate).getTime();
             });
             setSortedElectionDates(sortedDates);
         }
