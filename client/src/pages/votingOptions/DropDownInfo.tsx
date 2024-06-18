@@ -18,11 +18,11 @@ const dropdownData = [
     title: 'Request Absentee Ballot',
     content: {
       paragraph1: 'Start your early voting process by requesting a absentee ballot for you or a family member. A few clicks is all it takes to ensure your participation in the upcoming election.',
-      buttonEx1Text: 'Official absentee ballot application',
+      buttonEx1Text: '-> Official absentee ballot application',
       buttonEx1Link: 'https://www.sec.state.ma.us/divisions/elections/download/absentee-ballot-applications/Absentee-Ballot-Application-English.pdf',
       paragraph2: 'Mail your completed application to:',
       paragraph3: 'Living outside of the US but still want to engage in Boston area elections?',
-      buttonEx2Text: 'Overseas Assistance',
+      buttonEx2Text: '-> Overseas Assistance',
       buttonEx2Link: 'https://www.sec.state.ma.us/divisions/elections/voting-information/military-and-overseas-voters.htm',
     }
   },
@@ -30,7 +30,7 @@ const dropdownData = [
     title: 'Mail-In Ballot',
     content: {
       paragraph1: 'After completing and submitting your application, an Absentee Ballot will be sent to you in the mail with a set of return envelopes and mail-instructions. Follow the instructions and track your ballot to ensure it is received.',
-      buttonEx1Text: 'Track Your Ballot',
+      buttonEx1Text: '-> Track Your Ballot',
       buttonEx1Link: 'https://www.sec.state.ma.us/WhereDoIVoteMA/TrackMyBallot'
     }
   },
@@ -46,7 +46,7 @@ const dropdownData = [
     title: 'In-Person Early Voting',
     content: {
       paragraph1: "During the early voting period, you do not have to vote at your assigned polling location, but any location that is convenient for you.",
-      buttonEx1Text: 'Early Voting Locations',
+      buttonEx1Text: '-> Early Voting Locations',
       buttonEx1Link: 'https://www.boston.gov/departments/elections/early-voting-boston#map--737516',
       paragraphRed: 'You have until 12 p.m. the Monday before the election to vote in person.'
     }
@@ -96,7 +96,7 @@ const DropDownInfo = () => {
                   <ButtonFill name={item.content.button1Text} link={item.content.button1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
                 )}
                 {item.content.buttonEx1Text && (
-                  <ButtonFillEx name={item.content.buttonEx1Text} link={item.content.buttonEx1Link} className='h-16 p-5 mt-8 rounded-full bg-blue-700 text-white' />
+                  <ButtonFillEx name={item.content.buttonEx1Text} link={item.content.buttonEx1Link} variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
                 )}
 
                 {/* Add translation link to Absentee Ballot dropdown */}
