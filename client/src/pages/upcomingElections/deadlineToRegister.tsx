@@ -45,34 +45,34 @@ export default function DeadlineToRegister() {
     useEffect(() => {
         if (electionDates.length > 0) {
             setIsLoading(false);
-
+    
             const sortedDates = electionDates
-                .map((dateObj) => new Date(date.attributes.ElectionDate))
+                .map((dateObj) => new Date(dateObj.attributes.ElectionDate))
                 .sort((a, b) => a - b);
-
-
-            var minDate = new Date(Math.min.apply(null, sortedDates));
-            sortedDates.map(date => {
+    
+            let minDate = sortedDates[0];
+    
+            sortedDates.forEach(date => {
                 if (date < minDate) {
                     minDate = date;
                 }
             });
-
+    
             minDate.setDate(minDate.getDate() - 10);
             minDate.setHours(0, 0, 0, 0);
-
+    
             minDate.setDate(minDate.getDate() + 1)
-
+    
             const formattedRegistrationDate = minDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
             });
-
-            setDisplayRegistrationDate(formattedRegistrationDate)
+    
+            setDisplayRegistrationDate(formattedRegistrationDate);
         }
     }, [electionDates]);
-
+    
 
     return (
         <div>
