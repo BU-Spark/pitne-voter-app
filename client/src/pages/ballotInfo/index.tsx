@@ -24,8 +24,8 @@ export default function BallotInfo() {
 
             {/* Header */}
             <div className='p-4 text-center '>
-                <h1 className='text-blue-700 font-bold text-6xl '>Ballot Info</h1>
-                <h1 className='text-blue-700 font-bold text-3xl p-5 mt-2'>LEARN. PLAN.</h1>
+                <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Ballot Info</h1>
+                <h1 className='p-5 mt-2 text-blue-700 font-bold text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>LEARN. PLAN.</h1>
                 <h1 className='font-semibold text-xl p-3 mt-2' >Explore the elections, candidates, and crucial issues
                     personalized to your community.</h1>
             </div>
@@ -75,9 +75,10 @@ export default function BallotInfo() {
                 <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
                 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
-                <DropDown ></DropDown>
+                <DropDown />
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
+                {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
                 <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white'/>
                 <BallotInitDropDown />
             </div>
