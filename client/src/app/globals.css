@@ -31,3 +31,25 @@ body {
         margin-top: 1rem; /* Adjust as needed */
     }
 }
+
+.bg-oval-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 0px ;
+}
+
+.bg-oval-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-40%, -60%) rotate(68deg);
+  width: 800%;
+  max-width: 1000px;
+  height: 154%;
+  background: white;
+  border-radius: 60%;
+  z-index: -1;
+}
+

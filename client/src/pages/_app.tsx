@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <ActivePageProvider >
-            <div className='mx-4 '>
+            <div className=' '>
                 <Component {...pageProps} />
             </div>
         </ActivePageProvider>
