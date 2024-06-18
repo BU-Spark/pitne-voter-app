@@ -37,6 +37,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 0px ;
+  overflow: hidden; 
 }
 
 .bg-oval-wrapper::before {
