@@ -3,12 +3,12 @@ import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCard from './electionCard';
 
-interface ElectionDateAttributes {
-    ElectionDate: string;
-}
 
 interface ElectionDateObject {
-    attributes: ElectionDateAttributes;
+    attributes: {
+        ElectionDate: Date;
+        ElectionName: string;
+    }
 }
 
 // use this to map over the election dates from strapi 
