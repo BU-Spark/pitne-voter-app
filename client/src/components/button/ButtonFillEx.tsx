@@ -2,6 +2,7 @@
 import { Button, ButtonProps } from '@mui/material';
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // Button name, description, variant, and onClick event are customizable
 // Note that description and variant are optional
@@ -13,8 +14,8 @@ type Props = {
 };
 
 
-// By default, variant is contained
-const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) => {
+// By default, variant is outlined
+const ButtonFillEx = ({ name, link, variant="outlined", className }: Props) => {
 
     const router = useRouter();
     const handleClick = (page: string) => {
@@ -27,6 +28,7 @@ const ButtonFillEx = ({ name, link, variant = "contained", className }: Props) =
             variant={variant}
             onClick={() => handleClick(link)}
             disableElevation>
+            <ArrowForwardIcon />
             {name}
         </Button>
     );

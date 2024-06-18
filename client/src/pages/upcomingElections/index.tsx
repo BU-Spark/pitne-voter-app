@@ -21,7 +21,7 @@ export default function UpcomingElections() {
 
             <div className='flex flex-col justify-center items-center p-4' >
                 <ButtonFill name='Your Voter Info' link='/voterInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
-                <ButtonFillEx name='-> How do I register' link='https://www.boston.gov/departments/elections/how-register-vote' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+                <ButtonFillEx name='How do I register' link='https://www.boston.gov/departments/elections/how-register-vote' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
                 <DeadlineToRegister />
             </div>
 
