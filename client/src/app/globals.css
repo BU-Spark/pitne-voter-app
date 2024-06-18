@@ -33,7 +33,7 @@ body {
 }
 
 .bg-oval-wrapper {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   padding: 0px ;
