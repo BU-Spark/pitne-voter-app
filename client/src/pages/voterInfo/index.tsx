@@ -30,16 +30,16 @@ export default function VoterInfo() {
                 <div className='grid grid-cols-4 mt-1'>
                     <div className='md:col-span-1 hidden md:block'>
                     </div>
-                <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-xl border border-gray-200  col-span-4 lg:col-span-2 bg-blue-100">
-                    <div className="space-y-4 w-full px-4">
-                        <div className="w-full px-4 text-center">
-                            <p className='text-xl text-black-600 '>County: Suffolk</p>
+                    <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-xl border border-gray-200  col-span-4 lg:col-span-2 bg-blue-100">
+                        <div className="space-y-4 w-full px-4">
+                            <div className="w-full px-4 text-center">
+                                <p className='text-xl text-black-600 '>County: Suffolk</p>
+                            </div>
                         </div>
                     </div>
+                    <div className='md:col-span-1 hidden md:block'>
+                    </div>
                 </div>
-                <div className='md:col-span-1 hidden md:block'>
-                </div>
-            </div>
             </div>
 
 
