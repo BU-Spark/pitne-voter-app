@@ -48,7 +48,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                         {displayRegistrationDate} @ 5PM
                     </p>
                     <p className="m-2 text-center">
-                        Deadline for registration of voters for <strong>{electionName}</strong>.
+                        Deadline for registration of voters for <strong>{electionName}</strong>
                     </p>
                 </div>
 
@@ -57,7 +57,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                         {displayElectionDate} @ 7AM - 8PM
                     </p>
                     <p className="m-2 text-center">
-                        <strong>{electionName}.</strong>
+                        <strong>{electionName}</strong>
                     </p>
                 </div>
             </div>
