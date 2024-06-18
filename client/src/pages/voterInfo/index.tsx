@@ -15,6 +15,7 @@ export default function VoterInfo() {
             <NavBar />
 
             {/* Header */}
+            <div className="bg-oval-wrapper flex flex-col justify-center items-center text-center">
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Your Voter Info</h1>
                 <h1 className='font-semibold text-2xl p-5 mt-2' >Here is everything you need to know about your <br />voter status and personal voting logistics!</h1>
@@ -24,12 +25,7 @@ export default function VoterInfo() {
 
 
             {/* County (fixed for all Boston voters) */}
-            <div className='flex flex-col justify-center items-center p-4 my-6' style={{ 
-         backgroundImage: 'url(/Star1.png)', 
-         backgroundPosition: 'right center', 
-         backgroundSize: 'contain', 
-         backgroundRepeat: 'no-repeat',
-     }}>
+            <div className='flex flex-col justify-center items-center p-4 my-6'>
                 <h1 className='font-semibold text-center my-4 text-2xl'>Basic Voter Info</h1>
             <div className='grid grid-cols-4 mt-1'>
                 <div className='md:col-span-1 hidden md:block'>
@@ -59,6 +55,7 @@ export default function VoterInfo() {
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                 <h1 className='font-semibold text-xl md:w-1/2 lg:w-1/2'>Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.</h1>
                 <ButtonFill name='Ballot Info' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
+            </div>
             </div>
         </div>
     )
