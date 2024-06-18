@@ -175,7 +175,7 @@ const DropDownInfo = () => {
       {/* Additional info button */}
       <div className="w-full max-w-full mt-10 text-center">
         <Typography sx={{ fontSize: '18px' }}>Want to learn more about early voting in Boston?</Typography>
-        <ButtonFillEx name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+        <ButtonFillEx name="-> Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
       </div>
 
       {/* Contact info of Boston Elections Department */}
