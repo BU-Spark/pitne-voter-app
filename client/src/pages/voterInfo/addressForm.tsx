@@ -10,7 +10,7 @@ import { Streetview } from '@mui/icons-material';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: 'http://localhost:3001', // Point this to server URL
+    baseURL: 'https://pitne-voter-app-express-production.up.railway.app/', // Point this to server URL
 });
 
 
@@ -76,46 +76,46 @@ const AddressForm: React.FC = () => {
                 <Grid container spacing={2} >
                     <Grid item xs={12} sm={6} >
                         <TextField
-                        label="Street Number and Name"
-                        variant="outlined"
-                        fullWidth
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
-                        required
-                        sx={{ mb: 2 }}
+                            label="Street Number and Name"
+                            variant="outlined"
+                            fullWidth
+                            value={street}
+                            onChange={(e) => setStreet(e.target.value)}
+                            required
+                            sx={{ mb: 2 }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                        label="City"
-                        variant="outlined"
-                        fullWidth
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                        sx={{ mb: 2 }}
+                            label="City"
+                            variant="outlined"
+                            fullWidth
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                            sx={{ mb: 2 }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                        label="State"
-                        variant="outlined"
-                        fullWidth
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        required
-                        sx={{ mb: 2 }}
+                            label="State"
+                            variant="outlined"
+                            fullWidth
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            required
+                            sx={{ mb: 2 }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                        label="Zipcode"
-                        variant="outlined"
-                        fullWidth
-                        value={zip}
-                        onChange={(e) => setZip(e.target.value)}
-                        required
-                        sx={{ mb: 2 }}
+                            label="Zipcode"
+                            variant="outlined"
+                            fullWidth
+                            value={zip}
+                            onChange={(e) => setZip(e.target.value)}
+                            required
+                            sx={{ mb: 2 }}
                         />
                     </Grid>
                 </Grid>
@@ -124,7 +124,7 @@ const AddressForm: React.FC = () => {
                         Submit Address
                     </Button>
                 </div>
-                </form>
+            </form>
 
             {/* Polling location if found, error if not */}
             {(pollingLocation || error) && (
@@ -140,7 +140,7 @@ const AddressForm: React.FC = () => {
                                         <p>{pollingStreet}</p>
                                         <p>{pollingCity}, {pollingState}</p>
                                         <p>{pollingZip}</p>
-                                        <br/><p><strong>Polling Hours: {pollingHours}</strong></p>
+                                        <br /><p><strong>Polling Hours: {pollingHours}</strong></p>
                                     </div>
                                 )}
                                 {error && (
@@ -153,8 +153,8 @@ const AddressForm: React.FC = () => {
                     </div>
                 </div>
             )}
-      </div>
-  );
+        </div>
+    );
 };
 
 export default AddressForm;

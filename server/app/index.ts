@@ -9,6 +9,7 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 const port = process.env.PORT || 3001
+// process.env.PORT || 3001
 
 app.use(cors()); // Needed to send data back to frontend
 
@@ -39,6 +40,7 @@ app.get('/api/lookup', async (req: Request, res: Response) => {
 app.get('', (req: Request, res: Response) => {
     res.send('Hello from the Voter Info API!');
 });
+
 
 
 app.listen(port, () => {
