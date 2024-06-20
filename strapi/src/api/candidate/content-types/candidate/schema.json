@@ -4,31 +4,16 @@
   "info": {
     "singularName": "candidate",
     "pluralName": "candidates",
-    "displayName": "Candidates",
-    "description": ""
+    "displayName": "Candidate"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "District": {
-      "type": "enumeration",
-      "enum": [
-        "District 1",
-        "District 2",
-        "District 3",
-        "District 4",
-        "District 5",
-        "District 6",
-        "District 7",
-        "District 8",
-        "District 9"
-      ],
-      "required": true
-    },
     "Name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   }
 }
