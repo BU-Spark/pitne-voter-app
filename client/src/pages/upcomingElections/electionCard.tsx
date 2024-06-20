@@ -44,19 +44,19 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
         <div className="container mx-auto p-4">
             <div className="flex flex-col lg:flex-row gap-4">
                 <div className="event-card bg-gray-100 rounded-xl p-4 flex-1">
-                    <p className="font-semibold text-red-500 m-2 text-center">
+                    <p className="font-semibold text-red-500 m-2 text-center text-xl">
                         {displayRegistrationDate} @ 5PM
                     </p>
-                    <p className="m-2 text-center">
+                    <p className="m-2 text-center text-xl">
                         Deadline for registration of voters for <strong>{electionName}</strong>
                     </p>
                 </div>
 
                 <div className="event-card bg-gray-100 rounded-xl p-4 flex-1">
-                    <p className="font-semibold text-red-500 m-2 text-center">
+                    <p className="font-semibold text-red-500 m-2 text-center text-xl">
                         {displayElectionDate} @ 7AM - 8PM
                     </p>
-                    <p className="m-2 text-center">
+                    <p className="m-2 text-center text-xl">
                         <strong>{electionName}</strong>
                     </p>
                 </div>

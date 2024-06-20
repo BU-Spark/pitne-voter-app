@@ -362,6 +362,84 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBostonMunicipalElectionDateBostonMunicipalElectionDate
+  extends Schema.CollectionType {
+  collectionName: 'boston_municipal_election_dates';
+  info: {
+    singularName: 'boston-municipal-election-date';
+    pluralName: 'boston-municipal-election-dates';
+    displayName: 'Boston Municipal Election Dates';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ElectionName: Attribute.String;
+    ElectionDate: Attribute.Date;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::boston-municipal-election-date.boston-municipal-election-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::boston-municipal-election-date.boston-municipal-election-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCandidateCandidate extends Schema.CollectionType {
+  collectionName: 'candidates';
+  info: {
+    singularName: 'candidate';
+    pluralName: 'candidates';
+    displayName: 'Candidates';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    District: Attribute.Enumeration<
+      [
+        'District 1',
+        'District 2',
+        'District 3',
+        'District 4',
+        'District 5',
+        'District 6',
+        'District 7',
+        'District 8',
+        'District 9'
+      ]
+    > &
+      Attribute.Required;
+    Name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::candidate.candidate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::candidate.candidate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -788,84 +866,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiBostonMunicipalElectionDateBostonMunicipalElectionDate
-  extends Schema.CollectionType {
-  collectionName: 'boston_municipal_election_dates';
-  info: {
-    singularName: 'boston-municipal-election-date';
-    pluralName: 'boston-municipal-election-dates';
-    displayName: 'Boston Municipal Election Dates';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    ElectionName: Attribute.String;
-    ElectionDate: Attribute.Date;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::boston-municipal-election-date.boston-municipal-election-date',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::boston-municipal-election-date.boston-municipal-election-date',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCandidateCandidate extends Schema.CollectionType {
-  collectionName: 'candidates';
-  info: {
-    singularName: 'candidate';
-    pluralName: 'candidates';
-    displayName: 'Candidates';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    District: Attribute.Enumeration<
-      [
-        'District 1',
-        'District 2',
-        'District 3',
-        'District 4',
-        'District 5',
-        'District 6',
-        'District 7',
-        'District 8',
-        'District 9'
-      ]
-    > &
-      Attribute.Required;
-    Name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::candidate.candidate',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::candidate.candidate',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -876,6 +876,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::boston-municipal-election-date.boston-municipal-election-date': ApiBostonMunicipalElectionDateBostonMunicipalElectionDate;
+      'api::candidate.candidate': ApiCandidateCandidate;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -884,8 +886,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::boston-municipal-election-date.boston-municipal-election-date': ApiBostonMunicipalElectionDateBostonMunicipalElectionDate;
-      'api::candidate.candidate': ApiCandidateCandidate;
     }
   }
 }

@@ -7,10 +7,12 @@ import axios from 'axios';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Streetview } from '@mui/icons-material';
 
+const deployedURL = 'https://pitne-voter-app-express-production.up.railway.app/';
+const localURL = 'http://localhost:3001/';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: 'https://pitne-voter-app-express-production.up.railway.app/', // Point this to server URL
+    baseURL: deployedURL, // Point this to server URL
 });
 
 
@@ -131,7 +133,7 @@ const AddressForm: React.FC = () => {
                 <div className='grid grid-cols-4 mt-8'>
                     <div className='md:col-span-1 hidden md:block'>
                     </div>
-                    <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200  col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
                         <div className="space-y-4 w-full px-4">
                             <div className="w-full px-4 text-left text-lg">
                                 {pollingLocation && (
