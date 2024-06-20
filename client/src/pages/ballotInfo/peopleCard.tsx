@@ -27,7 +27,7 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
     return (
         <Card onClick={() => handleClick(link)} sx={{ maxWidth: 300, margin: 'auto' }}>
             <CardActionArea className='flex flex-col items-center p-4'>
-            <Stack direction="column" spacing={2} className='flex justify-center items-center'>
+                <Stack direction="row" spacing={2} className='flex justify-center items-center'>
                     <Avatar alt={name} src={picture} sx={{ width: 128, height: 128 }} />
                 </Stack>
                 <CardContent className='text-center'>
@@ -42,5 +42,6 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
         </Card>
     );
 }
+
 
 export default PeopleCard;

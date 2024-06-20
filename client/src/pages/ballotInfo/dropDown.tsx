@@ -26,11 +26,13 @@ export default function DropDown() {
                         <Typography className='mx-4 mb-8 text-lg'>Councilors are elected every two years by the citizens of Boston. The council is made up of four at-large councilors that represent the entire city, and nine district councilors that represent specific areas of the city. The City Council serves as a link between the citizens of Boston and their municipal government.</Typography>
 
                         {/* Map over the content of each item */}
+                        <div className='flex flex-wrap'>
                         {Object.values(item.content).map((person, idx) => (
-                            <div key={idx} className='m-8'>
+                            
                                 <PeopleCard name={person.name} affliation={person.affliation} picture={person.picture} link={person.link} />
-                            </div>
+                            
                         ))}
+                        </div>
                     </AccordionDetails>
                 </Accordion>
             ))}
