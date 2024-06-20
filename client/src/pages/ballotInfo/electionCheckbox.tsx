@@ -96,8 +96,5 @@ export default function ElectionCheckbox() {
                 </div>
             )}
         </div>
-
-
     )
-
 }

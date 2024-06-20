@@ -12,7 +12,7 @@ const localURL = 'http://localhost:3001/';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: localURL, // Point this to server URL
+    baseURL: deployedURL, // Point this to server URL
 });
 
 
