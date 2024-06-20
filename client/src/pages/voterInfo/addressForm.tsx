@@ -7,10 +7,12 @@ import axios from 'axios';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { Streetview } from '@mui/icons-material';
 
+const deployedURL = 'https://pitne-voter-app-express-production.up.railway.app/';
+const localURL = 'http://localhost:3001/';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: 'https://pitne-voter-app-express-production.up.railway.app/', // Point this to server URL
+    baseURL: localURL, // Point this to server URL
 });
 
 
