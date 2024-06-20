@@ -4,7 +4,8 @@
   "info": {
     "singularName": "candidate",
     "pluralName": "candidates",
-    "displayName": "Candidate"
+    "displayName": "Candidate",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,6 +15,37 @@
     "Name": {
       "type": "string",
       "required": true
+    },
+    "ElectionName": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::boston-municipal-election-date.boston-municipal-election-date"
+    },
+    "District": {
+      "type": "enumeration",
+      "enum": [
+        "District 1 ",
+        "District 2",
+        "District 3",
+        "District 4",
+        "District 5",
+        "District 6 ",
+        "District 7",
+        "District 8",
+        "District 9 "
+      ]
+    },
+    "Role": {
+      "type": "string"
+    },
+    "CampaignSiteLink": {
+      "type": "string"
+    },
+    "LinkedinLink": {
+      "type": "string"
+    },
+    "Party": {
+      "type": "string"
     }
   }
 }
