@@ -400,28 +400,13 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
   info: {
     singularName: 'candidate';
     pluralName: 'candidates';
-    displayName: 'Candidates';
-    description: '';
+    displayName: 'Candidate';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    District: Attribute.Enumeration<
-      [
-        'District 1',
-        'District 2',
-        'District 3',
-        'District 4',
-        'District 5',
-        'District 6',
-        'District 7',
-        'District 8',
-        'District 9'
-      ]
-    > &
-      Attribute.Required;
-    Name: Attribute.String;
+    Name: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
