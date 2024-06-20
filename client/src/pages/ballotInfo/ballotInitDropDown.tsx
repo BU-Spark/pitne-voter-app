@@ -30,7 +30,7 @@ export default function BallotInitDropDown() {
                             {item.content.proponent.phone}<br />
                         </div>
 
-                        <Card className='my-8 bg-slate-200' sx={{ minWidth: 275 }}>
+                        <Card className='my-8' sx={{backgroundColor: '#f4f4f4', minWidth: 275}}>
                             <CardContent>
                                 <Typography className='text-xl underline'>What is a vote YES?</Typography>
                                 <ul className='list-disc list-outside text-lg pr-8 text-left pl-16 py-2'>
@@ -41,7 +41,7 @@ export default function BallotInitDropDown() {
                             </CardContent>
                         </Card>
 
-                        <Card className='mt-8 mb-5 bg-slate-200' sx={{ minWidth: 275 }}>
+                        <Card className='mt-8 mb-5' sx={{backgroundColor: '#f4f4f4', minWidth: 275 }}>
                             <CardContent>
                                 <Typography className='text-xl underline'>What is a vote NO?</Typography>
                                 <ul className='list-disc list-outside text-lg pr-8 text-left pl-16 py-2'>
