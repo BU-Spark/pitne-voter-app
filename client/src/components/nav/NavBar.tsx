@@ -122,7 +122,7 @@ function NavBar() {
 
 
           {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
-          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '30px' }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '30px', color: '#204cdc',  animation: `${slideIn} 1s ease-out` }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h5"
             noWrap
@@ -134,8 +134,9 @@ function NavBar() {
               flexGrow: 1,
               fontWeight: 700,
               fontSize: '35px',
-              color: 'inherit',
+              color: '#204cdc',
               textDecoration: 'none',
+              animation: `${slideIn} 1s ease-out`,
             }}
             onClick={() => {
               setActivePage('Upcoming Elections');

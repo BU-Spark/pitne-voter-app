@@ -2,7 +2,6 @@
 'use client';
 
 import React from 'react';
-import NavBar from '../components/nav/NavBar';
 import UpcomingElections from '@/pages/upcomingElections'; // Ensure this is the correct import path
 
 const Home = () => {

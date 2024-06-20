@@ -52,7 +52,7 @@ export default function VoterInfo() {
 
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                 <h1 className='font-semibold text-xl md:w-1/2 lg:w-1/2'>Curious about your voting status? Check it here!</h1>
-                <ButtonFillEx name='-> Registration Status' link='https://www.sec.state.ma.us/voterregistrationsearch/' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+                <ButtonFillEx name='Registration Status' link='https://www.sec.state.ma.us/voterregistrationsearch/' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
             </div>
 
             {/* Footer */}

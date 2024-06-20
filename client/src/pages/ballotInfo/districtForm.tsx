@@ -8,11 +8,8 @@ import { Button, Grid, TextField } from '@mui/material';
 
 
 // Set base URL for Axios
-// const api = axios.create({
-//     baseURL: 'https://pitne-voter-app-express-production.up.railway.app/', // Point this to server URL
-// });
 const api = axios.create({
-    baseURL: 'http://localhost:3001', // Point this to server URL
+    baseURL: 'https://pitne-voter-app-express-production.up.railway.app/', // Point this to server URL
 });
 
 

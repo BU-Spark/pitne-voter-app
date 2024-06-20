@@ -26,7 +26,7 @@ export default function DropBoxLocations() {
             {/* Early voting button */}
             <div className='flex flex-col justify-center items-center p-4 m-10'>
                 <p className='md:w-3/4 lg:w-3/4 sm:w-1/2 text-xl text-center font-semibold'>Need to know the early voting locations? They are typically available 1-2 weeks before the early voting period starts for an election. See the link below to find the location nearest to you.</p>
-                <ButtonFillEx name='-> Early Voting Locations' link='https://www.boston.gov/departments/elections/early-voting-boston#map--737516' variant = 'outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200'/>
+                <ButtonFillEx name='Early Voting Locations' link='https://www.boston.gov/departments/elections/early-voting-boston#map--737516' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200'/>
             </div>
 
 
