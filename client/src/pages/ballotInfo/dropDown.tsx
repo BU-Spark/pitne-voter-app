@@ -27,7 +27,7 @@ export default function DropDown() {
 
                         {/* Map over the content of each item */}
                         {Object.values(item.content).map((person, idx) => (
-                            <div key={idx} className='m-4'>
+                            <div key={idx} className='m-8'>
                                 <PeopleCard name={person.name} affliation={person.affliation} picture={person.picture} link={person.link} />
                             </div>
                         ))}

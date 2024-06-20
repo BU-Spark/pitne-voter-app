@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { Avatar, CardActionArea, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -36,15 +36,12 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
                         {affliation}
                     </Typography>
                 </CardContent>
-
-                <CardMedia
-                    component="img"
-                    image={picture}
-                    alt={name}
-                    className='object-cover w-auto h-48 sm:w-full sm:h-auto md:h-auto md:w-auto lg:h-auto xl:h-48 xl:w-full xl:h-58 xl:w-full'
-
-
-                />
+                
+                
+                <Stack direction="row" spacing={2} className='flex justify-center items-center p-4'>
+                    <Avatar alt={name} src={picture} sx={{ width: 128, height: 128 }} />
+                </Stack>
+               
 
             </CardActionArea>
         </Card>
