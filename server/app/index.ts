@@ -69,8 +69,11 @@ app.get('/api/district', async (req: Request, res: Response) => {
         let councilDistrictNumber = null;
 
         if (councilDistrictKey) {
-            const match = councilDistrictKey.match(/council_district:(\d+)/);
+            // Only looking for district numbers 1-9 for Boston
+            const match = councilDistrictKey.match(/council_district:(\d)/);
+
             if (match && match[1]) {
+                // Set variable to the extracted digit
                 councilDistrictNumber = match[1];
                 console.log(`Council District Number: ${councilDistrictNumber}`);
             }
