@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ballot_initiatives",
+  "info": {
+    "singularName": "ballot-initiative",
+    "pluralName": "ballot-initiatives",
+    "displayName": "BallotInitiative"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "District": {
+      "type": "enumeration",
+      "enum": [
+        "District 1",
+        "District 2",
+        "District 3",
+        "District 4",
+        "District 5",
+        "District 6",
+        "District 7",
+        "District 8",
+        "District 9"
+      ],
+      "required": true
+    },
+    "ElectionName": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::boston-municipal-election-date.boston-municipal-election-date"
+    },
+    "InitiativeName": {
+      "type": "string"
+    },
+    "ProponentName": {
+      "type": "string"
+    },
+    "ProponentEmail": {
+      "type": "email"
+    },
+    "ProponentPhoneNumber": {
+      "type": "string"
+    },
+    "WhatIsYes": {
+      "type": "text"
+    },
+    "WhatIsNo": {
+      "type": "text"
+    }
+  }
+}
