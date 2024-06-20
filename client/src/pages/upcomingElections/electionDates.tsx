@@ -67,7 +67,7 @@ export default function ElectionDates() {
             ) : (
                 <div>
                     {sortedElectionDates.length === 0 ? (
-                        <p>No election dates found</p>
+                        <p className='text-xl'>No upcoming elections</p>
                     ) : (
                         <div className="flex items-center justify-center flex-wrap">
                             {sortedElectionDates.map((election, index) => (

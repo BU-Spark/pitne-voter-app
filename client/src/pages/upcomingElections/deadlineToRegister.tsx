@@ -18,7 +18,7 @@ interface ElectionDateObject {
 export default function DeadlineToRegister() {
     const [isLoading, setIsLoading] = useState(true);
     const [electionDates, setElectionDates] = useState([])
-    const [displayRegistrationDate, setDisplayRegistrationDate] = useState('')
+    const [displayRegistrationDate, setDisplayRegistrationDate] = useState('No upcoming deadline')
 
     const localAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
     const deployedAPI = 'https://pitne-voter-app-production.up.railway.app/api/boston-municipal-election-dates'
@@ -90,7 +90,9 @@ export default function DeadlineToRegister() {
                 <p>Loading Deadlines to Register...</p>
             ) : (
                 <div>
-                    {<p className='text-red-500'>Deadline to register: <strong>{displayRegistrationDate}</strong> </p>}
+                    {<p className='text-red-500 text-xl'>Deadline to register: 
+                        <strong>&nbsp;{displayRegistrationDate}</strong>
+                    </p>}
                 </div>)}
         </div>
     )

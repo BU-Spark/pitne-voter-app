@@ -67,23 +67,32 @@ export default function ElectionCheckbox() {
 
 
     return (
-        <div className='flex justify-center'>
+        <div>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='lg:w-1/2 md:w-3/4 sm:w-full w-full'>
-                    {sortedElectionDates.length === 0 ? (
-                        <p>No election dates found</p>
-                    ) : (
-                            <div className="flex flex-col items-center justify-center bg-white border-gray-200 rounded-2xl shadow-2xl border space-y-8 mx-10 my-8 p-8">
-                                {sortedElectionDates.map((election, index) => (
-                                    <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
-                                        onCheckboxChange={handleCheckboxChange}
-                                        isChecked={selectedElection === election.attributes.ElectionName} />
-                                ))}
-
+                <div className='grid grid-cols-4 mt-8'>
+                    <div className='md:col-span-1 hidden md:block'>
+                    </div>
+                    <div className="space-y-4 mx-10 my-1 py-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
+                        <div className="space-y-4 w-full px-4">
+                            <div className="w-full px-4 text-left text-lg">
+                                {sortedElectionDates.length === 0 ? (
+                                    <p className='text-xl text-center'><strong>No upcoming elections</strong></p>
+                                ) : (
+                                    <div>
+                                        {sortedElectionDates.map((election, index) => (
+                                            <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
+                                                onCheckboxChange={handleCheckboxChange}
+                                                isChecked={selectedElection === election.attributes.ElectionName} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
-                    )}
+                        </div>
+                    </div>
+                    <div className='md:col-span-1 hidden md:block'>
+                    </div>
                 </div>
             )}
         </div>
