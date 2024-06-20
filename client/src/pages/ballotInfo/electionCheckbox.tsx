@@ -67,22 +67,22 @@ export default function ElectionCheckbox() {
 
 
     return (
-        <div>
+        <div className='flex justify-center'>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div>
+                <div className='lg:w-1/2 md:w-3/4 sm:w-full w-full'>
                     {sortedElectionDates.length === 0 ? (
                         <p>No election dates found</p>
                     ) : (
-                        <div className="flex flex-col items-center justify-center  bg-white border-gray-200 rounded-2xl shadow-2xl border space-y-8 mx-10 my-8 p-8">
-                            {sortedElectionDates.map((election, index) => (
-                                <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
-                                    onCheckboxChange={handleCheckboxChange}
-                                    isChecked={selectedElection === election.attributes.ElectionName} />
-                            ))}
+                            <div className="flex flex-col items-center justify-center bg-white border-gray-200 rounded-2xl shadow-2xl border space-y-8 mx-10 my-8 p-8">
+                                {sortedElectionDates.map((election, index) => (
+                                    <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
+                                        onCheckboxChange={handleCheckboxChange}
+                                        isChecked={selectedElection === election.attributes.ElectionName} />
+                                ))}
 
-                        </div>
+                            </div>
                     )}
                 </div>
             )}
