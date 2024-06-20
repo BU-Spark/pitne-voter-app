@@ -4,7 +4,8 @@
   "info": {
     "singularName": "ballot-initiative",
     "pluralName": "ballot-initiatives",
-    "displayName": "BallotInitiative"
+    "displayName": "BallotInitiative",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -32,22 +33,28 @@
       "target": "api::boston-municipal-election-date.boston-municipal-election-date"
     },
     "InitiativeName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "ProponentName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "ProponentEmail": {
-      "type": "email"
+      "type": "email",
+      "required": true
     },
     "ProponentPhoneNumber": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "WhatIsYes": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "WhatIsNo": {
-      "type": "text"
+      "type": "text",
+      "required": true
     }
   }
 }

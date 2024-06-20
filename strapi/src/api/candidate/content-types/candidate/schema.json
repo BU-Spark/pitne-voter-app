@@ -33,10 +33,12 @@
         "District 7",
         "District 8",
         "District 9 "
-      ]
+      ],
+      "required": true
     },
     "Role": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "CampaignSiteLink": {
       "type": "string"
@@ -45,7 +47,8 @@
       "type": "string"
     },
     "Party": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   }
 }

@@ -795,6 +795,7 @@ export interface ApiBallotInitiativeBallotInitiative
     singularName: 'ballot-initiative';
     pluralName: 'ballot-initiatives';
     displayName: 'BallotInitiative';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -819,12 +820,12 @@ export interface ApiBallotInitiativeBallotInitiative
       'oneToOne',
       'api::boston-municipal-election-date.boston-municipal-election-date'
     >;
-    InitiativeName: Attribute.String;
-    ProponentName: Attribute.String;
-    ProponentEmail: Attribute.Email;
-    ProponentPhoneNumber: Attribute.String;
-    WhatIsYes: Attribute.Text;
-    WhatIsNo: Attribute.Text;
+    InitiativeName: Attribute.String & Attribute.Required;
+    ProponentName: Attribute.String & Attribute.Required;
+    ProponentEmail: Attribute.Email & Attribute.Required;
+    ProponentPhoneNumber: Attribute.String & Attribute.Required;
+    WhatIsYes: Attribute.Text & Attribute.Required;
+    WhatIsNo: Attribute.Text & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -906,11 +907,12 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
         'District 8',
         'District 9 '
       ]
-    >;
-    Role: Attribute.String;
+    > &
+      Attribute.Required;
+    Role: Attribute.String & Attribute.Required;
     CampaignSiteLink: Attribute.String;
     LinkedinLink: Attribute.String;
-    Party: Attribute.String;
+    Party: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
