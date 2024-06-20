@@ -8,13 +8,7 @@ import cors from 'cors';
 dotenv.config(); // Load environment variables
 
 const app = express();
-<<<<<<< HEAD
-// const port = process.env.PORT || 3001;
-const port = 3001;;
-=======
 const port = process.env.PORT || 3001;
-// const port = 3001;
->>>>>>> fefdfacbee99b321eb7f5621d0c6b51cb16d9372
 
 app.use(cors()); // Needed to send data back to frontend
 
