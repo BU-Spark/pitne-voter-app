@@ -26,7 +26,7 @@ export default function BallotInfo() {
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Ballot Info</h1>
                 <h1 className='p-5 mt-2 text-blue-700 font-bold text-3xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>LEARN. PLAN.</h1>
-                <h1 className='font-semibold text-xl p-3 mt-2'>Explore the elections, candidates, and crucial issues personalized to your community.</h1>
+                <h1 className='font-semibold text-2xl p-5'>Explore the elections, candidates, and crucial issues personalized to your community.</h1>
             </div>
 
 
@@ -56,9 +56,9 @@ export default function BallotInfo() {
 
             {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-                <h1 className='font-semibold text-l'>You may be wondering ...</h1>
-                <ButtonFill name='What are my Voting Options' link='/votingOptions' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
-                <ButtonFill name='Basic Election Info' link='/upcomingElections' variant='outlined' className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-100' />
+                <h1 className='font-semibold text-lg'>You may be wondering...</h1>
+                <ButtonFill name='What are my Voting Options' link='/votingOptions' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
+                <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
             </div>
         </div>
     )

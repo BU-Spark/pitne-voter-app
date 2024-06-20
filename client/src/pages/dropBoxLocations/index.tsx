@@ -13,7 +13,7 @@ export default function DropBoxLocations() {
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Drop Box Locations</h1>
-                <h1 className='font-semibold text-xl p-5'>Find the nearest ballot drop-off station in your area</h1>
+                <h1 className='font-semibold text-2xl p-5'>Find the nearest ballot drop-off station in your area</h1>
             </div>
 
 
@@ -31,8 +31,8 @@ export default function DropBoxLocations() {
 
 
             {/* Footer */}
-            <div className='flex flex-col justify-center items-center p-4 mb-10'>
-                <p className=' font-semibold p-4'>You may be wondering.....</p>
+            <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
+                <h1 className='font-semibold text-lg'>You may be wondering...</h1>
                 <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
             </div>
