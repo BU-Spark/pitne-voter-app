@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Avatar, CardActionArea, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
+
 type Props = {
     name: string;
     affliation: string;
@@ -25,13 +26,18 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
     }
 
     return (
-        <Card onClick={() => handleClick(link)} sx={{ maxWidth: 300, margin: 'auto' }}>
+        <Card onClick={() => handleClick(link)} sx={{ width: 300, height: 250, margin: 'auto', backgroundColor: '#f4f4f4', // Blue background color
+        color: 'white', // Text color
+        transition: 'background-color 0.3s ease', // Smooth transition
+        '&:hover': {
+          backgroundColor: '#ffffff', // Blue color on hover
+        }, }}>
             <CardActionArea className='flex flex-col items-center p-4'>
                 <Stack direction="row" spacing={2} className='flex justify-center items-center'>
                     <Avatar alt={name} src={picture} sx={{ width: 128, height: 128 }} />
                 </Stack>
                 <CardContent className='text-center'>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" color="text.primary">
                         {name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

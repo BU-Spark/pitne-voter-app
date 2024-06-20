@@ -54,3 +54,15 @@ body {
   z-index: -1;
 }
 
+.people-card {
+  background-color: #2196f3; /* Default background color */
+  color: white; /* Text color */
+
+  /* Hover effect */
+  transition: background-color 0.3s ease;
+}
+
+.people-card:hover {
+  background-color: #1976d2; /* Blue color on hover */
+}
+
