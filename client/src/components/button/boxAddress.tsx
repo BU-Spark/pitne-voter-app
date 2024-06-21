@@ -2,7 +2,7 @@ import ButtonFill from "@/components/button/ButtonFill"
 import { Box, TextField } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
-import DropDown from '../../pages/ballotInfo/dropDown';
+import DropDown from '../../pages/ballotInfo/whatsOnTheBallot/dropDown';
 import HelpIcon from '@mui/icons-material/Help';
 
 function BoxAddress() {

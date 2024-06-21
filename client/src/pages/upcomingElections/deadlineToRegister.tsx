@@ -1,17 +1,15 @@
 "use client";
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
 
 type Props = {
     deadline: String;
 }
-
-interface ElectionDateAttributes {
-    ElectionDate: string;
-}
-
 interface ElectionDateObject {
-    attributes: ElectionDateAttributes;
+    attributes: {
+        ElectionDate: string
+    }
 }
 
 
@@ -20,14 +18,12 @@ export default function DeadlineToRegister() {
     const [electionDates, setElectionDates] = useState([])
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('No upcoming deadline')
 
-    const localAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
-    const deployedAPI = 'https://pitne-voter-app-production.up.railway.app/api/boston-municipal-election-dates'
 
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedAPI, {
+                const response = await fetch(deployedBostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -90,7 +86,7 @@ export default function DeadlineToRegister() {
                 <p>Loading Deadlines to Register...</p>
             ) : (
                 <div>
-                    {<p className='text-red-500 text-xl'>Deadline to register: 
+                    {<p className='text-red-500 text-xl'>Deadline to register:
                         <strong>&nbsp;{displayRegistrationDate}</strong>
                     </p>}
                 </div>)}
