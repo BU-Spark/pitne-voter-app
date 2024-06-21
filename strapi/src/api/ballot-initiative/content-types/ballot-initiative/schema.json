@@ -33,7 +33,7 @@
       "target": "api::boston-municipal-election-date.boston-municipal-election-date"
     },
     "InitiativeName": {
-      "type": "string",
+      "type": "text",
       "required": true
     },
     "ProponentName": {
