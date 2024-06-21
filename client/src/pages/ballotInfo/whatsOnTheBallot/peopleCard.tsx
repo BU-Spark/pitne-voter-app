@@ -11,14 +11,14 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
     name: string;
-    affliation: string;
+    affiliation: string;
     picture: string;
     link: string;
 };
 
 
 
-const PeopleCard = ({ name, affliation, picture, link }: Props) => {
+const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
 
     const router = useRouter();
     const handleClick = (page: string) => {
@@ -26,12 +26,14 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
     }
 
     return (
-        <Card onClick={() => handleClick(link)} sx={{ width: 300, height: 250, margin: 'auto', backgroundColor: '#f4f4f4', // Blue background color
-        color: 'white', // Text color
-        transition: 'background-color 0.3s ease', // Smooth transition
-        '&:hover': {
-          backgroundColor: '#ffffff', // Blue color on hover
-        }, }}>
+        <Card onClick={() => handleClick(link)} sx={{
+            width: 300, height: 250, margin: 'auto', backgroundColor: '#f4f4f4', // Blue background color
+            color: 'white', // Text color
+            transition: 'background-color 0.3s ease', // Smooth transition
+            '&:hover': {
+                backgroundColor: '#ffffff', // Blue color on hover
+            },
+        }}>
             <CardActionArea className='flex flex-col items-center p-4'>
                 <Stack direction="row" spacing={2} className='flex justify-center items-center'>
                     <Avatar alt={name} src={picture} sx={{ width: 128, height: 128 }} />
@@ -41,7 +43,7 @@ const PeopleCard = ({ name, affliation, picture, link }: Props) => {
                         {name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {affliation}
+                        {affiliation}
                     </Typography>
                 </CardContent>
             </CardActionArea>
