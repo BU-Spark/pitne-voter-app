@@ -171,20 +171,6 @@ const DropDownInfo = () => {
           </Grid>
         ))}
       </Grid>
-
-      {/* Additional info button */}
-      <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-        <h1 className='font-semibold text-lg'>Want to learn more about early voting in Boston?</h1>
-        <ButtonFillEx name="Official Website" link="https://www.boston.gov/departments/elections/early-voting-boston" className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
-      </div>
-
-      {/* Contact info of Boston Elections Department */}
-      <div className="my-6 text-center text-lg"><strong>
-        <p>Need more information?</p>
-        <p>Contact Boston Elections Department:</p>
-        <p>617-635-8683</p>
-        <p>election@boston.gov</p>
-      </strong></div>
     </>
   );
 };

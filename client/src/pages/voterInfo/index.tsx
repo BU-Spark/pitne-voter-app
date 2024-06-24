@@ -25,7 +25,7 @@ export default function VoterInfo() {
 
                 {/* County (fixed for all Boston voters) */}
                 <div className='flex flex-col justify-center items-center p-4 my-6'>
-                    <h1 className='font-semibold text-center my-4 text-2xl'>Basic Voter Info</h1>
+                    <h1 className='font-semibold text-center my-4 text-3xl'>Basic Voter Info</h1>
                     <div className='grid grid-cols-4 mt-1'>
                         <div className='md:col-span-1 hidden md:block'>
                         </div>
@@ -44,8 +44,8 @@ export default function VoterInfo() {
 
                 {/* Polling location address form */}
                 <div className='flex flex-col justify-center items-center p-4 my-6'>
-                    <h1 className='font-semibold text-left mb-2 text-2xl' >Polling Location</h1>
-                    <p className='text-lg my-2 text-center md:w-1/2 lg:w-1/2 italic'>Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day based on your address.</p>
+                    <h1 className='font-semibold text-left mb-2 text-3xl' >Polling Location</h1>
+                    <p className='text-xl my-2 text-center md:w-1/2 lg:w-1/2 italic'>Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day based on your address.</p>
                     <AddressForm />
                 </div>
 
@@ -56,7 +56,7 @@ export default function VoterInfo() {
 
                 {/* Footer */}
                 <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-                    <h1 className='font-semibold text-lg md:w-1/4 lg:w-1/4 sm:w-1/2'>Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.</h1>
+                    <h1 className='font-semibold text-xl w-full sm:w-1/2 md:w-1/2 lg:w-1/2'>Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.</h1>
                     <ButtonFill name='Ballot Info' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
                 </div>
             </div>

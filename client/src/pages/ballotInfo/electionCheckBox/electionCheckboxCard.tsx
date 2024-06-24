@@ -61,10 +61,9 @@ export default function ElectionCheckboxCard({ electionName, electionDate, onChe
 
 
     return (
-        <div className="space-y-4 w-full px-4">
+        <div className="space-y-2 w-full px-4 my-6">
             <div className='flex justify-between items-center'>
                 <h1 className='text-xl text-gray-600'>{electionName}</h1>
-                {/* Replace with Checkbox component with proper props */}
                 <Checkbox
                     checked={isChecked}
                     onChange={handleChange}

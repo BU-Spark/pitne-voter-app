@@ -153,7 +153,7 @@ export default function CandidateData() {
                                 aria-controls={`panel${index + 1}-content`}
                                 id={`panel${index + 1}-header`}
                             >
-                                <Typography className='text-blue-700 text-lg'>{role}</Typography>
+                                <Typography className='text-blue-700 text-xl'>{role}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
 
