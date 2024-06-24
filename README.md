@@ -25,6 +25,9 @@ The Boston Voter App provides a comprehensive solution by offering:
 * cd client
 * npm run dev
 
+# Deployement 
+Access our deployed website through netlify at https://pitne-voter.netlify.app.
+
 
 
 # Add Users {Additional Instructions}
