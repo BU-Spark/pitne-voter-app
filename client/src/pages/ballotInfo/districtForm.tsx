@@ -84,7 +84,7 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
                             variant="outlined"
                             fullWidth
                             value={city}
-                            onChange={(e) => setCity(e.target.value)}
+                            onChange={(e) => setCity("Boston")}
                             required
                             sx={{ mb: 2 }}
                         />
@@ -95,7 +95,7 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
                             variant="outlined"
                             fullWidth
                             value={state}
-                            onChange={(e) => setState(e.target.value)}
+                            onChange={(e) => setState("MA")}
                             required
                             sx={{ mb: 2 }}
                         />
