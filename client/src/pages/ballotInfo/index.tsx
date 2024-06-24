@@ -45,7 +45,7 @@ export default function BallotInfo() {
 
 
             {/* What's on the Ballot dropdown */}
-            <div className='flex flex-col justify-center items-center p-8 my-6'>
+            <div className='flex flex-col justify-center items-center py-8 px-2 my-6'>
                 <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
 
                 {/* Don't make instance of candidate data till form and election are done */}

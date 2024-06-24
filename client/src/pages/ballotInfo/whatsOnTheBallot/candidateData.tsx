@@ -141,7 +141,7 @@ export default function CandidateData() {
 
 
     return (
-        <div className='p-4 text-center w-full sm:w-3/4' style={{ paddingLeft: '24px', paddingRight: '24px' }} >
+        <div className='p-4 text-center w-full lg:w-3/4'>
 
             {/* Map over the filtered candidates */}
             {Object.keys(filteredCandidateData).length > 0 ? (

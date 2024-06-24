@@ -89,9 +89,9 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
                 <div className='grid grid-cols-4 mt-8'>
                     <div className='md:col-span-1 hidden md:block'>
                     </div>
-                    <div className="space-y-4 mx-10 py-4 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 mx-6 py-4 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
                         <div className="space-y-4 w-full px-4">
-                            <div className="w-full px-4 text-left text-lg">
+                            <div className="w-full text-left text-lg">
                                 {sortedElectionDates.length === 0 ? (
                                     <p className='text-xl text-center'><strong>No upcoming elections</strong></p>
                                 ) : (
