@@ -14,18 +14,19 @@ import CandidateData from "./whatsOnTheBallot/candidateData";
 
 export default function BallotInfo() {
     const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
+    const [selectedElection, setSelectedElection] = React.useState<string | null>(null);
 
     const handleFormSubmit = () => {
         setIsFormSubmitted(true);
     };
 
-    const [checked, setChecked] = React.useState(true);
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
+    const handleCheck = (electionName: string) => {
+        setSelectedElection(electionName);
     };
+
+
     return (
-        <div className=''>
+        <div>
             <NavBar />
             <div className="bg-oval-wrapper flex flex-col justify-center">
             {/* Header */}
@@ -43,7 +44,7 @@ export default function BallotInfo() {
 
 
             {/* Election checkbox card */}
-            <ElectionCheckbox />
+            <ElectionCheckbox onCheck={handleCheck}/>
 
 
             {/* What's on the Ballot dropdown */}
@@ -52,16 +53,14 @@ export default function BallotInfo() {
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 {/*Testing*/}
-                {isFormSubmitted && <CandidateData />}
-                {!isFormSubmitted && <div>Please fill out the address form above to see your ballot information</div>}
-
-                {/* <DropDown /> */}
+                {isFormSubmitted && selectedElection && <CandidateData />}
+                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
                 {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
                 <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white' />
-                {isFormSubmitted && <BallotInitDropDown />}
-                {!isFormSubmitted && <div>Please fill out the address form above to see your ballot information</div>}
+                {isFormSubmitted && selectedElection && <BallotInitDropDown />}
+                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
             </div>
 
 

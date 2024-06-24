@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum } from '@/common';
+import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum, globalCurrElection } from '@/common';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -36,6 +36,7 @@ export default function CandidateData() {
     const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([])
     const [filteredCandidateData, setFilteredCandidateData] = useState<{ [key: string]: Candidate[] }>({})
     const [districtNum, setDistrictNum] = useState<string | null>(globalDistrictNum);
+    const [selectedElection, setSelectedElection] = useState<string | null>(globalCurrElection);
     const [candidateRoleDate, setCandidateRoleData] = useState<{ [key: string]: string }>({})
 
 
@@ -59,17 +60,18 @@ export default function CandidateData() {
             }
         };
 
-        // Fetch data only if districtNum is set
-        if (districtNum) {
+        // Fetch data only if districtNum and election are set
+        if (districtNum && selectedElection) {
             getData();
         }
-    }, [districtNum]);
+    }, [districtNum, selectedElection]);
 
 
     // Set the district number to the global number which was set in DistrictForm
     useEffect(() => {
         setDistrictNum(globalDistrictNum);
-    }, [globalDistrictNum]);
+        setSelectedElection(globalCurrElection);
+    }, [globalDistrictNum, globalCurrElection]);
 
 
     useEffect(() => {
@@ -80,7 +82,6 @@ export default function CandidateData() {
         const sortedData: { [key: string]: Candidate[] } = {};
         const roleData: { [key: string]: string } = {};
 
-        const election = "Primary Municipal Election";
 
         // Get candidate role from strapi
         const getData = async () => {
@@ -109,8 +110,7 @@ export default function CandidateData() {
         // Add candidates to hash table
         if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
-
-                if (candidateDataObject.attributes.District.trim() === districtNum && candidateDataObject.attributes.ElectionName === election) {
+                if (candidateDataObject.attributes.District.trim() === districtNum && candidateDataObject.attributes.ElectionName.trim() === selectedElection?.trim()) {
                     const candidate: Candidate = {
                         attributes: candidateDataObject.attributes
                     };
@@ -126,7 +126,7 @@ export default function CandidateData() {
         }
 
         console.log(sortedData);
-    }, [allCandidateData, districtNum])
+    }, [allCandidateData, districtNum, selectedElection])
 
 
     useEffect(() => {
