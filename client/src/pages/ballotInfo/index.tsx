@@ -1,8 +1,5 @@
 import ButtonFill from "@/components/button/ButtonFill"
-import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
-import DropDown from './whatsOnTheBallot/dropDown';
-import BoxAddress from "../../components/button/boxAddress";
 import NavBar from "@/components/nav/NavBar";
 import BallotInitDropDown from "./ballotInitDropDown";
 import ButtonFillEx from "@/components/button/ButtonFillEx";
@@ -11,8 +8,8 @@ import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
 import CandidateData from "./whatsOnTheBallot/candidateData";
 
 
-
 export default function BallotInfo() {
+    // Below are checks for form submission and election checkbox completion
     const [isFormSubmitted, setIsFormSubmitted] = React.useState<string | null>(null);
     const [selectedElection, setSelectedElection] = React.useState<string | null>(null);
 
@@ -52,7 +49,7 @@ export default function BallotInfo() {
                 <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
-                {/*Testing*/}
+                {/* Don't make instance of candidate data till form and election are done */}
                 {isFormSubmitted && selectedElection && <CandidateData />}
                 {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
 

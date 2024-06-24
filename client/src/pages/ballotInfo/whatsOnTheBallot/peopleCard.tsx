@@ -1,4 +1,7 @@
-/* Card for each individual candidate. 
+/* Card for each individual candidate. Includes name, party, picture as a short
+ * profile to be displayed in the dropdown. When clicked, it takes you to a
+ * deeper profile including the rest of the info from strapi. Styles the small
+ * profile card.
 */
 
 'use client';
@@ -20,7 +23,6 @@ type Props = {
 
 
 const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
-
     const router = useRouter();
     const handleClick = (page: string) => {
         const candidatePath = `/ballotInfo/${name.replace(/\s+/g, '')}`;
@@ -29,7 +31,8 @@ const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
 
     return (
         <Card onClick={() => handleClick(link)} sx={{
-            width: 300, height: 250, margin: 'auto', backgroundColor: '#f4f4f4', // Blue background color
+            width: 300, height: 250, margin: 'auto',
+            backgroundColor: '#f4f4f4', // Blue background color
             color: 'white', // Text color
             transition: 'background-color 0.3s ease', // Smooth transition
             '&:hover': {
@@ -52,6 +55,5 @@ const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
         </Card>
     );
 }
-
 
 export default PeopleCard;

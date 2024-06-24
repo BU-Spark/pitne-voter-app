@@ -7,15 +7,14 @@ import axios from 'axios';
 import { Button, Grid, TextField } from '@mui/material';
 import { localExpressURL, deployedExpressURL, setGlobalDistrictNum } from '@/common';
 
-// localExpressURL is the URL for the local express server
-// deployedExpressURL is the URL for the deployed express server
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: localExpressURL, // Point this to server URL
+    baseURL: localExpressURL,
 });
 
 
+// On submit, set the district to be the result of api call
 interface DistrictFormProps {
     onFormSubmit: (district: string) => void;
 }

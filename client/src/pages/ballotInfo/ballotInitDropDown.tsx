@@ -1,3 +1,7 @@
+/* Hardcoded drop down for ballot initatives. Styles the outer dropdown as well
+ * as the contents.
+*/
+
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
