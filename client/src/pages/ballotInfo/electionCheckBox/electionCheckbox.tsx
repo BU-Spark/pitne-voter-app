@@ -2,7 +2,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCheckboxCard from './electionCheckboxCard';
-import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
+import { localBostonMunicipalAPI, deployedBostonMunicipalAPI, setGlobalCurrElection } from '@/common';
 
 
 interface ElectionDateObject {
@@ -12,7 +12,11 @@ interface ElectionDateObject {
     }
 }
 
-export default function ElectionCheckbox() {
+interface ElectionCheckboxProps {
+    onCheck: (electionName: string) => void;
+}
+
+const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
     const [electionDates, setElectionDates] = useState<ElectionDateObject[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [sortedElectionDates, setSortedElectionDates] = useState<ElectionDateObject[]>([])
@@ -48,6 +52,7 @@ export default function ElectionCheckbox() {
         fetchElectionDates();
     }, [])
 
+
     useEffect(() => {
         if (electionDates.length > 0) {
             const sortedDates = electionDates.sort((a: ElectionDateObject, b: ElectionDateObject) => {
@@ -58,9 +63,12 @@ export default function ElectionCheckbox() {
 
     }, [electionDates]);
 
+
     const handleCheckboxChange = (electionName: string) => {
-        setSelectedElection(electionName);
         console.log(electionName);
+        setSelectedElection(electionName);
+        setGlobalCurrElection(electionName);
+        onCheck(electionName);
     };
 
 
@@ -95,4 +103,6 @@ export default function ElectionCheckbox() {
             )}
         </div>
     )
-}
+};
+
+export default ElectionCheckbox;

@@ -21,9 +21,14 @@ export const localCandidateRoleAPI = localStrapiURL + 'candidate-roles';
 export const deployedCandidateRoleAPI = deployedStrapiURL + 'candidate-roles';
 
 
-// Global variable and its setting function for district number
+// Global variables and their setting functions for district number and selected election
 export let globalDistrictNum: string | null = null;
 
 export const setGlobalDistrictNum = (num: string | null) => {
     globalDistrictNum = "District " + num;
+};
+export let globalCurrElection: string | null = null;
+
+export const setGlobalCurrElection = (name: string | null) => {
+    globalCurrElection = name;
 };

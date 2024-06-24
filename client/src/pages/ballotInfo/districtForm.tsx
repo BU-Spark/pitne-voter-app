@@ -49,7 +49,6 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
 
             // Set district number or error if no district number
             if (data) {
-                console.log(data);
                 setDistrictNum(data);
                 setGlobalDistrictNum(data);
                 onFormSubmit();
