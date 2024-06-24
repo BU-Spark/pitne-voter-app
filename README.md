@@ -10,7 +10,6 @@ Many news organizations provide articles or voting guides around the election, b
 
 # Solution
 The Boston Voter App provides a comprehensive solution by offering:
-
 * Centralized voting information for Boston municipal elections.
 * Detailed candidate profiles, information about them and ballot initiatives.
 * Voting logistics including polling locations and hours.
@@ -28,6 +27,9 @@ The Boston Voter App provides a comprehensive solution by offering:
 # Deployement 
 Access our deployed website through netlify at https://pitne-voter.netlify.app.
 
+Status of Deployment: 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2475ff74-781c-4ac2-b8c6-3966fa276ea6/deploy-status)](https://app.netlify.com/sites/pitne-voter/deploys)
+
 # Collaborators 
 Arshnoor Kaur Chadha; Github: @arshnoorKC13
 Elenaor Elkus; Github: @eelkus01
@@ -38,7 +40,4 @@ To add yourself to the repository, open a Pull Request modifying `COLLABORATORS`
 
 All Pull Requests must follow the Pull Request Template, with a title formatted like such `[Project Name]: <Descriptive Title>`
 
-Status of Deployment:
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2475ff74-781c-4ac2-b8c6-3966fa276ea6/deploy-status)](https://app.netlify.com/sites/pitne-voter/deploys)
 
-https://pitne-voter.netlify.app
