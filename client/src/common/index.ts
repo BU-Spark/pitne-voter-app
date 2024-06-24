@@ -10,5 +10,9 @@ export const deployedStrapiURL = 'https://pitne-voter-app-production.up.railway.
 export const localBostonMunicipalAPI = localStrapiURL + 'boston-municipal-election-dates';
 export const deployedBostonMunicipalAPI = deployedStrapiURL + 'boston-municipal-election-dates';
 
+//URl for the local + deployed candidate API
 export const localCandidateAPI = localStrapiURL + 'candidates';
 export const deployedCandidateAPI = deployedStrapiURL + 'candidates';
+
+export const localCandidateRoleAPI = localStrapiURL + 'candidate-roles';
+export const deployedCandidateRoleAPI = deployedStrapiURL + 'candidate-roles';

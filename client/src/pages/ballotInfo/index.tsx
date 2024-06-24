@@ -8,7 +8,7 @@ import BallotInitDropDown from "./ballotInitDropDown";
 import ButtonFillEx from "@/components/button/ButtonFillEx";
 import DistrictForm from "./districtForm";
 import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
-import CandiateData from "./whatsOnTheBallot/candidateData";
+import CandidateData from "./whatsOnTheBallot/candidateData";
 
 
 
@@ -47,9 +47,7 @@ export default function BallotInfo() {
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 {/*Testing*/}
-                <CandiateData />
-
-                <DropDown />
+                <CandidateData />
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
                 {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
