@@ -1,3 +1,8 @@
+/* Gets all candidates from strapi, queries them based on the voter's district
+ * and selected election, and displays the filtered results. Styles the outer
+ * dropdowns of candidates and the description of the role.
+*/
+
 'use client'
 import { useEffect, useState } from 'react';
 import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum, globalCurrElection } from '@/common';
@@ -40,8 +45,8 @@ export default function CandidateData() {
     const [candidateRoleDate, setCandidateRoleData] = useState<{ [key: string]: string }>({})
 
 
+    // Fetch candidate data from strapi
     useEffect(() => {
-        // Fetch candidate data from strapi
         const getData = async () => {
             try {
                 const response = await fetch(localCandidateAPI, {
@@ -60,7 +65,7 @@ export default function CandidateData() {
             }
         };
 
-        // Fetch data only if districtNum and election are set
+        // Actually fetch data only if districtNum and election are set
         if (districtNum && selectedElection) {
             getData();
         }
@@ -74,14 +79,13 @@ export default function CandidateData() {
     }, [globalDistrictNum, globalCurrElection]);
 
 
+    /* Query data, store data to new variable as nested hashtable based on the election date and district.
+     * Loop through the data, match the election data and district type, then check to see if their role
+     * is already in the hashtable. If yes, add another person to the value . If no, initialize the key
+     * with the person and value */
     useEffect(() => {
-        // Query data, store data to new variable as nested hashtable based on the election date and district 
-        // loop through the data, match the election data and district type, then check to see if their role is already in the hashtable
-        // if yes, add another person to the value . If no, initialize the key with the person the valye 
-
         const sortedData: { [key: string]: Candidate[] } = {};
         const roleData: { [key: string]: string } = {};
-
 
         // Get candidate role from strapi
         const getData = async () => {
@@ -107,7 +111,7 @@ export default function CandidateData() {
         }
         getData();
 
-        // Add candidates to hash table
+        // Filter candidates and add to hash table
         if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
                 if (candidateDataObject.attributes.District.trim() === districtNum && candidateDataObject.attributes.ElectionName.trim() === selectedElection?.trim()) {

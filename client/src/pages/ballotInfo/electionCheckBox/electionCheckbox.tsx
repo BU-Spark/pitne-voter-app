@@ -1,3 +1,7 @@
+/* Upcoming election checkbox. Includes calls to strapi to fetch the election
+ * date and name. Styles the larger box holding the data.
+*/
+
 'use client';
 import react from 'react';
 import { useState, useEffect } from 'react';
@@ -12,9 +16,12 @@ interface ElectionDateObject {
     }
 }
 
+
+// onCheck will be called when an election's box is checked
 interface ElectionCheckboxProps {
     onCheck: (electionName: string) => void;
 }
+
 
 const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
     const [electionDates, setElectionDates] = useState<ElectionDateObject[]>([])
@@ -23,6 +30,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
     const [selectedElection, setSelectedElection] = useState<string | null>(null);
 
 
+    // Get the election dates from strapi
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
@@ -53,6 +61,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
     }, [])
 
 
+    // Sort the dates and calculate how far away they are
     useEffect(() => {
         if (electionDates.length > 0) {
             const sortedDates = electionDates.sort((a: ElectionDateObject, b: ElectionDateObject) => {
@@ -60,10 +69,10 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
             });
             setSortedElectionDates(sortedDates);
         }
-
     }, [electionDates]);
 
 
+    // When box is checked, set the election as selected, set the global variable (in common/index.tsx), and call onCheck function
     const handleCheckboxChange = (electionName: string) => {
         console.log(electionName);
         setSelectedElection(electionName);
@@ -88,7 +97,10 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
                                 ) : (
                                     <div>
                                         {sortedElectionDates.map((election, index) => (
-                                            <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
+                                            <ElectionCheckboxCard
+                                                key={index}
+                                                electionName={election.attributes.ElectionName}
+                                                electionDate={election.attributes.ElectionDate}
                                                 onCheckboxChange={handleCheckboxChange}
                                                 isChecked={selectedElection === election.attributes.ElectionName} />
                                         ))}
