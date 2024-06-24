@@ -1,6 +1,10 @@
 # TEMPLATE-base-repo
 
 # Boston Voter App
+Collaborators: 
+* Arshnoor Kaur Chadha; Github: @arshnoorKC13
+* Elenaor Elkus; Github: @eelkus01
+* Jason Jiang; Github: @jasonjiang9142
 
 # Description
 The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC voters who face significant barriers to voting in local elections. 
@@ -20,7 +24,17 @@ The Boston Voter App provides a comprehensive solution by offering:
 # Installation
 * git clone https://github.com/BU-Spark/pitne-voter-app.git
 * cd pitne-voter-app 
-* npm install
+* npm install in pitne-voter-app
+    * cd..
+    * cd client
+    * npm install
+    * cd ..
+    * cd server
+    * npm install
+    * cd ..
+    * cd strapi 
+    * npm install
+    * cd ..
 * cd client
 * npm run dev
 
