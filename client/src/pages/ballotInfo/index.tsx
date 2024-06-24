@@ -26,8 +26,8 @@ export default function BallotInfo() {
 
 
     return (
+
         <div>
-            <NavBar />
             <div className="bg-oval-wrapper flex flex-col justify-center">
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>

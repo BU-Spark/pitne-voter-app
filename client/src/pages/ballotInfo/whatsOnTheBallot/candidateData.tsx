@@ -114,7 +114,9 @@ export default function CandidateData() {
         // Filter candidates and add to hash table
         if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
-                if (candidateDataObject.attributes.District.trim() === districtNum && candidateDataObject.attributes.ElectionName.trim() === selectedElection?.trim()) {
+                const candidateDistrict = candidateDataObject.attributes.District.trim();
+                const candidateElection = candidateDataObject.attributes.ElectionName.trim();
+                if ((candidateDistrict === districtNum || candidateDistrict === 'All Districts') && candidateElection === selectedElection?.trim()) {
                     const candidate: Candidate = {
                         attributes: candidateDataObject.attributes
                     };
