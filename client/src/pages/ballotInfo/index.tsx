@@ -13,11 +13,11 @@ import CandidateData from "./whatsOnTheBallot/candidateData";
 
 
 export default function BallotInfo() {
-    const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
+    const [isFormSubmitted, setIsFormSubmitted] = React.useState<string | null>(null);
     const [selectedElection, setSelectedElection] = React.useState<string | null>(null);
 
-    const handleFormSubmit = () => {
-        setIsFormSubmitted(true);
+    const handleFormSubmit = (district: string) => {
+        setIsFormSubmitted(district);
     };
 
     const handleCheck = (electionName: string) => {

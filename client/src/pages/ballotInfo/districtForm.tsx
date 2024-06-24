@@ -17,7 +17,7 @@ const api = axios.create({
 
 
 interface DistrictFormProps {
-    onFormSubmit: () => void;
+    onFormSubmit: (district: string) => void;
 }
 
 
@@ -51,7 +51,7 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
             if (data) {
                 setDistrictNum(data);
                 setGlobalDistrictNum(data);
-                onFormSubmit();
+                onFormSubmit(data);
             } else {
                 console.log("ERROR FETCHING DISTRICT - ensure address is within Boston bounds")
             }
