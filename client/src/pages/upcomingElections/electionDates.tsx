@@ -2,7 +2,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCard from './electionCard';
-
+import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
 
 interface ElectionDateObject {
     attributes: {
@@ -17,14 +17,12 @@ export default function ElectionDates() {
     const [isLoading, setIsLoading] = useState(true);
     const [sortedElectionDates, setSortedElectionDates] = useState<ElectionDateObject[]>([])
 
-    const localAPI = 'http://localhost:1337/api/boston-municipal-election-dates'
-    const deployedAPI = 'https://pitne-voter-app-production.up.railway.app/api/boston-municipal-election-dates'
 
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedAPI, {
+                const response = await fetch(deployedBostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

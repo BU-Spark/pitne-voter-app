@@ -5,13 +5,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Grid, TextField } from '@mui/material';
+import { localExpressURL, deployedExpressURL } from '@/common';
 
-const deployedURL = 'https://pitne-voter-app-express-production.up.railway.app/';
-const localURL = 'http://localhost:3001/';
+// localExpressURL is the URL for the local express server
+// deployedExpressURL is the URL for the deployed express server
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: deployedURL, // Point this to server URL
+    baseURL: localExpressURL, // Point this to server URL
 });
 
 

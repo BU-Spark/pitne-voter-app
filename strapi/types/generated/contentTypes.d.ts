@@ -890,11 +890,6 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
   };
   attributes: {
     Name: Attribute.String & Attribute.Required;
-    ElectionName: Attribute.Relation<
-      'api::candidate.candidate',
-      'oneToOne',
-      'api::boston-municipal-election-date.boston-municipal-election-date'
-    >;
     District: Attribute.Enumeration<
       [
         'District 1 ',
@@ -913,6 +908,7 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
     CampaignSiteLink: Attribute.String;
     LinkedinLink: Attribute.String;
     Party: Attribute.String & Attribute.Required;
+    ElectionName: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
