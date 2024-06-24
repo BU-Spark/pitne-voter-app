@@ -180,7 +180,7 @@ export default function CandidateData() {
                     ))}
                 </>
             ) : (
-                <div>There is no data about the ballot for the district and election you have selected. </div>
+                <p className="text-xl font-semibold">There is no data about the ballot for the district and election you have selected.</p>
             )}
         </div>
     )

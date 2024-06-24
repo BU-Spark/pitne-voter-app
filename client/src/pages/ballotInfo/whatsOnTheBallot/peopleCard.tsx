@@ -47,7 +47,7 @@ const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
                     <Typography gutterBottom variant="h5" component="div" color="text.primary">
                         {name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography className="text-base" color="text.secondary">
                         {affiliation}
                     </Typography>
                 </CardContent>
