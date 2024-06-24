@@ -17,8 +17,14 @@ export const deployedBostonMunicipalAPI = deployedStrapiURL + 'boston-municipal-
 export const localCandidateAPI = localStrapiURL + 'candidates';
 export const deployedCandidateAPI = deployedStrapiURL + 'candidates';
 
+// URL for the local + deployed candidate role API
 export const localCandidateRoleAPI = localStrapiURL + 'candidate-roles';
 export const deployedCandidateRoleAPI = deployedStrapiURL + 'candidate-roles';
+
+export const localBallotInitiativeAPI = localStrapiURL + 'ballot-initiatives';
+export const deployedBallotInitiativeAPI = deployedStrapiURL + 'ballot-initiatives';
+
+
 
 
 // Global variables and their setting functions for district number and selected election
