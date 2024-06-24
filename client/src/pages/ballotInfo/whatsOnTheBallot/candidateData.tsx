@@ -1,12 +1,18 @@
+/* Gets all candidates from strapi, queries them based on the voter's district
+ * and selected election, and displays the filtered results. Styles the outer
+ * dropdowns of candidates and the description of the role.
+*/
+
 'use client'
 import { useEffect, useState } from 'react';
-import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI } from '@/common';
+import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum, globalCurrElection } from '@/common';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PeopleCard from './peopleCard';
+
 
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
@@ -34,11 +40,13 @@ interface Candidate {
 export default function CandidateData() {
     const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([])
     const [filteredCandidateData, setFilteredCandidateData] = useState<{ [key: string]: Candidate[] }>({})
+    const [districtNum, setDistrictNum] = useState<string | null>(globalDistrictNum);
+    const [selectedElection, setSelectedElection] = useState<string | null>(globalCurrElection);
     const [candidateRoleDate, setCandidateRoleData] = useState<{ [key: string]: string }>({})
 
 
+    // Fetch candidate data from strapi
     useEffect(() => {
-        // Fetch data here
         const getData = async () => {
             try {
                 const response = await fetch(localCandidateAPI, {
@@ -55,23 +63,31 @@ export default function CandidateData() {
             catch (e) {
                 console.log(e)
             }
+        };
+
+        // Actually fetch data only if districtNum and election are set
+        if (districtNum && selectedElection) {
+            getData();
         }
+    }, [districtNum, selectedElection]);
 
-        getData()
 
-    }, [])
-
+    // Set the district number to the global number which was set in DistrictForm
     useEffect(() => {
-        // Query data, store data to new variable as nested hashtable based on the election date and district 
-        // loop through the data, match the election data and district type, then check to see if their role is already in the hashtable
-        // if yes, add another person to the value . If no, initialize the key with the person the valye 
+        setDistrictNum(globalDistrictNum);
+        setSelectedElection(globalCurrElection);
+    }, [globalDistrictNum, globalCurrElection]);
 
-        const sortedData: { [key: string]: Candidate[] } = {}
-        const roleData: { [key: string]: string } = {}
 
-        const district = 'District 6'
-        const election = "Primary Municipal Election"
+    /* Query data, store data to new variable as nested hashtable based on the election date and district.
+     * Loop through the data, match the election data and district type, then check to see if their role
+     * is already in the hashtable. If yes, add another person to the value . If no, initialize the key
+     * with the person and value */
+    useEffect(() => {
+        const sortedData: { [key: string]: Candidate[] } = {};
+        const roleData: { [key: string]: string } = {};
 
+        // Get candidate role from strapi
         const getData = async () => {
             try {
                 const response = await fetch(localCandidateRoleAPI, {
@@ -79,28 +95,28 @@ export default function CandidateData() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                })
+                });
 
                 if (response.ok) {
-                    const data = (await response.json()).data
+                    const data = (await response.json()).data;
                     data.forEach((role: any) => {
-                        roleData[role.attributes.Role_Name] = role.attributes.Role_Description
+                        roleData[role.attributes.Role_Name] = role.attributes.Role_Description;
                     })
 
-                    setCandidateRoleData(roleData)
+                    setCandidateRoleData(roleData);
                 }
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
-        getData()
+        getData();
 
-        if (allCandidateData.length > 0) {
+        // Filter candidates and add to hash table
+        if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
                 const candidateDistrict = candidateDataObject.attributes.District.trim();
-                const candidateElection = candidateDataObject.attributes.ElectionName;
-                if ((candidateDistrict === district || candidateDistrict === 'All Districts') && candidateElection === election) {
-
+                const candidateElection = candidateDataObject.attributes.ElectionName.trim();
+                if ((candidateDistrict === districtNum || candidateDistrict === 'All Districts') && candidateElection === selectedElection?.trim()) {
                     const candidate: Candidate = {
                         attributes: candidateDataObject.attributes
                     };
@@ -113,21 +129,21 @@ export default function CandidateData() {
                 }
             });
             setFilteredCandidateData(sortedData);
-
         }
 
-        console.log(sortedData)
-    }, [allCandidateData])
-
+        console.log(sortedData);
+    }, [allCandidateData, districtNum, selectedElection])
 
 
     useEffect(() => {
-        console.log(filteredCandidateData)
-
+        console.log(filteredCandidateData);
     }, [filteredCandidateData])
+
 
     return (
         <div className='p-4 text-center w-full sm:w-3/4' style={{ paddingLeft: '24px', paddingRight: '24px' }} >
+
+            {/* Map over the filtered candidates */}
             {Object.keys(filteredCandidateData).length > 0 ? (
                 <>
                     {Object.keys(filteredCandidateData).map((role, index) => (
@@ -140,6 +156,7 @@ export default function CandidateData() {
                                 <Typography className='text-blue-700 text-lg'>{role}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
+
                                 {/* Description of the role */}
                                 <Typography className='mx-4 mb-8 text-lg'>
                                     {candidateRoleDate[role] ? candidateRoleDate[role] : 'No description available for this role'}

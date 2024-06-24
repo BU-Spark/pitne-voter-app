@@ -13,15 +13,22 @@ import CandidateData from "./whatsOnTheBallot/candidateData";
 
 
 export default function BallotInfo() {
+    const [isFormSubmitted, setIsFormSubmitted] = React.useState<string | null>(null);
+    const [selectedElection, setSelectedElection] = React.useState<string | null>(null);
 
-    const [checked, setChecked] = React.useState(true);
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
+    const handleFormSubmit = (district: string) => {
+        setIsFormSubmitted(district);
     };
-    return (
-        <div className=''>
 
+    const handleCheck = (electionName: string) => {
+        setSelectedElection(electionName);
+    };
+
+
+    return (
+
+        <div>
+            <div className="bg-oval-wrapper flex flex-col justify-center">
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Ballot Info</h1>
@@ -32,12 +39,12 @@ export default function BallotInfo() {
 
             {/* Address form */}
             <div className='flex flex-col justify-center items-center'>
-                <DistrictForm />
+                <DistrictForm onFormSubmit={handleFormSubmit}/>
             </div>
 
 
             {/* Election checkbox card */}
-            <ElectionCheckbox />
+            <ElectionCheckbox onCheck={handleCheck}/>
 
 
             {/* What's on the Ballot dropdown */}
@@ -46,12 +53,14 @@ export default function BallotInfo() {
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 {/*Testing*/}
-                <CandidateData />
+                {isFormSubmitted && selectedElection && <CandidateData />}
+                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
                 {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
                 <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white' />
-                <BallotInitDropDown />
+                {isFormSubmitted && selectedElection && <BallotInitDropDown />}
+                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
             </div>
 
 
@@ -60,6 +69,7 @@ export default function BallotInfo() {
                 <h1 className='font-semibold text-lg'>You may be wondering...</h1>
                 <ButtonFill name='What are my Voting Options' link='/votingOptions' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
+            </div>
             </div>
         </div>
     )

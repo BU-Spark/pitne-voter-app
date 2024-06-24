@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Grid, TextField } from '@mui/material';
-import { localExpressURL, deployedExpressURL } from '@/common';
+import { localExpressURL, deployedExpressURL, setGlobalDistrictNum } from '@/common';
 
 // localExpressURL is the URL for the local express server
 // deployedExpressURL is the URL for the deployed express server
@@ -16,7 +16,12 @@ const api = axios.create({
 });
 
 
-const DistrictForm: React.FC = () => {
+interface DistrictFormProps {
+    onFormSubmit: (district: string) => void;
+}
+
+
+const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
     // Functions and variables to set district data
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
@@ -44,8 +49,9 @@ const DistrictForm: React.FC = () => {
 
             // Set district number or error if no district number
             if (data) {
-                console.log(data);
                 setDistrictNum(data);
+                setGlobalDistrictNum(data);
+                onFormSubmit(data);
             } else {
                 console.log("ERROR FETCHING DISTRICT - ensure address is within Boston bounds")
             }

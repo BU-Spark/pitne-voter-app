@@ -1,5 +1,7 @@
-'use client';
+/* Card for each individual candidate. 
+*/
 
+'use client';
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -15,7 +17,6 @@ type Props = {
     picture: string;
     link: string;
 };
-
 
 
 const PeopleCard = ({ name, affiliation, picture, link }: Props) => {

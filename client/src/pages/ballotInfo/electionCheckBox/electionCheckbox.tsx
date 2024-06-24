@@ -1,8 +1,12 @@
+/* Upcoming election checkbox. Includes calls to strapi to fetch the election
+ * date and name. Styles the larger box holding the data.
+*/
+
 'use client';
 import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCheckboxCard from './electionCheckboxCard';
-import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
+import { localBostonMunicipalAPI, deployedBostonMunicipalAPI, setGlobalCurrElection } from '@/common';
 
 
 interface ElectionDateObject {
@@ -12,13 +16,21 @@ interface ElectionDateObject {
     }
 }
 
-export default function ElectionCheckbox() {
+
+// onCheck will be called when an election's box is checked
+interface ElectionCheckboxProps {
+    onCheck: (electionName: string) => void;
+}
+
+
+const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
     const [electionDates, setElectionDates] = useState<ElectionDateObject[]>([])
     const [isLoading, setIsLoading] = useState(true);
     const [sortedElectionDates, setSortedElectionDates] = useState<ElectionDateObject[]>([])
     const [selectedElection, setSelectedElection] = useState<string | null>(null);
 
 
+    // Get the election dates from strapi
     useEffect(() => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
@@ -48,6 +60,8 @@ export default function ElectionCheckbox() {
         fetchElectionDates();
     }, [])
 
+
+    // Sort the dates and calculate how far away they are
     useEffect(() => {
         if (electionDates.length > 0) {
             const sortedDates = electionDates.sort((a: ElectionDateObject, b: ElectionDateObject) => {
@@ -55,12 +69,15 @@ export default function ElectionCheckbox() {
             });
             setSortedElectionDates(sortedDates);
         }
-
     }, [electionDates]);
 
+
+    // When box is checked, set the election as selected, set the global variable (in common/index.tsx), and call onCheck function
     const handleCheckboxChange = (electionName: string) => {
-        setSelectedElection(electionName);
         console.log(electionName);
+        setSelectedElection(electionName);
+        setGlobalCurrElection(electionName);
+        onCheck(electionName);
     };
 
 
@@ -80,7 +97,10 @@ export default function ElectionCheckbox() {
                                 ) : (
                                     <div>
                                         {sortedElectionDates.map((election, index) => (
-                                            <ElectionCheckboxCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate}
+                                            <ElectionCheckboxCard
+                                                key={index}
+                                                electionName={election.attributes.ElectionName}
+                                                electionDate={election.attributes.ElectionDate}
                                                 onCheckboxChange={handleCheckboxChange}
                                                 isChecked={selectedElection === election.attributes.ElectionName} />
                                         ))}
@@ -95,4 +115,6 @@ export default function ElectionCheckbox() {
             )}
         </div>
     )
-}
+};
+
+export default ElectionCheckbox;

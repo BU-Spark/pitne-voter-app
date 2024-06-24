@@ -1,3 +1,8 @@
+/* Upcoming election checkbox card. Given the election name and date, calculates
+ * the time remaining before the election and displays the contents of the card.
+ * Styles the card contents (name, date, checkbox, dividing lines)
+*/
+
 'use client';
 import react from 'react';
 import { useState, useEffect } from 'react';
@@ -11,7 +16,7 @@ type Props = {
 };
 
 
-export default function ElectionCheckboxCard({ electionName = 'Preliminary Municipal Election', electionDate, onCheckboxChange, isChecked }: Props) {
+export default function ElectionCheckboxCard({ electionName, electionDate, onCheckboxChange, isChecked }: Props) {
     const [displayElectionDate, setDisplayElectionDate] = useState('')
     const [remainingDays, setRemainingDays] = useState(0);
     const [electionChecked, setElectionChecked] = useState('')
@@ -22,8 +27,8 @@ export default function ElectionCheckboxCard({ electionName = 'Preliminary Munic
             if (electionDate && electionName) {
 
                 const electionDateObj = new Date(electionDate);
-                electionDateObj.setHours(0, 0, 0, 0);
 
+                electionDateObj.setHours(0, 0, 0, 0);
                 electionDateObj.setDate(electionDateObj.getDate() + 1)
 
                 const formattedElectionDate = electionDateObj.toLocaleDateString('en-US', {
@@ -35,6 +40,7 @@ export default function ElectionCheckboxCard({ electionName = 'Preliminary Munic
             }
         }
 
+        // Calculate time remaining from date till now
         const getRemainingDate = () => {
             const electionDateObj = new Date(electionDate);
             const today = new Date();
@@ -44,24 +50,21 @@ export default function ElectionCheckboxCard({ electionName = 'Preliminary Munic
         }
 
         changeDateDisplay();
-        getRemainingDate()
-
-
+        getRemainingDate();
     }, [electionName, electionDate]);
 
+
+    // On change, set the election name
     const handleChange = () => {
         onCheckboxChange(electionName);
-
     };
-
-
 
 
     return (
         <div className="space-y-4 w-full px-4">
             <div className='flex justify-between items-center'>
                 <h1 className='text-xl text-gray-600'>{electionName}</h1>
-                {/* Replace with your Checkbox component with proper props */}
+                {/* Replace with Checkbox component with proper props */}
                 <Checkbox
                     checked={isChecked}
                     onChange={handleChange}
@@ -74,13 +77,6 @@ export default function ElectionCheckboxCard({ electionName = 'Preliminary Munic
                 <h1 className='font-semibold'>{remainingDays} Days</h1>
             </div>
         </div>
-
-
-
-
-
-
-
     )
 }
 
