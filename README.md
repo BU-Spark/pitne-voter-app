@@ -28,7 +28,10 @@ The Boston Voter App provides a comprehensive solution by offering:
 # Deployement 
 Access our deployed website through netlify at https://pitne-voter.netlify.app.
 
-
+# Collaborators 
+Arshnoor Kaur Chadha; Github: @arshnoorKC13
+Elenaor Elkus; Github: @eelkus01
+Jason Jiang; Github: @jasonjiang9142
 
 # Add Users {Additional Instructions}
 To add yourself to the repository, open a Pull Request modifying `COLLABORATORS`, entering your GitHub username in a newline.
