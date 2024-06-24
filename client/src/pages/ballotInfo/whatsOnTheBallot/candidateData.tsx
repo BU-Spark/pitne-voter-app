@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI } from '@/common';
+import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum } from '@/common';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -34,6 +34,7 @@ interface Candidate {
 export default function CandidateData() {
     const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([])
     const [filteredCandidateData, setFilteredCandidateData] = useState<{ [key: string]: Candidate[] }>({})
+    const [districtNum, setDistrictNum] = useState<string | null>(globalDistrictNum);
     const [candidateRoleDate, setCandidateRoleData] = useState<{ [key: string]: string }>({})
 
 
@@ -55,11 +56,20 @@ export default function CandidateData() {
             catch (e) {
                 console.log(e)
             }
+        };
+
+        // Fetch data only if districtNum is set
+        if (districtNum) {
+            getData();
         }
+    }, [districtNum]);
 
-        getData()
 
-    }, [])
+    useEffect(() => {
+        console.log("GLOBAL: " + globalDistrictNum);
+        setDistrictNum(globalDistrictNum);
+    }, [globalDistrictNum]);
+
 
     useEffect(() => {
         // Query data, store data to new variable as nested hashtable based on the election date and district 
@@ -69,7 +79,7 @@ export default function CandidateData() {
         const sortedData: { [key: string]: Candidate[] } = {}
         const roleData: { [key: string]: string } = {}
 
-        const district = 'District 1'
+        // const district = 'District 1'
         const election = "Primary Municipal Election"
 
         const getData = async () => {
@@ -95,10 +105,10 @@ export default function CandidateData() {
         }
         getData()
 
-        if (allCandidateData.length > 0) {
+        if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
 
-                if (candidateDataObject.attributes.District.trim() === district && candidateDataObject.attributes.ElectionName === election) {
+                if (candidateDataObject.attributes.District.trim() === districtNum && candidateDataObject.attributes.ElectionName === election) {
                     const candidate: Candidate = {
                         attributes: candidateDataObject.attributes
                     };
@@ -115,7 +125,7 @@ export default function CandidateData() {
         }
 
         console.log(sortedData)
-    }, [allCandidateData])
+    }, [allCandidateData, districtNum])
 
 
 
