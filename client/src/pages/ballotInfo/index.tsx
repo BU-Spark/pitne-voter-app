@@ -48,16 +48,19 @@ export default function BallotInfo() {
             <div className='flex flex-col justify-center items-center p-8 my-6'>
                 <h1 className='font-bold text-center mx-6 my-4 text-4xl text-blue-700' style={{ fontFamily: 'Arial, sans-serif' }}><strong>What&apos;s on the Ballot?</strong></h1>
 
-                <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 {/* Don't make instance of candidate data till form and election are done */}
-                {isFormSubmitted && selectedElection && <CandidateData />}
-                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
+                {(isFormSubmitted && selectedElection) ? (
+                    <>
+                    <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
+                    <CandidateData />
+                    <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
+                    <p>Put description here when Yawu sends it</p>
+                    <BallotInitDropDown />
+                    </>
 
-                <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
-                {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
-                <ButtonFillEx name='What are Ballot Initiatives?' link='https://ballotpedia.org/Ballot_initiative' className='p-3 m-4 rounded-full bg-blue-700 text-white' />
-                {isFormSubmitted && selectedElection && <BallotInitDropDown />}
-                {(!isFormSubmitted || !selectedElection) && <div>Please fill out the address form above and select an election to see your ballot information</div>}
+                ) : (
+                    <p className="text-xl font-semibold text-red-600">Please fill out the <u>address form</u> above and <u>select an election</u> to see your ballot information</p>
+                )}
             </div>
 
 
