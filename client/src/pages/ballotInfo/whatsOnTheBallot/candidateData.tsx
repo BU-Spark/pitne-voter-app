@@ -7,7 +7,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PeopleCard from './peopleCard';
-import { dropDownData } from '@/utliity/BallotInfo/dropDownData'
 
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
@@ -29,13 +28,6 @@ interface CandidateDataObject {
 
 interface Candidate {
     attributes: CandidateAttributes;
-}
-
-interface RoleObject {
-    attributes: {
-        Role: string;
-        Description: string;
-    }
 }
 
 

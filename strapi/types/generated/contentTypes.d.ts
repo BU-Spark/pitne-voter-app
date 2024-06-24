@@ -900,7 +900,8 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
         'District 6 ',
         'District 7',
         'District 8',
-        'District 9 '
+        'District 9 ',
+        'All Districts'
       ]
     > &
       Attribute.Required;
