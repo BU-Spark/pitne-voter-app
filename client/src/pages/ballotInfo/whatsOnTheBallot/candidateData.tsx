@@ -69,7 +69,7 @@ export default function CandidateData() {
         const sortedData: { [key: string]: Candidate[] } = {}
         const roleData: { [key: string]: string } = {}
 
-        const district = 'District 1'
+        const district = 'District 6'
         const election = "Primary Municipal Election"
 
         const getData = async () => {
@@ -97,8 +97,10 @@ export default function CandidateData() {
 
         if (allCandidateData.length > 0) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
+                const candidateDistrict = candidateDataObject.attributes.District.trim();
+                const candidateElection = candidateDataObject.attributes.ElectionName;
+                if ((candidateDistrict === district || candidateDistrict === 'All Districts') && candidateElection === election) {
 
-                if (candidateDataObject.attributes.District.trim() === district && candidateDataObject.attributes.ElectionName === election) {
                     const candidate: Candidate = {
                         attributes: candidateDataObject.attributes
                     };
