@@ -1,8 +1,8 @@
-//URL for the local + deployed express server
+// URL for the local + deployed express server
 export const localExpressURL = 'http://localhost:3001/';
 export const deployedExpressURL = 'https://pitne-voter-app-express-production.up.railway.app/';
 
-//URl for the local + deployed strapi server
+// URl for the local + deployed strapi server
 export const localStrapiURL = 'http://localhost:1337/api/'
 export const deployedStrapiURL = 'https://pitne-voter-app-production.up.railway.app/api/'
 
@@ -12,3 +12,10 @@ export const deployedBostonMunicipalAPI = deployedStrapiURL + 'boston-municipal-
 
 export const localCandidateAPI = localStrapiURL + 'candidates';
 export const deployedCandidateAPI = deployedStrapiURL + 'candidates';
+
+// Global variable and its setting function for district number
+export let globalDistrictNum: string | null = null;
+
+export const setGlobalDistrictNum = (num: string | null) => {
+    globalDistrictNum = "District " + num;
+};

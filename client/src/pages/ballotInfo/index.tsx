@@ -13,6 +13,11 @@ import CandiateData from "./whatsOnTheBallot/candidateData";
 
 
 export default function BallotInfo() {
+    const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
+
+    const handleFormSubmit = () => {
+        setIsFormSubmitted(true);
+    };
 
     const [checked, setChecked] = React.useState(true);
 
@@ -33,7 +38,7 @@ export default function BallotInfo() {
 
             {/* Address form */}
             <div className='flex flex-col justify-center items-center'>
-                <DistrictForm />
+                <DistrictForm onFormSubmit={handleFormSubmit}/>
             </div>
 
 
@@ -47,9 +52,10 @@ export default function BallotInfo() {
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Candidates</h1>
                 {/*Testing*/}
-                <CandiateData />
+                {isFormSubmitted && <CandiateData />}
+                {!isFormSubmitted && <div>Please fill out the address form above to see your ballot information</div>}
 
-                <DropDown />
+                {/* <DropDown /> */}
 
                 <h1 className='font-semibold text-left text-2xl mt-4'>Ballot Initiatives</h1>
                 {/* NOTE: REPLACE BUTTON BELOW WITH DESCRIPTION FROM YAWU */}
