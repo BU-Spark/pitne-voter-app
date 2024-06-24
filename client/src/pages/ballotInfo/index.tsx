@@ -21,7 +21,7 @@ export default function BallotInfo() {
     return (
         <div className=''>
             <NavBar />
-
+            <div className="bg-oval-wrapper flex flex-col justify-center">
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Ballot Info</h1>
@@ -59,6 +59,7 @@ export default function BallotInfo() {
                 <h1 className='font-semibold text-lg'>You may be wondering...</h1>
                 <ButtonFill name='What are my Voting Options' link='/votingOptions' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full bg-blue-700 text-white' />
+            </div>
             </div>
         </div>
     )
