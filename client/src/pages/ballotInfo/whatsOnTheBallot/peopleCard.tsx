@@ -22,7 +22,8 @@ const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
 
     const router = useRouter();
     const handleClick = (page: string) => {
-        router.push(page);
+        const candidatePath = `/ballotInfo/${name.replace(/\s+/g, '')}`;
+        router.push(candidatePath);
     }
 
     return (

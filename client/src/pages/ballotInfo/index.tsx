@@ -21,7 +21,6 @@ export default function BallotInfo() {
     };
     return (
         <div className=''>
-            <NavBar />
 
             {/* Header */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-4'>

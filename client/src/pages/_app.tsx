@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <ActivePageProvider >
+            <NavBar />
             <div className=' '>
                 <Component {...pageProps} />
             </div>

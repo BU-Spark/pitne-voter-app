@@ -11,7 +11,6 @@ export default function UpcomingElections() {
 
     return (
         <div>
-            <NavBar />
 
             {/* Header */}
             <div className='flex flex-wrap justify-center items-center p-4 text-center my-4'>
