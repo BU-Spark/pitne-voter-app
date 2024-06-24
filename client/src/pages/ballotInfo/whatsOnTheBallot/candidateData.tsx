@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PeopleCard from './peopleCard';
 
+
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
     District: string;
@@ -39,7 +40,7 @@ export default function CandidateData() {
 
 
     useEffect(() => {
-        // Fetch data here
+        // Fetch candidate data from strapi
         const getData = async () => {
             try {
                 const response = await fetch(localCandidateAPI, {
@@ -65,8 +66,8 @@ export default function CandidateData() {
     }, [districtNum]);
 
 
+    // Set the district number to the global number which was set in DistrictForm
     useEffect(() => {
-        console.log("GLOBAL: " + globalDistrictNum);
         setDistrictNum(globalDistrictNum);
     }, [globalDistrictNum]);
 
@@ -76,12 +77,12 @@ export default function CandidateData() {
         // loop through the data, match the election data and district type, then check to see if their role is already in the hashtable
         // if yes, add another person to the value . If no, initialize the key with the person the valye 
 
-        const sortedData: { [key: string]: Candidate[] } = {}
-        const roleData: { [key: string]: string } = {}
+        const sortedData: { [key: string]: Candidate[] } = {};
+        const roleData: { [key: string]: string } = {};
 
-        // const district = 'District 1'
-        const election = "Primary Municipal Election"
+        const election = "Primary Municipal Election";
 
+        // Get candidate role from strapi
         const getData = async () => {
             try {
                 const response = await fetch(localCandidateRoleAPI, {
@@ -89,22 +90,23 @@ export default function CandidateData() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                })
+                });
 
                 if (response.ok) {
-                    const data = (await response.json()).data
+                    const data = (await response.json()).data;
                     data.forEach((role: any) => {
-                        roleData[role.attributes.Role_Name] = role.attributes.Role_Description
+                        roleData[role.attributes.Role_Name] = role.attributes.Role_Description;
                     })
 
-                    setCandidateRoleData(roleData)
+                    setCandidateRoleData(roleData);
                 }
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
-        getData()
+        getData();
 
+        // Add candidates to hash table
         if (allCandidateData.length > 0 && districtNum) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
 
@@ -121,21 +123,21 @@ export default function CandidateData() {
                 }
             });
             setFilteredCandidateData(sortedData);
-
         }
 
-        console.log(sortedData)
+        console.log(sortedData);
     }, [allCandidateData, districtNum])
 
 
-
     useEffect(() => {
-        console.log(filteredCandidateData)
-
+        console.log(filteredCandidateData);
     }, [filteredCandidateData])
+
 
     return (
         <div className='p-4 text-center w-full sm:w-3/4' style={{ paddingLeft: '24px', paddingRight: '24px' }} >
+
+            {/* Map over the filtered candidates */}
             {Object.keys(filteredCandidateData).length > 0 ? (
                 <>
                     {Object.keys(filteredCandidateData).map((role, index) => (
@@ -148,6 +150,7 @@ export default function CandidateData() {
                                 <Typography className='text-blue-700 text-lg'>{role}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
+
                                 {/* Description of the role */}
                                 <Typography className='mx-4 mb-8 text-lg'>
                                     {candidateRoleDate[role] ? candidateRoleDate[role] : 'No description available for this role'}
