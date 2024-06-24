@@ -1,13 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { localCandidateAPI, deployedCandidateAPI } from '@/common';
+import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI } from '@/common';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PeopleCard from './peopleCard';
-import { dropDownData } from '@/utliity/BallotInfo/dropDownData'
 
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
@@ -31,9 +30,11 @@ interface Candidate {
     attributes: CandidateAttributes;
 }
 
-export default function CandiateData() {
+
+export default function CandidateData() {
     const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([])
     const [filteredCandidateData, setFilteredCandidateData] = useState<{ [key: string]: Candidate[] }>({})
+    const [candidateRoleDate, setCandidateRoleData] = useState<{ [key: string]: string }>({})
 
 
     useEffect(() => {
@@ -61,15 +62,38 @@ export default function CandiateData() {
     }, [])
 
     useEffect(() => {
-        console.log(allCandidateData)
         // Query data, store data to new variable as nested hashtable based on the election date and district 
         // loop through the data, match the election data and district type, then check to see if their role is already in the hashtable
         // if yes, add another person to the value . If no, initialize the key with the person the valye 
 
         const sortedData: { [key: string]: Candidate[] } = {}
+        const roleData: { [key: string]: string } = {}
 
         const district = 'District 1'
         const election = "Primary Municipal Election"
+
+        const getData = async () => {
+            try {
+                const response = await fetch(localCandidateRoleAPI, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+
+                if (response.ok) {
+                    const data = (await response.json()).data
+                    data.forEach((role: any) => {
+                        roleData[role.attributes.Role_Name] = role.attributes.Role_Description
+                    })
+
+                    setCandidateRoleData(roleData)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        getData()
 
         if (allCandidateData.length > 0) {
             allCandidateData.forEach((candidateDataObject: CandidateDataObject) => {
@@ -87,10 +111,13 @@ export default function CandiateData() {
                 }
             });
             setFilteredCandidateData(sortedData);
+
         }
 
         console.log(sortedData)
     }, [allCandidateData])
+
+
 
     useEffect(() => {
         console.log(filteredCandidateData)
@@ -113,7 +140,8 @@ export default function CandiateData() {
                             <AccordionDetails>
                                 {/* Description of the role */}
                                 <Typography className='mx-4 mb-8 text-lg'>
-                                    Councilors are elected every two years by the citizens of Boston. The council is made up of four at-large councilors that represent the entire city, and nine district councilors that represent specific areas of the city. The City Council serves as a link between the citizens of Boston and their municipal government.
+                                    {candidateRoleDate[role] ? candidateRoleDate[role] : 'No description available for this role'}
+
                                 </Typography>
 
                                 {/* Map over the candidates for each role */}
@@ -133,7 +161,7 @@ export default function CandiateData() {
                     ))}
                 </>
             ) : (
-                <div>Loading...</div>
+                <div>There is no data about the ballot for the district and election you have selected. </div>
             )}
         </div>
     )

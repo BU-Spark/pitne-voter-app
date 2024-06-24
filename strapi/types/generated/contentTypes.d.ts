@@ -900,7 +900,8 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
         'District 6 ',
         'District 7',
         'District 8',
-        'District 9 '
+        'District 9 ',
+        'All Districts'
       ]
     > &
       Attribute.Required;
@@ -920,6 +921,38 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::candidate.candidate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCandidateRoleCandidateRole extends Schema.CollectionType {
+  collectionName: 'candidate_roles';
+  info: {
+    singularName: 'candidate-role';
+    pluralName: 'candidate-roles';
+    displayName: 'Role_Description';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Role_Name: Attribute.String;
+    Role_Description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::candidate-role.candidate-role',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::candidate-role.candidate-role',
       'oneToOne',
       'admin::user'
     > &
@@ -948,6 +981,7 @@ declare module '@strapi/types' {
       'api::ballot-initiative.ballot-initiative': ApiBallotInitiativeBallotInitiative;
       'api::boston-municipal-election-date.boston-municipal-election-date': ApiBostonMunicipalElectionDateBostonMunicipalElectionDate;
       'api::candidate.candidate': ApiCandidateCandidate;
+      'api::candidate-role.candidate-role': ApiCandidateRoleCandidateRole;
     }
   }
 }
