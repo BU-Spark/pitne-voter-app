@@ -8,19 +8,36 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ballotInitData } from '@/utliity/BallotInfo/ballotInitData'
 import { Card, CardContent } from '@mui/material';
+import { globalDistrictNum, globalCurrElection } from '@/common';
+
 
 
 interface Initiative {
     id: Number,
     attributes: {
-        title: String,
+        District: string,
+        InitiativeName: string,
+        ProponentEmail: string,
+        ElectionName: string,
+        ProponentName: string,
+        ProponentPhoneNumber: string,
+        WhatIsNo: string,
+        WhatIsYes: string,
     }
 }
 
 export default function BallotInitative() {
-    const [initiative, setInitiative] = useState([]);
+    const [initiative, setInitiative] = useState<Initiative[]>([]);
+    const [districtNum, setDistrictNum] = useState<string | null>(globalDistrictNum);
+    const [selectedElection, setSelectedElection] = useState<string | null>(globalCurrElection);
+    const [filteredData, setFilteredData] = useState<{ [key: string]: Initiative[] }>({});
+
+    useEffect(() => {
+        setDistrictNum(globalDistrictNum);
+        setSelectedElection(globalCurrElection);
+        console.log(globalDistrictNum, globalCurrElection)
+    }, [globalDistrictNum, globalCurrElection]);
 
     useEffect(() => {
         const getData = async () => {
@@ -35,6 +52,7 @@ export default function BallotInitative() {
                 if (res.ok) {
                     const data = (await res.json()).data
                     setInitiative(data)
+
                 }
             }
             catch (e) {
@@ -43,16 +61,31 @@ export default function BallotInitative() {
         }
 
         getData()
-
     }, [])
 
+
     useEffect(() => {
+        // console.log(initiative)
+        // if (initiative.length > 0) {
+        //     console.log(initiative[0].attributes)
+        // }
         console.log(initiative)
         if (initiative.length > 0) {
-            console.log(initiative[0].attributes)
+            initiative.forEach((item) => {
+                const District = item.attributes.District
+                const ElectionName = item.attributes.ElectionName
+                console.log(District, ElectionName)
+
+            })
         }
 
+
+
     }, [initiative])
+
+    useEffect(() => {
+
+    }, [filteredData])
 
     return (
         <div className='p-4 text-center w-full sm:w-3/4' style={{ paddingLeft: '24px', paddingRight: '24px' }}>
@@ -77,8 +110,7 @@ export default function BallotInitative() {
                                 <CardContent>
                                     <Typography className='text-xl underline'>What is a vote YES?</Typography>
                                     <ul className='list-disc list-outside text-lg pr-8 text-left pl-16 py-2'>
-                                        {item.attributes.WhatIsYes
-                                        }
+                                        {item.attributes.WhatIsYes}
                                     </ul>
                                 </CardContent>
                             </Card>
