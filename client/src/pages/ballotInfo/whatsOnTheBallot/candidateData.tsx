@@ -131,12 +131,12 @@ export default function CandidateData() {
             setFilteredCandidateData(sortedData);
         }
 
-        console.log(sortedData);
+        //console.log(sortedData);
     }, [allCandidateData, districtNum, selectedElection])
 
 
     useEffect(() => {
-        console.log(filteredCandidateData);
+        //console.log(filteredCandidateData);
     }, [filteredCandidateData])
 
 
@@ -160,7 +160,6 @@ export default function CandidateData() {
                                 {/* Description of the role */}
                                 <Typography className='mx-4 mb-8 text-lg'>
                                     {candidateRoleDate[role] ? candidateRoleDate[role] : 'No description available for this role'}
-
                                 </Typography>
 
                                 {/* Map over the candidates for each role */}

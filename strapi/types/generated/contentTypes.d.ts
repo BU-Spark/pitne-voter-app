@@ -815,17 +815,13 @@ export interface ApiBallotInitiativeBallotInitiative
       ]
     > &
       Attribute.Required;
-    ElectionName: Attribute.Relation<
-      'api::ballot-initiative.ballot-initiative',
-      'oneToOne',
-      'api::boston-municipal-election-date.boston-municipal-election-date'
-    >;
     InitiativeName: Attribute.Text & Attribute.Required;
     ProponentName: Attribute.String & Attribute.Required;
     ProponentEmail: Attribute.Email & Attribute.Required;
     ProponentPhoneNumber: Attribute.String & Attribute.Required;
     WhatIsYes: Attribute.Text & Attribute.Required;
     WhatIsNo: Attribute.Text & Attribute.Required;
+    ElectionName: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -930,7 +926,6 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
     Answer9: Attribute.Text;
     Question10: Attribute.String;
     Answer10: Attribute.Text;
-    QuestionsAnswers: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
