@@ -108,9 +108,6 @@
     },
     "Answer10": {
       "type": "text"
-    },
-    "QuestionsAnswers": {
-      "type": "json"
     }
   }
 }

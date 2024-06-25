@@ -930,7 +930,6 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
     Answer9: Attribute.Text;
     Question10: Attribute.String;
     Answer10: Attribute.Text;
-    QuestionsAnswers: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
