@@ -82,8 +82,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
 
     return (
         <div>
-            {isLoading ? (
-                <p>Loading...</p>
+            {isLoading ? ( null
             ) : (
                 <div className='grid grid-cols-4 mt-8'>
                     <div className='md:col-span-1 hidden md:block'>

@@ -177,9 +177,7 @@ export default function Candidate() {
                     </div>
                 ) : null}
                 </>
-            ) : (
-                <p className="text-lg">Loading candidate data...</p>
-            )}
+            ) : null}
         </div>
     )
 }
