@@ -27,11 +27,6 @@
       ],
       "required": true
     },
-    "ElectionName": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::boston-municipal-election-date.boston-municipal-election-date"
-    },
     "InitiativeName": {
       "type": "text",
       "required": true
@@ -54,6 +49,10 @@
     },
     "WhatIsNo": {
       "type": "text",
+      "required": true
+    },
+    "ElectionName": {
+      "type": "string",
       "required": true
     }
   }
