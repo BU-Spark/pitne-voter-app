@@ -131,12 +131,12 @@ export default function CandidateData() {
             setFilteredCandidateData(sortedData);
         }
 
-        console.log(sortedData);
+        //console.log(sortedData);
     }, [allCandidateData, districtNum, selectedElection])
 
 
     useEffect(() => {
-        console.log(filteredCandidateData);
+        //console.log(filteredCandidateData);
     }, [filteredCandidateData])
 
 

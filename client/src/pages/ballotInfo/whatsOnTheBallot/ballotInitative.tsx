@@ -34,12 +34,6 @@ export default function BallotInitative() {
     const [filteredData, setFilteredData] = useState<{ [key: string]: Initiative[] }>({});
 
     useEffect(() => {
-        setDistrictNum(globalDistrictNum);
-        setSelectedElection(globalCurrElection);
-        console.log(globalDistrictNum, globalCurrElection)
-    }, [globalDistrictNum, globalCurrElection]);
-
-    useEffect(() => {
         const getData = async () => {
             try {
                 const res = await fetch(localBallotInitiativeAPI, {
@@ -53,6 +47,7 @@ export default function BallotInitative() {
                     const data = (await res.json()).data
                     setInitiative(data)
 
+
                 }
             }
             catch (e) {
@@ -60,32 +55,26 @@ export default function BallotInitative() {
             }
         }
 
-        getData()
+        getData();
+
     }, [])
 
-
     useEffect(() => {
-        // console.log(initiative)
-        // if (initiative.length > 0) {
-        //     console.log(initiative[0].attributes)
-        // }
-        console.log(initiative)
-        if (initiative.length > 0) {
-            initiative.forEach((item) => {
-                const District = item.attributes.District
-                const ElectionName = item.attributes.ElectionName
-                console.log(District, ElectionName)
+        setDistrictNum(globalDistrictNum);
+        setSelectedElection(globalCurrElection);
+        console.log(globalDistrictNum, globalCurrElection)
 
-            })
+        if (initiative.length > 0) {
+            const { ElectionName, District } = initiative[0].attributes
+            console.log(District, ElectionName)
         }
 
 
+    }, [globalDistrictNum, globalCurrElection, initiative]);
 
-    }, [initiative])
 
-    useEffect(() => {
 
-    }, [filteredData])
+
 
     return (
         <div className='p-4 text-center w-full sm:w-3/4' style={{ paddingLeft: '24px', paddingRight: '24px' }}>
