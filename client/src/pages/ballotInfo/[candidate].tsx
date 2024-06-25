@@ -7,6 +7,7 @@ import React, { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { localCandidateAPI, deployedCandidateAPI } from '@/common';
 import { all } from 'axios';
+import ButtonFillEx from '@/components/button/ButtonFillEx';
 
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
@@ -88,25 +89,27 @@ export default function Candidate() {
 
 
     return (
-        
-        <div className="max-w-2xl mx-auto p-4 #d1e4fa">
+        <div className="p-4 #d1e4fa ">
             {candidateData ? (
                 <>
-                <h1 className="text-6xl font-bold mb-6 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
+                <h1 className="text-6xl pb-2 font-bold mb-8 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
                 <div className="border-t border-white pt-4">
-                <div className="flex flex-col items-center">
-                <div className="bg-white rounded-lg shadow-xl p-4 flex flex-col">
-                    <p className="text-lg mb-2 font"><span className="text-lg font-bold">Party: </span>{candidateData.Party} </p>
-                    <p className="text-lg mb-2"><span className="text-lg font-bold">Role: </span>{candidateData.Role}</p>
-                    <p className="text-lg mb-2"><span className="text-lg font-bold">District: </span> {candidateData.District} </p>
-                    <p className="text-lg mb-2"><span className="text-lg font-bold">Election Name: </span> {candidateData.ElectionName}</p>
+                <div className="flex flex-col ">
+                {/* <div className="bg-white rounded-lg shadow-xl p-18 flex flex-col"> */}
+                    
+                    <p className="text-3xl mb-2 font">{candidateData.Party} </p>
+                    <p className="text-xl mb-2">{candidateData.Role}</p>
+                    <p className="text-3xl mb-2">{candidateData.District} </p> {/*if all districts then do not display it*/}
+                    <p className="text-3xl mb-2">{candidateData.ElectionName}</p>
+
+                    <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                     {candidateData.CampaignSiteLink && (
-                        <p className="text-lg mb-2 font-semibold text-center items-center"> <a href={candidateData.CampaignSiteLink} className="underline">Campaign Site</a></p>
+                        <ButtonFillEx name='Campaign Site' link={candidateData.CampaignSiteLink} className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />
+
                     )}
                     {candidateData.LinkedinLink && (
-                        <p className="text-lg mb-2 font-semibold text-center items-center"> <a href={candidateData.LinkedinLink} className="underline">Linkedin Link</a></p>
-                    )}
-                </div>
+                        <ButtonFillEx name='Linkedin Link' link={candidateData.LinkedinLink} className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' />                    )}
+                    </div>
                 </div>
                 </div>
                 </>
@@ -114,5 +117,5 @@ export default function Candidate() {
                 <p className="text-lg">Loading candidate data...</p>
             )}
         </div>
-    );
+    )
 }
