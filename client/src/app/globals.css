@@ -66,3 +66,7 @@ body {
   background-color: #1976d2; /* Blue color on hover */
 }
 
+
+.inline-block-child {
+  display: inline-block;
+}
