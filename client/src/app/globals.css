@@ -45,7 +45,7 @@ body {
   position: absolute;
   top: 50%;
   left: 40%;
-  transform: translate(-40%, -60%) rotate(68deg);
+  transform: translate(-40%, -50%) rotate(68deg);
   width: 800%;
   max-width: 1000px;
   height: 122%;
