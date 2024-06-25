@@ -1,3 +1,8 @@
+/* Deeper candidate profiles that appear when their icon is clicked in the 
+ * "What's on the Ballot" dropdown. Styles the entire deep profile page. Pulls
+ * data from strapi "Candidates" content.
+*/
+
 import React, { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { localCandidateAPI, deployedCandidateAPI } from '@/common';

@@ -75,7 +75,6 @@ app.get('/api/district', async (req: Request, res: Response) => {
             if (match && match[1]) {
                 // Set variable to the extracted digit
                 councilDistrictNumber = match[1];
-                console.log(`Council District Number: ${councilDistrictNumber}`);
             }
         }
 

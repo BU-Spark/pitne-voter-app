@@ -48,6 +48,69 @@
     },
     "ElectionName": {
       "type": "string"
+    },
+    "Question1": {
+      "type": "string"
+    },
+    "Answer1": {
+      "type": "text"
+    },
+    "Question2": {
+      "type": "string"
+    },
+    "Answer2": {
+      "type": "text"
+    },
+    "Question3": {
+      "type": "string"
+    },
+    "Answer3": {
+      "type": "text"
+    },
+    "Question4": {
+      "type": "string"
+    },
+    "Answer4": {
+      "type": "text"
+    },
+    "Question5": {
+      "type": "string"
+    },
+    "Answer5": {
+      "type": "text"
+    },
+    "Question6": {
+      "type": "string"
+    },
+    "Answer6": {
+      "type": "text"
+    },
+    "Question7": {
+      "type": "string"
+    },
+    "Answer7": {
+      "type": "text"
+    },
+    "Question8": {
+      "type": "string"
+    },
+    "Answer8": {
+      "type": "text"
+    },
+    "Question9": {
+      "type": "string"
+    },
+    "Answer9": {
+      "type": "text"
+    },
+    "Question10": {
+      "type": "string"
+    },
+    "Answer10": {
+      "type": "text"
+    },
+    "QuestionsAnswers": {
+      "type": "json"
     }
   }
 }
