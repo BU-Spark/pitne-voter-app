@@ -1,5 +1,9 @@
 import ButtonFill from "@/components/button/ButtonFill"
 import * as React from 'react';
+<<<<<<< HEAD
+=======
+import ButtonFillEx from "@/components/button/ButtonFillEx";
+>>>>>>> ce35abbdc8a0aa98e46e2ce3bb34a9272ed56c30
 import DistrictForm from "./districtForm";
 import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
 import CandidateData from "./whatsOnTheBallot/candidateData";
