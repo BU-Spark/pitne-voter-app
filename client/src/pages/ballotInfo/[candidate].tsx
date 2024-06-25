@@ -92,8 +92,8 @@ export default function Candidate() {
         <div className="max-w-2xl mx-auto p-4 #d1e4fa">
             {candidateData ? (
                 <>
-                <h1 className="text-4xl font-bold mb-4 justify-center text-center">{candidateData?.Name}</h1>
-                <div className="border-t border-gray-800 pt-4">
+                <h1 className="text-6xl font-bold mb-6 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
+                <div className="border-t border-white pt-4">
                 <div className="flex flex-col items-center">
                 <div className="bg-white rounded-lg shadow-xl p-4 flex flex-col">
                     <p className="text-lg mb-2 font"><span className="text-lg font-bold">Party: </span>{candidateData.Party} </p>
