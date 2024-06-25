@@ -36,7 +36,7 @@ export default function DropDown() {
                         {/* Map over the content of each item */}
                         <div className='flex flex-wrap'>
                             {Object.values(item.content).map((person, idx) => (
-                                <PeopleCard key={idx} name={person.name} affliation={person.affliation} picture={person.picture} link={person.link} />
+                                <PeopleCard key={idx} name={person.name} affiliation={person.affliation} picture={person.picture} link={person.link} />
                             ))}
                         </div>
                     </AccordionDetails>
