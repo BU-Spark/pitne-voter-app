@@ -132,9 +132,9 @@ const AddressForm: React.FC = () => {
                 <div className='grid grid-cols-4 mt-8'>
                     <div className='md:col-span-1 hidden md:block'>
                     </div>
-                    <div className="space-y-4 mx-10 my-1 p-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
+                    <div className="space-y-4 lg:mx-10 md:mx-20 px-4 py-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
                         <div className="space-y-4 w-full px-4">
-                            <div className="w-full px-4 text-left text-lg">
+                            <div className="w-full px-4 text-left text-xl">
                                 {pollingLocation && (
                                     <div>
                                         <p>{pollingLocation}</p>
