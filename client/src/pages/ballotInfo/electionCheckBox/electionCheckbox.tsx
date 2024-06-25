@@ -35,7 +35,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedBostonMunicipalAPI, {
+                const response = await fetch(localBostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,7 +74,6 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
 
     // When box is checked, set the election as selected, set the global variable (in common/index.tsx), and call onCheck function
     const handleCheckboxChange = (electionName: string) => {
-        console.log(electionName);
         setSelectedElection(electionName);
         setGlobalCurrElection(electionName);
         onCheck(electionName);
