@@ -55,7 +55,7 @@ export default function BallotInfo() {
                             <CandidateData />
                             <h1 className='font-semibold text-left text-3xl mt-4'>Ballot Initiatives</h1>
                             <p className="text-xl my-2">Put description here when Yawu sends it</p>
-                            <BallotInitDropDown />
+                            <BallotInitative />
                         </>
 
                     ) : (
@@ -63,7 +63,7 @@ export default function BallotInfo() {
                     )}
                 </div>
 
-                <BallotInitative />
+
 
 
                 {/* Footer */}
