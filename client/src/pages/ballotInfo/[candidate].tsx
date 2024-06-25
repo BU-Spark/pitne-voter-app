@@ -83,26 +83,28 @@ export default function Candidate() {
 
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <div className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative">
-            <h1 className="text-3xl font-bold mb-4">Candidate: {candidateName}</h1>
+        <div className="max-w-2xl mx-auto p-4 #d1e4fa">
             {candidateData ? (
-                <div className="border-t border-gray-200 pt-4">
-                    <p className="text-lg mb-2"><span className="font-semibold">Party:</span> {candidateData.Party}</p>
-                    <p className="text-lg mb-2"><span className="font-semibold">District:</span> {candidateData.District}</p>
-                    <p className="text-lg mb-2"><span className="font-semibold">Election Name:</span> {candidateData.ElectionName}</p>
+                <>
+                <h1 className="text-4xl font-bold mb-4 justify-center text-center">{candidateData?.Name}</h1>
+                <div className="border-t border-gray-800 pt-4">
+                <div className="flex flex-col items-center">
+                    <p className="text-lg mb-2 font-semibold"> {candidateData.Party} </p>
+                    <p className="text-lg mb-2 font-semibold"> {candidateData.District} </p>
+                    <p className="text-lg mb-2 font-semibold"> {candidateData.ElectionName}</p>
                     {candidateData.CampaignSiteLink && (
-                        <p className="text-lg mb-2"><span className="font-semibold">Campaign Site:</span> <a href={candidateData.CampaignSiteLink} className="text-blue-500">{candidateData.CampaignSiteLink}</a></p>
+                        <p className="text-lg mb-2 font-semibold"> <a href={candidateData.CampaignSiteLink} className="text-blue-500">{candidateData.CampaignSiteLink}</a></p>
                     )}
                     {candidateData.LinkedinLink && (
-                        <p className="text-lg mb-2"><span className="font-semibold">LinkedIn:</span> <a href={candidateData.LinkedinLink} className="text-blue-500">{candidateData.LinkedinLink}</a></p>
+                        <p className="text-lg mb-2 font-semibold"> <a href={candidateData.LinkedinLink} className="text-blue-500">{candidateData.LinkedinLink}</a></p>
                     )}
-                    <p className="text-lg mb-2"><span className="font-semibold">Role:</span> {candidateData.Role}</p>
+                    <p className="text-lg mb-2 font-semibold"> {candidateData.Role}</p>
+                    </div>
                 </div>
+                </>
             ) : (
                 <p className="text-lg">Loading candidate data...</p>
             )}
-        </div>
         </div>
     );
 }
