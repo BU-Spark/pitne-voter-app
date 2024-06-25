@@ -62,12 +62,6 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                 </div>
             </div>
         </div>
-
-
-
-
-
-
     )
 }
 

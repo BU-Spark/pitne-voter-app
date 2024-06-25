@@ -60,8 +60,7 @@ export default function ElectionDates() {
 
     return (
         <div>
-            {isLoading ? (
-                <p>Loading...</p>
+            {isLoading ? ( null
             ) : (
                 <div>
                     {sortedElectionDates.length === 0 ? (
@@ -76,8 +75,5 @@ export default function ElectionDates() {
                 </div>
             )}
         </div>
-
-
     )
-
 }
