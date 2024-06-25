@@ -1,6 +1,5 @@
 import ButtonFill from "@/components/button/ButtonFill"
 import * as React from 'react';
-import BallotInitDropDown from "./ballotInitDropDown";
 import ButtonFillEx from "@/components/button/ButtonFillEx";
 import DistrictForm from "./districtForm";
 import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
