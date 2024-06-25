@@ -88,23 +88,26 @@ export default function Candidate() {
 
 
     return (
+        
         <div className="max-w-2xl mx-auto p-4 #d1e4fa">
             {candidateData ? (
                 <>
                 <h1 className="text-4xl font-bold mb-4 justify-center text-center">{candidateData?.Name}</h1>
                 <div className="border-t border-gray-800 pt-4">
                 <div className="flex flex-col items-center">
-                    <p className="text-lg mb-2 font-semibold"> {candidateData.Party} </p>
-                    <p className="text-lg mb-2 font-semibold"> {candidateData.District} </p>
-                    <p className="text-lg mb-2 font-semibold"> {candidateData.ElectionName}</p>
+                <div className="bg-white rounded-lg shadow-xl p-4 flex flex-col">
+                    <p className="text-lg mb-2 font"><span className="text-lg font-bold">Party: </span>{candidateData.Party} </p>
+                    <p className="text-lg mb-2"><span className="text-lg font-bold">Role: </span>{candidateData.Role}</p>
+                    <p className="text-lg mb-2"><span className="text-lg font-bold">District: </span> {candidateData.District} </p>
+                    <p className="text-lg mb-2"><span className="text-lg font-bold">Election Name: </span> {candidateData.ElectionName}</p>
                     {candidateData.CampaignSiteLink && (
-                        <p className="text-lg mb-2 font-semibold"> <a href={candidateData.CampaignSiteLink} className="text-blue-500">{candidateData.CampaignSiteLink}</a></p>
+                        <p className="text-lg mb-2 font-semibold text-center items-center"> <a href={candidateData.CampaignSiteLink} className="underline">Campaign Site</a></p>
                     )}
                     {candidateData.LinkedinLink && (
-                        <p className="text-lg mb-2 font-semibold"> <a href={candidateData.LinkedinLink} className="text-blue-500">{candidateData.LinkedinLink}</a></p>
+                        <p className="text-lg mb-2 font-semibold text-center items-center"> <a href={candidateData.LinkedinLink} className="underline">Linkedin Link</a></p>
                     )}
-                    <p className="text-lg mb-2 font-semibold"> {candidateData.Role}</p>
-                    </div>
+                </div>
+                </div>
                 </div>
                 </>
             ) : (
