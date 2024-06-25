@@ -8,8 +8,9 @@ import { useRouter } from 'next/router';
 import { localCandidateAPI, deployedCandidateAPI } from '@/common';
 import { all } from 'axios';
 import ButtonFillEx from '@/components/button/ButtonFillEx';
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Link, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface CandidateAttributes {
     CampaignSiteLink: string | null;
@@ -49,6 +50,7 @@ interface QuestionsAndAnswers {
 
 export default function Candidate() {
     const router = useRouter();
+
 
     const [candidateName, setCandidateName] = useState<string>('');
     const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([])
@@ -126,6 +128,17 @@ export default function Candidate() {
 
     return (
         <div className="p-4 #d1e4fa ">
+            <div className="flex mt-6">
+                    <button
+                        type="button"
+                        onClick={() => router.back()}
+
+                        className=" rounded-full bg-#d1e4fa text-blue-700"
+                    >
+                        <ArrowBackIcon className="mr-2" /> {/* Add some margin to the right */}
+                        Go Back
+                    </button>
+                </div>
             {candidateData ? (
                 <>
                 <h1 className="text-6xl pb-2 font-bold mb-8 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
