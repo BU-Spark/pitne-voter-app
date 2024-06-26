@@ -170,7 +170,7 @@ export default function Candidate() {
                         <div className="grid grid-cols-1 py-4">
                             <div className="flex justify-center p-4 md:col-span-3">
 
-                                <div className="flex w-full flex-col gap-4 md:flex-row md:justify-between md:items-center">
+                                <div className="flex w-full flex-col gap-4 md:flex-row md:justify-center md:items-center">
                                     <div className="flex gap-4 flex-col md:flex-row">
                                         {/* Candidate image */}
                                         <div className="flex justify-center items-center h-full">
