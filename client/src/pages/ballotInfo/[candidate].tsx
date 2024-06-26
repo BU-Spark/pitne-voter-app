@@ -182,7 +182,7 @@ export default function Candidate() {
                         <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
                         {Object.entries(questionsAndAnswers).map(([index, qa]) => (
                             qa.question && qa.answer ? (
-                                <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3'>
+                                <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
 
                                     {/* Question */}
                                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
@@ -191,7 +191,7 @@ export default function Candidate() {
 
                                     {/* Answer */}
                                     <AccordionDetails>
-                                        <Typography className='mb-8 text-xl'>{qa.answer}</Typography>
+                                        <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
                                     </AccordionDetails>
                                 </Accordion>
                             ) : null
