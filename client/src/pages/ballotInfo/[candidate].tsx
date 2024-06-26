@@ -183,7 +183,7 @@ export default function Candidate() {
                                         </div>
                                         {/* Name, role, party */}
                                         <div className="flex flex-col justify-center text-center lg:text-left md:text-left">
-                                            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                            <h1 className="pb-2 text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                                 {candidateData?.Name}
                                             </h1>
                                             <p className="text-blue-700 text-xl md:text-2xl leading-normal">
@@ -219,26 +219,28 @@ export default function Candidate() {
                         </div>
 
 
-                        {/* Questions and Answers */}
-                        <div className="flex flex-col justify-center items-center py-8 my-2">
-                            <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
-                            {Object.entries(questionsAndAnswers).map(([index, qa]) => (
-                                qa.question && qa.answer ? (
-                                    <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
+                        {/* Questions and Answers if filled out */}
+                        {Object.entries(questionsAndAnswers) &&
+                            <div className="flex flex-col justify-center items-center py-8 my-2">
+                                <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
+                                {Object.entries(questionsAndAnswers).map(([index, qa]) => (
+                                    qa.question && qa.answer ? (
+                                        <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
 
-                                        {/* Question */}
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
-                                            <Typography className='text-blue-700 text-xl'>{qa.question}</Typography>
-                                        </AccordionSummary>
+                                            {/* Question */}
+                                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
+                                                <Typography className='text-blue-700 text-xl'>{qa.question}</Typography>
+                                            </AccordionSummary>
 
-                                        {/* Answer */}
-                                        <AccordionDetails>
-                                            <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                ) : null
-                            ))}
-                        </div>
+                                            {/* Answer */}
+                                            <AccordionDetails>
+                                                <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    ) : null
+                                ))}
+                            </div>
+                        }
                     </div>
                 </div>
             ) : (null)}
