@@ -115,6 +115,7 @@ export default function Candidate() {
 
     useEffect(() => {
         console.log(candidateData);
+        console.log(candidateData?.Headshot.data.attributes.url)
     }, [candidateData])
 
 
@@ -158,52 +159,75 @@ export default function Candidate() {
             {candidateData ? (
                 <div className="lg:px-40 md:px-20 px-10 flex flex-1 justify-center py-5">
                     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-                        <div className="flex p-4">
-                            <div className="flex w-full flex-col gap-4 lg:flex-row lg:justify-between lg:items-center">
-                                <div className="flex gap-4">
+                        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 p-4">
+                            <div className="flex p-4 md:col-span-3">
 
-                                    {/* Candidate image */}
-                                    <div className="bg-center bg-no-repeat bg-cover rounded-full h-32 w-32" style={{ backgroundImage: 'url("Strapi.Image - PUT HERE")' }}></div> 
-
-                                    {/* Name, role, party */}
-                                    <div className="flex flex-col justify-center">
-                                        <h1 className="text-6xl pb-2 font-bold mb-2 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
-                                        <p className="text-blue-700 text-2xl font-6xl leading-normal">{candidateData?.Role}</p>
-                                        <p className="text-blue-700 text-2xl font-6xl leading-normal">{candidateData?.Party}</p>
+                                <div className="flex w-full flex-col gap-4 md:flex-row md:justify-between md:items-center">
+                                    <div className="flex gap-4 flex-col md:flex-row">
+                                        {/* Candidate image */}
+                                        <div className="flex justify-center items-center h-full">
+                                            <div
+                                                className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 lg:h-80 lg:w-80 mx-6"
+                                                style={{
+                                                    backgroundImage: `url(http://localhost:1337${candidateData?.Headshot.data.attributes.url})`,
+                                                }}
+                                            ></div>
+                                        </div>
+                                        {/* Name, role, party */}
+                                        <div className="flex flex-col justify-center text-center lg:text-left">
+                                            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                                {candidateData?.Name}
+                                            </h1>
+                                            <p className="text-blue-700 text-xl md:text-2xl leading-normal">
+                                                {candidateData?.Role}
+                                            </p>
+                                            <p className="text-blue-700 text-xl md:text-2xl leading-normal">
+                                                {candidateData?.Party}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Links */}
+                            <div className="flex flex-row xl:flex-col justify-center items-center p-4 text-center md:col-span-1">
+                                {candidateData.CampaignSiteLink && (
+                                    <ButtonFillEx
+                                        name="Campaign Site"
+                                        link={candidateData.CampaignSiteLink}
+                                        className="p-4 mx-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
+                                    />
+                                )}
+                                {candidateData.LinkedinLink && (
+                                    <ButtonFillEx
+                                        name="Linkedin"
+                                        link={candidateData.LinkedinLink}
+                                        className="p-4 mx-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
+                                    />
+                                )}
+                            </div>
                         </div>
 
-                        {/* Links */}
-                        <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-                            {candidateData.CampaignSiteLink && (
-                                <ButtonFillEx name='Campaign Site' link={candidateData.CampaignSiteLink} className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200' />
-                            )}
-                            {candidateData.LinkedinLink && (
-                                <ButtonFillEx name='Linkedin' link={candidateData.LinkedinLink} className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200' />
-                            )}
-                        </div>
 
                         {/* Questions and Answers */}
-                        <div className="flex flex-col justify-center items-center py-8 my-6">
-                        <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
-                        {Object.entries(questionsAndAnswers).map(([index, qa]) => (
-                            qa.question && qa.answer ? (
-                                <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
+                        <div className="flex flex-col justify-center items-center py-8 my-2">
+                            <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
+                            {Object.entries(questionsAndAnswers).map(([index, qa]) => (
+                                qa.question && qa.answer ? (
+                                    <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
 
-                                    {/* Question */}
-                                    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
-                                        <Typography className='text-blue-700 text-xl'>{qa.question}</Typography>
-                                    </AccordionSummary>
+                                        {/* Question */}
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
+                                            <Typography className='text-blue-700 text-xl'>{qa.question}</Typography>
+                                        </AccordionSummary>
 
-                                    {/* Answer */}
-                                    <AccordionDetails>
-                                        <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
-                                    </AccordionDetails>
-                                </Accordion>
-                            ) : null
-                        ))}
+                                        {/* Answer */}
+                                        <AccordionDetails>
+                                            <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ) : null
+                            ))}
                         </div>
                     </div>
                 </div>
