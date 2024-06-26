@@ -146,27 +146,29 @@ export default function Candidate() {
 
 
     return (
-        <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden">
+        <>
             <header className="flex border-b border-solid border-b-white px-10 py-3"></header>
 
             {/* Go Back button */}
-            <div className="flex mt-6">
+            <div className="mt-6">
                 <button
                     type="button"
                     onClick={() => router.back()}
-                    className="rounded-full bg-[#d1e4fa] text-blue-700 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] w-full max-w-[480px] lg:w-auto"
+                    className="rounded-full bg-[#d1e4fa] text-blue-700 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] max-w-[480px] lg:w-auto"
                 >
-                    <ArrowBackIcon className="mr-2" /> {/* Add some margin to the right */}
+                    <ArrowBackIcon className="mr-4" />
                     Go Back
                 </button>
             </div>
 
+
             {/* Actual candidate data */}
+            <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center">
             {candidateData ? (
-                <div className="lg:px-40 md:px-20 px-10 flex flex-1 justify-center py-5">
+                <div className="lg:px-40 px-10 flex flex-1 justify-center pb-5">
                     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-                        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 p-4">
-                            <div className="flex p-4 md:col-span-3">
+                        <div className="grid grid-cols-1 py-4">
+                            <div className="flex justify-center p-4 md:col-span-3">
 
                                 <div className="flex w-full flex-col gap-4 md:flex-row md:justify-between md:items-center">
                                     <div className="flex gap-4 flex-col md:flex-row">
@@ -180,7 +182,7 @@ export default function Candidate() {
                                             ></div>
                                         </div>
                                         {/* Name, role, party */}
-                                        <div className="flex flex-col justify-center text-center lg:text-left">
+                                        <div className="flex flex-col justify-center text-center lg:text-left md:text-left">
                                             <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                                 {candidateData?.Name}
                                             </h1>
@@ -190,27 +192,29 @@ export default function Candidate() {
                                             <p className="text-blue-700 text-xl md:text-2xl leading-normal">
                                                 {candidateData?.Party}
                                             </p>
+
+
+                                            {/* Links */}
+                                            <div className="flex flex-row items-center pt-4 text-center md:col-span-1">
+                                                {candidateData.CampaignSiteLink && (
+                                                    <ButtonFillEx
+                                                        name="Campaign Site"
+                                                        link={candidateData.CampaignSiteLink}
+                                                        className="p-4 mr-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
+                                                    />
+                                                )}
+                                                {candidateData.LinkedinLink && (
+                                                    <ButtonFillEx
+                                                        name="Linkedin"
+                                                        link={candidateData.LinkedinLink}
+                                                        className="p-4 ml-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
+                                                    />
+                                                )}
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            {/* Links */}
-                            <div className="flex flex-row xl:flex-col justify-center items-center p-4 text-center md:col-span-1">
-                                {candidateData.CampaignSiteLink && (
-                                    <ButtonFillEx
-                                        name="Campaign Site"
-                                        link={candidateData.CampaignSiteLink}
-                                        className="p-4 mx-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
-                                    />
-                                )}
-                                {candidateData.LinkedinLink && (
-                                    <ButtonFillEx
-                                        name="Linkedin"
-                                        link={candidateData.LinkedinLink}
-                                        className="p-4 mx-2 xl:my-2 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
-                                    />
-                                )}
                             </div>
                         </div>
 
@@ -238,6 +242,7 @@ export default function Candidate() {
                     </div>
                 </div>
             ) : (null)}
-        </div>
+            </div>
+        </>
     );
 }
