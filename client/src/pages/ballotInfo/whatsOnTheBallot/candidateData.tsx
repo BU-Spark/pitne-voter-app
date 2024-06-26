@@ -172,8 +172,9 @@ export default function CandidateData() {
                                 </Typography>
 
                                 {/* Map over the candidates for each role */}
-                                <div className='flex flex-wrap'>
+                                <div className='flex flex-wrap justify-center items-center'>
                                     {filteredCandidateData[role].map((candidate, idx) => (
+                                        <div className='p-3'>
                                         <PeopleCard
                                             key={idx}
                                             name={candidate.attributes.Name}
@@ -181,8 +182,7 @@ export default function CandidateData() {
                                             picture={candidate.attributes.Headshot.data.attributes.url ?? ''}// Default empty string or provide a placeholder URL
                                             link={candidate.attributes.CampaignSiteLink ?? ''} // Default empty string or provide a placeholder URL
                                         />
-
-
+                                        </div>
                                     ))}
                                 </div>
                             </AccordionDetails>

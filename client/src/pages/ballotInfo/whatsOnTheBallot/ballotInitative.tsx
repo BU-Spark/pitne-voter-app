@@ -138,7 +138,7 @@ export default function BallotInitiative() {
           ))
         ))
       ) : (
-        <div>There is no data about the ballot for the district and election you have selected.</div>
+        <div className='text-xl'>There is no data about the ballot for the district and election you have selected.</div>
       )}
     </div>
   );

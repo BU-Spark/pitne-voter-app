@@ -53,9 +53,9 @@ export default function BallotInfo() {
                     {/* Don't make instance of candidate data till form and election are done */}
                     {(isFormSubmitted && selectedElection) ? (
                         <>
-                            <h1 className='font-semibold text-left text-3xl mt-4'>Candidates</h1>
+                            <h1 className='font-semibold text-left text-3xl mt-6'>Candidates</h1>
                             <CandidateData />
-                            <h1 className='font-semibold text-left text-3xl mt-4'>Ballot Initiatives</h1>
+                            <h1 className='font-semibold text-left text-3xl mt-6'>Ballot Initiatives</h1>
                             <p className="text-xl my-2">Put description here when Yawu sends it</p>
                             <BallotInitative />
                         </>
