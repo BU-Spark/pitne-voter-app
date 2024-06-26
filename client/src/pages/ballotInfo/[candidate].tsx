@@ -169,7 +169,7 @@ export default function Candidate() {
                                             <div
                                                 className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 lg:h-80 lg:w-80 mx-6"
                                                 style={{
-                                                    backgroundImage: `url(http://localhost:1337${candidateData?.Headshot.data.attributes.url})`,
+                                                    backgroundImage: `url(https://pitne-voter-app-express-production.up.railway.app/${candidateData?.Headshot.data.attributes.url})`,
                                                 }}
                                             ></div>
                                         </div>
