@@ -10,7 +10,7 @@ import { localExpressURL, deployedExpressURL, setGlobalDistrictNum } from '@/com
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: localExpressURL,
+    baseURL: deployedExpressURL,
 });
 
 

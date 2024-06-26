@@ -57,7 +57,7 @@ export default function CandidateData() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(localCandidateAPI + '?populate=*', {
+                const response = await fetch(deployedCandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function CandidateData() {
         // Get candidate role from strapi
         const getData = async () => {
             try {
-                const response = await fetch(localCandidateRoleAPI, {
+                const response = await fetch(deployedCandidateRoleAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -175,13 +175,13 @@ export default function CandidateData() {
                                 <div className='flex flex-wrap justify-center items-center'>
                                     {filteredCandidateData[role].map((candidate, idx) => (
                                         <div className='p-3'>
-                                        <PeopleCard
-                                            key={idx}
-                                            name={candidate.attributes.Name}
-                                            affiliation={candidate.attributes.Party}
-                                            picture={candidate.attributes.Headshot.data.attributes.url ?? ''}// Default empty string or provide a placeholder URL
-                                            link={candidate.attributes.CampaignSiteLink ?? ''} // Default empty string or provide a placeholder URL
-                                        />
+                                            <PeopleCard
+                                                key={idx}
+                                                name={candidate.attributes.Name}
+                                                affiliation={candidate.attributes.Party}
+                                                picture={candidate.attributes.Headshot.data.attributes.url ?? ''}// Default empty string or provide a placeholder URL
+                                                link={candidate.attributes.CampaignSiteLink ?? ''} // Default empty string or provide a placeholder URL
+                                            />
                                         </div>
                                     ))}
                                 </div>

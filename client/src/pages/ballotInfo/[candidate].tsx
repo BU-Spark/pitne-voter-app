@@ -78,7 +78,7 @@ export default function Candidate() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(localCandidateAPI + '?populate=*', {
+                const response = await fetch(deployedCandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

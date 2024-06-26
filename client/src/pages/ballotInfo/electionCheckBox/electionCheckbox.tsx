@@ -35,7 +35,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(localBostonMunicipalAPI, {
+                const response = await fetch(deployedBostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
 
     return (
         <div>
-            {isLoading ? ( null
+            {isLoading ? (null
             ) : (
                 <div className='grid grid-cols-4 mt-8'>
                     <div className='md:col-span-1 hidden md:block'>

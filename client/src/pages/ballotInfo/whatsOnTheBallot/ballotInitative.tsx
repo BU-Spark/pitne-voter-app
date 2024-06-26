@@ -4,7 +4,7 @@
 
 'use client';
 import { useState, useEffect } from 'react';
-import { localBallotInitiativeAPI } from '@/common';
+import { localBallotInitiativeAPI, deployedBallotInitiativeAPI } from '@/common';
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -25,7 +25,7 @@ interface Initiative {
         ProponentPhoneNumber: string;
         WhatIsNo: string;
         WhatIsYes: string;
-  };
+    };
 }
 
 interface Init {
@@ -49,24 +49,24 @@ export default function BallotInitiative() {
     // Get BI data from strapi
     useEffect(() => {
         const getData = async () => {
-        try {
-            const res = await fetch(localBallotInitiativeAPI, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            });
+            try {
+                const res = await fetch(deployedBallotInitiativeAPI, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-            if (res.ok) {
-            const data = (await res.json()).data;
-            console.log(data)
-            setInitiative(data);
-            } else {
-            console.error('Failed to fetch data');
+                if (res.ok) {
+                    const data = (await res.json()).data;
+                    console.log(data)
+                    setInitiative(data);
+                } else {
+                    console.error('Failed to fetch data');
+                }
+            } catch (e) {
+                console.error('Error fetching data:', e);
             }
-        } catch (e) {
-            console.error('Error fetching data:', e);
-        }
         };
         getData();
     }, []);
@@ -101,57 +101,57 @@ export default function BallotInitiative() {
         <div className="p-4 text-center w-full lg:w-3/4" style={{ paddingLeft: '24px', paddingRight: '24px' }}>
             {Object.keys(filteredData).length > 0 ? (
                 Object.entries(filteredData).map(([key, items]) => (
-                items.map((item, index) => (
-                    <Accordion key={`${key}-${index}`} className="bg-white mb-3">
+                    items.map((item, index) => (
+                        <Accordion key={`${key}-${index}`} className="bg-white mb-3">
 
-                        {/* Title */}
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls={`panel${key}-${index}-content`}
-                            id={`panel${key}-${index}-header`}
-                        >
-                            <Typography className="text-blue-700 text-xl">{item.InitiativeName}</Typography>
-                        </AccordionSummary>
+                            {/* Title */}
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls={`panel${key}-${index}-content`}
+                                id={`panel${key}-${index}-header`}
+                            >
+                                <Typography className="text-blue-700 text-xl">{item.InitiativeName}</Typography>
+                            </AccordionSummary>
 
-                        {/* Content */}
-                        <AccordionDetails>
-                            {/* Proponent Info */}
-                            <div className="text-lg">
-                                <Typography className="text-lg underline">Proponent&apos;s Contact:</Typography>
-                                {item.ProponentName}
-                                <br />
-                                {item.ProponentEmail}
-                                <br />
-                                {item.ProponentPhoneNumber}
-                                <br />
-                            </div>
+                            {/* Content */}
+                            <AccordionDetails>
+                                {/* Proponent Info */}
+                                <div className="text-lg">
+                                    <Typography className="text-lg underline">Proponent&apos;s Contact:</Typography>
+                                    {item.ProponentName}
+                                    <br />
+                                    {item.ProponentEmail}
+                                    <br />
+                                    {item.ProponentPhoneNumber}
+                                    <br />
+                                </div>
 
-                            {/* YES */}
-                            <Card className="my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
-                                <CardContent>
-                                    <Typography className="text-xl underline">What is a vote YES?</Typography>
-                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
-                                        {item.WhatIsYes.split('\n').map((line, index) => (
-                                            <li key={index}>{line}</li>
-                                        ))}
-                                    </ul>
-                                </CardContent>
-                            </Card>
+                                {/* YES */}
+                                <Card className="my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                                    <CardContent>
+                                        <Typography className="text-xl underline">What is a vote YES?</Typography>
+                                        <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                            {item.WhatIsYes.split('\n').map((line, index) => (
+                                                <li key={index}>{line}</li>
+                                            ))}
+                                        </ul>
+                                    </CardContent>
+                                </Card>
 
-                            {/* NO */}
-                            <Card className="mt-8 mb-5" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
-                                <CardContent>
-                                    <Typography className="text-xl underline">What is a vote NO?</Typography>
-                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
-                                        {item.WhatIsNo.split('\n').map((line, index) => (
-                                            <li key={index}>{line}</li>
-                                        ))}
-                                    </ul>
-                                </CardContent>
-                            </Card>
-                        </AccordionDetails>
-                    </Accordion>
-                ))
+                                {/* NO */}
+                                <Card className="mt-8 mb-5" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                                    <CardContent>
+                                        <Typography className="text-xl underline">What is a vote NO?</Typography>
+                                        <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                            {item.WhatIsNo.split('\n').map((line, index) => (
+                                                <li key={index}>{line}</li>
+                                            ))}
+                                        </ul>
+                                    </CardContent>
+                                </Card>
+                            </AccordionDetails>
+                        </Accordion>
+                    ))
                 ))
             ) : (
                 // Case where no BI for the given election and district
