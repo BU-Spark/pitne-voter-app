@@ -126,8 +126,9 @@ export default function BallotInitiative() {
                                 <br />
                             </div>
 
+                            <div className='flex flex-col lg:flex-row justify-between gap-4'>
                             {/* YES */}
-                            <Card className="my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                            <Card className="flex-1 my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote YES?</Typography>
                                     <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
@@ -139,7 +140,7 @@ export default function BallotInitiative() {
                             </Card>
 
                             {/* NO */}
-                            <Card className="mt-8 mb-5" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                            <Card className="flex-1 lg:my-8 mb-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote NO?</Typography>
                                     <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
@@ -149,6 +150,7 @@ export default function BallotInitiative() {
                                     </ul>
                                 </CardContent>
                             </Card>
+                            </div>
                         </AccordionDetails>
                     </Accordion>
                 ))
