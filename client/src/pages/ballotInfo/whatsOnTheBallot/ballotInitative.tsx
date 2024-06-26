@@ -131,7 +131,9 @@ export default function BallotInitiative() {
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote YES?</Typography>
                                     <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
-                                        {item.WhatIsYes}
+                                        {item.WhatIsYes.split('\n').map((line, index) => (
+                                            <li key={index}>{line}</li>
+                                        ))}
                                     </ul>
                                 </CardContent>
                             </Card>
@@ -141,7 +143,9 @@ export default function BallotInitiative() {
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote NO?</Typography>
                                     <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
-                                        {item.WhatIsNo}
+                                        {item.WhatIsNo.split('\n').map((line, index) => (
+                                            <li key={index}>{line}</li>
+                                        ))}
                                     </ul>
                                 </CardContent>
                             </Card>
