@@ -109,13 +109,13 @@
     "Answer10": {
       "type": "text"
     },
-    "Image": {
-      "allowedTypes": [
-        "images"
-      ],
+    "Headshot": {
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
