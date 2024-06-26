@@ -174,7 +174,7 @@ export default function CandidateData() {
                                 {/* Map over the candidates for each role */}
                                 <div className='flex flex-wrap justify-center items-center'>
                                     {filteredCandidateData[role].map((candidate, idx) => (
-                                        <div className='p-3'>
+                                        <div key={idx} className='p-3'>
                                             <PeopleCard
                                                 key={idx}
                                                 name={candidate.attributes.Name}
