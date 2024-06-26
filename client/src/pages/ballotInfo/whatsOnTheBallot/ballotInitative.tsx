@@ -126,6 +126,7 @@ export default function BallotInitiative() {
                                     <br />
                                 </div>
 
+<<<<<<< HEAD
                                 {/* YES */}
                                 <Card className="my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
                                     <CardContent>
@@ -152,6 +153,36 @@ export default function BallotInitiative() {
                             </AccordionDetails>
                         </Accordion>
                     ))
+=======
+                            <div className='flex flex-col lg:flex-row justify-between gap-4'>
+                            {/* YES */}
+                            <Card className="flex-1 my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                                <CardContent>
+                                    <Typography className="text-xl underline">What is a vote YES?</Typography>
+                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                        {item.WhatIsYes.split('\n').map((line, index) => (
+                                            <li key={index}>{line}</li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            {/* NO */}
+                            <Card className="flex-1 lg:my-8 mb-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
+                                <CardContent>
+                                    <Typography className="text-xl underline">What is a vote NO?</Typography>
+                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                        {item.WhatIsNo.split('\n').map((line, index) => (
+                                            <li key={index}>{line}</li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                            </div>
+                        </AccordionDetails>
+                    </Accordion>
+                ))
+>>>>>>> 20659a7fc4562d0ef2a985ceb2bf8a96ca94e9ea
                 ))
             ) : (
                 // Case where no BI for the given election and district
