@@ -94,7 +94,7 @@ export default function BallotInitiative() {
   useEffect(() => { })
 
   return (
-    <div className="p-4 text-center w-full sm:w-3/4" style={{ paddingLeft: '24px', paddingRight: '24px' }}>
+    <div className="p-4 text-center w-full lg:w-3/4" style={{ paddingLeft: '24px', paddingRight: '24px' }}>
       {Object.keys(filteredData).length > 0 ? (
         Object.entries(filteredData).map(([key, items]) => (
           items.map((item, index) => (
