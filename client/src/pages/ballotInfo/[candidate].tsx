@@ -33,6 +33,14 @@ interface CandidateAttributes {
     Answer4: string | null;
     Question5: string | null;
     Answer5: string | null;
+    Headshot: {
+        data: {
+            attributes: {
+                url: string
+            }
+        }
+
+    }
 }
 
 interface CandidateDataObject {
@@ -70,7 +78,7 @@ export default function Candidate() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(localCandidateAPI, {
+                const response = await fetch(localCandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

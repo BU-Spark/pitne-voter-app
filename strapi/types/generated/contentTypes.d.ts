@@ -926,7 +926,7 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
     Answer9: Attribute.Text;
     Question10: Attribute.String;
     Answer10: Attribute.Text;
-    Image: Attribute.Media<'images'> & Attribute.Required;
+    Headshot: Attribute.Media<'images'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

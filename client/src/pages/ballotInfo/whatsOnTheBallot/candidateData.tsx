@@ -25,6 +25,14 @@ interface CandidateAttributes {
     createdAt: string;
     publishedAt: string;
     updatedAt: string;
+    Headshot: {
+        data: {
+            attributes: {
+                url: string
+            }
+        }
+
+    }
 }
 
 interface CandidateDataObject {
@@ -49,7 +57,7 @@ export default function CandidateData() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(localCandidateAPI, {
+                const response = await fetch(localCandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -136,7 +144,8 @@ export default function CandidateData() {
 
 
     useEffect(() => {
-        console.log(filteredCandidateData);
+        //console.log(filteredCandidateData);
+
     }, [filteredCandidateData])
 
 
@@ -169,9 +178,11 @@ export default function CandidateData() {
                                             key={idx}
                                             name={candidate.attributes.Name}
                                             affiliation={candidate.attributes.Party}
-                                            picture={candidate.attributes.CampaignSiteLink ?? ''} // Default empty string or provide a placeholder URL
+                                            picture={candidate.attributes.Headshot.data.attributes.url ?? ''}// Default empty string or provide a placeholder URL
                                             link={candidate.attributes.CampaignSiteLink ?? ''} // Default empty string or provide a placeholder URL
                                         />
+
+
                                     ))}
                                 </div>
                             </AccordionDetails>
