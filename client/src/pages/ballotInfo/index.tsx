@@ -6,9 +6,15 @@ import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
 import CandidateData from "./whatsOnTheBallot/candidateData";
 import BallotInitative from "./whatsOnTheBallot/ballotInitative";
 import { globalDistrictNum } from "@/common";
+import { Button } from "@mui/material";
+import PopUpBox from "./popUpBox";
 
 
 export default function BallotInfo() {
+    const [isPopUpOpen, setIsPopUpOpen] = React.useState(false);
+    const handleOpen = () => setIsPopUpOpen(true);
+    const handleClose = () => setIsPopUpOpen(false);
+
     // Below are checks for form submission and election checkbox completion
     const [isFormSubmitted, setIsFormSubmitted] = React.useState<string | null>(null);
     const [selectedElection, setSelectedElection] = React.useState<string | null>(null);
@@ -55,17 +61,18 @@ export default function BallotInfo() {
                         <>
                             <h1 className='font-semibold text-left text-3xl mt-6'>Candidates</h1>
                             <CandidateData />
+
                             <h1 className='font-semibold text-left text-3xl mt-6'>Ballot Initiatives</h1>
-                            <p className="text-xl my-2">Put description here when Yawu sends it</p>
+                            <Button variant="outlined" color="primary" onClick={handleOpen} className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' disableElevation>
+                                What Are Ballot Iniatives?
+                            </Button>
+                            <PopUpBox open={isPopUpOpen} onClose={handleClose} />
                             <BallotInitative />
                         </>
-
                     ) : (
                         <p className="text-xl font-semibold text-red-500">Please fill out the <u>address form</u> above and <u>select an election</u> to see your ballot information</p>
                     )}
                 </div>
-
-
 
 
                 {/* Footer */}
