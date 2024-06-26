@@ -22,7 +22,6 @@ export default function BallotInfo() {
 
 
     return (
-
         <div>
             <div className="bg-oval-wrapper flex flex-col justify-center">
                 {/* Header */}
