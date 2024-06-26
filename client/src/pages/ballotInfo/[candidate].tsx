@@ -71,7 +71,7 @@ export default function Candidate() {
         const { candidate } = router.query;
         candidate && setCandidateName(candidate as string);
 
-    }, [router.isReady]);
+    }, [router.isReady, router.query]);
 
 
     // Get candidate data from strapi
