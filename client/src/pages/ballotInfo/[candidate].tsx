@@ -165,7 +165,7 @@ export default function Candidate() {
             {/* Actual candidate data */}
             <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center">
             {candidateData ? (
-                <div className="lg:px-40 px-10 flex flex-1 justify-center pb-5">
+                <div className="lg:px-36 px-10 flex flex-1 justify-center pb-5">
                     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
                         <div className="grid grid-cols-1 py-4">
                             <div className="flex justify-center p-4 md:col-span-3">
@@ -195,7 +195,7 @@ export default function Candidate() {
 
 
                                             {/* Links */}
-                                            <div className="flex flex-row items-center pt-4 text-center md:col-span-1">
+                                            <div className="flex flex-row items-center justify-center lg:justify-normal md:justify-normal pt-4 text-center md:col-span-1">
                                                 {candidateData.CampaignSiteLink && (
                                                     <ButtonFillEx
                                                         name="Campaign Site"
