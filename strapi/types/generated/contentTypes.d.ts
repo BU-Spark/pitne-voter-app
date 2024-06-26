@@ -811,10 +811,12 @@ export interface ApiBallotInitiativeBallotInitiative
         'District 6',
         'District 7',
         'District 8',
-        'District 9'
+        'District 9',
+        'All Districts'
       ]
     > &
-      Attribute.Required;
+      Attribute.Required &
+      Attribute.DefaultTo<'All Districts'>;
     InitiativeName: Attribute.Text & Attribute.Required;
     ProponentName: Attribute.String & Attribute.Required;
     ProponentEmail: Attribute.Email & Attribute.Required;
@@ -900,12 +902,13 @@ export interface ApiCandidateCandidate extends Schema.CollectionType {
         'All Districts'
       ]
     > &
-      Attribute.Required;
+      Attribute.Required &
+      Attribute.DefaultTo<'All Districts'>;
     Role: Attribute.String & Attribute.Required;
     CampaignSiteLink: Attribute.String;
     LinkedinLink: Attribute.String;
     Party: Attribute.String & Attribute.Required;
-    ElectionName: Attribute.String;
+    ElectionName: Attribute.String & Attribute.Required;
     Question1: Attribute.String;
     Answer1: Attribute.Text;
     Question2: Attribute.String;

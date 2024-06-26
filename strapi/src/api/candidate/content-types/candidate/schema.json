@@ -30,7 +30,8 @@
         "District 9 ",
         "All Districts"
       ],
-      "required": true
+      "required": true,
+      "default": "All Districts"
     },
     "Role": {
       "type": "string",
@@ -47,7 +48,8 @@
       "required": true
     },
     "ElectionName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "Question1": {
       "type": "string"
