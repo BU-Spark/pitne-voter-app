@@ -136,7 +136,7 @@ export default function CandidateData() {
 
 
     useEffect(() => {
-        //console.log(filteredCandidateData);
+        console.log(filteredCandidateData);
     }, [filteredCandidateData])
 
 

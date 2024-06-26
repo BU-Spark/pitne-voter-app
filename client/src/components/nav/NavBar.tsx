@@ -4,12 +4,12 @@
  * above (removed from this version bc not implementing) */
 'use client';
 import * as React from 'react';
-import { AppBar, Box, Button, Tooltip, MenuItem, Toolbar, IconButton, Typography, Menu, Container, Avatar } from '@mui/material';
+import { AppBar, Box, Button, MenuItem, Toolbar, IconButton, Typography, Menu, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
-import { useActivePage } from '@/contexts/ActivePageContext';
 import { keyframes } from '@mui/system';
+import { usePathname } from 'next/navigation';
 
 const slideIn = keyframes`
   from {
@@ -34,7 +34,6 @@ const links: Record<string, string> = {
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const { activePage, setActivePage } = useActivePage();
 
   const router = useRouter()
 
@@ -47,11 +46,16 @@ function NavBar() {
   };
 
   const handleClick = (page: string) => {
-    setActivePage(page);
     handleCloseNavMenu();
     router.push(links[page]);
   }
 
+
+    // Below is testing for active page link
+    const currentPath = usePathname();
+    const isActive = (path: string | null) => {
+        return currentPath === path;
+    }
 
 
   return (
@@ -64,7 +68,7 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href=""
+            href="/upcomingElections"
             sx={{
               display: { xs: 'none', md: 'none', lg: 'flex' },
               fontWeight: 700,
@@ -74,8 +78,7 @@ function NavBar() {
               animation: `${slideIn} 1s ease-out`, 
             }}
             onClick={() => {
-              setActivePage('Upcoming Elections');
-              router.push('/upcomingElections')
+              handleClick('Upcoming Elections');
             }}
         
           >
@@ -114,7 +117,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => handleClick(page)}>
-                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${activePage === page ? 'text-blue-700 ' : ''}`}>{page}</Typography>
+                  <Typography textAlign="center" className={`hover:underline hover:bg-transparent m-4 text-black ${isActive(links[page]) ? 'text-blue-700 ' : ''}`}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -139,8 +142,7 @@ function NavBar() {
               animation: `${slideIn} 1s ease-out`,
             }}
             onClick={() => {
-              setActivePage('Upcoming Elections');
-              router.push('/upcomingElections')
+              handleClick('Upcoming Elections');
             }}
           >
             Boston Voter
@@ -150,7 +152,7 @@ function NavBar() {
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
-                className={`hover:underline hover:bg-transparent m-4 ${activePage === page ? 'bg-blue-700 rounded-full text-white px-2 hover:text-blue-700' : ''}`}
+                className={`hover:underline hover:bg-transparent m-4 ${isActive(links[page]) ? 'bg-blue-700 rounded-full text-white px-2 hover:text-blue-700' : ''}`}
                 sx={{ my: 2, display: 'block' }}
               >
                 {page}
