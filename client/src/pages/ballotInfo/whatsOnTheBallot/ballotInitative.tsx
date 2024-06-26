@@ -55,6 +55,7 @@ export default function BallotInitiative() {
 
         if (res.ok) {
           const data = (await res.json()).data;
+          console.log(data)
           setInitiative(data);
         } else {
           console.error('Failed to fetch data');
@@ -78,7 +79,7 @@ export default function BallotInitiative() {
       initiative.forEach((item) => {
         const initDistrict = item.attributes.District;
         const initElection = item.attributes.ElectionName;
-        if ((initDistrict === globalDistrictNum || initElection === 'All Districts') && initElection === globalCurrElection?.trim()) {
+        if ((initDistrict.trim().toString() === globalDistrictNum || initDistrict.trim().toString() === 'All Districts') && initElection.trim().toString() === globalCurrElection?.trim()) {
           if (curData[initDistrict]) {
             curData[initDistrict].push(item.attributes);
           } else {
@@ -86,8 +87,6 @@ export default function BallotInitiative() {
           }
         }
       });
-
-      console.log(curData);
       setFilteredData(curData);
     }
   }, [globalDistrictNum, globalCurrElection, initiative]);
