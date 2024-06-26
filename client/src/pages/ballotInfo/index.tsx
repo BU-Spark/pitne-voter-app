@@ -61,6 +61,7 @@ export default function BallotInfo() {
                         <>
                             <h1 className='font-semibold text-left text-3xl mt-6'>Candidates</h1>
                             <CandidateData />
+
                             <h1 className='font-semibold text-left text-3xl mt-6'>Ballot Initiatives</h1>
                             <Button variant="outlined" color="primary" onClick={handleOpen} className='p-4 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-gray-200' disableElevation>
                                 What Are Ballot Iniatives?
@@ -68,7 +69,6 @@ export default function BallotInfo() {
                             <PopUpBox open={isPopUpOpen} onClose={handleClose} />
                             <BallotInitative />
                         </>
-
                     ) : (
                         <p className="text-xl font-semibold text-red-500">Please fill out the <u>address form</u> above and <u>select an election</u> to see your ballot information</p>
                     )}
