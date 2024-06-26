@@ -128,7 +128,7 @@ export default function Candidate() {
 
     return (
         <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden">
-            <div className="layout-container flex h-full flex-col">
+            
                 <header className="flex border-b border-solid border-b-white px-10 py-3"></header>
                 <div className="flex mt-6">
                     <button
@@ -150,8 +150,8 @@ export default function Candidate() {
                                             <div className="bg-center bg-no-repeat bg-cover rounded-full h-32 w-32" style={{ backgroundImage: 'url("Strapi.Image - PUT HERE")' }}></div> 
                                             <div className="flex flex-col justify-center">
                                                 <h1 className="text-6xl pb-2 font-bold mb-2 justify-center text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{candidateData?.Name}</h1>
-                                                <p className="text-blue-700 text-base text-xl font-6xl leading-normal">{candidateData?.Role}</p>
-                                                <p className="text-blue-700 text-base text-xl font-6xl leading-normal">{candidateData?.Party}</p>
+                                                <p className="text-blue-700 text-base text-4xl font-6xl leading-normal">{candidateData?.Role}</p>
+                                                <p className="text-blue-700 text-base text-4xl font-6xl leading-normal">{candidateData?.Party}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -164,30 +164,30 @@ export default function Candidate() {
                                         <ButtonFillEx name='Linkedin Link' link={candidateData.LinkedinLink} className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200' />
                                     )}
                                 </div>
-                                <h1 className="text-[#092020] tracking-light text-[32px] font-bold leading-tight px-4 text-left pb-3 pt-6">Questions curated by the founder, journalist Yawu Miller</h1>
-                                <div className="flex flex-col p-4 gap-3">
+                                
+                                
                                     {Object.entries(questionsAndAnswers).length > 0 ? (
-                                        Object.entries(questionsAndAnswers).map(([index, qa]) => (
+                                        <div className="flex flex-col justify-center items-center py-8 px-6 my-6">
+                                        <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
+                                        {Object.entries(questionsAndAnswers).map(([index, qa]) => (
                                             qa.question && qa.answer ? (
-                                                <Accordion key={index} className='bg-[#effbfb] rounded-xl border border-[#c3efef]'>
+                                                <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3'>
                                                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
-                                                        <Typography className='text-[#092020] text-sm font-medium'>{qa.question}</Typography>
+                                                        <Typography className='text-blue-700 text-xl'>{qa.question}</Typography>
                                                     </AccordionSummary>
                                                     <AccordionDetails>
-                                                        <Typography className='text-[#2fb1b1] text-sm'>{qa.answer}</Typography>
+                                                        <Typography className='mb-8 text-xl'>{qa.answer}</Typography>
                                                     </AccordionDetails>
                                                 </Accordion>
                                             ) : null
-                                        ))
-                                    ) : <p className="text-lg">Loading candidate data...</p>}
+                                        ))}
+                                        </div>
+                                    ) : null }
                                 </div>
                             </div>
-                        </div>
                     </>
-                ) : (
-                    <p className="text-lg">Loading candidate data...</p>
-                )}
+                ) : (null)}
             </div>
-        </div>
+      
     );
 }
