@@ -46,7 +46,7 @@ const PeopleCard = ({ name, affiliation, picture, link }: Props) => {
         }}>
             <CardActionArea className='flex flex-col items-center p-4'>
                 <Stack direction="row" spacing={2} className='flex justify-center items-center'>
-                    <Avatar alt={name} src={`http://localhost:1337${picture}`} sx={{ width: 128, height: 128 }} />
+                    <Avatar alt={name} src={`https://pitne-voter-app-production.up.railway.app${picture}`} sx={{ width: 128, height: 128 }} />
                 </Stack>
                 <CardContent className='text-center'>
                     <Typography gutterBottom variant="h5" component="div" color="text.primary">

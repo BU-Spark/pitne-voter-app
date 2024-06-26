@@ -87,7 +87,10 @@ export default function Candidate() {
                 if (response.ok) {
                     const data = (await response.json()).data;
                     setAllCandidateData(data)
+                    console.log(data)
                 }
+
+
             } catch (e) {
                 console.log(e);
             }
@@ -136,6 +139,9 @@ export default function Candidate() {
                 }, {});
             setQuestionsAndAnswers(qaMap);
         }
+
+
+
     }, [candidateData]);
 
 
@@ -169,7 +175,7 @@ export default function Candidate() {
                                             <div
                                                 className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 lg:h-80 lg:w-80 mx-6"
                                                 style={{
-                                                    backgroundImage: `url(https://pitne-voter-app-express-production.up.railway.app/${candidateData?.Headshot.data.attributes.url})`,
+                                                    backgroundImage: `url(https://pitne-voter-app-production.up.railway.app${candidateData?.Headshot.data.attributes.url})`,
                                                 }}
                                             ></div>
                                         </div>
