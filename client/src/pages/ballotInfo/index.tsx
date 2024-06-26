@@ -5,6 +5,7 @@ import DistrictForm from "./districtForm";
 import ElectionCheckbox from "./electionCheckBox/electionCheckbox";
 import CandidateData from "./whatsOnTheBallot/candidateData";
 import BallotInitative from "./whatsOnTheBallot/ballotInitative";
+import { globalDistrictNum } from "@/common";
 
 
 export default function BallotInfo() {
@@ -35,6 +36,9 @@ export default function BallotInfo() {
                 {/* Address form */}
                 <div className='flex flex-col justify-center items-center'>
                     <DistrictForm onFormSubmit={handleFormSubmit} />
+                    {isFormSubmitted && (
+                        <p className='mt-2 text-lg'>Your Council District: <span className='font-semibold'>{globalDistrictNum}</span></p>
+                    )}
                 </div>
 
 

@@ -118,9 +118,6 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
                     </Button>
                 </div>
             </form>
-
-            {/* NOTE: REMOVE BELOW PRINT, JUST FOR CHECKING WHILE BALLOT INFO IS IN PROGRESS */}
-            <p>District Num: {districtNum}</p>
         </div>
     );
 };
