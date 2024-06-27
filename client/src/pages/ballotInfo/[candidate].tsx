@@ -165,10 +165,10 @@ export default function Candidate() {
             {/* Actual candidate data */}
             <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center">
             {candidateData ? (
-                <div className="lg:px-36 px-10 flex flex-1 justify-center pb-5">
+                <div className="lg:px-36 md:px-10 sm:px-10 px-6 flex flex-1 justify-center pb-5">
                     <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
                         <div className="grid grid-cols-1 py-4">
-                            <div className="flex justify-center p-4 md:col-span-3">
+                            <div className="flex justify-center lg:p-4 md:p-4 sm:p-4 md:col-span-3">
 
                                 <div className="flex w-full flex-col gap-4 md:flex-row md:justify-center md:items-center">
                                     <div className="flex gap-4 flex-col md:flex-row">
@@ -222,7 +222,7 @@ export default function Candidate() {
                         {/* Questions and Answers if filled out */}
                         {Object.entries(questionsAndAnswers) &&
                             <div className="flex flex-col justify-center items-center py-8 my-2">
-                                <p className="text-4xl font-semibold mb-8 text-center">Questions curated by the founder, journalist Yawu Miller</p>
+                                <p className="text-4xl font-semibold mb-4 text-center">Questions curated by the founder, journalist Yawu Miller</p>
                                 {Object.entries(questionsAndAnswers).map(([index, qa]) => (
                                     qa.question && qa.answer ? (
                                         <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
@@ -234,7 +234,7 @@ export default function Candidate() {
 
                                             {/* Answer */}
                                             <AccordionDetails>
-                                                <Typography className='mb-8 text-xl text-center'>{qa.answer}</Typography>
+                                                <Typography className='mb-4 text-xl text-center'>{qa.answer}</Typography>
                                             </AccordionDetails>
                                         </Accordion>
                                     ) : null

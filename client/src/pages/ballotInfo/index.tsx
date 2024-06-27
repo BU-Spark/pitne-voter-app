@@ -69,7 +69,7 @@ export default function BallotInfo() {
                         <BallotInitative />
                     </>
                 ) : (
-                    <p className="text-xl font-semibold text-red-500">Please fill out the <u>address form</u> above and <u>select an election</u> to see your ballot information</p>
+                    <p className="text-xl font-semibold text-red-500 text-center">Please fill out the <u>address form</u> above and <u>select an election</u> to see your ballot information.</p>
                 )}
             </div>
 
