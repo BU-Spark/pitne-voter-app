@@ -40,18 +40,16 @@ The Boston Voter App provides a comprehensive solution by offering:
     npm run dev
     ```
 
-4. On another terminal, navigate to the server directory, install dependencies, and start Server:
+4. On another terminal, navigate to the server directory and install dependencies:
     ```bash
     cd server
     npm install
-    npm run dev
     ```
 
-5. On another terminal, navigate to the Strapi directory, install dependencies, and start Strapi server:
+5. On another terminal, navigate to the Strapi directory and install dependencies:
     ```bash
     cd strapi 
     npm install
-    npm start
     
     ```
 
@@ -66,10 +64,8 @@ GOOGLE_CIVIC_API_KEY=your_api_key_here
 
 
 # Deployment 
-Access our deployed website through netlify at https://pitne-voter.netlify.app.
+Access our deployed website https://bostonvoter.com/
 
-Status of Deployment: 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2475ff74-781c-4ac2-b8c6-3966fa276ea6/deploy-status)](https://app.netlify.com/sites/pitne-voter/deploys)
 
 # Collaborators 
 * Arshnoor Kaur Chadha; Github: @arshnoorKC13
