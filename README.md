@@ -3,7 +3,7 @@
 # Boston Voter App
 Collaborators: 
 * Arshnoor Kaur Chadha; Github: @arshnoorKC13
-* Elenaor Elkus; Github: @eelkus01
+* Eleanor Elkus; Github: @eelkus01
 * Jason Jiang; Github: @jasonjiang9142
 
 # Description
@@ -15,30 +15,54 @@ Many news organizations provide articles or voting guides around the election, b
 # Solution
 The Boston Voter App provides a comprehensive solution by offering:
 * Centralized voting information for Boston municipal elections.
-* Detailed candidate profiles, information about them and ballot initiatives.
-* Voting logistics including polling locations and hours.
+* Detailed candidate profiles, including information about them and ballot initiatives.
+* Voting logistics, including polling locations and hours.
 * Features to find the nearest polling booth locations.
 * Information about upcoming elections.
 * Tools and resources to help voters navigate logistical barriers, ultimately aiming to increase BIPOC voter turnout.
 
 # Installation
-* git clone https://github.com/BU-Spark/pitne-voter-app.git
-* cd pitne-voter-app 
-* npm install in pitne-voter-app
-    * cd..
-    * cd client
-    * npm install
-    * cd ..
-    * cd server
-    * npm install
-    * cd ..
-    * cd strapi 
-    * npm install
-    * cd ..
-* cd client
-* npm run dev
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/BU-Spark/pitne-voter-app.git
+    cd pitne-voter-app 
+    ```
 
-# Deployement 
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Navigate to the client directory, install dependencies, and run client :
+    ```bash
+    cd client
+    npm install
+    npm run dev
+    ```
+
+4. On a new terminal, navigate to the server directory, install dependencies, and run server:
+    ```bash
+    cd server
+    npm install
+    npm run dev
+    ```
+
+5. On a new terminal, navigate to the Strapi directory, install dependencies, and run Strapi:
+    ```bash
+    cd strapi 
+    npm install
+    npm start
+    ```
+
+## Environment Variables
+Create a `.env` file in the `server` directory (`cd server`) and add the following environment variables:
+
+``` bash
+GOOGLE_CIVIC_API_KEY=your_api_key_here
+```
+
+
+# Deployment 
 Access our deployed website through netlify at https://pitne-voter.netlify.app.
 
 Status of Deployment: 
@@ -48,10 +72,5 @@ Status of Deployment:
 * Arshnoor Kaur Chadha; Github: @arshnoorKC13
 * Elenaor Elkus; Github: @eelkus01
 * Jason Jiang; Github: @jasonjiang9142
-
-# Add Users {Additional Instructions}
-To add yourself to the repository, open a Pull Request modifying `COLLABORATORS`, entering your GitHub username in a newline.
-
-All Pull Requests must follow the Pull Request Template, with a title formatted like such `[Project Name]: <Descriptive Title>`
 
 
