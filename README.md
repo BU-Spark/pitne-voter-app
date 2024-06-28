@@ -61,12 +61,11 @@ Create a `.env` file in the `server` directory (`cd server`) and add the followi
 ```plaintext
 GOOGLE_CIVIC_API_KEY=your_api_key_here
 ```
+# Deployment
 
+Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
 
-# Deployment 
-Access our deployed website https://bostonvoter.com/
 [![Watch the video](https://img.youtube.com/vi/AIte6hS3cCc/0.jpg)](https://www.youtube.com/watch?v=AIte6hS3cCc&feature=youtu.be)
-
 
 # Collaborators 
 * Arshnoor Kaur Chadha - Github: @arshnoorKC13
