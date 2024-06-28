@@ -65,12 +65,13 @@ GOOGLE_CIVIC_API_KEY=your_api_key_here
 
 # Deployment 
 Access our deployed website https://bostonvoter.com/
+[![Watch the video](https://img.youtube.com/vi/AIte6hS3cCc/0.jpg)](https://www.youtube.com/watch?v=AIte6hS3cCc&feature=youtu.be)
 
 
 # Collaborators 
-* Arshnoor Kaur Chadha; Github: @arshnoorKC13
-* Elenaor Elkus; Github: @eelkus01
-* Jason Jiang; Github: @jasonjiang9142
+* Arshnoor Kaur Chadha - Github: @arshnoorKC13
+* Elenaor Elkus - Github: @eelkus01
+* Jason Jiang - Github: @jasonjiang9142
 
   
 # SnapShots
