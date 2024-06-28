@@ -65,7 +65,7 @@ GOOGLE_CIVIC_API_KEY=your_api_key_here
 ```
 
 
-# Deployement 
+# Deployment 
 Access our deployed website through netlify at https://pitne-voter.netlify.app.
 
 Status of Deployment: 
