@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #d1e4fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 640px) {
+    .text-6xl {
+        font-size: 3rem; /* Adjust as needed */
+    }
+    .text-2xl {
+        font-size: 1.5rem; /* Adjust as needed */
+    }
+    .w-24 {
+        width: 6rem; /* Adjust as needed */
+    }
+    .h-24 {
+        height: 6rem; /* Adjust as needed */
+    }
+    .p-4 {
+        padding: 1rem; /* Adjust as needed */
+    }
+    .mt-10 {
+        margin-top: 2.5rem; /* Adjust as needed */
+    }
+    .mt-4 {
+        margin-top: 1rem; /* Adjust as needed */
+    }
+}
+
+.bg-oval-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 0px ;
+  overflow: hidden; 
+}
+
+.bg-oval-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-40%, -50%) rotate(68deg);
+  width: 800%;
+  max-width: 1000px;
+  height: 122%;
+  background: white;
+  border-radius: 60%;
+  z-index: -1;
+}
+
+.people-card {
+  background-color: #2196f3; /* Default background color */
+  color: white; /* Text color */
+
+  /* Hover effect */
+  transition: background-color 0.3s ease;
+}
+
+.people-card:hover {
+  background-color: #1976d2; /* Blue color on hover */
+}
+
+
+.inline-block-child {
+  display: inline-block;
+}

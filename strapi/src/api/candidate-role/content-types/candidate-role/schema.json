@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "candidate_roles",
+  "info": {
+    "singularName": "candidate-role",
+    "pluralName": "candidate-roles",
+    "displayName": "Role_Description",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Role_Name": {
+      "type": "string"
+    },
+    "Role_Description": {
+      "type": "text"
+    }
+  }
+}

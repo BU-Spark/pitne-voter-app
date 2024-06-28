@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ballot_initiatives",
+  "info": {
+    "singularName": "ballot-initiative",
+    "pluralName": "ballot-initiatives",
+    "displayName": "BallotInitiative",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "District": {
+      "type": "enumeration",
+      "enum": [
+        "District 1",
+        "District 2",
+        "District 3",
+        "District 4",
+        "District 5",
+        "District 6",
+        "District 7",
+        "District 8",
+        "District 9",
+        "All Districts"
+      ],
+      "required": true,
+      "default": "All Districts"
+    },
+    "InitiativeName": {
+      "type": "text",
+      "required": true
+    },
+    "ProponentName": {
+      "type": "string",
+      "required": true
+    },
+    "ProponentEmail": {
+      "type": "email",
+      "required": true
+    },
+    "ProponentPhoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "WhatIsYes": {
+      "type": "text",
+      "required": true
+    },
+    "WhatIsNo": {
+      "type": "text",
+      "required": true
+    },
+    "ElectionName": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
