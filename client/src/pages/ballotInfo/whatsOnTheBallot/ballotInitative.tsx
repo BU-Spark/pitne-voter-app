@@ -131,7 +131,7 @@ export default function BallotInitiative() {
                             <Card className="flex-1 my-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote YES?</Typography>
-                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-8 lg:pl-16 md:pl-16 sm:pl-16 py-2">
                                         {item.WhatIsYes.split('\n').map((line, index) => (
                                             <li key={index}>{line}</li>
                                         ))}
@@ -143,7 +143,7 @@ export default function BallotInitiative() {
                             <Card className="flex-1 lg:my-8 mb-8" sx={{ backgroundColor: '#f4f4f4', minWidth: 275 }}>
                                 <CardContent>
                                     <Typography className="text-xl underline">What is a vote NO?</Typography>
-                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-16 py-2">
+                                    <ul className="list-disc list-outside text-lg pr-8 text-left pl-8 lg:pl-16 md:pl-16 sm:pl-16 py-2">
                                         {item.WhatIsNo.split('\n').map((line, index) => (
                                             <li key={index}>{line}</li>
                                         ))}
