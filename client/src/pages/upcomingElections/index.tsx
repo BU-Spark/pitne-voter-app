@@ -24,6 +24,8 @@ export default function UpcomingElections() {
     </div>
     <div className="mr-20">
       <img src="main.png" alt="main" style={{ width: '400px' }} />
+
+      
     </div>
   </div>
 </div>
