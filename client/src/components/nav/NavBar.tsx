@@ -59,11 +59,11 @@ function NavBar() {
 
 
   return (
-    <AppBar position="static" className="bg-transparent shadow-none text-gray-800 my-4">
+    <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* BELOW IS FOR STANDARD NAVBAR */}
-          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '26px', color: '#204cdc', animation: `${slideIn} 1s ease-out` }} /> {/* REPLACE WITH STAR LOGO */}
+          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '20px', color: '#204cdc' }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h6"
             noWrap
@@ -72,10 +72,10 @@ function NavBar() {
             sx={{
               display: { xs: 'none', md: 'none', lg: 'flex' },
               fontWeight: 700,
-              fontSize: '28px',
+              fontSize: '20px',
               color: '#204cdc',
               textDecoration: 'none',
-              animation: `${slideIn} 1s ease-out`, 
+             
             }}
             onClick={() => {
               handleClick('Upcoming Elections');
@@ -125,7 +125,12 @@ function NavBar() {
 
 
           {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
-          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '30px', color: '#204cdc',  animation: `${slideIn} 1s ease-out` }} /> {/* REPLACE WITH STAR LOGO */}
+          <Box sx={{
+                display: 'flex',
+                justifyContent: 'flex-end', // Align items to the right
+                alignItems: 'center', // Center items vertically
+               }}>
+          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '20px', color: '#204cdc',  justifyContent: 'flex-end', }} /> {/* REPLACE WITH STAR LOGO */}
           <Typography
             variant="h5"
             noWrap
@@ -136,24 +141,37 @@ function NavBar() {
               display: { xs: 'flex', md: 'flex', lg: 'none' },
               flexGrow: 1,
               fontWeight: 700,
-              fontSize: '35px',
+              fontSize: '20px',
               color: '#204cdc',
               textDecoration: 'none',
-              animation: `${slideIn} 1s ease-out`,
+              justifyContent: 'flex-end',
             }}
+
             onClick={() => {
               handleClick('Upcoming Elections');
-            }}
-          >
+            }} >
             Boston Voter
           </Typography>
+          </Box>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'none', lg: 'flex' }, justifyContent: 'right' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
-                className={`hover:underline hover:bg-transparent m-4 ${isActive(links[page]) ? 'bg-blue-700 rounded-full text-white px-2 hover:text-blue-700' : ''}`}
-                sx={{ my: 2, display: 'block' }}
+                className={`m-4 ${isActive(links[page]) ? 'border-b-4 border-red-600 text-blue-950 px-2 ' : ''}`}
+          
+
+              sx={{
+                 my: 2,
+                display: 'block',
+                transition: 'font-size 0.3s ease',
+                '&:hover': {
+                fontSize: '100%',
+                color: '#172554',
+                backgroundColor: 'transparent',
+                 },
+               }}
               >
                 {page}
               </Button>
