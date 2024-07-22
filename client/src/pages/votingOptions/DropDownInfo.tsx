@@ -59,14 +59,14 @@ const DropDownInfo = () => {
       <Grid container spacing={2} style={{ paddingLeft: '24px', paddingRight: '24px' }}>
         {dropdownData.map((item, index) => (
           <Grid item xs={12} sm={12} md={6} key={index}>
-            <Accordion className='bg-white'>
+            <Accordion className='bg-violet-100'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`panel${index}-content`}
                 id={`panel${index}-header`}
               >
                 {/* DROPDOWN TITLES */}
-                <Typography sx={{ color: '#1d4ed8', fontSize: '20px' }}>{item.title}</Typography>
+                <Typography sx={{ color: '#1e1b4b', fontSize: '20px' }}>{item.title}</Typography>
               </AccordionSummary>
 
               {/* CONTENT OF DROPDOWNS */}

@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 body {
-    background-color: #d1e4fa;
+    background-color: #f0f9ff;
     margin: 0;
     padding: 0;
+    color:#172554;
   }
 
   @media (max-width: 640px) {
@@ -32,7 +33,7 @@ body {
     }
 }
 
-.bg-oval-wrapper {
+/*.bg-oval-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
@@ -49,10 +50,10 @@ body {
   width: 800%;
   max-width: 1000px;
   height: 122%;
-  background: white;
+  background: rgba(255, 255, 255, 0.314);
   border-radius: 60%;
   z-index: -1;
-}
+}*/
 
 .people-card {
   background-color: #2196f3; /* Default background color */
@@ -70,3 +71,15 @@ body {
 .inline-block-child {
   display: inline-block;
 }
+
+
+.bg-gradient-custom {
+  background: #f0f9ff;
+  transition: box-shadow 0.3s; /* Smooth transition effect */
+}
+
+.bg-gradient-custom:hover {
+ 
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+

@@ -16,7 +16,7 @@ const PopUpBox = ({ open, onClose }: Props) => {
         }}>
             <DialogContent>
                 <p className='text-lg text-center mt-4'>
-                Ballot iniatives allow Massachusetts residents to propose new laws and amend the state constitution. Petitioners need
+                Ballot initiatives allow Massachusetts residents to propose new laws and amend the state constitution. Petitioners need
                 signatures from 10 registered voters to submit a question to the attorney general in August of an odd-numbered year,
                 aiming for the ballot in the next even-numbered year. After approval, petitioners must collect 74,574 signatures by
                 December for the question to appear on the following year&apos;s ballot.

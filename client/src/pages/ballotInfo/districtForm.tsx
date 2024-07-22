@@ -1,24 +1,17 @@
-/* Form asking for user address and getting council district from Google Civic
- * API. Note: API key is in .env file
-*/
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { localExpressURL, deployedExpressURL, setGlobalDistrictNum } from '@/common';
-
 
 // Set base URL for Axios
 const api = axios.create({
     baseURL: deployedExpressURL,
 });
 
-
 // On submit, set the district to be the result of api call
 interface DistrictFormProps {
     onFormSubmit: (district: string) => void;
 }
-
 
 const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
     // Functions and variables to set district data
@@ -27,13 +20,14 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
     const [districtNum, setDistrictNum] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null); // Error state
 
     // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
-
         // Reset past data
         event.preventDefault();
         setDistrictNum(null);
+        setError(null); // Reset error
 
         // Set address
         const address = `${street} ${city}, ${state} ${zip}`;
@@ -52,22 +46,20 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
                 setGlobalDistrictNum(data);
                 onFormSubmit(data);
             } else {
-                console.log("ERROR FETCHING DISTRICT - ensure address is within Boston bounds")
+                setError("ERROR FETCHING DISTRICT - ensure address is within Boston bounds");
             }
         } catch {
-            console.log("ERROR FETCHING DISTRICT - ensure address is within Boston bounds");
+            setError("ERROR FETCHING DISTRICT - ensure address is within Boston bounds");
         }
     };
-
 
     // Address form
     return (
         <div className='flex flex-col justify-center items-center p-4 flex-wrap'>
-
             {/* Address form */}
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
-                <Grid container spacing={2} >
-                    <Grid item xs={12} sm={6} >
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
                         <TextField
                             label="Street Number and Name"
                             variant="outlined"
@@ -118,6 +110,13 @@ const DistrictForm: React.FC<DistrictFormProps> = ({ onFormSubmit }) => {
                     </Button>
                 </div>
             </form>
+
+            {/* Error message */}
+            {error && (
+                <Typography color="error" className='mt-4'>
+                    {error}
+                </Typography>
+            )}
         </div>
     );
 };

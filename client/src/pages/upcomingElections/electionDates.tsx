@@ -67,6 +67,7 @@ export default function ElectionDates() {
                         <p className='text-xl'>No upcoming elections</p>
                     ) : (
                         <div className="flex items-center justify-center flex-wrap">
+                           
                             {sortedElectionDates.map((election, index) => (
                                 <ElectionCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate} />
                             ))}
