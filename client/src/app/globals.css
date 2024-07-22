@@ -75,11 +75,11 @@ body {
 
 .bg-gradient-custom {
   background: #f0f9ff;
-  transition: background 0.3s; /* Smooth transition effect */
+  transition: box-shadow 0.3s; /* Smooth transition effect */
 }
 
 .bg-gradient-custom:hover {
-  background: #e0f2fe; /* Fully opaque color on hover */
+ 
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
-
 

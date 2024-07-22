@@ -26,7 +26,7 @@ const VotingOptions = () => {
             </div>
 
             {/* Contact info of Boston Elections Department */}
-            <div className="p-10 text-center text-xl bg-blue-200">
+            <div className="p-10 text-center text-xl bg-sky-100">
                 <p>Need more information?</p>
                 <p>Contact Boston Elections Department:</p>
                 <strong>

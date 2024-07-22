@@ -55,7 +55,7 @@ export default function VoterInfo() {
             </div>
         </div>
        
-                <div className= 'p-4 pt-20 bg-blue-200'>
+                <div className= 'p-4 pt-20 bg-sky-100'>
                 
                     {/* Cards */}
             <div className='flex flex-col md:flex-row justify-center items-center p-4 '>
