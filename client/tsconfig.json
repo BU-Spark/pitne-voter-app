@@ -3,9 +3,13 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es6"
     ],
     "allowJs": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,  
+    "strictNullChecks": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,

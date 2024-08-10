@@ -148,25 +148,22 @@ export default function Candidate() {
     return (
         <>
             <header className="flex border-b border-solid border-b-white px-10 py-3"></header>
-
-            {/* Go Back button */}
-            <div className="mt-6">
+            {/* Actual candidate data */}
+            <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center bg-sky-100">
+            <div className="mt-20 m-10">
+                 {/* Go Back button */}
                 <button
                     type="button"
                     onClick={() => router.back()}
-                    className="rounded-full bg-[#d1e4fa] text-blue-700 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] max-w-[480px] lg:w-auto"
+                    className="rounded-full bg-[#d1e4fa] text-blue-700 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] max-w-[480px] lg:w-auto bg-transparent hover:bg-blue-200"
                 >
                     <ArrowBackIcon className="mr-4" />
-                    Go Back
+                  
                 </button>
             </div>
-
-
-            {/* Actual candidate data */}
-            <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center">
             {candidateData ? (
-                <div className="lg:px-36 md:px-10 sm:px-10 px-6 flex flex-1 justify-center pb-5">
-                    <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+                <div className="lg:px-36 md:px-10 sm:px-10 px-6 flex flex-1 justify-center pb-5 ">
+                   <div className="layout-content-container flex flex-col max-w-[960px] flex-1 bg-sky-50 rounded">
                         <div className="grid grid-cols-1 py-4">
                             <div className="flex justify-center lg:p-4 md:p-4 sm:p-4 md:col-span-3">
 
@@ -183,13 +180,13 @@ export default function Candidate() {
                                         </div>
                                         {/* Name, role, party */}
                                         <div className="flex flex-col justify-center text-center lg:text-left md:text-left">
-                                            <h1 className="pb-2 text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                            <h1 className="pb-2 text-3xl md:text-4xl lg:text-6xl font-bold mb-2 bg-blue-950 bg-clip-text text-transparent">
                                                 {candidateData?.Name}
                                             </h1>
-                                            <p className="text-blue-700 text-xl md:text-2xl leading-normal">
+                                            <p className="text-xl md:text-2xl leading-normal">
                                                 {candidateData?.Role}
                                             </p>
-                                            <p className="text-blue-700 text-xl md:text-2xl leading-normal">
+                                            <p className=" text-xl md:text-2xl leading-normal">
                                                 {candidateData?.Party}
                                             </p>
 
@@ -222,7 +219,7 @@ export default function Candidate() {
                         {/* Questions and Answers if filled out */}
                         {Object.entries(questionsAndAnswers) &&
                             <div className="flex flex-col justify-center items-center py-8 my-2">
-                                <p className="text-4xl font-semibold mb-4 text-center">Questions curated by the founder, journalist Yawu Miller</p>
+                               
                                 {Object.entries(questionsAndAnswers).map(([index, qa]) => (
                                     qa.question && qa.answer ? (
                                         <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md'>
@@ -237,11 +234,15 @@ export default function Candidate() {
                                                 <Typography className='mb-4 text-xl text-center'>{qa.answer}</Typography>
                                             </AccordionDetails>
                                         </Accordion>
+                                        
                                     ) : null
                                 ))}
+                                 <p className="font-semibold mb-4 text-center mt-10">Questions curated by the founder, journalist Yawu Miller.</p>
                             </div>
+                            
                         }
                     </div>
+                    
                 </div>
             ) : (null)}
             </div>

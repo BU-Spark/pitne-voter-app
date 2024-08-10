@@ -31,7 +31,7 @@ The Boston Voter App provides a comprehensive solution by offering:
 2. Install dependencies:
     ```bash
     npm install
-    ```
+    ``` 
 
 3. Navigate to the client directory, install dependencies, and start client server
     ```bash

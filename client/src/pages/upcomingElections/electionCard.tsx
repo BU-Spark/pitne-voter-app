@@ -43,8 +43,8 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     return (
         <div className="container mx-auto p-4">
             <div className="flex flex-col lg:flex-row gap-4">
-                <div className="event-card bg-gray-100 rounded-xl p-4 flex-1">
-                    <p className="font-semibold text-red-500 m-2 text-center text-xl">
+                <div className="event-card bg-white rounded-xl p-4 flex-1">
+                    <p className="font-semibold text-red-600 m-2 text-center text-xl">
                         {displayRegistrationDate} @ 5PM
                     </p>
                     <p className="m-2 text-center text-xl">
@@ -52,8 +52,8 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                     </p>
                 </div>
 
-                <div className="event-card bg-gray-100 rounded-xl p-4 flex-1">
-                    <p className="font-semibold text-red-500 m-2 text-center text-xl">
+                <div className="event-card bg-white rounded-xl p-4 flex-1">
+                    <p className="font-semibold text-red-600 m-2 text-center text-xl">
                         {displayElectionDate} @ 7AM - 8PM
                     </p>
                     <p className="m-2 text-center text-xl">
