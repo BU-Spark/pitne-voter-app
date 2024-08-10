@@ -94,7 +94,7 @@ export default function BallotInitiative() {
             });
             setFilteredData(curData);
         }
-    }, [globalDistrictNum, globalCurrElection, initiative]);
+    }, [initiative]);
 
 
     return (
