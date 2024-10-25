@@ -3,6 +3,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.19",
+    "@turf/turf": "^7.1.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -20,8 +21,9 @@
     "typescript": "^4.x.x"
   },
   "scripts": {
-    "dev": "nodemon --exec ts-node ./app/index.ts",
+    "dev": "nodemon --exec ts-node ./app/index.js",
     "build": "next build",
     "start": "next start"
-  }
+  },
+  "type": "module"
 }

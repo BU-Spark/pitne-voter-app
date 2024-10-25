@@ -12,7 +12,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "/app/*",
+    "/app/*", "app/index.js",
   ],
   "exclude": [
     "node_modules"

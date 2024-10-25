@@ -1,159 +1,176 @@
-/* Form asking for user address and getting polling location from Google Civic
- * API. Note: API key is in .env file
-*/
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Grid, TextField, Typography } from '@mui/material';
-import { Streetview } from '@mui/icons-material';
-import { deployedExpressURL, localExpressURL } from '@/common';
-
-
-// Set base URL for Axios
-const api = axios.create({
-    baseURL: deployedExpressURL, // Point this to server URL
-});
-
+import { Button, Grid, TextField, Typography, Select, MenuItem } from '@mui/material';
+import { localExpressURL } from '@/common';
+import { Score } from '@mui/icons-material';
 
 const AddressForm: React.FC = () => {
-    // Functions and variables to set polling data
-    const [street, setStreet] = useState('');
+    const [streetNumber, setStreetNumber] = useState('');
+    const [streetName, setStreetName] = useState('');
+    const [streetSuffix, setStreetSuffix] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
     const [zip, setZip] = useState('');
-    const [pollingLocation, setPollingLocation] = useState<string | null>(null);
+    interface PollingLocation {
+        USER_Ward: string;
+        USER_Precinct: string;
+        USER_Location2: string;
+        Match_addr: string;
+        USER_Voting_Roo: string;
+    }
+
+    const [pollingLocation, setPollingLocation] = useState<PollingLocation | null>(null);
+    const [htmlContent, setHtmlContent] = useState<string | null>(null); // <-- HTML state
     const [error, setError] = useState<string | null>(null);
-    const [pollingStreet, setPollingStreet] = useState<string | null>(null);
-    const [pollingCity, setPollingCity] = useState<string | null>(null);
-    const [pollingState, setPollingState] = useState<string | null>(null);
-    const [pollingZip, setPollingZip] = useState<string | null>(null);
-    const [pollingHours, setPollingHours] = useState<string | null>(null);
 
-    // Call API when address is submitted
+    const streetSuffixOptions = [
+        'ARTERY', 'AVE', 'BLVD', 'CIR', 'CT', 'DR', 'FRWY', 'HWY',
+        'LN', 'PARK', 'PKWY', 'PIKE', 'PL', 'RD', 'ST', 'SQ', 'TER', 'TRL', 'WAY'
+    ];
+
     const handleSubmit = async (event: React.FormEvent) => {
-
-        // Reset past data
         event.preventDefault();
-        setPollingLocation(null);
-        setPollingStreet(null);
-        setPollingCity(null);
-        setPollingState(null);
-        setPollingZip(null);
-        setPollingHours(null);
+        setPollingLocation(null)
+        setHtmlContent(null); // Reset previous content
         setError(null);
 
-        // Set address
-        const address = `${street} ${city}, ${state} ${zip}`;
-
         try {
-            const response = await api.get('/api/lookup', {
-                params: { address },
+            // CHANGE TO DEPLOYED URL BEFORE DEPLOYING
+            const response = await fetch(localExpressURL + 'api/precinct_info', {
+                method: 'POST',
+                body: JSON.stringify({
+                    number: streetNumber,
+                    street: streetName,
+                    suffix: streetSuffix,
+                    city: city,
+                    zip: zip
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
+            const data = await response.json();
+            setPollingLocation(data.properties);
 
-            const data = response.data;
 
-            // Set polling location and hours or error if no polls
-            if (data.pollingLocations && data.pollingLocations.length > 0) {
-                setPollingLocation(data.pollingLocations[0].address.locationName);
-                setPollingStreet(data.pollingLocations[0].address.line1);
-                setPollingCity(data.pollingLocations[0].address.city);
-                setPollingState(data.pollingLocations[0].address.state);
-                setPollingZip(data.pollingLocations[0].address.zip);
-                setPollingHours(data.pollingLocations[0].pollingHours);
-            } else {
-                setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
-            }
         } catch (error) {
-            setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
+            console.error('Error fetching data:', error);
         }
     };
 
-    // Address form and displayed polling location
     return (
-        <div className='flex flex-col justify-center items-center p-4 my-6 flex-wrap'>
+        <div>
+            <form onSubmit={handleSubmit} className="form-horizontal" id="MainForm" method="post">
 
-            {/* Address form */}
-            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
-                <Grid container spacing={2} >
-                    <Grid item xs={12} sm={6} >
+                {/* Address Fields */}
+                <div className="row Div">
+                    <h3>* Required: Enter your street address in 3 separate boxes</h3>
+                </div>
+
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={4}>
+                        <label htmlFor="txtStreetNo">1. Your street number:</label>
                         <TextField
-                            label="Street Number and Name"
-                            variant="outlined"
+                            id="txtStreetNo"
+                            value={streetNumber}
+                            onChange={(e) => setStreetNumber(e.target.value)}
+                            inputProps={{ maxLength: 6 }}
                             fullWidth
-                            value={street}
-                            onChange={(e) => setStreet(e.target.value)}
                             required
-                            sx={{ mb: 2 }}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={4}>
+                        <label htmlFor="txtStreetName">2. Your street name:</label>
                         <TextField
-                            label="City"
-                            variant="outlined"
+                            id="txtStreetName"
+                            value={streetName}
+                            onChange={(e) => setStreetName(e.target.value)}
+                            inputProps={{ maxLength: 25 }}
                             fullWidth
+                            required
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <label htmlFor="ddlStreetSuffix">3. Select street suffix:</label>
+                        <Select
+                            id="ddlStreetSuffix"
+                            value={streetSuffix}
+                            onChange={(e) => setStreetSuffix(e.target.value as string)}
+                            fullWidth
+                        >
+                            {streetSuffixOptions.map((suffix) => (
+                                <MenuItem key={suffix} value={suffix}>
+                                    {suffix}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+
+                    {/* City or Zip */}
+                    <Grid item xs={12} sm={6}>
+                        <label htmlFor="ddlCityTown">Your city or town:</label>
+                        <TextField
+                            id="ddlCityTown"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
-                            required
-                            sx={{ mb: 2 }}
+                            fullWidth
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                        <label htmlFor="txtZip">Zip code:</label>
                         <TextField
-                            label="State"
-                            variant="outlined"
-                            fullWidth
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            required
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Zipcode"
-                            variant="outlined"
-                            fullWidth
+                            id="txtZip"
                             value={zip}
                             onChange={(e) => setZip(e.target.value)}
-                            required
-                            sx={{ mb: 2 }}
+                            inputProps={{ maxLength: 5 }}
+                            fullWidth
                         />
                     </Grid>
                 </Grid>
+
+                {/* Submit and Reset */}
                 <div className="flex justify-center">
                     <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100'>
                         Submit Address
                     </Button>
                 </div>
+
+                {/* Polling Location or Error */}
+                {pollingLocation &&
+                    <div>
+                        <Typography variant="h6">Voting Information</Typography>
+                        <ul>
+                            <li><strong>Ward: </strong>{pollingLocation.USER_Ward}</li>
+                            <li><strong>Precinct: </strong>{pollingLocation.USER_Precinct}</li>
+                            <li><strong>Polling Location: </strong>{pollingLocation.USER_Location2}</li>
+                            <li><strong>Address: </strong>{pollingLocation.Match_addr}</li>
+                            <li><strong>Instructions: </strong>{pollingLocation.USER_Voting_Roo}</li>
+                            <li>
+                                <iframe
+                                    // src={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingLocation.USER_Ward}/${pollingLocation.USER_Precinct}`}
+                                    src={`http://localhost:8000/test.html`}
+                                    width="900"
+                                    height="600"
+                                    frameBorder="0"
+                                    allowFullScreen
+                                ></iframe>
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+                {error && <Typography variant="h6" color="error">{error}</Typography>}
             </form>
 
-            {/* Polling location if found, error if not */}
-            {(pollingLocation || error) && (
-                <div className='grid grid-cols-4 mt-8'>
-                    <div className='md:col-span-1 hidden md:block'>
-                    </div>
-                    <div className="space-y-4 lg:mx-10 md:mx-20 px-4 py-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
-                        <div className="space-y-4 w-full px-4">
-                            <div className="w-full px-4 text-left text-xl">
-                                {pollingLocation && (
-                                    <div>
-                                        <p>{pollingLocation}</p>
-                                        <p>{pollingStreet}</p>
-                                        <p>{pollingCity}, {pollingState}</p>
-                                        <p>{pollingZip}</p>
-                                        <br /><p><strong>Polling Hours: {pollingHours}</strong></p>
-                                    </div>
-                                )}
-                                {error && (
-                                    <Typography variant="h6" color="error">{error}</Typography>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='md:col-span-1 hidden md:block'>
-                    </div>
+            {/* Display raw HTML content */}
+            {htmlContent && (
+                <div className="mt-6">
+                    <Typography variant="h6">Polling Information:</Typography>
+                    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                 </div>
             )}
+
+            {/* Display error message */}
+            {error && <Typography variant="h6" color="error">{error}</Typography>}
         </div>
     );
 };
