@@ -34,18 +34,33 @@ export default function VoterInfo() {
     return (
         <div>
             {/* Header */}
+            <div className='text-left bg-sky-50 p-20 pt-40 pb-0'>
+                <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'>
+                    Your Voter Info
+                </h1>
+            </div>
+
+            {/* Left and Right Paragraphs */}
             <div className='flex flex-row'>
-                <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
-                    <div className='flex items-center'>
-                        <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'>Your Voter Info</h1>
-                    </div>
-                    <p className='font-semibold text-2xl pt-8'>
+                {/* Left Column */}
+                <div className='flex flex-col items-left px-20 py-8 text-left bg-sky-50 w-1/2'>
+                    <p className='font-semibold text-2xl'>
                         Here is everything you need to know about your
                         <br />
                         voter status and personal voting logistics!
                     </p>
                 </div>
+
+                {/* Right Column */}
+                <div className='flex flex-col items-left px-20 py-8 text-left bg-sky-50 w-1/2'>
+                    <p className='font-semibold text-2xl'>
+                        Enter your address below to view a personalized
+                        <br />
+                        voting ballot and polling location!
+                    </p>
+                </div>
             </div>
+
 
             {/* Polling location address form */}
             <div className='m-20 flex flex-col lg:flex-row'>

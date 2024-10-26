@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { deployedExpressURL, localExpressURL } from '@/common';
 
@@ -32,11 +33,44 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
 
+
+    // load saved data from cookies into the component's state variables
+    const loadSavedCookieData = () => {
+        const savedAddress = Cookies.get('address');
+        const savedPollingInfo = Cookies.get('pollingInfo');
+
+        if (savedAddress) {
+            const { street, city, zip } = JSON.parse(savedAddress);
+            setStreet(street);
+            setCity(city);
+            setZip(zip);
+        }
+
+        if (savedPollingInfo) {
+            setPollingInformation(JSON.parse(savedPollingInfo));
+        }
+    };
+
+    // save component state variables into cookies
+    const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
+        // Save address to cookie only if successful response (valid address)
+        Cookies.set('address', JSON.stringify({ street, city, zip }));
+
+        // Save polling information to cookie (expires in 7 days)
+        Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
+    };
+
+    // Load saved address and pollingInfo from cookies if available
+    useEffect(() => {
+        loadSavedCookieData();
+    }, []);
+
     // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         // Reset past data
+        /*
         setPollingInformation({
             location: null,
             street: null,
@@ -49,6 +83,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             ward: null,
             precinct: null,
         });
+        */
         setError(null);
 
         const address = `${street}, ${city}, ${zip}`;
@@ -59,8 +94,8 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             });
             const data = response.data.properties;
 
-            if (data.USER_Ward !== "" && data.USER_Precinct !== "") {
-                setPollingInformation({
+            if (data.USER_Ward != null && data.USER_Precinct != null) { // server responded
+                const pollingInfo: PollingInfo = {
                     location: data.USER_Location2,
                     street: data.USER_Location3,
                     city: data.USER_City,
@@ -68,15 +103,25 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                     zip: data.USER_ZipCode,
                     room: data.USER_Voting_Roo,
                     instructions: data.USER_HP_Entrance,
-
                     ward: data.USER_Ward,
                     precinct: data.USER_Precinct
-                });
+                };
+
+                // Update state with polling information
+                setPollingInformation(pollingInfo);
+
+                // save data to cookies
+                saveCookieData(street, city, zip, pollingInfo);
+
             } else {
                 setError('Invalid Address or Address Format or Unsupported Location');
             }
         } catch (error) {
-            setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
+            loadSavedCookieData();
+            setError("Server did not respond. Using cached data.");
+            /* setError('No polling location found for this address yet. \
+                Assigned polling locations are usually available 2-4 weeks before an election. \
+                Please check back later or re-enter the address to try again.'); */
         }
     };
 
