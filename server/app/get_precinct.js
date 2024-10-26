@@ -3,11 +3,24 @@ import Precincts from './Precinct_Boundaries_2024.json' assert { type: 'json' };
 import PollingLocations from './Polling_Locations_2022.json' assert { type: 'json' };
 
 const getPrecinct = async (address) => {    
+    console.log("address:", address);
     try {
         // Fetch coordinates for the address using the API key from the .env file
         const apiKey = process.env.GEOCODE_API_KEY; // Access environment variable directly
 
-        const response = await fetch(`https://geocode.maps.co/search?street=${address.number}+${address.street.replace(/\s/g, '+')}+${address.suffix}&city=Boston&state=MA&postalcode=${address.zip}&country=US&api_key=${apiKey}`);
+        // Split the address string by commas and trim whitespace
+        const [streetPart, cityPart, zipPart] = address.address.split(',').map(part => part.trim());
+
+        // Extract street number and name from the street part
+        const streetNumber = streetPart?.split(' ')[0] || "UnknownNumber";
+        const streetName = streetPart?.split(' ').slice(1).join('+') || "UnknownStreet";
+        const city = cityPart || "Boston"; // Default to Boston if city is missing
+        const state = "MA"; // Assuming it's always in Massachusetts
+        const zip = zipPart || "UnknownZip"; // Provide a default zip if missing
+        const country = "US";
+
+        // Construct the API URL with parsed address components
+        const response = await fetch(`https://geocode.maps.co/search?street=${streetNumber}+${streetName}&city=${city}&state=${state}&postalcode=${zip}&country=${country}&api_key=${apiKey}`);
         const data = await response.json();
 
         // Create a point using the coordinates

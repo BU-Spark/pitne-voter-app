@@ -7,7 +7,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import getPrecinct from './get_precinct.js';
 
-dotenv.config(); 
+dotenv.config();
 
 const app = express();
 
@@ -18,16 +18,25 @@ const port = process.env.PORT || 3001;
 app.use(cors()); // Needed to send data back to frontend
 app.use(bodyParser.json());
 
-// API call for precinct info
-app.post('/api/precinct_info', async (req, res) => {
-    const address = req.body;
-    //console.log("address = ", address);
 
-    // TODO: Add code to get precinct info from address
-    const precinct_info = await getPrecinct(address);
-    console.log("precinct_info = ", precinct_info);
-    return res.status(200).json(precinct_info);
+
+// API call for precinct info
+app.get('/api/precinct_info', async (req, res) => {
+    const address = req.query;
+
+    if (!address) {
+        return res.status(400).json({ error: 'Address is required' });
+    }
+
+    try {
+        const precinct_info = await getPrecinct(address);
+        return res.status(200).json(precinct_info);
+
+    } catch (error) {
+        return res.status(500).json({ error: 'Error fetching polling location' });
+    }
 });
+
 
 /************************************************************* MOST LIKELY UNUSED CODE **************************************************/
 
