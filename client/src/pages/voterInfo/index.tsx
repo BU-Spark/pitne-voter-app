@@ -117,19 +117,21 @@ export default function VoterInfo() {
 
                                 {/* Second Column Content */}
                                 <div className="space-y-2 text-center">
-                                    <a
-                                        href={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingInfo.ward}/${pollingInfo.precinct}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-600 underline text-xl"
-                                    >
-                                        View Your Ballot
-                                        <img
-                                            src="/sample_ballot.png" // Replace with the actual image path
-                                            alt="Preview of the ballot website"
-                                            className="w-full rounded-lg shadow-lg"
-                                        />
-                                    </a>
+                                {pollingInfo && (
+                                        <a
+                                            href={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingInfo.ward}/${pollingInfo.precinct}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 underline text-xl"
+                                        >
+                                            View Your Ballot
+                                            <img
+                                                src="/sample_ballot.png" // Replace with the actual image path
+                                                alt="Preview of the ballot website"
+                                                className="w-full rounded-lg shadow-lg"
+                                            />
+                                        </a>
+                                    )}
                                 </div>
 
                             </div>

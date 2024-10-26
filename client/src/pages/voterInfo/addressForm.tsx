@@ -53,12 +53,16 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
 
     // save component state variables into cookies
     const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
-        // Save address to cookie only if successful response (valid address)
-        Cookies.set('address', JSON.stringify({ street, city, zip }));
+        const consent = Cookies.get('cookieConsent');
+        if (consent === 'accepted') {  // Check if cookieConsent is 'accepted'
+            // Save address to cookie only if successful response (valid address)
+            Cookies.set('address', JSON.stringify({ street, city, zip }));
 
-        // Save polling information to cookie (expires in 7 days)
-        Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
+            // Save polling information to cookie (expires in 7 days)
+            Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
+        }
     };
+
 
     // Load saved address and pollingInfo from cookies if available
     useEffect(() => {
