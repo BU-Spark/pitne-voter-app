@@ -3,7 +3,7 @@ import Precincts from './Precinct_Boundaries_2024.json' assert { type: 'json' };
 import PollingLocations from './Polling_Locations_2022.json' assert { type: 'json' };
 
 const getPrecinct = async (address) => {    
-    console.log("address:", address);
+    console.log("address from get_precinct.js:", address);
     try {
         // Fetch coordinates for the address using the API key from the .env file
         const apiKey = process.env.GEOCODE_API_KEY; // Access environment variable directly
@@ -48,10 +48,10 @@ const getPrecinct = async (address) => {
             }
         }
 
-        console.log(point);
-        console.log('User Precinct: ', user_precinct);
-        console.log('User Ward: ', user_ward);
-        console.log('User Polling Location: ', user_polling_location);
+        // console.log(point);
+        // console.log('User Precinct: ', user_precinct);
+        // console.log('User Ward: ', user_ward);
+        // console.log('User Polling Location: ', user_polling_location);
         
         return user_polling_location;
     } catch (error) {
