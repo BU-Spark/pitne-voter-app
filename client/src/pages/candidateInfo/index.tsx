@@ -9,6 +9,7 @@ interface Candidate {
         Party: string;
         ElectionName: string;
         Bio?: string;
+        Bio: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
@@ -19,6 +20,7 @@ interface Candidate {
 // Component for Candidate Information Page
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
+    const [candidates, setCandidates] = useState<Candidate[]>([]); //holds array of candiate objects
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -27,6 +29,7 @@ export default function CandidateInfo() {
             console.log("Fetching candidate data...");
             try {
                 const response = await fetch(`https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot`);
+                const response = await fetch(`https://pitne-voter-app-production.up.railway.app/api/candidates`);
                 console.log("API Response Status:", response.status);
 
                 if (response.ok) {
