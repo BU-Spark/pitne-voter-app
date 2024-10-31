@@ -8,7 +8,7 @@ interface Candidate {
         District: string;
         Party: string;
         ElectionName: string;
-        Bio: string;
+        Bio?: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
@@ -26,7 +26,7 @@ export default function CandidateInfo() {
         const fetchCandidateData = async () => {
             console.log("Fetching candidate data...");
             try {
-                const response = await fetch(`https://pitne-voter-app-production.up.railway.app/api/candidates`);
+                const response = await fetch(`https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot`);
                 console.log("API Response Status:", response.status);
 
                 if (response.ok) {
@@ -34,8 +34,20 @@ export default function CandidateInfo() {
                     console.log("Fetched data:", data);
 
                     if (data.data && data.data.length > 0) {
-                        const fetchedCandidates: Candidate[] = data.data;
-                        console.log("Fetched Candidates:", fetchedCandidates);
+                        // Map through fetched candidates to add the Headshot URL
+                        const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
+                            const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
+                                ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
+                                : undefined;
+                            return {
+                                ...candidate,
+                                attributes: {
+                                    ...candidate.attributes,
+                                    PhotoURL: headshotUrl, // Add headshot URL to PhotoURL attribute
+                                },
+                            };
+                        });
+                        console.log("Fetched Candidates with Headshot URL:", fetchedCandidates);
                         setCandidates(fetchedCandidates);
                     } else {
                         console.warn("No candidate data available.");
