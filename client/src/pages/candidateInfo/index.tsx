@@ -80,60 +80,62 @@ export default function CandidateInfo() {
     if (error) return <p>{error}</p>;
 
     return (
-        <div className="candidate-profile">
-            {candidates.length > 0 ? (
-                candidates.map(candidate => (
-                    <div 
-                        key={candidate.id} 
-                        className="candidate-card" 
-                        style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', cursor: 'pointer', borderRadius: '5px' }} 
-                        onClick={() => toggleExpand(candidate.id)}
-                    >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div>
-                                <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
-                                <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+        <div style={{ paddingTop: '60px' }}> {/* Added padding here */}
+            <div className="candidate-profile">
+                {candidates.length > 0 ? (
+                    candidates.map(candidate => (
+                        <div 
+                            key={candidate.id} 
+                            className="candidate-card" 
+                            style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', cursor: 'pointer', borderRadius: '5px' }} 
+                            onClick={() => toggleExpand(candidate.id)}
+                        >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
+                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                </div>
+                                {candidate.attributes.PhotoURL && (
+                                    <img 
+                                        src={candidate.attributes.PhotoURL} 
+                                        alt={candidate.attributes.Name} 
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }} // Fixed size and object-fit for uniformity
+                                    />
+                                )}
                             </div>
-                            {candidate.attributes.PhotoURL && (
-                                <img 
-                                    src={candidate.attributes.PhotoURL} 
-                                    alt={candidate.attributes.Name} 
-                                    style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }} // Fixed size and object-fit for uniformity
-                                />
+
+                            {/* Expandable Details */}
+                            {expandedCandidateId === candidate.id && (
+                                <div className="candidate-details" style={{ marginTop: '10px' }}>
+                                    <p><strong>District:</strong> {candidate.attributes.District}</p>
+                                    <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
+                                    <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
+
+                                    <div className="questionnaire-section">
+                                        <h3>Questionnaire</h3>
+                                        {Array.from({ length: 10 }).map((_, i) => {
+                                            const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
+                                            const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
+                                            const question = candidate.attributes[questionKey];
+                                            const answer = candidate.attributes[answerKey];
+                                            return (
+                                                question && answer ? (
+                                                    <div key={`q-${i}`}>
+                                                        <p><strong>{question}</strong></p>
+                                                        <p>{answer}</p>
+                                                    </div>
+                                                ) : null
+                                            );
+                                        })}
+                                    </div>
+                                </div>
                             )}
                         </div>
-
-                        {/* Expandable Details */}
-                        {expandedCandidateId === candidate.id && (
-                            <div className="candidate-details" style={{ marginTop: '10px' }}>
-                                <p><strong>District:</strong> {candidate.attributes.District}</p>
-                                <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
-                                <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
-
-                                <div className="questionnaire-section">
-                                    <h3>Questionnaire</h3>
-                                    {Array.from({ length: 10 }).map((_, i) => {
-                                        const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
-                                        const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
-                                        const question = candidate.attributes[questionKey];
-                                        const answer = candidate.attributes[answerKey];
-                                        return (
-                                            question && answer ? (
-                                                <div key={`q-${i}`}>
-                                                    <p><strong>{question}</strong></p>
-                                                    <p>{answer}</p>
-                                                </div>
-                                            ) : null
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p>No candidates available.</p>
-            )}
+                    ))
+                ) : (
+                    <p>No candidates available.</p>
+                )}
+            </div>
         </div>
     );
 }
