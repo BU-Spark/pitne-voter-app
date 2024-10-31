@@ -75,21 +75,38 @@ export default function CandidateInfo() {
     if (error) return <p>{error}</p>;
 
     return (
-        <div className="candidate-profile">
+        <div className="candidate-profile p-20 bg-sky-50">
+            <div className = 'flex flex-row'>
+               { /* <div className=" mt-40 m-20 mr-0">
+               <img src="icon2.png" alt="Pattern" className='w-auto h-20 '/>
+               </div>
+                 */}
+               <div className='flex flex-col items-left p-20 pt-40  text-left  bg-sky-50'>
+                <div className='flex items-center'>
+                <h1 className='text-blue-700 font-bold text-6xl bg-blue-700  bg-clip-text text-transparent'>LEARN. PLAN.</h1>
+            
+                </div>
+
+                <p className='font-semibold text-2xl pt-8 '>   Explore the elections, candidates, and crutial
+                <br />
+                issues personalized to your community. </p>
+               </div>
+            </div>
+
             {candidates.length > 0 ? (
                 candidates.map(candidate => (
-                    <div key={candidate.id} className="candidate-card">
-                        <h1>{candidate.attributes.Name}</h1>
+                    <div key={candidate.id} className="candidate-card p-8 m-4 bg-white text-blue-700 border border-blue-800 rounded-lg shadow-md">
+                        <h1 className="text-3xl font-bold mb-4">{candidate.attributes.Name}</h1>
                         {candidate.attributes.PhotoURL && (
-                            <img src={candidate.attributes.PhotoURL} alt={candidate.attributes.Name} />
+                            <img src={candidate.attributes.PhotoURL} alt={candidate.attributes.Name} className="w-32 h-32 rounded-full mb-4" />
                         )}
-                        <p><strong>District:</strong> {candidate.attributes.District}</p>
-                        <p><strong>Party:</strong> {candidate.attributes.Party}</p>
-                        <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
-                        <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
+                        <p className="text-lg mb-2"><strong>District:</strong> {candidate.attributes.District}</p>
+                        <p className="text-lg mb-2"><strong>Party:</strong> {candidate.attributes.Party}</p>
+                        <p className="text-lg mb-2"><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
+                        <p className="text-lg mb-4"><strong>Bio:</strong> {candidate.attributes.Bio}</p>
                         
-                        <div className="questionnaire-section">
-                            <h2>Questionnaire</h2>
+                        <div className="questionnaire-section bg-gray-100 p-4 rounded-lg mt-6">
+                            <h2 className="text-2xl font-semibold mb-4">Questionnaire</h2>
                             {Array.from({ length: 10 }).map((_, i) => {
                                 const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
                                 const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
@@ -97,9 +114,9 @@ export default function CandidateInfo() {
                                 const answer = candidate.attributes[answerKey];
                                 return (
                                     question && answer ? (
-                                        <div key={`q-${i}`}>
-                                            <p><strong>{question}</strong></p>
-                                            <p>{answer}</p>
+                                        <div key={`q-${i}`} className="mb-4">
+                                            <p className="font-semibold text-lg">{question}</p>
+                                            <p className="text-md">{answer}</p>
                                         </div>
                                     ) : null 
                                 );
@@ -108,8 +125,8 @@ export default function CandidateInfo() {
                     </div>
                 ))
             ) : (
-                <p>No candidates available.</p>
+                <p className="text-xl text-center text-gray-700 mt-10">No candidates available.</p>
             )}
         </div>
-    );
+    );    
 }
