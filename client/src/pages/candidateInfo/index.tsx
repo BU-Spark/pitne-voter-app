@@ -81,6 +81,20 @@ export default function CandidateInfo() {
 
     return (
         <div style={{ paddingTop: '60px' }}> {/* Added padding here */}
+            {/* Header */}
+            <div className="flex flex-row">
+                <div className="flex flex-col items-left p-20 pt-40 text-left bg-sky-50">
+                    <div className="flex items-center">
+                        <h1 className="text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent">LEARN. PLAN.</h1>
+                    </div>
+                    <p className="font-semibold text-2xl pt-8">
+                        Explore the election, candidates, and crutial
+                        <br />
+                        issues personalized to your community!
+                    </p>
+                </div>
+            </div>
+
             <div className="candidate-profile">
                 {candidates.length > 0 ? (
                     candidates.map(candidate => (
