@@ -80,10 +80,10 @@ export default function CandidateInfo() {
     if (error) return <p>{error}</p>;
 
     return (
-        <div style={{ paddingTop: '60px' }}> {/* Added padding here */}
+        <div style={{ paddingTop: '60px' }}> 
             {/* Header */}
             <div className="flex flex-row">
-                <div className="flex flex-col items-left p-20 pt-40 text-left bg-sky-50">
+                <div className="flex flex-col items-left p-20 pl-20 pt-40 text-left bg-sky-50">
                     <div className="flex items-center">
                         <h1 className="text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent">LEARN. PLAN.</h1>
                     </div>
@@ -95,13 +95,19 @@ export default function CandidateInfo() {
                 </div>
             </div>
 
-            <div className="candidate-profile">
+            <div className="candidate-profile px-20 pt-10">
                 {candidates.length > 0 ? (
                     candidates.map(candidate => (
                         <div 
                             key={candidate.id} 
                             className="candidate-card" 
-                            style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', cursor: 'pointer', borderRadius: '5px' }} 
+                            style={{ backgroundColor: 'White',
+                                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
+                                     border: '2px solid #ccc', 
+                                     padding: '10px', 
+                                     margin: '10px', 
+                                     cursor: 'pointer', 
+                                     borderRadius: '5px' }} 
                             onClick={() => toggleExpand(candidate.id)}
                         >
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
