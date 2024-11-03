@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { deployedExpressURL, localExpressURL } from '@/common';
 
 // Set base URL for Axios
@@ -32,6 +32,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
+    const [saveAddress, setSaveAddress] = useState(false); // Track checkbox state
 
 
     // load saved data from cookies into the component's state variables
@@ -44,6 +45,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             setStreet(street);
             setCity(city);
             setZip(zip);
+            setSaveAddress(true); // Set checkbox to checked if an address is saved
         }
 
         if (savedPollingInfo) {
@@ -51,12 +53,17 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         }
     };
 
-    // save component state variables into cookies
+    // Save component state variables into cookies
     const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
         const consent = Cookies.get('cookieConsent');
-        if (consent === 'accepted') {  // Check if cookieConsent is 'accepted'
-            // Save address to cookie only if successful response (valid address)
-            Cookies.set('address', JSON.stringify({ street, city, zip }));
+        if (consent === 'accepted') {  // Only save if consent is given
+
+            if (saveAddress) {
+                // Save address to cookie only if successful response (valid address)
+                Cookies.set('address', JSON.stringify({ street, city, zip }));
+            } else {
+                Cookies.remove('address');
+            }
 
             // Save polling information to cookie (expires in 7 days)
             Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
@@ -68,6 +75,17 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     useEffect(() => {
         loadSavedCookieData();
     }, []);
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isChecked = event.target.checked;
+        setSaveAddress(isChecked);
+
+        // If checkbox is unchecked, remove the saved address from cookies
+        if (!isChecked) {
+            Cookies.remove('address');
+        }
+    };
+
 
     // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
@@ -142,7 +160,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             onChange={(e) => setStreet(e.target.value)}
                             required
                             type="text"
-                            sx={{ mb: 2 }}
+                            sx={{ mb: 2, backgroundColor: 'white' }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -153,7 +171,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             type="text"
-                            sx={{ mb: 2 }}
+                            sx={{ mb: 2, backgroundColor: 'white' }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -165,7 +183,19 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             onChange={(e) => setZip(e.target.value)}
                             required
                             type="number"
-                            sx={{ mb: 2 }}
+                            sx={{ mb: 2, backgroundColor: 'white' }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={saveAddress}
+                                    onChange={handleCheckboxChange}
+                                    color="primary"
+                                />
+                            }
+                            label="Remember Address"
                         />
                     </Grid>
                 </Grid>
