@@ -1,35 +1,42 @@
 // components/nav/NewsletterForm.tsx
 
-'use client';
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography } from '@mui/material';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { Box, TextField, Button, Typography, CircularProgress } from '@mui/material';
 
 const NewsletterForm: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const [emailInput, setEmailInput] = useState('');
+    const [buttonLoading, setButtonLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Basic email validation
-        if (!email) {
-            setError("Email is required.");
-            return;
-        }
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setError("Please enter a valid email.");
+
+        if (!emailInput) {
+            setError("Please enter an email address.");
             return;
         }
 
-        // Reset error and set success message
+        setButtonLoading(true);
         setError(null);
-        setSuccess("Thank you for subscribing!");
+        setSuccess(null);
 
-        // Here, you would typically handle the submission to your newsletter service (e.g., Mailchimp)
-        console.log("Submitting email:", email);
+        try {
+            const res = await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email: emailInput }) });
+            const data = await res.json();
+      
+            if (data.success) {
+                setSuccess("Successfully subscribed!");
+            } else {
+              throw new Error(data?.error || 'Something went wrong, please try again later');
+            }
+      
+          } catch (e) {
+            setError((e as Error).message)
+          }
 
-        // Clear the email input
-        setEmail('');
+        setEmailInput('');
+        setButtonLoading(false);
     };
 
     return (
@@ -37,22 +44,30 @@ const NewsletterForm: React.FC = () => {
             <Typography variant="h6" gutterBottom>
                 Sign Up for Our Newsletter
             </Typography>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleFormSubmit}>
                 <TextField
                     type="email"
                     label="Email Address"
                     variant="outlined"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={emailInput}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setEmailInput(e.target.value)}
                     required
                     sx={{ mb: 2, width: '300px' }}
                 />
-                <Button type="submit" variant="contained" color="primary">
-                    Subscribe
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={buttonLoading}
+                    sx={{ minWidth: '100px', height: '56px' }}
+                >
+                    {buttonLoading ? <CircularProgress size={24} color="inherit" /> : "Subscribe"}
                 </Button>
+
             </form>
-            {error && <Typography color="error">{error}</Typography>}
-            {success && <Typography color="success.main">{success}</Typography>}
+            {error && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
+            {success && <Typography color="success.main" sx={{ mt: 2 }}>{success}</Typography>}
         </Box>
     );
 };
