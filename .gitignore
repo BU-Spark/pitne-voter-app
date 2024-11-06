@@ -171,3 +171,5 @@ $RECYCLE.BIN/
 node_modules
 
 pitne-voter-app.code-workspace
+
+**/.env
