@@ -23,11 +23,12 @@ const slideIn = keyframes`
   }
 `;
 
-const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Ballot Info', 'Drop Box Locations'];
+const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Ballot Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
   'Upcoming Elections': '/upcomingElections',
   'Your Voter Info': '/voterInfo',
   'Voting Options': '/votingOptions',
+  'Candidate Info': '/candidateInfo',
   'Ballot Info': '/ballotInfo',
   'Drop Box Locations': '/dropBoxLocations'
 };
