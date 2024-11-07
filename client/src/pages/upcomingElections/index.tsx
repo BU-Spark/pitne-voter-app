@@ -82,7 +82,7 @@ export default function UpcomingElections() {
             {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center  bg-sky-100'>
                 <h1 className='font-semibold text-lg mt-16 m-4'>You may be wondering...</h1>
-                <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
+                <ButtonFill name='What&#39;s on the Ballot' link='/voterInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
                 <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
             </div>
         </div>
