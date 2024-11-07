@@ -52,14 +52,14 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                     </p>
                 </div>
 
-                <div className="event-card bg-white rounded-xl p-4 flex-1">
+                {/*<div className="event-card bg-white rounded-xl p-4 flex-1">
                     <p className="font-semibold text-red-600 m-2 text-center text-xl">
                         {displayElectionDate} @ 7AM - 8PM
                     </p>
                     <p className="m-2 text-center text-xl">
                         <strong>{electionName}</strong>
                     </p>
-                </div>
+                </div>*/}
             </div>
         </div>
     )
