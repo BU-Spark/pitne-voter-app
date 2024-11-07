@@ -33,7 +33,7 @@ export default function DropBoxLocations() {
             {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center my-6 '>
                 <h1 className='font-semibold text-lg'>You may be wondering...</h1>
-                <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' className='p-4 m-4 rounded-full  bg-blue-700 text-white hover:bg-blue-800' />
+                <ButtonFill name='What&#39;s on the Ballot' link='/voterInfo' className='p-4 m-4 rounded-full  bg-blue-700 text-white hover:bg-blue-800' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full  bg-blue-700 text-white hover:bg-blue-800' />
             </div>
         </div>
