@@ -1,5 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import SubscribePopup from '../../components/subscribePopup/SubscribePopup';
+
 
 interface Candidate {
     id: number;
@@ -22,6 +24,7 @@ export default function CandidateInfo() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [expandedCandidateId, setExpandedCandidateId] = useState<number | null>(null); // State for managing expanded candidate
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -36,21 +39,21 @@ export default function CandidateInfo() {
 
                     if (data.data && data.data.length > 0) {
                         // Map through fetched candidates to add the Headshot URL
-                        const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
-                            const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
-                                ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
-                                : undefined;
-                            return {
-                                ...candidate,
-                                attributes: {
-                                    ...candidate.attributes,
+                    const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
+                        const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
+                            ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
+                            : undefined;
+                        return {
+                            ...candidate,
+                            attributes: {
+                                ...candidate.attributes,
                                     PhotoURL: headshotUrl, // Add headshot URL to PhotoURL attribute
-                                },
-                            };
-                        });
+                            },
+                        };
+                    });
                         console.log("Fetched Candidates with Headshot URL:", fetchedCandidates);
-                        setCandidates(fetchedCandidates);
-                    } else {
+                    setCandidates(fetchedCandidates);
+                } else {
                         console.warn("No candidate data available.");
                         setError("No candidate data available.");
                     }
@@ -67,7 +70,19 @@ export default function CandidateInfo() {
         };
 
         fetchCandidateData();
+
+        // Show popup after a delay (e.g., 1 seconds)
+        const popupTimer = setTimeout(() => {
+            setShowPopup(true);
+        }, 1000);
+
+        // Cleanup timer when component unmounts
+        return () => clearTimeout(popupTimer);
     }, []);
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
 
     console.log("Loading state:", isLoading);
     console.log("Candidates data:", candidates);
@@ -88,7 +103,7 @@ export default function CandidateInfo() {
                         <h1 className="text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent">LEARN. PLAN.</h1>
                     </div>
                     <p className="font-semibold text-2xl pt-8">
-                        Explore the election, candidates, and crutial
+                        Explore the election, candidates, and crucial
                         <br />
                         issues personalized to your community!
                     </p>
@@ -156,6 +171,9 @@ export default function CandidateInfo() {
                     <p>No candidates available.</p>
                 )}
             </div>
+
+            {/* Subscribe Popup */}
+            {showPopup && <SubscribePopup onClose={handleClosePopup} />}
         </div>
     );
 }
