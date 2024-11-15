@@ -171,12 +171,12 @@ export default function VoterInfo() {
                 </div>
 
                 {/* Footer */}
-                <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
+                {/* <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
                     <h1 className='font-semibold text-xl w-full sm:w-1/2 md:w-1/2 lg:w-1/2'>
                         Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.
                     </h1>
                     <ButtonFill name='Ballot Info' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white hover:bg-blue-800' />
-                </div>
+                </div> */}
             </div>
         </div>
     );
