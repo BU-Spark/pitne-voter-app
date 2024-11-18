@@ -16,12 +16,22 @@ interface Candidate {
     };
 }
 
+const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other'];
+const electionTypes = ['Local', 'State', 'National'];
+const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
+
 // Component for Candidate Information Page
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [expandedCandidateId, setExpandedCandidateId] = useState<number | null>(null); // State for managing expanded candidate
+    const [expandedCandidateId, setExpandedCandidateId] = useState<number | null>(null);
+    const [filteredCandidates, setFilteredCandidates] = useState<Candidate[]>([]);
+    const [filters, setFilters] = useState({
+        party: '',
+        electionType: '',
+        district: '',
+    });
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -35,7 +45,6 @@ export default function CandidateInfo() {
                     console.log("Fetched data:", data);
 
                     if (data.data && data.data.length > 0) {
-                        // Map through fetched candidates to add the Headshot URL
                         const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
                             const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
                                 ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
@@ -44,12 +53,13 @@ export default function CandidateInfo() {
                                 ...candidate,
                                 attributes: {
                                     ...candidate.attributes,
-                                    PhotoURL: headshotUrl, // Add headshot URL to PhotoURL attribute
+                                    PhotoURL: headshotUrl,
                                 },
                             };
                         });
                         console.log("Fetched Candidates with Headshot URL:", fetchedCandidates);
                         setCandidates(fetchedCandidates);
+                        setFilteredCandidates(fetchedCandidates); // Set initial filtered candidates
                     } else {
                         console.warn("No candidate data available.");
                         setError("No candidate data available.");
@@ -69,132 +79,132 @@ export default function CandidateInfo() {
         fetchCandidateData();
     }, []);
 
-    console.log("Loading state:", isLoading);
-    console.log("Candidates data:", candidates);
-
     const toggleExpand = (candidateId: number) => {
-        setExpandedCandidateId(prevId => (prevId === candidateId ? null : candidateId)); // Toggle expand/collapse
+        setExpandedCandidateId(prevId => (prevId === candidateId ? null : candidateId));
     };
+
+    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value,
+        }));
+    };
+
+    // Filter candidates based on selected filters
+    useEffect(() => {
+        const filtered = candidates.filter(candidate => {
+            const matchesParty = filters.party ? candidate.attributes.Party === filters.party : true;
+            const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
+            const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
+            return matchesParty && matchesElection && matchesDistrict;
+        });
+        setFilteredCandidates(filtered);
+    }, [filters, candidates]);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-    
-    <div style={{ paddingTop: '60px' }}> 
-        {/* Header */}
-        <div className="flex flex-row">
-            <div className="flex flex-col items-left p-20 pl-20 pt-40 text-left bg-sky-50">
-                <div className="flex items-center">
-                    <h1 className="text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent">LEARN. PLAN.</h1>
+        <div style={{ display: 'flex', paddingTop: '60px' }}>
+            {/* Sidebar for Filters */}
+            <div style={{ width: '25%', padding: '20px', backgroundColor: '#f0f0f0', boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)' }}>
+                <h2>Filter Candidates</h2>
+                
+                <div>
+                    <label htmlFor="party-filter">Political Affiliation:</label>
+                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {parties.map(party => (
+                            <option key={party} value={party}>{party}</option>
+                        ))}
+                    </select>
                 </div>
-                <p className="font-semibold text-2xl pt-8">
-                    Explore the election, candidates, and crucial
-                    <br />
-                    issues personalized to your community!
-                </p>
+                
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor="election-filter">Election Type:</label>
+                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {electionTypes.map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
+                </div>
+                
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor="district-filter">District:</label>
+                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {districts.map(district => (
+                            <option key={district} value={district}>{district}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div className="candidate-profile px-20 pt-10">
-            {candidates.length > 0 ? (
-                candidates.map(candidate => (
-                    <div 
-                        key={candidate.id} 
-                        className="candidate-card" 
-                        style={{ 
-                            backgroundColor: 'White',
-                            boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
-                            border: '2px solid #ccc', 
-                            padding: '10px', 
-                            margin: '10px', 
-                            cursor: 'pointer', 
-                            borderRadius: '5px',
-                            transition: 'all 0.3s ease-in-out' 
-                        }} 
-                        onClick={() => toggleExpand(candidate.id)}>
-
-                        {/* Candidate Image, Name, Party, and Arrow */}
+            {/* Main Content */}
+            <div style={{ width: '75%', padding: '20px' }}>
+                {filteredCandidates.length > 0 ? (
+                    filteredCandidates.map(candidate => (
                         <div 
-                            style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'space-between', 
-                                gap: '15px'
-                            }}>
-                            {/* Candidate Image */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            key={candidate.id} 
+                            className="candidate-card" 
+                            style={{ backgroundColor: 'White',
+                                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
+                                     border: '2px solid #ccc', 
+                                     padding: '10px', 
+                                     margin: '10px', 
+                                     cursor: 'pointer', 
+                                     borderRadius: '5px' }} 
+                            onClick={() => toggleExpand(candidate.id)}
+                        >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
+                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                </div>
                                 {candidate.attributes.PhotoURL && (
                                     <img 
                                         src={candidate.attributes.PhotoURL} 
                                         alt={candidate.attributes.Name} 
-                                        style={{ 
-                                            width: '100px', 
-                                            height: '100px', 
-                                            objectFit: 'cover', 
-                                            borderRadius: '5px' 
-                                        }}
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
                                     />
                                 )}
+                            </div>
 
-                                <div>
-                                    <h1 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h1>
-                                    <h2 style={{ margin: '5px 0' }}>{candidate.attributes.Party}</h2>
-                                    <h2 style={{ margin: '5px 0' }}>{candidate.attributes.ElectionName}</h2>
+                            {/* Expandable Details */}
+                            {expandedCandidateId === candidate.id && (
+                                <div className="candidate-details" style={{ marginTop: '10px' }}>
+                                    <p><strong>District:</strong> {candidate.attributes.District}</p>
+                                    <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
+                                    <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
+
+                                    <div className="questionnaire-section">
+                                        <h3>Questionnaire</h3>
+                                        {Array.from({ length: 10 }).map((_, i) => {
+                                            const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
+                                            const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
+                                            const question = candidate.attributes[questionKey];
+                                            const answer = candidate.attributes[answerKey];
+                                            return (
+                                                question && answer ? (
+                                                    <div key={`q-${i}`}>
+                                                        <p><strong>{question}</strong></p>
+                                                        <p>{answer}</p>
+                                                    </div>
+                                                ) : null
+                                            );
+                                        })}
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Dropdown Arrow */}
-                            <div
-                                style={{
-                                    fontSize: '20px',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                {expandedCandidateId === candidate.id ? '▲' : '▼'}
-                            </div>
+                            )}
                         </div>
-
-                        {/* Expandable Details */}
-                        {expandedCandidateId === candidate.id && (
-                            <div 
-                                className="candidate-details" 
-                                style={{ 
-                                    marginTop: '10px', 
-                                    maxHeight: expandedCandidateId === candidate.id ? '500px' : '0px',
-                                    overflow: 'hidden',
-                                    transition: 'max-height 0.3s ease',
-                                }}
-                            >
-                                <p><strong>District:</strong> {candidate.attributes.District}</p>
-                                <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
-
-                                <div className="questionnaire-section">
-                                    <h3>Questionnaire</h3>
-                                    {Array.from({ length: 10 }).map((_, i) => {
-                                        const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
-                                        const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
-                                        const question = candidate.attributes[questionKey];
-                                        const answer = candidate.attributes[answerKey];
-                                        return (
-                                            question && answer ? (
-                                                <div key={`q-${i}`}>
-                                                    <p><strong>{question}</strong></p>
-                                                    <p>{answer}</p>
-                                                </div>
-                                            ) : null
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p>No candidates available.</p>
-            )}
+                    ))
+                ) : (
+                    <p>No candidates available.</p>
+                )}
+            </div>
         </div>
-    </div>
-
     );
 }
+
