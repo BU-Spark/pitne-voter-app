@@ -196,14 +196,14 @@ export default function CandidateInfo() {
                                         />
                                     )}
                                     <div>
-                                        <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
+                                        <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
                                         <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
                                         <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
                                     </div>
                                 </div>
                                 {/* Arrow Icon */}
                                 <div style={{ fontSize: '20px', marginLeft: '10px' }}>
-                                    ▼
+                                {expandedCandidateId === candidate.id ? '▲' : '▼'}
                                 </div>
                             </div>
 
