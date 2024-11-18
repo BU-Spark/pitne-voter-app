@@ -17,7 +17,7 @@ interface Candidate {
 }
 
 const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other'];
-const electionTypes = ['Local', 'State', 'National'];
+const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
 const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
 
 // Component for Candidate Information Page
@@ -149,34 +149,43 @@ export default function CandidateInfo() {
                         <div 
                             key={candidate.id} 
                             className="candidate-card" 
-                            style={{ backgroundColor: 'White',
-                                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
-                                     border: '2px solid #ccc', 
-                                     padding: '10px', 
-                                     margin: '10px', 
-                                     cursor: 'pointer', 
-                                     borderRadius: '5px' }} 
+                            style={{ 
+                                backgroundColor: 'White',
+                                boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
+                                border: '2px solid #ccc', 
+                                padding: '10px', 
+                                margin: '10px', 
+                                cursor: 'pointer', 
+                                borderRadius: '5px',
+                            }} 
                             onClick={() => toggleExpand(candidate.id)}
                         >
+                            {/* Candidate Card Layout */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div>
-                                    <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
-                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    {candidate.attributes.PhotoURL && (
+                                        <img 
+                                            src={candidate.attributes.PhotoURL} 
+                                            alt={candidate.attributes.Name} 
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
+                                        />
+                                    )}
+                                    <div>
+                                        <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
+                                        <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                        <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
+                                    </div>
                                 </div>
-                                {candidate.attributes.PhotoURL && (
-                                    <img 
-                                        src={candidate.attributes.PhotoURL} 
-                                        alt={candidate.attributes.Name} 
-                                        style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
-                                    />
-                                )}
+                                {/* Arrow Icon */}
+                                <div style={{ fontSize: '20px', marginLeft: '10px' }}>
+                                    ▼
+                                </div>
                             </div>
 
                             {/* Expandable Details */}
                             {expandedCandidateId === candidate.id && (
-                                <div className="candidate-details" style={{ marginTop: '10px' }}>
+                                <div className="candidate-details" style={{ marginTop: '10px', padding: '10px', borderTop: '1px solid #ccc' }}>
                                     <p><strong>District:</strong> {candidate.attributes.District}</p>
-                                    <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
                                     <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
 
                                     <div className="questionnaire-section">
@@ -207,4 +216,3 @@ export default function CandidateInfo() {
         </div>
     );
 }
-
