@@ -106,14 +106,27 @@ export default function CandidateInfo() {
     if (error) return <p>{error}</p>;
 
     return (
-        <div style={{ display: 'flex', paddingTop: '60px' }}>
+        <div style={{ display: 'flex', paddingTop: '120px' }}>
             {/* Sidebar for Filters */}
-            <div style={{ width: '25%', padding: '20px', backgroundColor: '#f0f0f0', boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)' }}>
-                <h2>Filter Candidates</h2>
+            <div style={{ 
+                width: '25%', 
+                padding: '20px', 
+                backgroundColor: '#f0f0f0', 
+                boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)', 
+                borderRadius: '10px',
+                marginRight: '20px'
+            }}>
+                <h2 style={{ marginBottom: '20px' }}>Filter Candidates</h2>
                 
-                <div>
-                    <label htmlFor="party-filter">Political Affiliation:</label>
-                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange}>
+                <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="party-filter" style={{ display: 'block', marginBottom: '5px' }}>Political Affiliation:</label>
+                    <select 
+                        id="party-filter" 
+                        name="party" 
+                        value={filters.party} 
+                        onChange={handleFilterChange} 
+                        style={{ width: '100%', padding: '8px' }}
+                    >
                         <option value="">All</option>
                         {parties.map(party => (
                             <option key={party} value={party}>{party}</option>
@@ -121,9 +134,15 @@ export default function CandidateInfo() {
                     </select>
                 </div>
                 
-                <div style={{ marginTop: '10px' }}>
-                    <label htmlFor="election-filter">Election Type:</label>
-                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange}>
+                <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="election-filter" style={{ display: 'block', marginBottom: '5px' }}>Election Type:</label>
+                    <select 
+                        id="election-filter" 
+                        name="electionType" 
+                        value={filters.electionType} 
+                        onChange={handleFilterChange} 
+                        style={{ width: '100%', padding: '8px' }}
+                    >
                         <option value="">All</option>
                         {electionTypes.map(type => (
                             <option key={type} value={type}>{type}</option>
@@ -131,9 +150,15 @@ export default function CandidateInfo() {
                     </select>
                 </div>
                 
-                <div style={{ marginTop: '10px' }}>
-                    <label htmlFor="district-filter">District:</label>
-                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange}>
+                <div style={{ marginBottom: '15px' }}>
+                    <label htmlFor="district-filter" style={{ display: 'block', marginBottom: '5px' }}>District:</label>
+                    <select 
+                        id="district-filter" 
+                        name="district" 
+                        value={filters.district} 
+                        onChange={handleFilterChange} 
+                        style={{ width: '100%', padding: '8px' }}
+                    >
                         <option value="">All</option>
                         {districts.map(district => (
                             <option key={district} value={district}>{district}</option>
@@ -153,10 +178,10 @@ export default function CandidateInfo() {
                                 backgroundColor: 'White',
                                 boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
                                 border: '2px solid #ccc', 
-                                padding: '10px', 
-                                margin: '10px', 
+                                padding: '15px', 
+                                marginBottom: '20px', 
                                 cursor: 'pointer', 
-                                borderRadius: '5px',
+                                borderRadius: '10px',
                             }} 
                             onClick={() => toggleExpand(candidate.id)}
                         >
@@ -167,7 +192,13 @@ export default function CandidateInfo() {
                                         <img 
                                             src={candidate.attributes.PhotoURL} 
                                             alt={candidate.attributes.Name} 
-                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
+                                            style={{ 
+                                                width: '80px', 
+                                                height: '80px', 
+                                                objectFit: 'cover', 
+                                                borderRadius: '5px', 
+                                                marginRight: '15px' 
+                                            }}
                                         />
                                     )}
                                     <div>
@@ -184,33 +215,25 @@ export default function CandidateInfo() {
 
                             {/* Expandable Details */}
                             {expandedCandidateId === candidate.id && (
-                                <div className="candidate-details" style={{ marginTop: '10px', padding: '10px', borderTop: '1px solid #ccc' }}>
+                                <div className="candidate-details" style={{ marginTop: '15px', padding: '10px', borderTop: '1px solid #ccc' }}>
                                     <p><strong>District:</strong> {candidate.attributes.District}</p>
                                     <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
 
                                     <div className="questionnaire-section">
                                         <h3>Questionnaire</h3>
-                                        {Array.from({ length: 10 }).map((_, i) => {
-                                            const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
-                                            const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
-                                            const question = candidate.attributes[questionKey];
-                                            const answer = candidate.attributes[answerKey];
-                                            return (
-                                                question && answer ? (
-                                                    <div key={`q-${i}`}>
-                                                        <p><strong>{question}</strong></p>
-                                                        <p>{answer}</p>
-                                                    </div>
-                                                ) : null
-                                            );
-                                        })}
+                                        {Array.from({ length: 5 }, (_, index) => (
+                                            <div key={index}>
+                                                <strong>Question {index + 1}:</strong>
+                                                <p>{candidate.attributes[`Q${index + 1}`]}</p>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             )}
                         </div>
                     ))
                 ) : (
-                    <p>No candidates available.</p>
+                    <p>No candidates found matching the selected filters.</p>
                 )}
             </div>
         </div>
