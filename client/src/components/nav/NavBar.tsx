@@ -6,7 +6,6 @@
 import * as React from 'react';
 import { AppBar, Box, Button, MenuItem, Toolbar, IconButton, Typography, Menu, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
 import { keyframes } from '@mui/system';
 import { usePathname } from 'next/navigation';
@@ -31,11 +30,10 @@ const links: Record<string, string> = {
   'Drop Box Locations': '/dropBoxLocations'
 };
 
-
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -48,42 +46,25 @@ function NavBar() {
   const handleClick = (page: string) => {
     handleCloseNavMenu();
     router.push(links[page]);
-  }
+  };
 
-
-    // Below is testing for active page link
-    const currentPath = usePathname();
-    const isActive = (path: string | null) => {
-        return currentPath === path;
-    }
-
+  const currentPath = usePathname();
+  const isActive = (path: string | null) => {
+    return currentPath === path;
+  };
 
   return (
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* BELOW IS FOR STANDARD NAVBAR */}
-          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '20px', color: '#204cdc' }} /> {/* REPLACE WITH STAR LOGO */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/upcomingElections"
-            sx={{
-              display: { xs: 'none', md: 'none', lg: 'flex' },
-              fontWeight: 700,
-              fontSize: '20px',
-              color: '#204cdc',
-              textDecoration: 'none',
-             
-            }}
-            onClick={() => {
-              handleClick('Upcoming Elections');
-            }}
-        
-          >
-            Boston Voter
-          </Typography>
+          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 2 }}>
+            <img
+              src="/bva_logo.png"
+              alt="Boston Voter Logo"
+              style={{ height: '125px', cursor: 'pointer' }}
+              onClick={() => handleClick('Upcoming Elections')}
+            />
+          </Box>
 
           {/* Page links below */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
@@ -123,55 +104,23 @@ function NavBar() {
             </Menu>
           </Box>
 
-
-          {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
-          <Box sx={{
-                display: 'flex',
-                justifyContent: 'flex-end', // Align items to the right
-                alignItems: 'center', // Center items vertically
-               }}>
-          <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '20px', color: '#204cdc',  justifyContent: 'flex-end', }} /> {/* REPLACE WITH STAR LOGO */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'flex', lg: 'none' },
-              flexGrow: 1,
-              fontWeight: 700,
-              fontSize: '20px',
-              color: '#204cdc',
-              textDecoration: 'none',
-              justifyContent: 'flex-end',
-            }}
-
-            onClick={() => {
-              handleClick('Upcoming Elections');
-            }} >
-            Boston Voter
-          </Typography>
-          </Box>
-
+          {/* Desktop navigation */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'none', lg: 'flex' }, justifyContent: 'right' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
                 className={`m-4 ${isActive(links[page]) ? 'border-b-4 border-red-600 text-blue-950 px-2 ' : ''}`}
-          
-
-              sx={{
-                 my: 2,
-                display: 'block',
-                transition: 'font-size 0.3s ease',
-                '&:hover': {
-                fontSize: '100%',
-                color: '#172554',
-                backgroundColor: 'transparent',
-                 },
-               }}
+                sx={{
+                  my: 2,
+                  display: 'block',
+                  transition: 'font-size 0.3s ease',
+                  '&:hover': {
+                    fontSize: '100%',
+                    color: '#172554',
+                    backgroundColor: 'transparent',
+                  },
+                }}
               >
                 {page}
               </Button>
@@ -182,5 +131,5 @@ function NavBar() {
     </AppBar>
   );
 }
-export default NavBar;
 
+export default NavBar;
