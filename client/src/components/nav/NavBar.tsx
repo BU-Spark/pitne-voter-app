@@ -57,11 +57,11 @@ function NavBar() {
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 2 }}>
+          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 0 }}>
             <img
-              src="/bva_logo.png"
+              src="/LogoTest.svg"
               alt="Boston Voter Logo"
-              style={{ height: '125px', cursor: 'pointer' }}
+              style={{ height: '60px', cursor: 'pointer', padding: 10 }}
               onClick={() => handleClick('Upcoming Elections')}
             />
           </Box>
