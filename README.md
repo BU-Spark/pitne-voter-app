@@ -7,7 +7,7 @@ Collaborators:
 * Jason Jiang; Github: @jasonjiang9142
 
 # Description
-The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC voters who face significant barriers to voting in local elections. 
+The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC (Black, Indigenous, People of color) voters who face significant barriers to voting in local elections. 
 
 # Problem Statement
 Many news organizations provide articles or voting guides around the election, but they are often difficult to find, last minute, and represent a narrow perspective around candidates. Additionally, most election resources are around larger races with little coverage or few resources available for local elections, where candidates have the potential to impact people’s lives more directly. BIPOC voters often have the lowest voting rates, especially in municipal elections, for a variety of reasons including lack of information and logistical barriers such as work hours and family duties. This project aims to remedy that for BIPOC voters in Boston.
@@ -59,8 +59,19 @@ The Boston Voter App provides a comprehensive solution by offering:
 Create a `.env` file in the `server` directory (`cd server`) and add the following environment variables:
 
 ```plaintext
-GOOGLE_CIVIC_API_KEY=your_api_key_here
+GEOCODE_API_KEY=your_geocode_api_key_here
 ```
+This API key is for resolving an address input by the client into latitude and longitude coordinates.
+
+Create a `.env` file in the `client` directory (`cd client`) and add the following environment variables:
+
+```plaintext
+MAILCHIMP_AUDIENCE_ID = your_audience_id_here
+MAILCHIMP_API_KEY = your_mailchimp_api_key_here
+MAILCHIMP_REGION = your_mailchimp_region
+```
+This API key is for enabling Mailchimp, a service that allows a site admin to collect email addresses input by site users
+
 # Deployment
 
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
