@@ -22,52 +22,139 @@ const NewsletterForm: React.FC = () => {
         setSuccess(null);
 
         try {
-            const res = await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email: emailInput }) });
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: emailInput }),
+            });
+
             const data = await res.json();
-      
+
             if (data.success) {
                 setSuccess("Successfully subscribed!");
             } else {
-              throw new Error(data?.error || 'Something went wrong, please try again later');
+                throw new Error(data?.error || 'Something went wrong, please try again later.');
             }
-      
-          } catch (e) {
-            setError((e as Error).message)
-          }
+        } catch (e) {
+            const errorMessage = (e as Error).message;
+        
+            if (errorMessage.includes("is already a list member")) {
+                setError(`${emailInput} is already subscribed!`);
+            } else {
+                setError(errorMessage);
+            }
+        }
 
         setEmailInput('');
         setButtonLoading(false);
     };
 
     return (
-        <Box sx={{ mt: 4, textAlign: 'center', backgroundColor: '#f0f4f8', p: 4, borderRadius: '8px' }}>
-            <Typography variant="h6" gutterBottom>
-                Sign Up for Our Newsletter
-            </Typography>
-            <form onSubmit={handleFormSubmit}>
-                <TextField
-                    type="email"
-                    label="Email Address"
-                    variant="outlined"
-                    value={emailInput}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setEmailInput(e.target.value)}
-                    required
-                    sx={{ mb: 2, width: '300px' }}
-                />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    disabled={buttonLoading}
-                    sx={{ minWidth: '100px', height: '56px' }}
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: '#e6e8f7',
+                padding: '3rem',
+                borderRadius: '8px',
+                position: 'relative',
+                overflow: 'hidden',
+                mt: 4,
+                gap: { xs: '2rem', sm: '0' },
+            }}
+        >
+            {/* "Stay Posted!" Section */}
+            <Box
+                sx={{
+                    flex: 1,
+                    textAlign: { xs: 'center', sm: 'right' },
+                    zIndex: 1,
+                    paddingRight: { xs: '0', sm: '4rem' },
+                }}
+            >
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontWeight: 'bold',
+                        color: '#ff0000',
+                        textShadow: '5px 5px 0 #ffffff',
+                        mb: 2,
+                    }}
                 >
-                    {buttonLoading ? <CircularProgress size={24} color="inherit" /> : "Subscribe"}
-                </Button>
+                    Stay Posted!
+                </Typography>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        color: '#1D4ED8',
+                        fontSize: '1.2rem',
+                    }}
+                >
+                    Help us keep you updated with our newsletter 📰
+                </Typography>
+            </Box>
 
-            </form>
-            {error && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
-            {success && <Typography color="success.main" sx={{ mt: 2 }}>{success}</Typography>}
+            {/* Email Input Form */}
+            <Box
+                component="form"
+                onSubmit={handleFormSubmit}
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column', // Stack input, button, and message vertically
+                    gap: '1rem',
+                    zIndex: 1,
+                    paddingLeft: { xs: '0', sm: '4rem' },
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' }, // Stack input and button on small screens
+                        gap: '1rem',
+                    }}
+                >
+                    <TextField
+                        type="email"
+                        placeholder="Your email address"
+                        variant="outlined"
+                        value={emailInput}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setEmailInput(e.target.value)}
+                        required
+                        sx={{
+                            width: '300px',
+                            backgroundColor: '#ffffff',
+                            borderRadius: '8px',
+                        }}
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={buttonLoading}
+                        sx={{
+                            backgroundColor: '#0056ff',
+                            color: '#ffffff',
+                            height: '56px',
+                            padding: '0 24px',
+                            fontWeight: 'bold',
+                            textTransform: 'none',
+                            borderRadius: '8px',
+                            '&:hover': {
+                                backgroundColor: '#003bbb',
+                            },
+                        }}
+                    >
+                        {buttonLoading ? <CircularProgress size={24} color="inherit" /> : "Count Me In!"}
+                    </Button>
+                </Box>
+
+                {/* Display Success or Error Message Below the Form */}
+                {error && <Typography color="error" sx={{ mt: 1, textAlign: 'left' }}>{error}</Typography>}
+                {success && <Typography color="success.main" sx={{ mt: 1, textAlign: 'left' }}>{success}</Typography>}
+            </Box>
         </Box>
     );
 };
