@@ -23,15 +23,13 @@ export default function UpcomingElections() {
       <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections <br/> to help you navigate your voting journey.</p>
     </div>
     <div className="mr-20">
-      <img src="main.png" alt="main" style={{ width: '400px' }} />
-
-
+      <img src="/OldStateHouse.svg" alt="StatehouseLogo"/>
     </div>
   </div>
 </div>
 
             {/* Cards */}
-<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20 '>
+<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20'>
         <CustomCard
             image="frame2.png"
             disableTitle={true}     
@@ -43,7 +41,7 @@ export default function UpcomingElections() {
     <div className="m-10"></div>
 
         <CustomCard
-            image="frame1.png"
+            image="/HowToRegisterIcon.svg"
             disableTitle={true}     
             description="Unsure if you're registered to vote? Ensure you're ready for the upcoming election season."
             className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200'
