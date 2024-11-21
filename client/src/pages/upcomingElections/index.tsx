@@ -19,7 +19,19 @@ export default function UpcomingElections() {
             <div className='flex flex-col items-left p-20 pt-40 text-left <div bg-sky-50'>
   <div className='flex flex-col sm:flex-row items-center justify-between'>
     <div>
-      <h1 className='text-blue-700 font-bold lg:text-7xl text-5xl bg-blue-700 bg-clip-text text-transparent'> LET&#39;S VOTE! </h1>
+       {/* Rectangle with absolute positioning */}
+       <div
+          style={{
+            width: '600px',
+            height: '226px',
+            position: 'absolute',
+            top: '240px',
+            backgroundColor: '#1D4ED8',
+            left: '0',
+          }}
+        />
+      <h1><img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }}/></h1>
+     
       <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections <br/> to help you navigate your voting journey.</p>
     </div>
     <div className="mr-20">
