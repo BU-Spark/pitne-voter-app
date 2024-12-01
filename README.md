@@ -5,6 +5,7 @@ Collaborators:
 * Arshnoor Kaur Chadha; Github: @arshnoorKC13
 * Eleanor Elkus; Github: @eelkus01
 * Jason Jiang; Github: @jasonjiang9142
+* Remus Harris; Github: @remus287
 
 # Description
 The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC (Black, Indigenous, People of color) voters who face significant barriers to voting in local elections. 
@@ -83,6 +84,8 @@ Access our deployed website [here](https://bostonvoter.com/) or https://bostonvo
 * Elenaor Elkus - Github: @eelkus01
 * Jason Jiang - Github: @jasonjiang9142
 * Remus Harris - Github: @remus287
+
+# For more detailed technical documentation visit https://github.com/BU-Spark/pitne-voter-app/wiki
   
 # Snapshots
 
