@@ -73,9 +73,9 @@ MAILCHIMP_REGION = your_mailchimp_region
 
 NEXT_PUBLIC_EXPRESS_ENV=local
 NEXT_PUBLIC_STRAPI_ENV=local
-
-Note: Using the keywork local uses the local Express or Strapi server. Leaving the value blank or using any other value uses the deployment url. The local+deployed urls are specified in common/index.tsx
 ```
+Note: Using the keywork local uses the local Express or Strapi server. Leaving the value blank or using any other value uses the deployment url. The local+deployed urls are specified in common/index.tsx
+
 This API key is for enabling Mailchimp, a service that allows a site admin to collect email addresses input by site users
 
 # Deployment
