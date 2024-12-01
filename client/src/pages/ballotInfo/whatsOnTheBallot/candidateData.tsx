@@ -5,7 +5,7 @@
 
 'use client'
 import { useEffect, useState } from 'react';
-import { localCandidateAPI, deployedCandidateAPI, localCandidateRoleAPI, deployedCandidateRoleAPI, globalDistrictNum, globalCurrElection } from '@/common';
+import { CandidateAPI, CandidateRoleAPI, globalDistrictNum, globalCurrElection } from '@/common';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -57,7 +57,7 @@ export default function CandidateData() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(deployedCandidateAPI + '?populate=*', {
+                const response = await fetch(CandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function CandidateData() {
         // Get candidate role from strapi
         const getData = async () => {
             try {
-                const response = await fetch(deployedCandidateRoleAPI, {
+                const response = await fetch(CandidateRoleAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

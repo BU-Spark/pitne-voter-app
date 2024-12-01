@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
+import { BostonMunicipalAPI } from '@/common';
 
 type Props = {
     deadline: String;
@@ -23,7 +23,7 @@ export default function DeadlineToRegister() {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedBostonMunicipalAPI, {
+                const response = await fetch(BostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

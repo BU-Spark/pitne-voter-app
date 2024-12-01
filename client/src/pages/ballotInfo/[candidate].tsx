@@ -5,7 +5,7 @@
 
 import React, { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { localCandidateAPI, deployedCandidateAPI } from '@/common';
+import { CandidateAPI } from '@/common';
 import { all } from 'axios';
 import ButtonFillEx from '@/components/button/ButtonFillEx';
 import { Accordion, AccordionDetails, AccordionSummary, Link, Typography } from '@mui/material';
@@ -78,7 +78,7 @@ export default function Candidate() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await fetch(deployedCandidateAPI + '?populate=*', {
+                const response = await fetch(CandidateAPI + '?populate=*', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

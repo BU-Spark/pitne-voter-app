@@ -4,7 +4,7 @@
 
 'use client';
 import { useState, useEffect } from 'react';
-import { localBallotInitiativeAPI, deployedBallotInitiativeAPI } from '@/common';
+import { BallotInitiativeAPI } from '@/common';
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -50,7 +50,7 @@ export default function BallotInitiative() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch(deployedBallotInitiativeAPI, {
+                const res = await fetch(BallotInitiativeAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

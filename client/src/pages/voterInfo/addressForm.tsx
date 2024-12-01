@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
-import { deployedExpressURL, localExpressURL } from '@/common';
+import { ExpressURL } from '@/common';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: localExpressURL, // Point this to server URL
+    baseURL: ExpressURL, // Point this to server URL
 });
 
 interface PollingInfo {
