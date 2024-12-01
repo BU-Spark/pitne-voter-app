@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import { localExpressURL, deployedExpressURL, setGlobalDistrictNum } from '@/common';
+import { ExpressURL, setGlobalDistrictNum } from '@/common';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: deployedExpressURL,
+    baseURL: ExpressURL,
 });
 
 // On submit, set the district to be the result of api call
