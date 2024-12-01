@@ -70,6 +70,11 @@ Create a `.env` file in the `client` directory (`cd client`) and add the followi
 MAILCHIMP_AUDIENCE_ID = your_audience_id_here
 MAILCHIMP_API_KEY = your_mailchimp_api_key_here
 MAILCHIMP_REGION = your_mailchimp_region
+
+NEXT_PUBLIC_EXPRESS_ENV=local
+NEXT_PUBLIC_STRAPI_ENV=local
+
+Note: Using the keywork local uses the local Express or Strapi server. Leaving the value blank or using any other value uses the deployment url. The local+deployed urls are specified in common/index.tsx
 ```
 This API key is for enabling Mailchimp, a service that allows a site admin to collect email addresses input by site users
 
