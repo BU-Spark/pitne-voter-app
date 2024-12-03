@@ -33,7 +33,7 @@ export default function UpcomingElections() {
         />
       <h1><img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }}/></h1>
      
-      <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections <br/> to help you navigate your voting journey.</p>
+      <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey.</p>
     </div>
     <div className="mr-20">
       <img src="/OldStateHouse.svg" alt="StatehouseLogo"/>
