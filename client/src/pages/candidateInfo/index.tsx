@@ -20,12 +20,10 @@ const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other
 const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
 const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
 
-// Component for Candidate Information Page
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [expandedCandidateId, setExpandedCandidateId] = useState<number | null>(null);
     const [filteredCandidates, setFilteredCandidates] = useState<Candidate[]>([]);
     const [filters, setFilters] = useState({
         party: '',
@@ -35,15 +33,11 @@ export default function CandidateInfo() {
 
     useEffect(() => {
         const fetchCandidateData = async () => {
-            console.log("Fetching candidate data...");
             try {
                 const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot');
-                console.log("API Response Status:", response.status);
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Fetched data:", data);
-
                     if (data.data && data.data.length > 0) {
                         const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
                             const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
@@ -57,19 +51,15 @@ export default function CandidateInfo() {
                                 },
                             };
                         });
-                        console.log("Fetched Candidates with Headshot URL:", fetchedCandidates);
                         setCandidates(fetchedCandidates);
-                        setFilteredCandidates(fetchedCandidates); // Set initial filtered candidates
+                        setFilteredCandidates(fetchedCandidates);
                     } else {
-                        console.warn("No candidate data available.");
                         setError("No candidate data available.");
                     }
                 } else {
-                    console.error('Failed to fetch candidate data', response.statusText);
                     setError('Failed to fetch candidate data');
                 }
-            } catch (fetchError) {
-                console.error('Error:', fetchError);
+            } catch {
                 setError('An error occurred while fetching candidate data');
             } finally {
                 setIsLoading(false);
@@ -79,8 +69,9 @@ export default function CandidateInfo() {
         fetchCandidateData();
     }, []);
 
-    const toggleExpand = (candidateId: number) => {
-        setExpandedCandidateId(prevId => (prevId === candidateId ? null : candidateId));
+    const handleCandidateClick = (name: string) => {
+        const formattedName = name.replace(/\s+/g, '');
+        window.location.href = `https://bostonvoter.com/ballotInfo/${formattedName}`;
     };
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -99,7 +90,6 @@ export default function CandidateInfo() {
         });
     };
 
-    // Filter candidates based on selected filters
     useEffect(() => {
         const filtered = candidates.filter(candidate => {
             const matchesParty = filters.party ? candidate.attributes.Party === filters.party : true;
@@ -183,55 +173,22 @@ export default function CandidateInfo() {
                                 cursor: 'pointer', 
                                 borderRadius: '5px',
                             }} 
-                            onClick={() => toggleExpand(candidate.id)}
+                            onClick={() => handleCandidateClick(candidate.attributes.Name)}
                         >
-                            {/* Candidate Card Layout */}
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    {candidate.attributes.PhotoURL && (
-                                        <img 
-                                            src={candidate.attributes.PhotoURL} 
-                                            alt={candidate.attributes.Name} 
-                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
-                                        />
-                                    )}
-                                    <div>
-                                        <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
-                                        <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
-                                        <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
-                                    </div>
-                                </div>
-                                {/* Arrow Icon */}
-                                <div style={{ fontSize: '20px', marginLeft: '10px' }}>
-                                {expandedCandidateId === candidate.id ? '▲' : '▼'}
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {candidate.attributes.PhotoURL && (
+                                    <img 
+                                        src={candidate.attributes.PhotoURL} 
+                                        alt={candidate.attributes.Name} 
+                                        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
+                                    />
+                                )}
+                                <div>
+                                    <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
+                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                    <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
                                 </div>
                             </div>
-
-                            {/* Expandable Details */}
-                            {expandedCandidateId === candidate.id && (
-                                <div className="candidate-details" style={{ marginTop: '10px', padding: '10px', borderTop: '1px solid #ccc' }}>
-                                    <p><strong>District:</strong> {candidate.attributes.District}</p>
-                                    <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
-
-                                    <div className="questionnaire-section">
-                                        <h3>Questionnaire</h3>
-                                        {Array.from({ length: 10 }).map((_, i) => {
-                                            const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
-                                            const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
-                                            const question = candidate.attributes[questionKey];
-                                            const answer = candidate.attributes[answerKey];
-                                            return (
-                                                question && answer ? (
-                                                    <div key={`q-${i}`}>
-                                                        <p><strong>{question}</strong></p>
-                                                        <p>{answer}</p>
-                                                    </div>
-                                                ) : null
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     ))
                 ) : (
