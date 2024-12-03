@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface Candidate {
     id: number;
@@ -30,6 +31,8 @@ export default function CandidateInfo() {
         electionType: '',
         district: '',
     });
+
+    const router = useRouter();
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -70,8 +73,8 @@ export default function CandidateInfo() {
     }, []);
 
     const handleCandidateClick = (name: string) => {
-        const formattedName = name.replace(/\s+/g, '');
-        window.location.href = `https://bostonvoter.com/ballotInfo/${formattedName}`;
+        const formattedName = name.replace(/\s+/g, '').toLowerCase(); // Ensure it matches profile URL structure
+        router.push(`/candidateInfo/${formattedName}`); // Navigate to the candidate's profile page
     };
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
