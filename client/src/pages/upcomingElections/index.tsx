@@ -28,6 +28,7 @@ export default function UpcomingElections() {
             top: '240px',
             backgroundColor: '#1D4ED8',
             left: '0',
+            
           }}
         />
       <h1><img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }}/></h1>
