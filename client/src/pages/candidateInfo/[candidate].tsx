@@ -1,4 +1,4 @@
-/* Deeper candidate profiles that appear when their icon is clicked on candidate info page.
+/* candidate profiles that appear when their icon is clicked on candidate info page.
  Pulls data from strapi "Candidates" content.
 */
 

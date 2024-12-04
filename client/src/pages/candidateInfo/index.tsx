@@ -141,7 +141,7 @@ export default function CandidateInfo() {
                         ))}
                     </select>
                 </div>
-
+    
                 {/* Reset Filters Button */}
                 <button 
                     style={{ 
@@ -159,7 +159,7 @@ export default function CandidateInfo() {
                     Reset Filters
                 </button>
             </div>
-
+    
             {/* Main Content */}
             <div style={{ width: '75%', padding: '20px' }}>
                 {filteredCandidates.length > 0 ? (
@@ -173,24 +173,37 @@ export default function CandidateInfo() {
                                 border: '2px solid #ccc', 
                                 padding: '10px', 
                                 margin: '10px', 
-                                cursor: 'pointer', 
                                 borderRadius: '5px',
-                            }} 
-                            onClick={() => handleCandidateClick(candidate.attributes.Name)}
+                            }}
                         >
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                {candidate.attributes.PhotoURL && (
-                                    <img 
-                                        src={candidate.attributes.PhotoURL} 
-                                        alt={candidate.attributes.Name} 
-                                        style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
-                                    />
-                                )}
-                                <div>
-                                    <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
-                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
-                                    <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    {candidate.attributes.PhotoURL && (
+                                        <img 
+                                            src={candidate.attributes.PhotoURL} 
+                                            alt={candidate.attributes.Name} 
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
+                                        />
+                                    )}
+                                    <div>
+                                        <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
+                                        <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
+                                        <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
+                                    </div>
                                 </div>
+                                <button 
+                                    style={{
+                                        backgroundColor: '#007bff',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        padding: '8px 12px',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleCandidateClick(candidate.attributes.Name)}
+                                >
+                                    More Info
+                                </button>
                             </div>
                         </div>
                     ))
