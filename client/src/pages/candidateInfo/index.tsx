@@ -9,6 +9,7 @@ interface Candidate {
         District: string;
         Party: string;
         ElectionName: string;
+        Office: string;
         Bio?: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
@@ -187,8 +188,20 @@ export default function CandidateInfo() {
                                     )}
                                     <div>
                                         <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
-                                        <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
-                                        <p style={{ margin: '5px 0' }}><strong>Election:</strong> {candidate.attributes.ElectionName}</p>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Party:</strong> {candidate.attributes.Party}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Office:</strong> {candidate.attributes.Role}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Election:</strong> {candidate.attributes.ElectionName}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>District:</strong> {candidate.attributes.District}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <button 
