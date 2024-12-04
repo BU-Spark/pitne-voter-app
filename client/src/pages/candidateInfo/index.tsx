@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import SubscribePopup from '../../components/subscribePopup/SubscribePopup';
-
+import { CandidateAPI } from '@/common'; // use this instead of hardcoded link
+import { useRouter } from 'next/router';
 
 interface Candidate {
     id: number;
@@ -10,6 +11,7 @@ interface Candidate {
         District: string;
         Party: string;
         ElectionName: string;
+        Office: string;
         Bio?: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
@@ -18,51 +20,53 @@ interface Candidate {
     };
 }
 
-// Component for Candidate Information Page
+const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other'];
+const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
+const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
+
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [expandedCandidateId, setExpandedCandidateId] = useState<number | null>(null); // State for managing expanded candidate
+    const [filteredCandidates, setFilteredCandidates] = useState<Candidate[]>([]);
+    const [filters, setFilters] = useState({
+        party: '',
+        electionType: '',
+        district: '',
+    });
     const [showPopup, setShowPopup] = useState(false);
+
+    const router = useRouter();
 
     useEffect(() => {
         const fetchCandidateData = async () => {
-            console.log("Fetching candidate data...");
             try {
                 const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot');
-                console.log("API Response Status:", response.status);
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Fetched data:", data);
-
                     if (data.data && data.data.length > 0) {
-                        // Map through fetched candidates to add the Headshot URL
-                    const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
-                        const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
-                            ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
-                            : undefined;
-                        return {
-                            ...candidate,
-                            attributes: {
-                                ...candidate.attributes,
-                                    PhotoURL: headshotUrl, // Add headshot URL to PhotoURL attribute
-                            },
-                        };
-                    });
-                        console.log("Fetched Candidates with Headshot URL:", fetchedCandidates);
-                    setCandidates(fetchedCandidates);
-                } else {
-                        console.warn("No candidate data available.");
+                        const fetchedCandidates: Candidate[] = data.data.map((candidate: any) => {
+                            const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
+                                ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
+                                : undefined;
+                            return {
+                                ...candidate,
+                                attributes: {
+                                    ...candidate.attributes,
+                                    PhotoURL: headshotUrl,
+                                },
+                            };
+                        });
+                        setCandidates(fetchedCandidates);
+                        setFilteredCandidates(fetchedCandidates);
+                    } else {
                         setError("No candidate data available.");
                     }
                 } else {
-                    console.error('Failed to fetch candidate data', response.statusText);
                     setError('Failed to fetch candidate data');
                 }
-            } catch (fetchError) {
-                console.error('Error:', fetchError);
+            } catch {
                 setError('An error occurred while fetching candidate data');
             } finally {
                 setIsLoading(false);
@@ -78,102 +82,168 @@ export default function CandidateInfo() {
 
         // Cleanup timer when component unmounts
         return () => clearTimeout(popupTimer);
+
     }, []);
 
     const handleClosePopup = () => {
         setShowPopup(false);
     };
 
-    console.log("Loading state:", isLoading);
-    console.log("Candidates data:", candidates);
-
-    const toggleExpand = (candidateId: number) => {
-        setExpandedCandidateId(prevId => (prevId === candidateId ? null : candidateId)); // Toggle expand/collapse
+    const handleCandidateClick = (name: string) => {
+        const formattedName = name.replace(/\s+/g, '').toLowerCase(); // Ensure it matches profile URL structure
+        router.push(`/candidateInfo/${formattedName}`); // Navigate to the candidate's profile page
     };
+
+    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value,
+        }));
+    };
+
+    const handleResetFilters = () => {
+        setFilters({
+            party: '',
+            electionType: '',
+            district: '',
+        });
+    };
+
+    useEffect(() => {
+        const filtered = candidates.filter(candidate => {
+            const matchesParty = filters.party ? candidate.attributes.Party === filters.party : true;
+            const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
+            const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
+            return matchesParty && matchesElection && matchesDistrict;
+        });
+        setFilteredCandidates(filtered);
+    }, [filters, candidates]);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-        <div style={{ paddingTop: '60px' }}> 
-            {/* Header */}
-            <div className="flex flex-row">
-                <div className="flex flex-col items-left p-20 pl-20 pt-40 text-left bg-sky-50">
-                    <div className="flex items-center">
-                        <h1 className="text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent">LEARN. PLAN.</h1>
-                    </div>
-                    <p className="font-semibold text-2xl pt-8">
-                        Explore the election, candidates, and crucial
-                        <br />
-                        issues personalized to your community!
-                    </p>
+        <div style={{ display: 'flex', paddingTop: '120px' }}>
+            {/* Sidebar for Filters */}
+            <div style={{ width: '25%', padding: '20px', backgroundColor: '#f0f0f0', boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)' }}>
+                <h2>Filter Candidates</h2>
+
+                <div>
+                    <label htmlFor="party-filter">Political Affiliation:</label>
+                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {parties.map(party => (
+                            <option key={party} value={party}>{party}</option>
+                        ))}
+                    </select>
                 </div>
+
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor="election-filter">Election Type:</label>
+                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {electionTypes.map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div style={{ marginTop: '10px' }}>
+                    <label htmlFor="district-filter">District:</label>
+                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange}>
+                        <option value="">All</option>
+                        {districts.map(district => (
+                            <option key={district} value={district}>{district}</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Reset Filters Button */}
+                <button
+                    style={{
+                        marginTop: '20px',
+                        padding: '10px',
+                        backgroundColor: '#007bff',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        width: '100%',
+                    }}
+                    onClick={handleResetFilters}
+                >
+                    Reset Filters
+                </button>
             </div>
 
-            <div className="candidate-profile px-20 pt-10">
-                {candidates.length > 0 ? (
-                    candidates.map(candidate => (
-                        <div 
-                            key={candidate.id} 
-                            className="candidate-card" 
-                            style={{ backgroundColor: 'White',
-                                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
-                                     border: '2px solid #ccc', 
-                                     padding: '10px', 
-                                     margin: '10px', 
-                                     cursor: 'pointer', 
-                                     borderRadius: '5px' }} 
-                            onClick={() => toggleExpand(candidate.id)}
+            {/* Main Content */}
+            <div style={{ width: '75%', padding: '20px' }}>
+                {filteredCandidates.length > 0 ? (
+                    filteredCandidates.map(candidate => (
+                        <div
+                            key={candidate.id}
+                            className="candidate-card"
+                            style={{
+                                backgroundColor: 'White',
+                                boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.5)',
+                                border: '2px solid #ccc',
+                                padding: '10px',
+                                margin: '10px',
+                                borderRadius: '5px',
+                            }}
                         >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div>
-                                    <h2 style={{ margin: 0 }}>{candidate.attributes.Name}</h2>
-                                    <p style={{ margin: '5px 0' }}><strong>Party:</strong> {candidate.attributes.Party}</p>
-                                </div>
-                                {candidate.attributes.PhotoURL && (
-                                    <img 
-                                        src={candidate.attributes.PhotoURL} 
-                                        alt={candidate.attributes.Name} 
-                                        style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }} // Fixed size and object-fit for uniformity
-                                    />
-                                )}
-                            </div>
-
-                            {/* Expandable Details */}
-                            {expandedCandidateId === candidate.id && (
-                                <div className="candidate-details" style={{ marginTop: '10px' }}>
-                                    <p><strong>District:</strong> {candidate.attributes.District}</p>
-                                    <p><strong>Office Running For:</strong> {candidate.attributes.ElectionName}</p>
-                                    <p><strong>Bio:</strong> {candidate.attributes.Bio}</p>
-
-                                    <div className="questionnaire-section">
-                                        <h3>Questionnaire</h3>
-                                        {Array.from({ length: 10 }).map((_, i) => {
-                                            const questionKey = `Question${i + 1}` as keyof Candidate['attributes'];
-                                            const answerKey = `Answer${i + 1}` as keyof Candidate['attributes'];
-                                            const question = candidate.attributes[questionKey];
-                                            const answer = candidate.attributes[answerKey];
-                                            return (
-                                                question && answer ? (
-                                                    <div key={`q-${i}`}>
-                                                        <p><strong>{question}</strong></p>
-                                                        <p>{answer}</p>
-                                                    </div>
-                                                ) : null
-                                            );
-                                        })}
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    {candidate.attributes.PhotoURL && (
+                                        <img
+                                            src={candidate.attributes.PhotoURL}
+                                            alt={candidate.attributes.Name}
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px' }}
+                                        />
+                                    )}
+                                    <div>
+                                        <h2 style={{ margin: 0, fontWeight: 'bold' }}>{candidate.attributes.Name}</h2>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Party:</strong> {candidate.attributes.Party}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Office:</strong> {candidate.attributes.Role}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>Election:</strong> {candidate.attributes.ElectionName}
+                                            </p>
+                                            <p style={{ margin: '5px 0' }}>
+                                                <strong>District:</strong> {candidate.attributes.District}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            )}
+                                <button
+                                    style={{
+                                        backgroundColor: '#007bff',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        padding: '8px 12px',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleCandidateClick(candidate.attributes.Name)}
+                                >
+                                    More Info
+                                </button>
+                            </div>
                         </div>
                     ))
                 ) : (
-                    <p>No candidates available.</p>
+                    <p>No candidates match the selected filters.</p>
                 )}
             </div>
 
             {/* Subscribe Popup */}
             {showPopup && <SubscribePopup onClose={handleClosePopup} />}
+
         </div>
     );
 }
