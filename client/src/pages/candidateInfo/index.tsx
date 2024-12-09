@@ -114,12 +114,12 @@ export default function CandidateInfo() {
             <h2 style={{color: '#1D4ED8', fontFamily: 'Inter', fontSize: '24px', fontStyle: 'normal', fontWeight: '700', lineHeight: '28px', letterSpacing: '0.1px', width: '390px', height: '28px', flexShrink: '0'}}>Filter Candidates</h2>
                 <div>
                 <label htmlFor="party-filter" style={{display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', paddingTop:'30px', paddingLeft:'10px',paddingRight:'10px',paddingBottom:'10px', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px'}}>Political Affiliation:</label>
-                <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}><option value="">All</option>{parties.map(party => (<option key={party} value={party}>{party}</option>))}</select>
+                <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF',width: '100%' }}><option value="">All</option>{parties.map(party => (<option key={party} value={party}>{party}</option>))}</select>
                 </div>
                 
                 <div style={{ marginTop: '10px' }}>
                     <label htmlFor="election-filter" style={{display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px'}}>Election Type:</label>
-                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange} style={{display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF'}}>
+                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange} style={{width: '100%',display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF'}}>
                     <option value="">All</option>
                         {electionTypes.map(type => (
                             <option key={type} value={type}>{type}</option>
@@ -129,7 +129,7 @@ export default function CandidateInfo() {
                 
                 <div style={{ marginTop: '10px' }}>
                     <label htmlFor="district-filter" style={{display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px'}}>District:</label>
-                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF'}}>
+                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF'}}>
                     <option value="">All</option>
                         {districts.map(district => (
                             <option key={district} value={district}>{district}</option>
