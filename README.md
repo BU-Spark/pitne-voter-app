@@ -6,6 +6,7 @@ Collaborators:
 * Eleanor Elkus; Github: @eelkus01
 * Jason Jiang; Github: @jasonjiang9142
 * Remus Harris; Github: @remus287
+* Celine Boudaie; Github: @celineboudaie
 
 # Description
 The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC (Black, Indigenous, People of color) voters who face significant barriers to voting in local elections. 
@@ -82,13 +83,13 @@ This API key is for enabling Mailchimp, a service that allows a site admin to co
 
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
 
-[![Watch the video](https://img.youtube.com/vi/AIte6hS3cCc/0.jpg)](https://www.youtube.com/watch?v=AIte6hS3cCc&feature=youtu.be)
 
 # Collaborators 
 * Arshnoor Kaur Chadha - Github: @arshnoorKC13
 * Elenaor Elkus - Github: @eelkus01
 * Jason Jiang - Github: @jasonjiang9142
 * Remus Harris - Github: @remus287
+* Celine Boudaie - Github: @celineboudaie
 
 # For more detailed technical documentation visit https://github.com/BU-Spark/pitne-voter-app/wiki
   
