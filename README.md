@@ -79,6 +79,10 @@ Note: Using the keywork local uses the local Express or Strapi server. Leaving t
 
 This API key is for enabling Mailchimp, a service that allows a site admin to collect email addresses input by site users
 
+## Candidate Info
+
+Code is linked to strapi so when a candidate is updated on strapi the website is updated
+
 # Deployment
 
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
