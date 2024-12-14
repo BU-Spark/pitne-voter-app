@@ -33,11 +33,10 @@ const links: Record<string, string> = {
   'Drop Box Locations': '/dropBoxLocations'
 };
 
-
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -69,8 +68,22 @@ function NavBar() {
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+
+
+
+        {/* Boston Voter Logo */}
+        <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 0 }}>
+            <img
+              src="/LogoTest.svg"
+              alt="Boston Voter Logo"
+              style={{ height: '60px', cursor: 'pointer', padding: 10 }}
+              onClick={() => handleClick('Upcoming Elections')}
+            />
+          </Box>
+
+
           {/* BELOW IS FOR STANDARD NAVBAR */}
-          <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '20px', color: '#204cdc' }} /> {/* REPLACE WITH STAR LOGO */}
+          {/* <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '20px', color: '#204cdc' }} />
           <Typography
             variant="h6"
             noWrap
@@ -90,7 +103,8 @@ function NavBar() {
 
           >
             Boston Voter
-          </Typography>
+          </Typography> */}
+
 
           {/* Page links below */}
           {/* This appears to be useless code */}
@@ -202,5 +216,5 @@ function NavBar() {
     </AppBar>
   );
 }
-export default NavBar;
 
+export default NavBar;
