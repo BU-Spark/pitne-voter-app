@@ -173,3 +173,9 @@ node_modules
 pitne-voter-app.code-workspace
 
 **/.env
+
+# playwright result directories
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
