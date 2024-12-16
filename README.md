@@ -107,7 +107,11 @@ Currently the client (frontend) of the site has a few jest unit tests, these can
 - mailchimp-ping.test.tsx: This test passes if the MAILCHIMP credentials are correct and a valid ping response is detected from Mailchimp servers
 
 ### Playwright end-to-end tests:
-Most of the current test coverage comes from the end-to-end tests. these can be run from the base repository directory with ```npx run tests```
+**Install Playwright**
+```npm install -D @playwright/test
+npx playwright install
+```
+Most of the current test coverage comes from the end-to-end tests. these can be run from the base repository directory with ```npx playwright test```
 These tests will validate the functionallity of the client, server, and Strapi
 
     - Test1
