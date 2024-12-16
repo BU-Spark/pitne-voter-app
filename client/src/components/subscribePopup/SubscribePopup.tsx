@@ -24,6 +24,7 @@ const SubscribePopup: React.FC<SubscribePopupProps> = ({ onClose }) => {
         setSuccess(null);
 
         try {
+            // send email to next.js api route which contains mailchimp API
             const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: {
@@ -32,7 +33,8 @@ const SubscribePopup: React.FC<SubscribePopupProps> = ({ onClose }) => {
                 body: JSON.stringify({ email: emailInput }),
             });
             const data = await res.json();
-
+            
+            // check status of returned data
             if (data.success) {
                 setSuccess("Successfully subscribed!");
                 setEmailInput('');

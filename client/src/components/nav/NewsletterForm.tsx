@@ -22,6 +22,7 @@ const NewsletterForm: React.FC = () => {
         setSuccess(null);
 
         try {
+            // send email to next.js api route which contains mailchimp API
             const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -30,6 +31,7 @@ const NewsletterForm: React.FC = () => {
 
             const data = await res.json();
 
+            // check status of returned data
             if (data.success) {
                 setSuccess("Successfully subscribed!");
             } else {
@@ -39,7 +41,7 @@ const NewsletterForm: React.FC = () => {
             const errorMessage = (e as Error).message;
         
             if (errorMessage.includes("is already a list member")) {
-                setError(`${emailInput} is already subscribed!`);
+                setError(`${emailInput} is already subscribed!`); // prettier output format
             } else {
                 setError(errorMessage);
             }

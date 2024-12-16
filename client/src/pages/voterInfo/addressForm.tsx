@@ -9,6 +9,7 @@ const api = axios.create({
     baseURL: ExpressURL, // Point this to server URL
 });
 
+// PollingInfo data type
 interface PollingInfo {
     location: string | null;
     street: string | null;

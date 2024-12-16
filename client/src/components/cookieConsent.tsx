@@ -7,6 +7,7 @@ import { Button, Typography, Box } from '@mui/material';
 const CookieConsent: React.FC = () => {
     const [showBanner, setShowBanner] = useState(false);
 
+    // show banner if user has not accepted yet
     useEffect(() => {
         const consent = Cookies.get('cookieConsent');
         if (consent !== 'accepted') {
@@ -45,7 +46,7 @@ const CookieConsent: React.FC = () => {
                 >
                     <Typography variant="body1" sx={{ mr: 2 }}>
                         We use cookies to enhance your experience by caching location information securely on your browser. By clicking "Accept," you consent to our use of cookies.
-                        <a href="/cookie-policy" style={{ color: '#ffdd57', marginLeft: '5px' }}>Learn more</a>
+                        {/* <a href="/cookie-policy" style={{ color: '#ffdd57', marginLeft: '5px' }}>Learn more</a> */}
                     </Typography>
                     <Button
                         variant="contained"
