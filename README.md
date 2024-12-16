@@ -387,6 +387,8 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Jason Jiang - Github: @jasonjiang9142
 
 # Deployment
+Our website's frontend, backend, and Strapi CMS are all hosted on Netlify.
+
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
   
 # Snapshots
