@@ -121,7 +121,14 @@ Individual Playwright files can be run with ```npx playwright test testfile.test
 
 Individual Playwright tests can be run with ```npx playwright test testfile.test.js testname```. This will run a single specified test.
 
-Tests can be viewed in the playwright UI using the ```--ui``` flag
+Tests can be viewed in the playwright UI using the ```--ui``` flag.
+
+Tests can be run in the native browser using the ```--headed``` flag. This is needed for tests that open or interact with a .pdf file, such as: 'Voting option: Official Absentee Ballot Application'.
+
+Tests can be run for multiple browsers or a single browser, for example to use only the native chromium browser use the flags ```--project=chromium``` and ```--headed```.
+
+Example Command for running test file: 'votingOptions.test.js' in the UI chromium browser.
+* ```npx playwright test votingOptions.test.js --project=chromium --headed```
 
 ## PLAYWRIGHT TESTS
 
