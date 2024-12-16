@@ -108,17 +108,47 @@ Currently the client (frontend) of the site has a few jest unit tests, these can
 
 ### Playwright end-to-end tests:
 **Install Playwright**
-```npm install -D @playwright/test
+```
+npm install -D @playwright/test
 npx playwright install
 ```
 Most of the current test coverage comes from the end-to-end tests. these can be run from the base repository directory with ```npx playwright test```
 These tests will validate the functionallity of the client, server, and Strapi
 
-    - Test1
-    - Test2
-    - Test3
-    - Test4
-    - Test5
+## TESTS
+
+### candidateInfo.test.js
+- Candidate More Info - checks that the 'more info' button on each candidate card links to the correct candidate details page
+- Filter Democrat null null Candidates - checks that filtering by 'party: democrat' lists only all democrat candidates on the page
+- Filter Republican null null Candidates - checks that filtering by 'party: republican' lists only all republican candidates on the page 
+
+### dropBoxLocations.test.js
+- Early Voting Locations Link - checks that the early voting locations button links to the city of boston early voting page
+- Find Address or Place: 700 Commonwealth Ave - checks that entering '700 Commonwealth Ave' in the address/place search bar brings up the info popup with the appropriate address
+- Find Address or Place: Boston City Hall - checks that entering 'Boston City Hall' in the address/place search bar brings up the info popup with the appropriate address
+- Find Address or Place: Boston Public Library - checks that entering 'Boston Public Library' in the address/place search bar brings up the info popup with the appropriate address
+
+### upcomingElections.test.js
+- Add State Election Registration Deadline to Google Calendar - Check that the add to Google Calendar button for the State Election Registration Deadline links to the Google Calendar page
+- Add State Election Election Day to Google Calendar - Check that the add to Google Calendar button for the State Election Date links to the Google Calendar page
+- Add General Election Registration Deadline to Google Calendar - Check that the add to Google Calendar button for the General Election Registration Deadline links to the Google Calendar page
+- Add General Election Election Day to Google Calendar - Check that the add to Google Calendar button for the General Election Date links to the Google Calendar page
+- Add Governors Council Registration Deadline to Google Calendar - Check that the add to Google Calendar button for the Governors Council Election Registration Deadline links to the Google Calendar page
+- Add Governors Council Election Day to Google Calendar - Check that the add to Google Calendar button for the Governors Council Election Date links to the Google Calendar page
+
+### voterInfo.test.js
+- Get Ballot Info From Address 700 Commonwealth Ave - checks that entering the address info for 700 Commonwealth Ave produces the correct ward and precinct information and the correct example ballot link
+- Get Ballot Info From Address 100 Hanover St - checks that entering the address info for 700 Commonwealth Ave produces the correct ward and precinct information and the correct example ballot link
+- Get Ballot Info From Address 140 Commonwealth Ave - checks that entering the address info for 140 Commonwealth Ave produces the correct ward and precinct information and the correct example ballot link
+
+### votingOptions.test.js
+- Voting option: Official Absentee Ballot Application - Check that clicking on the 'Request Absentee Ballot' dropdown brings up the dropdown contents and clicking the 'Official Absentee Ballot Application' Button links to the Absentee Ballot PDF **(Note: this test only passes when run in the native browser, as playwright browser cannot render pdf files)**
+- Voting option: Overseas Assistance - Check that clicking on the 'Request Absentee Ballot' dropdown brings up the dropdown contents and clicking the 'Overseas Assistance' Button links to the 'Secretary of the Commonwealth of Massachusetts' election information page
+- Voting option: Track Your Ballot - Check that clicking on the 'Mail-In Ballot' dropdown brings up the dropdown contents and clicking the 'Track Your Ballot' Button links to the 'Secretary of the Commonwealth of Massachusetts - Track My Ballot' page
+- Voting option: Early Voting Locations - Check that clicking on the 'in-Person Early Voting' dropdown brings up the dropdown contents and clicking the 'Early Voting Locations' Button links to the 'City of Boston - Early Voting in Boston' page
+- Voting option: Election Day voting - Check that clicking on the 'Election Day Voting' dropdown brings up the dropdown contents and clicking the 'Your Polling Location' Button links to the 'Your Voter Info' page
+- Voting option: Drop-Off Ballot - Check that clicking on the 'Drop-Off Ballot Voting' dropdown brings up the dropdown contents and clicking the 'Drop Box Locations' Button links to the 'Drop Box Locations' page
+
 
 # Directory Structure
 
