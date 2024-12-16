@@ -115,7 +115,15 @@ npx playwright install
 Most of the current test coverage comes from the end-to-end tests. these can be run from the base repository directory with ```npx playwright test```
 These tests will validate the functionallity of the client, server, and Strapi
 
-## TESTS
+**Testing Options**
+
+Individual Playwright files can be run with ```npx playwright test testfile.test.js```. This will run only the tests contained in that file.
+
+Individual Playwright tests can be run with ```npx playwright test testfile.test.js testname```. This will run a single specified test.
+
+Tests can be viewed in the playwright UI using the ```--ui``` flag
+
+## PLAYWRIGHT TESTS
 
 ### candidateInfo.test.js
 - Candidate More Info - checks that the 'more info' button on each candidate card links to the correct candidate details page
@@ -149,6 +157,7 @@ These tests will validate the functionallity of the client, server, and Strapi
 - Voting option: Election Day voting - Check that clicking on the 'Election Day Voting' dropdown brings up the dropdown contents and clicking the 'Your Polling Location' Button links to the 'Your Voter Info' page
 - Voting option: Drop-Off Ballot - Check that clicking on the 'Drop-Off Ballot Voting' dropdown brings up the dropdown contents and clicking the 'Drop Box Locations' Button links to the 'Drop Box Locations' page
 
+<img width="230" alt="image" src="https://github.com/user-attachments/assets/e81f1114-3a7c-4fc7-88fd-d40845aac70b" />
 
 # Directory Structure
 
