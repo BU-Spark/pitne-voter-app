@@ -227,6 +227,78 @@ Mailchimp us used to collect emails from site users. This is to allow a site adm
 ### Strapi CMS:
 Strapi is a headless content management system. It is designed such that a site administratior can add content to Strapi which is reflected in the deployed website, this allows for modifying the website content without needing to redeploy the site. The Strapi documentation can be found [here](https://docs.strapi.io/).
 
+# Setting Up a Mailchimp Account, API Key, and Audience ID for Website Integration
+
+This guide provides step-by-step instructions for creating a Mailchimp account, generating an API key, and finding your Audience ID for integrating Mailchimp with the Boston Voter App.
+
+---
+
+### Create a Mailchimp Account
+
+1. **Visit the Mailchimp Website**  
+   Go to [Mailchimp's official website](https://mailchimp.com/).
+
+2. **Sign Up for an Account**  
+   - Click **"Sign Up Free"** in the top-right corner.
+   - Enter your email address, desired username, and a secure password.
+   - Click **"Sign Up"**.
+   - Enter all needed information.
+
+---
+
+### Generate an API Key
+
+1. **Log In to Mailchimp**  
+   Visit [Mailchimp's Login Page](https://login.mailchimp.com/) and log in with your credentials.
+
+2. **Access Account Settings**  
+   - Click your profile icon in the bottom-left corner.
+   - Select **"Account & Billing"**.
+
+3. **Navigate to API Keys**  
+   - Click **"Extras"** in the top navigation bar.
+   - Select **"API Keys"** from the dropdown menu.
+
+4. **Create a New API Key**  
+   - Scroll down to the **Your API Keys** section.
+   - Click **"Create A Key"**.
+   - Mailchimp will generate a new API key. Copy this key for later use and save it to a secure location.
+
+5. **Label the API Key (Optional)**  
+   - To keep track of your keys, add a label, such as **"Website Integration"**.
+
+---
+
+### Find Your Audience ID
+
+1. **Log In to Mailchimp**  
+   Visit [Mailchimp's Login Page](https://login.mailchimp.com/) and log in with your credentials.
+
+2. **Navigate to Audience Settings**  
+   - Click on the **"Audience"** tab in the top menu.
+   - Create an Audience group if prompted to do so.
+
+3. **Access Audience Settings**  
+   - Click **"Manage Audience"** in the top-right corner.
+   - Select **"Settings"** from the dropdown menu.
+
+4. **Find the Audience ID**  
+   - Scroll down to the **Audience ID** section.
+   - Copy the Audience ID for use in your application and save it to a secure location.
+
+---
+
+### Add the API Key and Audience ID to Your Website
+
+1. **Create or locate the .env File**  
+   - Create or locate the .env file as instructed in the README.md
+
+2. **Add the API Key and Audience ID**  
+   Add your API key and Audience ID to the .env file
+   ```plaintext
+   MAILCHIMP_API_KEY=your-api-key-here
+   MAILCHIMP_AUDIENCE_ID=your-audience-id-here
+
 
 # Known Bugs and Issues
 * Candidate Information page candidate card will not drop down when clicked
