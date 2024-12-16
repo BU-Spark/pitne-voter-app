@@ -103,7 +103,7 @@ This repository contains both unit tests with jest and end-to-end testing with p
 Note: If the proper .env files are not set up or have invalid credentials, many of the tests will fail.
 
 ### Jest unit tests:
-Currently the client (frontend) of the site has a few jest unit tests, these can be run from the client directory with npm run test
+Currently the client (frontend) of the site has a few jest unit tests, these can be run from the client directory with ```npm run test```
     - mailchimp-ping.test.tsx: This test passes if the MAILCHIMP credentials are correct and a valid ping response is detected from Mailchimp servers
 
 ### Playwright end-to-end tests:
