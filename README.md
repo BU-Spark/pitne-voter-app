@@ -379,7 +379,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Remus Harris - Github: @remus287 - email: remus@bu.edu
 * Celine Boudaie - Github: @celineboudaie
 * Tiffany Yu
-* Grace Murphy
+* Grace Murphy - GitHub: @gracemurphy28
 
 # Team (Spring 2024)
 * Arshnoor Kaur Chadha - Github: @arshnoorKC13
