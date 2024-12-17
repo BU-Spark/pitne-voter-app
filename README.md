@@ -103,10 +103,14 @@ This repository contains both unit tests with jest and end-to-end testing with p
 Note: If the proper .env files are not set up or have invalid credentials, many of the tests will fail.
 
 ### Jest unit tests:
+**Must Run Client**
+
 Currently the client (frontend) of the site has a few jest unit tests, these can be run from the client directory with ```npm run test```
 - mailchimp-ping.test.tsx: This test passes if the MAILCHIMP credentials are correct and a valid ping response is detected from Mailchimp servers
 
 ### Playwright end-to-end tests:
+**Must run client and server**
+
 **Install Playwright**
 ```
 npm install -D @playwright/test
@@ -374,6 +378,11 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Add prettier error messages for invalid email/already on mailing list
 * Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server.
 * Add more unit tests for site functionallity
+
+# GitHub Branches
+* main - contains the latest deployed work for the web server, updated with a pull request from dev at the end of the semester.
+* dev - changes to the codebase are first pushed to dev and after it is verified to work, it is pushed to main.
+* DeployedStrapiBranch - this branch reflects the state of Strapi in its latest deployed configuration.
 
 # SE Team (Fall 2024)
 * Remus Harris - Github: @remus287 - email: remus@bu.edu
