@@ -376,8 +376,9 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Fix/complete the candidate information page, currently missing correct filter implementation
 * Add logic to the newsletter sign-up popup so it does not show up again if a user enters their email address
 * Add prettier error messages for invalid email/already on mailing list
-* Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server.
+* Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server
 * Add more unit tests for site functionallity
+* Move Strapi + Express links into a Next.js serverless function and make a generic API call to them from the frontend
 
 # GitHub Branches
 * main - contains the latest deployed work for the web server, updated with a pull request from dev at the end of the semester.
