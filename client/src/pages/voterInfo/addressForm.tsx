@@ -1,159 +1,211 @@
-/* Form asking for user address and getting polling location from Google Civic
- * API. Note: API key is in .env file
-*/
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Grid, TextField, Typography } from '@mui/material';
-import { Streetview } from '@mui/icons-material';
-import { deployedExpressURL, localExpressURL } from '@/common';
-
+import Cookies from 'js-cookie';
+import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
+import { ExpressURL } from '@/common';
 
 // Set base URL for Axios
 const api = axios.create({
-    baseURL: deployedExpressURL, // Point this to server URL
+    baseURL: ExpressURL, // Point this to server URL
 });
 
+// PollingInfo data type
+interface PollingInfo {
+    location: string | null;
+    street: string | null;
+    city: string | null;
+    state: string | null;
+    zip: string | null;
+    room: string | null;
+    instructions: string | null;
 
-const AddressForm: React.FC = () => {
-    // Functions and variables to set polling data
+    ward: number | null;
+    precinct: number | null;
+
+}
+
+interface AddressFormProps {
+    setPollingInformation: (info: PollingInfo) => void;
+    setError: (error: string | null) => void;
+}
+
+const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setError }) => {
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
     const [zip, setZip] = useState('');
-    const [pollingLocation, setPollingLocation] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [pollingStreet, setPollingStreet] = useState<string | null>(null);
-    const [pollingCity, setPollingCity] = useState<string | null>(null);
-    const [pollingState, setPollingState] = useState<string | null>(null);
-    const [pollingZip, setPollingZip] = useState<string | null>(null);
-    const [pollingHours, setPollingHours] = useState<string | null>(null);
+    const [saveAddress, setSaveAddress] = useState(false); // Track checkbox state
 
-    // Call API when address is submitted
-    const handleSubmit = async (event: React.FormEvent) => {
 
-        // Reset past data
-        event.preventDefault();
-        setPollingLocation(null);
-        setPollingStreet(null);
-        setPollingCity(null);
-        setPollingState(null);
-        setPollingZip(null);
-        setPollingHours(null);
-        setError(null);
+    // load saved data from cookies into the component's state variables
+    const loadSavedCookieData = () => {
+        const savedAddress = Cookies.get('address');
+        const savedPollingInfo = Cookies.get('pollingInfo');
 
-        // Set address
-        const address = `${street} ${city}, ${state} ${zip}`;
+        if (savedAddress) {
+            const { street, city, zip } = JSON.parse(savedAddress);
+            setStreet(street);
+            setCity(city);
+            setZip(zip);
+            setSaveAddress(true); // Set checkbox to checked if an address is saved
+        }
 
-        try {
-            const response = await api.get('/api/lookup', {
-                params: { address },
-            });
-
-            const data = response.data;
-
-            // Set polling location and hours or error if no polls
-            if (data.pollingLocations && data.pollingLocations.length > 0) {
-                setPollingLocation(data.pollingLocations[0].address.locationName);
-                setPollingStreet(data.pollingLocations[0].address.line1);
-                setPollingCity(data.pollingLocations[0].address.city);
-                setPollingState(data.pollingLocations[0].address.state);
-                setPollingZip(data.pollingLocations[0].address.zip);
-                setPollingHours(data.pollingLocations[0].pollingHours);
-            } else {
-                setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
-            }
-        } catch (error) {
-            setError('No polling location found for this address yet. Assigned polling locations are usually available 2-4 weeks before an election. Please check back later or re-enter the address to try again.');
+        if (savedPollingInfo) {
+            setPollingInformation(JSON.parse(savedPollingInfo));
         }
     };
 
-    // Address form and displayed polling location
-    return (
-        <div className='flex flex-col justify-center items-center p-4 my-6 flex-wrap'>
+    // Save component state variables into cookies
+    const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
+        const consent = Cookies.get('cookieConsent');
+        if (consent === 'accepted') {  // Only save if consent is given
 
-            {/* Address form */}
+            if (saveAddress) {
+                // Save address to cookie only if successful response (valid address)
+                Cookies.set('address', JSON.stringify({ street, city, zip }));
+            } else {
+                Cookies.remove('address');
+            }
+
+            // Save polling information to cookie (expires in 7 days)
+            Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
+        }
+    };
+
+
+    // Load saved address and pollingInfo from cookies if available
+    useEffect(() => {
+        loadSavedCookieData();
+    }, []);
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const isChecked = event.target.checked;
+        setSaveAddress(isChecked);
+
+        // If checkbox is unchecked, remove the saved address from cookies
+        if (!isChecked) {
+            Cookies.remove('address');
+        }
+    };
+
+
+    // Call API when address is submitted
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        // Reset past data
+        /*
+        setPollingInformation({
+            location: null,
+            street: null,
+            city: null,
+            state: null,
+            zip: null,
+            room: null,
+            instructions: null,
+
+            ward: null,
+            precinct: null,
+        });
+        */
+        setError(null);
+
+        const address = `${street}, ${city}, ${zip}`;
+
+        try {
+            const response = await api.get('/api/precinct_info', {
+                params: { address },
+            });
+            const data = response.data.properties;
+
+            if (data.USER_Ward != null && data.USER_Precinct != null) { // server responded
+                const pollingInfo: PollingInfo = {
+                    location: data.USER_Location2,
+                    street: data.USER_Location3,
+                    city: data.USER_City,
+                    state: data.USER_State,
+                    zip: data.USER_ZipCode,
+                    room: data.USER_Voting_Roo,
+                    instructions: data.USER_HP_Entrance,
+                    ward: data.USER_Ward,
+                    precinct: data.USER_Precinct
+                };
+
+                // Update state with polling information
+                setPollingInformation(pollingInfo);
+
+                // save data to cookies
+                saveCookieData(street, city, zip, pollingInfo);
+
+            } else {
+                setError('Invalid Address or Address Format or Unsupported Location');
+            }
+        } catch (error) {
+            loadSavedCookieData();
+            setError("Server did not respond. Using cached data.");
+            /* setError('No polling location found for this address yet. \
+                Assigned polling locations are usually available 2-4 weeks before an election. \
+                Please check back later or re-enter the address to try again.'); */
+        }
+    };
+
+    return (
+        <div className='flex flex-col justify-center items-center p-4 my-0 flex-wrap'>
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
-                <Grid container spacing={2} >
-                    <Grid item xs={12} sm={6} >
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
                         <TextField
-                            label="Street Number and Name"
+                            label="Street"
                             variant="outlined"
                             fullWidth
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
                             required
-                            sx={{ mb: 2 }}
+                            type="text"
+                            sx={{ mb: 2, backgroundColor: 'white' }}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                         <TextField
                             label="City"
                             variant="outlined"
                             fullWidth
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
-                            required
-                            sx={{ mb: 2 }}
+                            type="text"
+                            sx={{ mb: 2, backgroundColor: 'white' }}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                         <TextField
-                            label="State"
-                            variant="outlined"
-                            fullWidth
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            required
-                            sx={{ mb: 2 }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Zipcode"
+                            label="Zip Code"
                             variant="outlined"
                             fullWidth
                             value={zip}
                             onChange={(e) => setZip(e.target.value)}
                             required
-                            sx={{ mb: 2 }}
+                            type="number"
+                            sx={{ mb: 2, backgroundColor: 'white' }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={saveAddress}
+                                    onChange={handleCheckboxChange}
+                                    color="primary"
+                                />
+                            }
+                            label="Remember Address"
                         />
                     </Grid>
                 </Grid>
                 <div className="flex justify-center">
-                    <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800  hover:bg-blue-100'>
+                    <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-blue-100'>
                         Submit Address
                     </Button>
                 </div>
             </form>
-
-            {/* Polling location if found, error if not */}
-            {(pollingLocation || error) && (
-                <div className='grid grid-cols-4 mt-8'>
-                    <div className='md:col-span-1 hidden md:block'>
-                    </div>
-                    <div className="space-y-4 lg:mx-10 md:mx-20 px-4 py-8 rounded-2xl shadow-2xl border border-gray-200 col-span-4 lg:col-span-2 bg-white">
-                        <div className="space-y-4 w-full px-4">
-                            <div className="w-full px-4 text-left text-xl">
-                                {pollingLocation && (
-                                    <div>
-                                        <p>{pollingLocation}</p>
-                                        <p>{pollingStreet}</p>
-                                        <p>{pollingCity}, {pollingState}</p>
-                                        <p>{pollingZip}</p>
-                                        <br /><p><strong>Polling Hours: {pollingHours}</strong></p>
-                                    </div>
-                                )}
-                                {error && (
-                                    <Typography variant="h6" color="error">{error}</Typography>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='md:col-span-1 hidden md:block'>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

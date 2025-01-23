@@ -19,19 +19,30 @@ export default function UpcomingElections() {
             <div className='flex flex-col items-left p-20 pt-40 text-left <div bg-sky-50'>
   <div className='flex flex-col sm:flex-row items-center justify-between'>
     <div>
-      <h1 className='text-blue-700 font-bold lg:text-7xl text-5xl bg-blue-700 bg-clip-text text-transparent'> LET&#39;S VOTE! </h1>
-      <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections <br/> to help you navigate your voting journey.</p>
+       {/* Rectangle with absolute positioning */}
+       <div
+          style={{
+            width: '600px',
+            height: '226px',
+            position: 'absolute',
+            top: '240px',
+            backgroundColor: '#1D4ED8',
+            left: '0',
+            
+          }}
+        />
+      <h1><img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }}/></h1>
+     
+      <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey.</p>
     </div>
     <div className="mr-20">
-      <img src="main.png" alt="main" style={{ width: '400px' }} />
-
-
+      <img src="/OldStateHouse.svg" alt="StatehouseLogo"/>
     </div>
   </div>
 </div>
 
             {/* Cards */}
-<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20 '>
+<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20'>
         <CustomCard
             image="frame2.png"
             disableTitle={true}     
@@ -43,7 +54,7 @@ export default function UpcomingElections() {
     <div className="m-10"></div>
 
         <CustomCard
-            image="frame1.png"
+            image="/HowToRegisterIcon.svg"
             disableTitle={true}     
             description="Unsure if you're registered to vote? Ensure you're ready for the upcoming election season."
             className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200'
@@ -82,7 +93,7 @@ export default function UpcomingElections() {
             {/* Footer */}
             <div className='flex flex-col justify-center items-center p-4 text-center  bg-sky-100'>
                 <h1 className='font-semibold text-lg mt-16 m-4'>You may be wondering...</h1>
-                <ButtonFill name='What&#39;s on the Ballot' link='/ballotInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
+                <ButtonFill name='What&#39;s on the Ballot' link='/voterInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
                 <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
             </div>
         </div>

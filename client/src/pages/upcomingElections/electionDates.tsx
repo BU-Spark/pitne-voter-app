@@ -2,7 +2,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCard from './electionCard';
-import { localBostonMunicipalAPI, deployedBostonMunicipalAPI } from '@/common';
+import { BostonMunicipalAPI } from '@/common';
 
 interface ElectionDateObject {
     attributes: {
@@ -22,7 +22,7 @@ export default function ElectionDates() {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedBostonMunicipalAPI, {
+                const response = await fetch(BostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

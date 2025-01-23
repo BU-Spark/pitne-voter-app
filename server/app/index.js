@@ -1,22 +1,47 @@
 /* Backend for Voter Info API call (see client/pages/voterInfo for frontend) */
 
-import express, { Request, Response } from 'express';
+import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+import getPrecinct from './get_precinct.js';
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
 const app = express();
+
 
 const port = process.env.PORT || 3001;
 // const port = 3001;;
 
 app.use(cors()); // Needed to send data back to frontend
+app.use(bodyParser.json());
 
+
+
+// API call for precinct info
+app.get('/api/precinct_info', async (req, res) => {
+    const address = req.query;
+
+    if (!address) {
+        return res.status(400).json({ error: 'Address is required' });
+    }
+
+    try {
+        const precinct_info = await getPrecinct(address);
+        return res.status(200).json(precinct_info);
+
+    } catch (error) {
+        return res.status(500).json({ error: 'Error fetching polling location' });
+    }
+});
+
+
+/************************************************************* MOST LIKELY UNUSED CODE **************************************************/
 
 // API call for polling location
-app.get('/api/lookup', async (req: Request, res: Response) => {
+app.get('/api/lookup', async (req, res) => {
     const { address } = req.query;
 
     // No address check (should be unnecessary b/c form validation)
@@ -45,7 +70,7 @@ app.get('/api/lookup', async (req: Request, res: Response) => {
  * NOTE: Google Civic API is turning down the Representatives API in April 2025,
  * so the below API call will need to be updated to their new system after
 */
-app.get('/api/district', async (req: Request, res: Response) => {
+app.get('/api/district', async (req, res) => {
     const { address } = req.query;
 
     // No address check (should be unnecessary b/c form validation)
@@ -85,11 +110,13 @@ app.get('/api/district', async (req: Request, res: Response) => {
     }
 });
 
-app.get('', (req: Request, res: Response) => {
-    res.send('Hello from the Voter Info API!');
+app.get('', (req, res) => {
+    res.send('Get request to the Voter Info API!');
 });
 
-
+app.post('', (req, res) => {
+    res.send('POST request to the Voter Info API!');
+});
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

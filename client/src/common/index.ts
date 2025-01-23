@@ -1,28 +1,34 @@
 // URL for the local + deployed express server
 export const localExpressURL = 'http://localhost:3001/';
 export const deployedExpressURL = 'https://pitne-voter-app-express-production.up.railway.app/';
+export const ExpressURL = process.env.NEXT_PUBLIC_EXPRESS_ENV === 'local' ? localExpressURL : deployedExpressURL;
+
+// Make sure the env variables are loaded. Prints at compile time
+console.log('Environment Variable EXPRESS_ENV:', process.env.NEXT_PUBLIC_EXPRESS_ENV);
+console.log('ExpressURL:', ExpressURL);
+
 
 
 // URl for the local + deployed strapi server
 export const localStrapiURL = 'http://localhost:1337/api/'
 export const deployedStrapiURL = 'https://pitne-voter-app-production.up.railway.app/api/'
+export const StrapiURL = process.env.NEXT_PUBLIC_STRAPI_ENV === 'local' ? localStrapiURL : deployedStrapiURL;
+
+// Make sure the env variables are loaded. Prints at compile time
+console.log('Environment Variable STRAPI_ENV:', process.env.NEXT_PUBLIC_STRAPI_ENV);
+console.log('StrapiURL:', StrapiURL);
 
 
-// URL for the local + deployed boston municipal election dates API
-export const localBostonMunicipalAPI = localStrapiURL + 'boston-municipal-election-dates';
-export const deployedBostonMunicipalAPI = deployedStrapiURL + 'boston-municipal-election-dates';
+// URL for the boston municipal election dates API
+export const BostonMunicipalAPI = StrapiURL + 'boston-municipal-election-dates';
 
+//URl for the candidate API
+export const CandidateAPI = StrapiURL + 'candidates';
 
-//URl for the local + deployed candidate API
-export const localCandidateAPI = localStrapiURL + 'candidates';
-export const deployedCandidateAPI = deployedStrapiURL + 'candidates';
+// URL for the candidate role API
+export const CandidateRoleAPI = StrapiURL + 'candidate-roles';
 
-// URL for the local + deployed candidate role API
-export const localCandidateRoleAPI = localStrapiURL + 'candidate-roles';
-export const deployedCandidateRoleAPI = deployedStrapiURL + 'candidate-roles';
-
-export const localBallotInitiativeAPI = localStrapiURL + 'ballot-initiatives';
-export const deployedBallotInitiativeAPI = deployedStrapiURL + 'ballot-initiatives';
+export const BallotInitiativeAPI = StrapiURL + 'ballot-initiatives';
 
 
 

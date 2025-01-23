@@ -6,7 +6,7 @@
 import react from 'react';
 import { useState, useEffect } from 'react';
 import ElectionCheckboxCard from './electionCheckboxCard';
-import { localBostonMunicipalAPI, deployedBostonMunicipalAPI, setGlobalCurrElection } from '@/common';
+import { BostonMunicipalAPI, setGlobalCurrElection } from '@/common';
 
 
 interface ElectionDateObject {
@@ -35,7 +35,7 @@ const ElectionCheckbox: React.FC<ElectionCheckboxProps> = ({ onCheck }) => {
         const fetchElectionDates = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(deployedBostonMunicipalAPI, {
+                const response = await fetch(BostonMunicipalAPI, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
