@@ -1,6 +1,9 @@
 import * as turf from '@turf/turf';
-import Precincts from './Precinct_Boundaries_2024.json' assert { type: 'json' };
-import PollingLocations from './Polling_Locations_2022.json' assert { type: 'json' };
+// import Precincts from './app/Precinct_Boundaries_2024.json' assert { type: 'json' };
+import fs from 'fs';
+const Precincts = JSON.parse(fs.readFileSync('./app/Precinct_Boundaries_2024.json', 'utf8'));
+// import PollingLocations from './app/Polling_Locations_2022.json' assert { type: 'json' };
+const PollingLocations = JSON.parse(fs.readFileSync('./app/Polling_Locations_2022.json', 'utf8'));
 
 const getPrecinct = async (address) => {    
     console.log("address from get_precinct.js:", address);

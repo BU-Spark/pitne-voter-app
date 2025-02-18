@@ -33,7 +33,12 @@ export default function UpcomingElections() {
         />
       <h1><img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }}/></h1>
      
-      <p className='font-semibold text-2xl pt-8 text-blue-950'>The most important information about Boston&#39;s municipal elections to help you navigate your voting journey.</p>
+      <p className='font-semibold text-2xl pt-8 text-blue-950'>Empower your voice and shape your city through streamlining your voting process.</p>
+      <div style={{width: 263, height: 60, paddingTop: 20, paddingBottom: 20, background: '#D31F37', borderRadius: 100, overflow: 'hidden', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex', marginTop: 20}}>
+        <div style={{alignSelf: 'stretch', height: 40, paddingTop: 30, paddingBottom: 30, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
+          <div style={{textAlign: 'center', color: '#ECF4F8', fontFamily: 'Roboto', fontSize: 20, fontWeight: '500', lineHeight: 20, letterSpacing: 0.10, wordWrap: 'break-word'}}>UPCOMING ELECTIONS</div>
+        </div>
+      </div>
     </div>
     <div className="mr-20">
       <img src="/OldStateHouse.svg" alt="StatehouseLogo"/>
@@ -41,38 +46,95 @@ export default function UpcomingElections() {
   </div>
 </div>
 
-            {/* Cards */}
-<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20'>
-        <CustomCard
-            image="frame2.png"
-            disableTitle={true}     
-            description="Everything you need to know about your voter status and personal voting logistics for local, state, and  primary elections."
-            className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200'
-            buttonText="Your Voter Info"
-            buttonLink="/voterInfo" />
-     
-    <div className="m-10"></div>
+<div
+  style={{
+    width: '92%', // Leave gaps on side
+    background: '#172554', // Background color
+    padding: '20px', // Padding for top and bottom
+    display: 'flex',
+    justifyContent: 'center', // Center content horizontally
+    alignItems: 'center', // Center content vertically
+    gap: '10px', // Space between text and icon
+    fontFamily: 'Inter',
+    margin: '20px auto 0' // Add space above the rectangle
+  }}
+>
+  {/* Text */}
+  <div
+    style={{
+      color: '#ECF4F8',
+      fontSize: '24px',
+      fontWeight: '500',
+      lineHeight: '20px',
+      letterSpacing: '10px',
+      textAlign: 'center',
+    }}
+  >
+    Find Out More
+  </div>
 
-        <CustomCard
-            image="/HowToRegisterIcon.svg"
-            disableTitle={true}     
-            description="Unsure if you're registered to vote? Ensure you're ready for the upcoming election season."
-            className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200'
-            buttonText="How to Register"
-            buttonLink="https://www.boston.gov/departments/elections/how-register-vote" />
-    
-    <div className="m-10"></div>
-    
-     
-            <CustomCard
-              image="frame3.png"
-              disableTitle={true}
-              description="Can&#39;t vote in person or want to vote early?"
-              className="p-4 m-4  rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
-              buttonText="Early Voting Options"
-              buttonLink="/votingOptions"
-            />
-          </div>
+  {/* Icon */}
+  <div data-svg-wrapper>
+    <svg
+      width="19"
+      height="18"
+      viewBox="0 0 19 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.5 0.5L8.5 12.67L2.91 7.08L1.5 8.5L9.5 16.5L17.5 8.5L16.09 7.09L10.5 12.67L10.5 0.5L8.5 0.5Z"
+        fill="#ECF4F8"
+        stroke="#ECF4F8"
+      />
+    </svg>
+  </div>
+</div>
+<div className='flex flex-col lg:flex-row justify-center items-center m-10 p-4 mt-20'>
+  {/* Early Voting Options Card */}
+  <div className="flex flex-col items-center p-4 m-4">
+    <img src="frame3.png" alt="Early Voting" className="w-flex h-20 mb-4" /> {/* Image added here */}
+    <div className="h-10 px-[15px] py-2.5 rounded-[20px] border border-blue-950 justify-center items-center gap-2.5 inline-flex">
+      <div className="text-center text-blue-700 text-xl font-medium font-['Roboto'] leading-tight">
+        <a href="/votingOptions">Early Voting Options</a>
+      </div>
+    </div>
+    <div className="text-center text-blue-950 text-base font-medium font-['Inter'] leading-tight mt-2.5">
+      Can’t vote in person or want to vote early?
+    </div>
+  </div>
+
+  <div className="m-10"></div>
+
+  {/* How to Register Card */}
+  <div className="flex flex-col items-center p-4 m-4">
+    <img src="/HowToRegisterIcon.svg" alt="How to Register" className="w-flex h-20 mb-4" /> {/* Image added here */}
+    <div className="h-10 px-[15px] py-2.5 rounded-[20px] border border-blue-950 justify-center items-center gap-2.5 inline-flex">
+      <div className="text-center text-blue-700 text-xl font-medium font-['Roboto'] leading-tight">
+        <a href="https://www.boston.gov/departments/elections/how-register-vote">How to Register</a>
+      </div>
+    </div>
+    <div className="text-center text-blue-950 text-base font-medium font-['Inter'] leading-tight mt-2.5">
+      Unsure if you are registered to vote?
+    </div>
+  </div>
+
+  <div className="m-10"></div>
+
+  {/* Your Voter Info Card */}
+  <div className="flex flex-col items-center p-4 m-4">
+    <img src="frame2.png" alt="Your Voter Info" className="w-flex h-20 mb-4" /> {/* Image added here */}
+    <div className="h-10 px-[15px] py-2.5 rounded-[20px] border border-blue-950 justify-center items-center gap-2.5 inline-flex">
+      <div className="text-center text-blue-700 text-xl font-medium font-['Roboto'] leading-tight">
+        <a href="/voterInfo">Your Voter Info</a>
+      </div>
+    </div>
+    <div className="text-center text-blue-950 text-base font-medium font-['Inter'] leading-tight mt-2.5">
+      Everything you need to navigate.
+    </div>
+  </div>
+</div>
+
 
     <div className='flex flex-col md:flex-row justify-center items-center p-4 '>
             <DeadlineToRegister />
