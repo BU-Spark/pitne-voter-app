@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 type Props = {
     electionName: string;
@@ -26,7 +27,14 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     const [displayElectionDate, setDisplayElectionDate] = useState('');
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('');
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
+    const router = useRouter();
 
+    const handleRedirect = () => {
+        router.push({
+            pathname: '/candidateInfo',
+            query: { electionType: electionName },
+        });
+    };
     useEffect(() => {
         if (electionDate) {
             // Create a new Date object and set the time to midnight local time
@@ -104,7 +112,9 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                     >
                         <span className="mr-2">+</span> Add to calendar
                     </button>
-                    <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center">
+                    <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
+                        onClick={handleRedirect}
+                    >
                         Candidate info
                         <span className="ml-2">→</span>
                     </button>
