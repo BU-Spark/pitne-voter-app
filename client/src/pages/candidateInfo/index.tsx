@@ -43,7 +43,16 @@ export default function CandidateInfo() {
     });
 
     const router = useRouter();
-
+    const { electionType } = router.query;
+    
+    useEffect(() => {
+        if (electionType) {
+            setFilters(prevFilters => ({
+                ...prevFilters,
+                electionType: electionType as string, // Apply pre-filter for electionType
+            }));
+        }
+    }, [electionType]);
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
@@ -223,7 +232,7 @@ export default function CandidateInfo() {
 
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="party-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Political Affiliation:</label>
-                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', width: '100%' }}><option value="">All</option>{parties.map(party => (<option key={party} value={party}>{party}</option>))}</select>
+                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}><option value="">All</option>{parties.map(party => (<option key={party} value={party}>{party}</option>))}</select>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
@@ -239,7 +248,7 @@ export default function CandidateInfo() {
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="office-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', }} > Office: </label>
-                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ height: '60px', borderRadius: '10px', background: '#FBFDFF', width: '100%', padding: '10px', border: '1px solid #ccc', }} > <option value="">All</option> <optgroup label="Federal Offices"> {federalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="State Offices"> {stateOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="Municipal Offices"> {municipalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> </select>
+                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> <optgroup label="Federal Offices"> {federalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="State Offices"> {stateOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="Municipal Offices"> {municipalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> </select>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
