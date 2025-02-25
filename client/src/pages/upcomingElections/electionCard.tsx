@@ -27,6 +27,14 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     const [displayElectionDate, setDisplayElectionDate] = useState('');
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('');
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
+    const router = useRouter();
+
+    const handleRedirect = () => {
+        router.push({
+            pathname: '/candidateInfo',
+            query: { electionType: electionName },
+        });
+    };
 
     useEffect(() => {
         if (electionDate) {
@@ -101,23 +109,73 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                             </div>
                         </div>
 
-                {/* Right Side: Buttons */}
-                <div className="flex-shrink-0 flex flex-col items-end justify-start">
-                    <button
-                        className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
-                        onClick={() => {
-                            window.open(
-                                `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Registration+Deadline+for+${electionName}&dates=${formatDate(displayRegistrationDate)}/${formatDate(displayRegistrationDate)}&details=Go+Register+For+${electionName}+by+5pm`,
-                                '_blank'
-                            );
-                        }}
-                    >
-                        <span className="mr-2">+</span> Add to calendar
-                    </button>
-                    <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center">
-                        Candidate info
-                        <span className="ml-2">→</span>
-                    </button>
+                        {/* Right Side: Buttons */}
+                        <div className="flex-shrink-0 flex flex-col items-end justify-start">
+                            <button
+                                className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
+                                onClick={() => {
+                                    window.open(
+                                        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Registration+Deadline+for+${electionName}&dates=${formatDate(displayRegistrationDate)}/${formatDate(displayRegistrationDate)}&details=Go+Register+For+${electionName}+by+5pm`,
+                                        '_blank'
+                                    );
+                                }}
+                            >
+                                <span className="mr-2">+</span> Add to calendar
+                            </button>
+                            <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
+                            onClick={handleRedirect}>
+                                Candidate info
+                                <span className="ml-2">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Election Event Box */}
+                <div className={`w-full rounded-[20px] border-2 border-blue-700 p-6 ${isRegistrationFirst ? 'order-2' : 'order-1'}`}>
+                    <div className="md:flex items-start justify-start gap-8">
+                        {/* Left Side: Date and Time */}
+                        <div className="flex-shrink-0 text-center">
+                            <div className="inline-block relative shadow-lg mb-4">
+                                <div className="text-blue-700 text-7xl font-semibold leading-none">
+                                    {new Date(displayElectionDate).getDate()}
+                                </div>
+                                <div className="text-white text-5xl font-semibold bg-blue-700 rounded-br-2xl rounded-bl-2xl p-2 px-4 w-full flex items-center justify-center">
+                                    {new Date(displayElectionDate).toLocaleString('default', { month: 'short' })}
+                                </div>
+                            </div>
+                            <div className="text-blue-700 text-2xl mt-1 font-bold text-center">
+                                from 7AM<br />to 8PM
+                            </div>
+                        </div>
+
+                        {/* Middle: Election Label */}
+                        <div className="flex-grow flex flex-col justify-start">
+                            <div className="text-blue-700 text-3xl font-medium leading-tight mb-4 mt-4">
+                                {electionName}
+                            </div>
+                        </div>
+
+                        {/* Right Side: Buttons */}
+                        <div className="flex-shrink-0 flex flex-col items-end justify-start">
+                            <button
+                                className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
+                                onClick={() => {
+                                    window.open(
+                                        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${electionName}&dates=${formatDate(displayElectionDate)}/${formatDate(displayElectionDate)}&details=Don't+forget+to+vote+in+the+${electionName}+from+7AM+to+8PM`,
+                                        '_blank'
+                                    );
+                                }}
+                            >
+                                <span className="mr-2">+</span> Add to calendar
+                            </button>
+                            <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
+                            onClick={handleRedirect}>
+                                Candidate info
+                                <span className="ml-2">→</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
