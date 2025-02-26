@@ -35,6 +35,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
             query: { electionType: electionName },
         });
     };
+
     useEffect(() => {
         if (electionDate) {
             // Create a new Date object and set the time to midnight local time
@@ -67,8 +68,13 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
         }
     }, [electionDate, electionName]);
 
+    // Determine the order of the boxes based on date
+    const registrationDateObj = new Date(displayRegistrationDate);
+    const electionDateObj = new Date(displayElectionDate);
+    const isRegistrationFirst = registrationDateObj < electionDateObj;
+
     return (
-        <div className="w-full max-w-[1240px] h-auto relative bg-white rounded-[20px] border border-blue-700 p-6 shadow-md mb-4">
+        <div className="w-full max-w-[1240px] h-auto relative bg-white rounded-[20px] p-6 shadow-md mb-4 mx-auto">
             {/* Days Left on Top */}
             {daysRemaining !== null && (
                 <div className="text-red-600 text-2xl font-semibold mb-4">
@@ -76,48 +82,100 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                 </div>
             )}
 
-            <div className="md:flex items-start justify-start gap-8">
-                {/* Left Side: Date and Time */}
-                <div className="flex-shrink-0 text-center">
-                    <div className="inline-block relative shadow-lg mb-4">
-                        <div className="text-blue-700 text-7xl font-semibold leading-none">
-                            {new Date(displayRegistrationDate).getDate()}
+            {/* Container for both boxes, ordered by date */}
+            <div className="flex flex-col gap-8 p-4">
+                {/* Registration Deadline Box */}
+                <div className={`w-full rounded-[20px] border-2 border-blue-700 p-6 ${isRegistrationFirst ? 'order-1' : 'order-2'}`}>
+                    <div className="md:flex items-start justify-start gap-8">
+                        {/* Left Side: Date and Time */}
+                        <div className="flex-shrink-0 text-center">
+                            <div className="inline-block relative shadow-lg mb-4">
+                                <div className="text-blue-700 text-7xl font-semibold leading-none">
+                                    {new Date(displayRegistrationDate).getDate()}
+                                </div>
+                                <div className="text-white text-5xl font-semibold bg-blue-700 rounded-br-2xl rounded-bl-2xl p-2 px-4 w-full flex items-center justify-center">
+                                    {new Date(displayRegistrationDate).toLocaleString('default', { month: 'short' })}
+                                </div>
+                            </div>
+                            <div className="text-blue-700 text-2xl mt-1 font-bold text-center">
+                                @ 5PM
+                            </div>
                         </div>
-                        <div className="text-white text-5xl font-semibold bg-blue-700 rounded-br-2xl rounded-bl-2xl p-2 px-4 w-full flex items-center justify-center">
-                            {new Date(displayRegistrationDate).toLocaleString('default', { month: 'short' })}
+
+                        {/* Middle: Registration Deadline Label */}
+                        <div className="flex-grow flex flex-col justify-start">
+                            <div className="text-blue-700 text-3xl font-medium leading-tight mb-4 mt-4">
+                                Deadline for registration of voters for {electionName}
+                            </div>
                         </div>
-                    </div>
-                    <div className="text-blue-700 text-2xl mt-1 font-bold">
-                        @ 5PM
+
+                        {/* Right Side: Buttons */}
+                        <div className="flex-shrink-0 flex flex-col items-end justify-start">
+                            <button
+                                className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
+                                onClick={() => {
+                                    window.open(
+                                        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Registration+Deadline+for+${electionName}&dates=${formatDate(displayRegistrationDate)}/${formatDate(displayRegistrationDate)}&details=Go+Register+For+${electionName}+by+5pm`,
+                                        '_blank'
+                                    );
+                                }}
+                            >
+                                <span className="mr-2">+</span> Add to calendar
+                            </button>
+                            <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
+                            onClick={handleRedirect}>
+                                Candidate info
+                                <span className="ml-2">→</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                {/* Middle: Election Label */}
-                <div className="flex-grow flex flex-col justify-start">
-                    <div className="text-blue-700 text-3xl font-medium leading-tight mb-4 mt-4">
-                        Deadline for registration of voters for {electionName}
-                    </div>
-                </div>
+                {/* Election Event Box */}
+                <div className={`w-full rounded-[20px] border-2 border-blue-700 p-6 ${isRegistrationFirst ? 'order-2' : 'order-1'}`}>
+                    <div className="md:flex items-start justify-start gap-8">
+                        {/* Left Side: Date and Time */}
+                        <div className="flex-shrink-0 text-center">
+                            <div className="inline-block relative shadow-lg mb-4">
+                                <div className="text-blue-700 text-7xl font-semibold leading-none">
+                                    {new Date(displayElectionDate).getDate()}
+                                </div>
+                                <div className="text-white text-5xl font-semibold bg-blue-700 rounded-br-2xl rounded-bl-2xl p-2 px-4 w-full flex items-center justify-center">
+                                    {new Date(displayElectionDate).toLocaleString('default', { month: 'short' })}
+                                </div>
+                            </div>
+                            <div className="text-blue-700 text-2xl mt-1 font-bold text-center">
+                                from 7AM<br />to 8PM
+                            </div>
+                        </div>
 
-                {/* Right Side: Buttons */}
-                <div className="flex-shrink-0 flex flex-col items-end justify-start">
-                    <button
-                        className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
-                        onClick={() => {
-                            window.open(
-                                `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Registration+Deadline+for+${electionName}&dates=${formatDate(displayRegistrationDate)}/${formatDate(displayRegistrationDate)}&details=Go+Register+For+${electionName}+by+5pm`,
-                                '_blank'
-                            );
-                        }}
-                    >
-                        <span className="mr-2">+</span> Add to calendar
-                    </button>
-                    <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
-                        onClick={handleRedirect}
-                    >
-                        Candidate info
-                        <span className="ml-2">→</span>
-                    </button>
+                        {/* Middle: Election Label */}
+                        <div className="flex-grow flex flex-col justify-start">
+                            <div className="text-blue-700 text-3xl font-medium leading-tight mb-4 mt-4">
+                                {electionName}
+                            </div>
+                        </div>
+
+                        {/* Right Side: Buttons */}
+                        <div className="flex-shrink-0 flex flex-col items-end justify-start">
+                            <button
+                                className="bg-blue-700 text-sky-50 rounded-lg py-2 px-6 mb-2 flex items-center w-48 justify-center"
+                                onClick={() => {
+                                    window.open(
+                                        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${electionName}&dates=${formatDate(displayElectionDate)}/${formatDate(displayElectionDate)}&details=Don't+forget+to+vote+in+the+${electionName}+from+7AM+to+8PM`,
+                                        '_blank'
+                                    );
+                                }}
+                            >
+                                <span className="mr-2">+</span> Add to calendar
+                            </button>
+                            <button className="border border-blue-700 text-blue-700 rounded-lg py-2 px-6 flex items-center w-48 justify-center"
+                            onClick={handleRedirect}>
+                                Candidate info
+                                <span className="ml-2">→</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
