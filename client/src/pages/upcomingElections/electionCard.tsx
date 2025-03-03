@@ -18,9 +18,21 @@ const formatDate = (dateString: string): string => {
 
 const daysLeft = (date: Date): number | null => {
     const now = new Date();
-    const timeDiff = date.getTime() - now.getTime();
+    now.setHours(0, 0, 0, 0); // Normalize time to midnight
+
+    const targetDate = new Date(date);
+    targetDate.setHours(0, 0, 0, 0); // Normalize time
+
+    // Check if the event is in a past year
+    if (targetDate.getFullYear() < now.getFullYear()) {
+        return null;
+    }
+
+    // Calculate days difference
+    const timeDiff = targetDate.getTime() - now.getTime();
     const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return days < 0 ? null : days; // Return null if days are negative
+
+    return days > 0 ? days : null; // Return null if the date has already passed
 };
 
 export default function ElectionCard({ electionName = 'Preliminary Municipal Election', electionDate }: Props) {
@@ -76,7 +88,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     return (
         <div className="w-full max-w-[1240px] h-auto relative bg-white rounded-[20px] p-6 shadow-md mb-4 mx-auto">
             {/* Days Left on Top */}
-            {daysRemaining !== null && (
+            {daysRemaining !== null && daysRemaining > 0 && daysRemaining <= 10 &&(
                 <div className="text-red-600 text-2xl font-semibold mb-4">
                     {daysRemaining} days left!
                 </div>
