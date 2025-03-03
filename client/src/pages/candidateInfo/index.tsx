@@ -10,7 +10,7 @@ interface Candidate {
         District: string;
         Party: string;
         ElectionName: string;
-        Office: string;
+        Role: string;
         Bio?: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
@@ -152,7 +152,7 @@ export default function CandidateInfo() {
               <div style={{ marginTop: '10px', paddingTop: '40px', borderTop: '1px solid #ddd', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center', }} >
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Office</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.Office}</strong>
+                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.Role}</strong>
                 </div>
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>District</p>
@@ -209,7 +209,7 @@ export default function CandidateInfo() {
             const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
             const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
             const matchesSearch = filters.search ? candidate.attributes.Name.toLowerCase().includes(filters.search.toLowerCase()): true;    // New Seach filter for candidates
-            const matchesOffice = filters.office ? candidate.attributes.Office === filters.office : true;                                   // New Office filter
+            const matchesOffice = filters.office ? candidate.attributes.Role === filters.office : true;                                   // New Office filter
             
             return matchesParty && matchesElection && matchesDistrict && matchesSearch && matchesOffice;
         });
