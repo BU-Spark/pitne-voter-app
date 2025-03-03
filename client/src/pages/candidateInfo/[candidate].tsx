@@ -174,7 +174,7 @@ export default function Candidate() {
                                                 className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 lg:h-80 lg:w-80 mx-6"
                                                 style={{
                                                     backgroundImage: `url(https://pitne-voter-app-production.up.railway.app${candidateData?.Headshot.data.attributes.url})`,
-                                                }}
+                                                    }}
                                             ></div>
                                         </div>
                                         {/* Name, role, party */}
