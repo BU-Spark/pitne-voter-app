@@ -2,7 +2,7 @@
 import 'tailwindcss/tailwind.css';
 import '@/app/globals.css';
 import NavBar from '../components/nav/NavBar'; // Import the NavBar component
-import NewsletterForm from '../components/nav/NewsLetterForm'; // Import the NewsletterForm component
+import NewsletterForm from '../components/nav/NewsletterForm'; // Import the NewsletterForm component
 import CookieConsent from '../components/cookieConsent'; // Import the CookieConsent component
 import { AppProps } from 'next/app'; // Import AppProps from Next.js
 import { useEffect } from 'react';
