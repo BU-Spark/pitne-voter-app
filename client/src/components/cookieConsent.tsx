@@ -45,7 +45,7 @@ const CookieConsent: React.FC = () => {
                     }}
                 >
                     <Typography variant="body1" sx={{ mr: 2 }}>
-                        We use cookies to enhance your experience by caching location information securely on your browser. By clicking "Accept," you consent to our use of cookies.
+                        We use cookies to enhance your experience by caching location information securely on your browser. By clicking &quot;Accept,&quot; you consent to our use of cookies.
                         {/* <a href="/cookie-policy" style={{ color: '#ffdd57', marginLeft: '5px' }}>Learn more</a> */}
                     </Typography>
                     <Button

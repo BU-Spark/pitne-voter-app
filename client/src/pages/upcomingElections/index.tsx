@@ -7,6 +7,7 @@ import NavBar from "@/components/nav/NavBar";
 import { Box } from "@mui/material";
 import { Container, Grid } from '@mui/material';
 import CustomCard from '@/components/button/CustomCard';
+import Link from 'next/link';
 
 export default function UpcomingElections() {
   // Function to handle smooth scrolling
@@ -129,11 +130,11 @@ export default function UpcomingElections() {
           <img src="frame3.png" alt="Early Voting" className="w-flex h-20 mb-4" />
           <div className="h-10 px-[15px] py-2.5 rounded-[20px] border border-blue-950 justify-center items-center gap-2.5 inline-flex">
             <div className="text-center text-blue-700 text-xl font-medium font-['Roboto'] leading-tight">
-              <a href="/votingOptions">Early Voting Options</a>
+              <Link href="/votingOptions">Early Voting Options</Link>
             </div>
           </div>
           <div className="text-center text-blue-950 text-base font-medium font-['Inter'] leading-tight mt-2.5">
-            Can’t vote in person or want to vote early?
+            Can&apos;t vote in person or want to vote early?
           </div>
         </div>
 
@@ -155,7 +156,7 @@ export default function UpcomingElections() {
           <img src="frame2.png" alt="Your Voter Info" className="w-flex h-20 mb-4" />
           <div className="h-10 px-[15px] py-2.5 rounded-[20px] border border-blue-950 justify-center items-center gap-2.5 inline-flex">
             <div className="text-center text-blue-700 text-xl font-medium font-['Roboto'] leading-tight">
-              <a href="/voterInfo">Your Voter Info</a>
+              <Link href="/voterInfo">Your Voter Info</Link>
             </div>
           </div>
           <div className="text-center text-blue-950 text-base font-medium font-['Inter'] leading-tight mt-2.5">
@@ -171,7 +172,7 @@ export default function UpcomingElections() {
 
       {/* Election Dates Section */}
       <div id="election-dates" className="bg-sky-100 p-4 mt-20">
-        <h1 className="text-left font-semibold text-3xl m-20">Boston&#39;s Upcoming Election Dates</h1>
+        <h1 className="text-left font-semibold text-3xl m-20">Boston&apos;s Upcoming Election Dates</h1>
         <div className="flex items-center justify-center flex-wrap">
           <ElectionDates />
         </div>
@@ -180,7 +181,7 @@ export default function UpcomingElections() {
       {/* Footer */}
       <div className='flex flex-col justify-center items-center p-4 text-center bg-sky-100'>
         <h1 className='font-semibold text-lg mt-16 m-4'>You may be wondering...</h1>
-        <ButtonFill name='What&#39;s on the Ballot' link='/voterInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
+        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
         <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 rounded-full text-white-700 bg-blue-700 hover:bg-blue-800' />
       </div>
     </div>
