@@ -20,8 +20,8 @@ interface Candidate {
     };
 }
 
-const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other'];
-const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
+const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other', 'Unspecified'];
+const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Mayoral Election'];
 const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
 /* Office Filters */
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives', ];
@@ -56,7 +56,7 @@ export default function CandidateInfo() {
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
-                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot');
+                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections');
 
                 if (response.ok) {
                     const data = await response.json();
@@ -65,11 +65,15 @@ export default function CandidateInfo() {
                             const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
                                 ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
                                 : undefined;
+                            const partyName = candidate.attributes.party?.data?.attributes?.PartyName;
+                            const electionNames = candidate.attributes.elections?.data?.map((e: any) => e.attributes.ElectionName) || [];
                             return {
                                 ...candidate,
                                 attributes: {
                                     ...candidate.attributes,
                                     PhotoURL: headshotUrl,
+                                    Party: partyName,
+                                    ElectionName: electionNames.join(', '),
                                 },
                             };
                         });
@@ -206,7 +210,7 @@ export default function CandidateInfo() {
     useEffect(() => {
         const filtered = candidates.filter(candidate => {
             const matchesParty = filters.party ? candidate.attributes.Party === filters.party : true;
-            const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
+            const matchesElection = filters.electionType ? candidate.attributes.ElectionName?.includes(filters.electionType): true;        
             const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
             const matchesSearch = filters.search ? candidate.attributes.Name.toLowerCase().includes(filters.search.toLowerCase()): true;    // New Seach filter for candidates
             const matchesOffice = filters.office ? candidate.attributes.Role === filters.office : true;                                   // New Office filter
