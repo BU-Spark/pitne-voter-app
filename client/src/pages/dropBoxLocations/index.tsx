@@ -19,7 +19,7 @@ export default function DropBoxLocations() {
 
             {/* ArcGIS Map */}
             <div className='flex flex-row justify-center items-center p-4 m-6' >
-                <iframe src="https://tuftsgis.maps.arcgis.com/apps/instant/media/index.html?appid=9a84a0d949274b559b800b9ffc043b04" width="1000" height="600" style={{ border: 0 }} allowFullScreen>iFrames are not supported on this page.</iframe>
+                <iframe src="https://tuftsgis.maps.arcgis.com/apps/instant/media/index.html?appid=9a84a0d949274b559b800b9ffc043b04" width="1000" height="600" style={{ border: 0 }} allow="geolocation" allowFullScreen>iFrames are not supported on this page.</iframe>
             </div>
 
 

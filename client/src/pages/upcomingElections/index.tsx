@@ -24,21 +24,23 @@ export default function UpcomingElections() {
       <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
         <div className='flex flex-col sm:flex-row items-center justify-between'>
           <div>
+            <div>
             {/* Rectangle with absolute positioning */}
-            <div
-              style={{
-                width: '600px',
-                height: '226px',
-                position: 'absolute',
-                top: '240px',
-                backgroundColor: '#1D4ED8',
-                left: '0',
-              }}
-            />
-            <h1>
-              <img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'relative' }} />
-            </h1>
-            <p className='font-semibold text-2xl pt-8 text-blue-950'>
+              <div
+                style={{
+                  width: '600px',
+                  height: '226px',
+                  position: 'absolute',
+                  top: '230px',
+                  backgroundColor: '#1D4ED8',
+                  left: '0',
+                }}
+              />
+              <h1>
+                <img src="/Headline.svg" alt="LetsVoteIcon" style={{ zIndex: 50, position: 'absolute', top: '150px' }} />
+              </h1>
+            </div>
+            <p className='font-semibold text-2xl pt-8 text-blue-950' style={{position: 'relative', top: '260px', marginBottom: 100}}>
               Empower your voice and shape your city through streamlining your voting process.
             </p>
             {/* Button to scroll to Election Dates */}
@@ -49,6 +51,8 @@ export default function UpcomingElections() {
                 height: 60,
                 paddingTop: 20,
                 paddingBottom: 20,
+                position: 'relative',
+                top: '160px',
                 background: '#D31F37',
                 borderRadius: 100,
                 overflow: 'hidden',
@@ -88,7 +92,7 @@ export default function UpcomingElections() {
           alignItems: 'center', // Center content vertically
           gap: '10px', // Space between text and icon
           fontFamily: 'Inter',
-          margin: '20px auto 0', // Add space above the rectangle
+          margin: '100px auto 0', // Add space above the rectangle
         }}
       >
         {/* Text */}

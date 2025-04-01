@@ -5,13 +5,11 @@ import ButtonFill from '@/components/button/ButtonFill';
 
 const VotingOptions = () => {
     return (
-      <div>
-        
+        <div>
                  {/* Header */}
-                 <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
+            <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
             <div className='flex items-center'>
-                <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'> Voting Options</h1>
-               
+                <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text'> Voting Options</h1>
             </div>
             <p className='font-semibold text-2xl pt-8 '>Everything you need to know about your voting options made simple!</p>
         </div>
