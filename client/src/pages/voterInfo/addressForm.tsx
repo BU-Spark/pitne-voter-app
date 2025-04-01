@@ -141,7 +141,8 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             }
         } catch (error) {
             loadSavedCookieData();
-            setError("Server did not respond. Using cached data.");
+            setError("No polling location found for this address yet.\
+                Please check back later or re-enter the address to try again.");
             /* setError('No polling location found for this address yet. \
                 Assigned polling locations are usually available 2-4 weeks before an election. \
                 Please check back later or re-enter the address to try again.'); */

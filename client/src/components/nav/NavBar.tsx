@@ -1,10 +1,6 @@
-/* The code below is adapted from the "App bar with responsive menu" code here:
- * https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu 
- * If wanting to add user icon with dropdown to the nav bar, see code linked
- * above (removed from this version bc not implementing) */
 'use client';
 import * as React from 'react';
-import { AppBar, Box, Button, MenuItem, Toolbar, IconButton, Typography, Menu, Container } from '@mui/material';
+import { AppBar, Box, Button, MenuItem, Toolbar, IconButton, Typography, Menu, Container, TextField, Snackbar, Alert } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import StarIcon from '@mui/icons-material/Star';
 import { useRouter } from 'next/navigation';
@@ -23,20 +19,45 @@ const slideIn = keyframes`
   }
 `;
 
-const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', /*'Ballot Info',*/ 'Drop Box Locations'];
+const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
   'Upcoming Elections': '/upcomingElections',
   'Your Voter Info': '/voterInfo',
   'Voting Options': '/votingOptions',
   'Candidate Info': '/candidateInfo',
-  // 'Ballot Info': '/ballotInfo',
   'Drop Box Locations': '/dropBoxLocations'
 };
 
-function NavBar() {
+// List of valid Boston zip codes
+const validBostonZipCodes = [
+  '02108', '02109', '02110', '02111', '02112', '02113', '02114', '02115', '02116', '02117',
+  '02118', '02119', '02120', '02121', '02122', '02123', '02124', '02125', '02126', '02127',
+  '02128', '02129', '02130', '02131', '02132', '02133', '02134', '02135', '02136', '02137',
+  '02163', '02196', '02199', '02201', '02203', '02204', '02205', '02206', '02210', '02211',
+  '02212', '02215', '02217', '02222', '02241', '02266', '02283', '02284', '02293', '02295',
+  '02297', '02298'
+];
+
+const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [zipCode, setZipCode] = React.useState<string>('');
+  const [isEditingZipCode, setIsEditingZipCode] = React.useState<boolean>(false);
+  const [hasMounted, setHasMounted] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const router = useRouter();
+  const currentPath = usePathname();
+
+  // Load saved zip code from cookies
+  React.useEffect(() => {
+    setHasMounted(true);
+    const savedZipCode = Cookies.get('zipCode') || '';
+    setZipCode(savedZipCode);
+  }, []);
+
+  if (!hasMounted) {
+    return null; // Return nothing during SSR and initial client render
+  }
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -51,28 +72,36 @@ function NavBar() {
     router.push(links[page]);
   };
 
-  // Below is testing for active page link
-  const currentPath = usePathname();
   const isActive = (path: string | null) => {
     return currentPath === path;
   };
 
-  // const handleClearData = () => {
-  //   Cookies.remove('address');
-  //   Cookies.remove('pollingInfo');
-  //   Cookies.remove('cookieConsent');
-  //   alert('All user data has been cleared.');
-  // };
+  const handleSaveZipCode = () => {
+    if (zipCode && validBostonZipCodes.includes(zipCode)) {
+      Cookies.set('zipCode', zipCode, { expires: 7 }); // Save zip code in a cookie for 7 days
+      setIsEditingZipCode(false); // Exit edit mode
+      setError(null); // Clear any previous error
+    } else {
+      setError('Please enter a valid Boston zip code.'); // Show error message
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSaveZipCode(); // Save zip code when Enter is pressed
+    }
+  };
+
+  const handleCloseError = () => {
+    setError(null); // Close the error message
+  };
 
   return (
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-
-
-
-        {/* Boston Voter Logo */}
-        <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 0 }}>
+          {/* Boston Voter Logo */}
+          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 0 }}>
             <img
               src="/LogoTest.svg"
               alt="Boston Voter Logo"
@@ -81,37 +110,11 @@ function NavBar() {
             />
           </Box>
 
-
-          {/* BELOW IS FOR STANDARD NAVBAR */}
-          {/* <StarIcon sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 1, fontSize: '20px', color: '#204cdc' }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/upcomingElections"
-            sx={{
-              display: { xs: 'none', md: 'none', lg: 'flex' },
-              fontWeight: 700,
-              fontSize: '20px',
-              color: '#204cdc',
-              textDecoration: 'none',
-
-            }}
-            onClick={() => {
-              handleClick('Upcoming Elections');
-            }}
-
-          >
-            Boston Voter
-          </Typography> */}
-
-
-          {/* Page links below */}
-          {/* This appears to be useless code */}
+          {/* Page links for mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex', lg: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="open navigation menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -145,14 +148,13 @@ function NavBar() {
             </Menu>
           </Box>
 
-
-          {/* BELOW IS FOR RESPONSIVE NAVBAR (CONDENSED DROP DOWN) */}
+          {/* Boston Voter title for mobile */}
           <Box sx={{
             display: 'flex',
-            justifyContent: 'flex-end', // Align items to the right
-            alignItems: 'center', // Center items vertically
+            justifyContent: 'flex-end',
+            alignItems: 'center',
           }}>
-            <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '20px', color: '#204cdc', justifyContent: 'flex-end', }} /> {/* REPLACE WITH STAR LOGO */}
+            <StarIcon sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, mr: 1, fontSize: '20px', color: '#204cdc', justifyContent: 'flex-end', }} />
             <Typography
               variant="h5"
               noWrap
@@ -168,22 +170,19 @@ function NavBar() {
                 textDecoration: 'none',
                 justifyContent: 'flex-end',
               }}
-
-              onClick={() => {
-                handleClick('Upcoming Elections');
-              }} >
+              onClick={() => handleClick('Upcoming Elections')}
+            >
               Boston Voter
             </Typography>
           </Box>
 
+          {/* Page links for desktop */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'none', lg: 'flex' }, justifyContent: 'right' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
                 className={`m-4 ${isActive(links[page]) ? 'border-b-4 border-red-600 text-blue-950 px-2 ' : ''}`}
-
-
                 sx={{
                   my: 2,
                   display: 'block',
@@ -200,21 +199,46 @@ function NavBar() {
             ))}
           </Box>
 
-          {/* Clear Data Button */}
-          {/* <Box sx={{ flexGrow: 0, ml: 2 }}>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={handleClearData}
-              sx={{ textTransform: 'none' }}
-            >
-              Clear User Data
-            </Button>
-          </Box> */}
+          {/* Zip Code Display and Edit */}
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+            {isEditingZipCode ? (
+              <TextField
+                variant="outlined"
+                size="small"
+                placeholder="Zip Code"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleSaveZipCode} // Save when user clicks outside the input
+                autoFocus // Automatically focus the input when editing
+                sx={{ width: '100px', mr: 1 }}
+              />
+            ) : (
+              <Typography
+                variant="body1"
+                sx={{ color: '#204cdc', fontWeight: 500, cursor: 'pointer' }}
+                onClick={() => setIsEditingZipCode(true)} // Switch to edit mode when clicked
+              >
+                Zip Code: {zipCode || 'N/A'}
+              </Typography>
+            )}
+          </Box>
         </Toolbar>
       </Container>
+
+      {/* Error Snackbar */}
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={handleCloseError}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseError} severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
     </AppBar>
   );
-}
+};
 
 export default NavBar;
