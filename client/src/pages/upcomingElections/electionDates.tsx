@@ -8,6 +8,7 @@ interface ElectionDateObject {
     attributes: {
         ElectionDate: Date;
         ElectionName: string;
+        RegistrationDate?: Date;
     }
 }
 
@@ -31,7 +32,15 @@ export default function ElectionDates() {
 
                 if (response.ok) {
                     const electionData = await response.json();
-                    setElectionDates(electionData.data)
+                    const processedData = electionData.data.map((item: any) => ({
+                        ...item,
+                        attributes: {
+                            ...item.attributes,
+                            ElectionDate: new Date(item.attributes.ElectionDate),
+                            RegistrationDate: item.attributes.RegistrationDate ? new Date(item.attributes.RegistrationDate) : undefined
+                        }
+                    }));
+                    setElectionDates(processedData);
                     setIsLoading(false);
 
                 } else {
@@ -69,7 +78,12 @@ export default function ElectionDates() {
                         <div className="flex items-center justify-center flex-wrap">
                            
                             {sortedElectionDates.map((election, index) => (
-                                <ElectionCard key={index} electionName={election.attributes.ElectionName} electionDate={election.attributes.ElectionDate} />
+                                <ElectionCard 
+                                    key={index}
+                                    electionName={election.attributes.ElectionName} 
+                                    electionDate={election.attributes.ElectionDate} 
+                                    registrationDate={election.attributes.RegistrationDate} 
+                                />
                             ))}
                         </div>
                     )}
