@@ -68,6 +68,9 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
 
             // Save polling information to cookie (expires in 7 days)
             Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
+
+            Cookies.set('zipCode', zip, { expires: 7 });
+
         }
     };
 
@@ -139,14 +142,24 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             } else {
                 setError('Invalid Address or Address Format or Unsupported Location');
             }
-        } catch (error) {
-            loadSavedCookieData();
-            setError("No polling location found for this address yet.\
-                Please check back later or re-enter the address to try again.");
-            /* setError('No polling location found for this address yet. \
-                Assigned polling locations are usually available 2-4 weeks before an election. \
-                Please check back later or re-enter the address to try again.'); */
-        }
+         } catch (error) {
+                // Save the address even if polling location is not found
+                saveCookieData(street, city, zip, {
+                    location: null,
+                    street: street,
+                    city: city,
+                    state: null,
+                    zip: zip,
+                    room: null,
+                    instructions: null,
+                    ward: null,
+                    precinct: null,
+                });
+            
+                loadSavedCookieData();
+                setError("No polling location found for this address yet. Please check back later or re-enter the address to try again.");
+            }
+            
     };
 
     return (
