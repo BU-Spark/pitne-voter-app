@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 type Props = {
     electionName: string;
     electionDate: Date;
-    registrationDate: Date;
+    registrationDate?: Date;
 };
 
 const formatDate = (dateString: string): string => {
