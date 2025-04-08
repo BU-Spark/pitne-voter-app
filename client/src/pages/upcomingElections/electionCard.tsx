@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 type Props = {
     electionName: string;
     electionDate: Date;
+    registrationDate?: Date;
 };
 
 const formatDate = (dateString: string): string => {
@@ -35,7 +36,7 @@ const daysLeft = (date: Date): number | null => {
     return days >= 0 ? days : null; // Return null if the date has already passed
 };
 
-export default function ElectionCard({ electionName = 'Preliminary Municipal Election', electionDate }: Props) {
+export default function ElectionCard({ electionName = 'Preliminary Municipal Election', electionDate, registrationDate }: Props) {
     const [displayElectionDate, setDisplayElectionDate] = useState('');
     const [displayRegistrationDate, setDisplayRegistrationDate] = useState('');
     const [daysRemaining, setDaysRemaining] = useState<number | null>(null);
@@ -50,35 +51,36 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
 
     useEffect(() => {
         if (electionDate) {
-            // Create a new Date object and set the time to midnight local time
+            // Create a new Date object and set the time to midnight UTC
             const electionDateObj = new Date(electionDate);
-            electionDateObj.setHours(0, 0, 0, 0);
+            electionDateObj.setUTCHours(0, 0, 0, 0);
 
             const formattedElectionDate = electionDateObj.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric',
+                timeZone: 'UTC'
             });
 
             setDisplayElectionDate(formattedElectionDate);
 
-            // Calculate the registration date and set the time to midnight local time
-            const registrationDate = new Date(electionDateObj);
-            registrationDate.setDate(registrationDate.getDate() - 10);
-            registrationDate.setHours(0, 0, 0, 0);
+            // Create a new registration date and set the time to midnight UTC
+            const registrationDateObj = new Date(registrationDate);
+            registrationDateObj.setUTCHours(0, 0, 0, 0);
 
-            const formattedRegistrationDate = registrationDate.toLocaleDateString('en-US', {
+            const formattedRegistrationDate = registrationDateObj.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric',
+                timeZone: 'UTC'
             });
 
             setDisplayRegistrationDate(formattedRegistrationDate);
 
-            const calculatedDays = daysLeft(registrationDate);
+            const calculatedDays = daysLeft(registrationDateObj);
             setDaysRemaining(calculatedDays);
         }
-    }, [electionDate, electionName]);
+    }, [electionDate, registrationDate, electionName]);
 
     if (daysLeft(new Date(displayElectionDate)) == null) {
         return null;
@@ -115,9 +117,11 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                             <div className="text-blue-700 text-3xl font-medium leading-tight mb-4 mt-4">
                                 {electionName}
                             </div>
-                            <div className="text-gray-600 text-xl mb-4">
-                                <strong>Registration Deadline:</strong> {displayRegistrationDate} by 8PM
-                            </div>
+                            {displayRegistrationDate && (
+                                <div className="text-gray-600 text-xl mb-4">
+                                    <strong>Registration Deadline:</strong> {displayRegistrationDate} by 8PM
+                                </div>
+                            )}
                         </div>
 
                         {/* Right Side: Buttons */}
