@@ -34,7 +34,7 @@ export default function VoterInfo() {
     return (
         <div>
             {/* Header */}
-            <div className='text-left bg-sky-50 p-20 pt-40 pb-0'>
+            <div className='text-left bg-[#F5F5F5] p-20 pt-40 pb-0'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'>
                     Your Voter Info
                 </h1>
@@ -43,7 +43,7 @@ export default function VoterInfo() {
             {/* Left and Right Paragraphs */}
             <div className='flex flex-row'>
                 {/* Left Column */}
-                <div className='flex flex-col items-left px-20 py-8 text-left bg-sky-50 w-1/2'>
+                <div className='flex flex-col items-left px-20 py-8 text-left bg-[#F5F5F5] w-1/2'>
                     <p className='font-semibold text-2xl'>
                         Here is everything you need to know about your
                         <br />
@@ -52,7 +52,7 @@ export default function VoterInfo() {
                 </div>
 
                 {/* Right Column */}
-                <div className='flex flex-col items-left px-20 py-8 text-left bg-sky-50 w-1/2'>
+                <div className='flex flex-col items-left px-20 py-8 text-left bg-[#F5F5F5] w-1/2'>
                     <p className='font-semibold text-2xl'>
                         Enter your address below to view a personalized
                         <br />
@@ -86,13 +86,10 @@ export default function VoterInfo() {
             {(pollingInfo || error) && (
                 <div className="grid grid-cols-6 mt-8">
                     <div className="md:col-span-1 hidden md:block"></div>
-
                     <div className="space-y-4 lg:mx-6 md:mx-10 px-8 py-10 rounded-2xl shadow-2xl border border-gray-200 col-span-6 lg:col-span-4 bg-white">
                         <div className="space-y-4 w-full px-6">
-
                             {/* Main Content Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-
                                 {/* First Column Content */}
                                 <div className="text-left text-2xl">
                                     {pollingInfo && (
@@ -133,12 +130,9 @@ export default function VoterInfo() {
                                         </a>
                                     )}
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
                     <div className="md:col-span-1 hidden md:block"></div>
                 </div>
             )}
@@ -148,7 +142,7 @@ export default function VoterInfo() {
             <br />
             <br />
 
-            <div className='p-4 pt-20 bg-sky-100'>
+            <div className='p-4 pt-20 bg-[#F5F5F5]'>
                 {/* Cards */}
                 <div className='flex flex-col md:flex-row justify-center items-center p-4'>
                     <CustomCard
