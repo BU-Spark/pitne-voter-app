@@ -22,7 +22,8 @@ interface Candidate {
 
 const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other', 'Unspecified'];
 const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Mayoral Election'];
-const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
+const districts = [ 'District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9', 'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District', 'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District', 'Tenth Suffolk District', 'Eleventh Suffolk District', 'Twelfth Suffolk District', 'Thirteenth Suffolk District', 'Fourteenth Suffolk District', 'Fifteenth Suffolk District', 'Sixteenth Suffolk District', 'Seventeenth Suffolk District', 'Eighteenth Suffolk District', 'Nineteenth Suffolk District', 'Suffolk and Middlesex District', 'Middlesex and Suffolk District', 'Norfolk and Suffolk District', 'All District' ];
+   // Example districts, replace with actual
 /* Office Filters */
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives', ];
 const stateOffices = [ 'Governor and Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth', 'Treasurer and Receiver-General', 'Auditor', 'State Senators', 'State Representatives', ];
