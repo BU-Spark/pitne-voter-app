@@ -82,7 +82,7 @@ const DropDownInfo: React.FC<DropDownInfoProps> = ({ activeTab }) => {
   const item = allData.find((entry) => entry.title === activeTab);
   if (!item) return null;
   return (
-  <div className='relative bg-stone-300 rounded-2xl px-8 py-10 mt-6 mb-12 mx-auto max-w-4xl space-y-6 text-center shadow-md'>
+  <div className='relative bg-stone-300 rounded-2xl w-full max-w-[1000px] px-8 py-10 mx-auto my-10 space-y-6 text-center shadow-md min-h-[450px]'>
     
     <Typography variant='h5' sx={{ color: '#1e1b4b' }}>{item.title}</Typography>
 
