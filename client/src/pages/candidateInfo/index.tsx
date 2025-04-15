@@ -24,7 +24,7 @@ const parties = ['Democrat', 'Republican', 'Libertarian', 'Independent', 'Non Pa
 const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
 const districts = ['District 1', 'District 2', 'District 3', 'District 4','District 5', 
     'District 6', 'District 7', 'District 8','District 9', 'District 10', 'District 11', 
-    'District 12','District 132', 'District 14', 'District 15', 'District 16','District 17', 'District 18']; // Example districts, replace with actual
+    'District 12','District 13', 'District 14', 'District 15', 'District 16','District 17', 'District 18']; // Example districts, replace with actual
 /* Office Filters */
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
 const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth', 
