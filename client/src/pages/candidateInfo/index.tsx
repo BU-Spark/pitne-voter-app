@@ -8,31 +8,34 @@ interface Candidate {
     attributes: {
         Name: string;
         District: string;
-        Party: string;
-        ElectionName: string;
+        Party?: { data: { attributes: { PartyName: string } } } | string; // Party can be nested or direct string
+        ElectionName?: string; // ElectionName can be directly in attributes
+        elections?: { data: [{ attributes: { ElectionName: string } }] }; // ElectionName can be nested in elections
         Office: string;
-        Bio?: string;
+        Role?: string; // Role might be the office
+        Biography: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
-        [key: string]: string | undefined;
+        [key: string]: any; // Allow other attributes, important for nested structures
         ElectionDate?: string;
+
     };
 }
 
 const parties = ['Democrat', 'Republican', 'Libertarian', 'Independent', 'Non Partisan', 'Other'];
 const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
-const districts = ['District 1', 'District 2', 'District 3', 'District 4','District 5', 
-    'District 6', 'District 7', 'District 8','District 9', 'District 10', 'District 11', 
-    'District 12','District 13', 'District 14', 'District 15', 'District 16','District 17', 'District 18']; // Example districts, replace with actual
+const districts = ['District 1', 'District 2', 'District 3', 'District 4','District 5',
+    'District 6', 'District 7', 'District 8','District 9', 'District 10', 'District 11',
+    'District 12','District 132', 'District 14', 'District 15', 'District 16','District 17', 'District 18']; // Example districts, replace with actual
 /* Office Filters */
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
-const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth', 
+const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth',
     'Treasurer and Receiver-General', 'Auditor', "Governor's Countcil", 'State Senators', 'State Representatives', ];
 const municipalOffices = [ 'Mayor', 'City Councilors', 'School Committee Members'];
-const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention', 
+const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention',
     'Alternate Delegate to the National Convention', 'District Attorney', 'Clerk of Courts', 'Clerk of Superior Court (Civil)',
-    'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission', 
+    'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission',
     'Register of Deeds', 'Sheriff', 'County Treasurer', 'Probate Judge', 'Register of Probate', 'Council of Governments Executive Committee'
 ]
 
@@ -52,7 +55,7 @@ export default function CandidateInfo() {
 
     const router = useRouter();
     const { electionType } = router.query;
-    
+
     useEffect(() => {
         if (electionType) {
             setFilters(prevFilters => ({
@@ -64,7 +67,7 @@ export default function CandidateInfo() {
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
-                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot');
+                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections');
 
                 if (response.ok) {
                     const data = await response.json();
@@ -73,11 +76,20 @@ export default function CandidateInfo() {
                             const headshotUrl = candidate.attributes.Headshot?.data?.attributes?.url
                                 ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
                                 : undefined;
+
+                            // Correctly extract Party, ElectionName and Office based on API response structure
+                            const partyName = candidate.attributes.party?.data?.attributes?.PartyName || candidate.attributes.Party; // Handle both nested and direct party
+                            const electionName = candidate.attributes.elections?.data?.[0]?.attributes?.ElectionName || candidate.attributes.ElectionName; // Handle both nested and direct election
+                            const office = candidate.attributes.Role || candidate.attributes.Office; // Use Role if Office is not present
+
                             return {
                                 ...candidate,
                                 attributes: {
                                     ...candidate.attributes,
                                     PhotoURL: headshotUrl,
+                                    Party: partyName,
+                                    ElectionName: electionName,
+                                    Office: office,
                                 },
                             };
                         });
@@ -89,7 +101,8 @@ export default function CandidateInfo() {
                 } else {
                     setError('Failed to fetch candidate data');
                 }
-            } catch {
+            } catch (error) {
+                console.error("Fetch error:", error);
                 setError('An error occurred while fetching candidate data');
             } finally {
                 setIsLoading(false);
@@ -135,9 +148,12 @@ export default function CandidateInfo() {
           e.stopPropagation();
           setExpanded((prev) => !prev);
         };
-      
+
+        // Ensure Party is treated as string for display
+        const partyToDisplay = typeof candidate.attributes.Party === 'string' ? candidate.attributes.Party : candidate.attributes.Party?.data?.attributes?.PartyName;
+
         return (
-            <div onClick={toggleExpanded} style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: expanded ? '0px 4px 8px rgba(0, 0, 0, 0.2)' : '0px 2px 4px rgba(0, 0, 0, 0.1)', }}> 
+            <div onClick={toggleExpanded} style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: expanded ? '0px 4px 8px rgba(0, 0, 0, 0.2)' : '0px 2px 4px rgba(0, 0, 0, 0.1)', }}>
             {/* Header Section */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -145,13 +161,14 @@ export default function CandidateInfo() {
                         <img src={candidate.attributes.PhotoURL} alt={candidate.attributes.Name} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '5px', marginRight: '10px', }} />
                         )}
                         <div>
-                            <span style={{ color: '#555', fontSize: '14px' }}>{candidate.attributes.Party}</span>
+                            {/* Display Party ABOVE the Name */}
+                            <span style={{ color: 'red', fontSize: '14px', display: 'block' }}>{partyToDisplay}</span> {/* Party text is now red */}
                             <h3 style={{ margin: '5px 0', fontSize: '18px', fontWeight: 'bold' }}>
                                 {candidate.attributes.Name}
                             </h3>
                         </div>
                     </div>
-      
+
               {/* Expand/Collapse Indicator */}
               <span style={{ fontSize: '20px', color: '#888' }}>{expanded ? '▲' : '▼'}</span>
             </div>
@@ -176,15 +193,15 @@ export default function CandidateInfo() {
                 </div>
               </div>
             )}
-      
+
             {/* More Info Button */}
             {expanded && (
               <div style={{ textAlign: 'right', marginTop: '10px' }}>
                 <button
                   style={{
                     backgroundColor: 'transparent',
-                    border: '1px solid #007bff',
-                    color: '#007bff',
+                    border: '1px solid #F00',
+                    color: '#F00',
                     padding: '6px 12px',
                     borderRadius: '20px',
                     fontSize: '14px',
@@ -200,7 +217,7 @@ export default function CandidateInfo() {
           </div>
         );
       };
-    
+
     const handleResetFilters = () => {
         setFilters({
             party: '',
@@ -213,12 +230,14 @@ export default function CandidateInfo() {
 
     useEffect(() => {
         const filtered = candidates.filter(candidate => {
-            const matchesParty = filters.party ? candidate.attributes.Party === filters.party : true;
+            const partyName = typeof candidate.attributes.Party === 'string' ? candidate.attributes.Party : candidate.attributes.Party?.data?.attributes?.PartyName;
+
+            const matchesParty = filters.party ? partyName === filters.party : true;
             const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
             const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
             const matchesSearch = filters.search ? candidate.attributes.Name.toLowerCase().includes(filters.search.toLowerCase()): true;    // New Seach filter for candidates
             const matchesOffice = filters.office ? candidate.attributes.Office === filters.office : true;                                   // New Office filter
-            
+
             return matchesParty && matchesElection && matchesDistrict && matchesSearch && matchesOffice;
         });
         setFilteredCandidates(filtered);
@@ -231,7 +250,8 @@ export default function CandidateInfo() {
         <div style={{ display: 'flex', paddingTop: '120px', paddingLeft: '60px' }}>
             {/* Sidebar for Filters */}
             <div style={{ width: '25%', padding: '20px', backgroundColor: 'transparent' }}>
-                <h2 style={{ color: '#1D4ED8', fontFamily: 'Inter', fontSize: '24px', fontStyle: 'normal', fontWeight: '700', lineHeight: '28px', letterSpacing: '0.1px', width: '390px', height: '28px', flexShrink: '0' }}>Filter Candidates</h2>
+                <h2 style={{ color: '#F00', fontFamily: 'Inter', fontSize: '24px', fontStyle: 'normal', fontWeight: '700', lineHeight: '28px', letterSpacing: '0.1px', width: '390px', height: '28px', flexShrink: '0' }}>CANDIDATE INFO</h2>
+                <hr className="border-t-6 border-black mb-4"/> {/* Added horizontal line here */}
                 {/* Search Bar */}
                 <div style={{ marginTop: '40px' }}>
                     <label htmlFor="search-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }} >Search Candidates: </label>
@@ -252,7 +272,7 @@ export default function CandidateInfo() {
                         ))}
                     </select>
                 </div>
-                
+
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="office-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', }} > Office: </label>
@@ -274,7 +294,7 @@ export default function CandidateInfo() {
                     style={{
                         marginTop: '20px',
                         padding: '10px',
-                        backgroundColor: '#007bff',
+                        backgroundColor: '#F00',
                         color: '#fff',
                         border: 'none',
                         borderRadius: '5px',
@@ -288,10 +308,15 @@ export default function CandidateInfo() {
             </div>
 
             {/* Main Content */}
-            <div style={{ width: '75%', padding: '20px' }}> 
-                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1D4ED8', marginBottom: '20px', textAlign: 'left' }}>
-                    Candidate Overview
-                </h2>
+            <div style={{ width: '75%', padding: '20px' }}>
+                <h1 className="text-5xl font-extrabold">
+                    <span className="text-red-600">CANDIDATE </span>
+                    <span className="text-black">OVERVIEW</span>
+                </h1>
+                <p className="text-lg mt-4 font-medium text-gray-700 pb-10">
+                    Review each candidate's background and priorities for <br />
+                    Boston to make an informed decision this election cycle.
+                </p>
                 {filteredCandidates.length > 0 ? (
                     filteredCandidates.map(candidate => (
                     <CandidatePreview key={candidate.id} candidate={candidate} />
