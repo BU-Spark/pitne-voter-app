@@ -10,7 +10,7 @@ interface Candidate {
         District: string;
         Party: string;
         ElectionName: string;
-        Role: string;
+        Office: string;
         Bio?: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
@@ -20,13 +20,21 @@ interface Candidate {
     };
 }
 
-const parties = ['Democrat', 'Republican', 'Independent', 'Non Partisan', 'Other'];
+const parties = ['Democrat', 'Republican', 'Libertarian', 'Independent', 'Non Partisan', 'Other'];
 const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
-const districts = ['District 1', 'District 2', 'District 3', 'District 4']; // Example districts, replace with actual
+const districts = ['District 1', 'District 2', 'District 3', 'District 4','District 5', 
+    'District 6', 'District 7', 'District 8','District 9', 'District 10', 'District 11', 
+    'District 12','District 132', 'District 14', 'District 15', 'District 16','District 17', 'District 18']; // Example districts, replace with actual
 /* Office Filters */
-const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives', ];
-const stateOffices = [ 'Governor and Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth', 'Treasurer and Receiver-General', 'Auditor', 'State Senators', 'State Representatives', ];
-const municipalOffices = [ 'Mayor', 'City Councilors', 'School Committee Members', ];
+const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
+const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth', 
+    'Treasurer and Receiver-General', 'Auditor', "Governor's Countcil", 'State Senators', 'State Representatives', ];
+const municipalOffices = [ 'Mayor', 'City Councilors', 'School Committee Members'];
+const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention', 
+    'Alternate Delegate to the National Convention', 'District Attorney', 'Clerk of Courts', 'Clerk of Superior Court (Civil)',
+    'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission', 
+    'Register of Deeds', 'Sheriff', 'County Treasurer', 'Probate Judge', 'Register of Probate', 'Council of Governments Executive Committee'
+]
 
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -152,7 +160,7 @@ export default function CandidateInfo() {
               <div style={{ marginTop: '10px', paddingTop: '40px', borderTop: '1px solid #ddd', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center', }} >
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Office</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.Role}</strong>
+                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.Office}</strong>
                 </div>
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>District</p>
@@ -209,7 +217,7 @@ export default function CandidateInfo() {
             const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
             const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
             const matchesSearch = filters.search ? candidate.attributes.Name.toLowerCase().includes(filters.search.toLowerCase()): true;    // New Seach filter for candidates
-            const matchesOffice = filters.office ? candidate.attributes.Role === filters.office : true;                                   // New Office filter
+            const matchesOffice = filters.office ? candidate.attributes.Office === filters.office : true;                                   // New Office filter
             
             return matchesParty && matchesElection && matchesDistrict && matchesSearch && matchesOffice;
         });
@@ -248,7 +256,7 @@ export default function CandidateInfo() {
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="office-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', }} > Office: </label>
-                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> <optgroup label="Federal Offices"> {federalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="State Offices"> {stateOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="Municipal Offices"> {municipalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> </select>
+                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> <optgroup label="Federal Offices"> {federalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="State Offices"> {stateOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="Municipal Offices"> {municipalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup><optgroup label="Other Offices"> {otherOffices.map((office) => (<option key={office} value={office}> {office} </option> ))}</optgroup> </select>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
