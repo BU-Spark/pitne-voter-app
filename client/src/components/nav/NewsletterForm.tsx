@@ -77,7 +77,7 @@ const FooterLayout: React.FC = () => {
         backgroundColor: '#000',
         color: '#fff',
         borderRadius: { xs: '0', md: '27px' },
-        border: { xs: 'none', md: '8px solid #fff' },
+        border: { xs: 'none', md: '8px solid #F5F5F5' },
         p: 3,
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
