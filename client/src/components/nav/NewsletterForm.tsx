@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -9,7 +9,8 @@ import {
   CircularProgress,
   Link,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  IconButton
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
@@ -24,6 +25,21 @@ const FooterLayout: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  // Scroll functions
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
+  const scrollToElectionDates = useCallback(() => {
+    const element = document.getElementById('election-dates');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   const handleSubscribe = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailInput) {
@@ -36,7 +52,6 @@ const FooterLayout: React.FC = () => {
     setSuccess(null);
 
     try {
-      // Example subscribe request
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,13 +78,21 @@ const FooterLayout: React.FC = () => {
   };
 
   const navigationItems = [
-    { name: 'Home', icon: '/home.svg', path: '/upcomingElections' },
-    { name: 'Upcoming Elections', icon: '/Calendar.svg', path: '/upcomingElections' },
+    { name: 'Home', icon: '/home.svg', path: '/upcomingElections', action: scrollToTop },
+    { name: 'Upcoming Elections', icon: '/Calendar.svg', path: '/upcomingElections', action: scrollToElectionDates },
     { name: 'Voter Info', icon: '/info.svg', path: '/voterInfo' },
     { name: 'Voting Options', icon: '/patch-question-fill.svg', path: '/votingOptions' },
     { name: 'Candidate Info', icon: '/person.svg', path: '/candidateInfo' },
     { name: 'Dropbox Locations', icon: '/location_on.svg', path: '/dropBoxLocations' }
   ];
+
+  const handleNavigation = useCallback((path: string, action?: () => void) => {
+    if (path === window.location.pathname && action) {
+      action();
+    } else {
+      router.push(path);
+    }
+  }, [router]);
 
   return (
     <Box
@@ -77,13 +100,33 @@ const FooterLayout: React.FC = () => {
         backgroundColor: '#000',
         color: '#fff',
         borderRadius: { xs: '0', md: '27px' },
-        border: { xs: 'none', md: '8px solid #fff' },
+        border: { xs: 'none', md: '8px solid #F5F5F5' },
         p: 3,
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
         position: 'relative',
       }}
     >
+      {/* Back to top button */}
+      <IconButton
+        onClick={scrollToTop}
+        sx={{
+          position: 'absolute',
+          top: 16,
+          right: 16,
+          backgroundColor: '#fff',
+          color: '#000',
+          width: 40,
+          height: 40,
+          '&:hover': {
+            backgroundColor: '#f0f0f0',
+          },
+          zIndex: 1,
+        }}
+      >
+        <img src="/chevron-up.svg" alt="Back to top" style={{ width: 24, height: 24 }} />
+      </IconButton>
+
       {/* Left Column */}
       <Box
         sx={{
@@ -112,7 +155,6 @@ const FooterLayout: React.FC = () => {
                 alt="V"
                 style={{ height: 70, marginRight: 8 }}
               />
-              {/* RedLine.svg positioned as an underline */}
               <img
                 src="/RedLine.png"
                 alt="Red underline"
@@ -165,7 +207,8 @@ const FooterLayout: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          mb: { xs: 3, md: 0 }
+          mb: { xs: 3, md: 0 },
+          pr: { md: 2 }
         }}
       >
         {/* Navigation Section */}
@@ -179,7 +222,7 @@ const FooterLayout: React.FC = () => {
                 key={item.name} 
                 display="flex" 
                 alignItems="center"
-                onClick={() => router.push(item.path)}
+                onClick={() => handleNavigation(item.path, item.action)}
                 sx={{
                   cursor: 'pointer',
                   '&:hover': {
@@ -220,25 +263,56 @@ const FooterLayout: React.FC = () => {
         </Box>
       </Box>
 
-      {/* White divider between middle and right columns */}
-      <Divider
-        flexItem
-        orientation={isMobile ? 'horizontal' : 'vertical'}
-        sx={{ borderColor: '#fff', mx: 2, opacity: 0.3, my: { xs: 2, md: 0 } }}
-      />
-
       {/* Right Column: Email Signup & Feedback Section */}
       <Box
         sx={{
           flex: { md: '1 1 auto' },
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
+        {/* BV × The Flipside Logo */}
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            mb: 3,
+            gap: 2
+          }}
+        >
+          <img 
+            src="/BVLogo_white.svg" 
+            alt="Boston Voter" 
+            style={{ height: 40 }} 
+          />
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: '#fff', 
+              fontFamily: 'Inter',
+              fontWeight: 'bold',
+              mx: 1
+            }}
+          >
+            ×
+          </Typography>
+          <img 
+            src="/flipside.png" 
+            alt="The Flipside" 
+            style={{ height: 40 }} 
+          />
+        </Box>
+
         {/* Email Signup */}
-        <Box mb={2}>
-          <Typography variant="h6" sx={{ mb: 1, fontFamily: 'Inter' }}>
+        <Box mb={2} sx={{ width: '100%', maxWidth: 300 }}>
+          <Typography variant="h6" sx={{ 
+            mb: 1, 
+            fontFamily: 'Inter',
+            textAlign: 'center'
+          }}>
             Sign Up for Our Email
           </Typography>
           <Box
@@ -248,7 +322,7 @@ const FooterLayout: React.FC = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: 1,
-              maxWidth: 300,
+              width: '100%',
             }}
           >
             <TextField
@@ -297,8 +371,12 @@ const FooterLayout: React.FC = () => {
         </Box>
 
         {/* Feedback Section */}
-        <Box mt={2}>
-          <Typography variant="body2" sx={{ mb: 1, fontFamily: 'Inter' }}>
+        <Box mt={2} sx={{ width: '100%', maxWidth: 300 }}>
+          <Typography variant="body2" sx={{ 
+            mb: 1, 
+            fontFamily: 'Inter',
+            textAlign: 'center'
+          }}>
             Feedback?
           </Typography>
           <Box display="flex" alignItems="center" gap={1}>
