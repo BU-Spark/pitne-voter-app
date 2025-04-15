@@ -90,11 +90,13 @@ export default function CandidateInfo() {
                                     Party: partyName,
                                     ElectionName: electionName,
                                     Office: office,
+                                    ElectionDate: candidate.attributes.ElectionDate // Make sure ElectionDate is mapped
                                 },
                             };
                         });
                         setCandidates(fetchedCandidates);
                         setFilteredCandidates(fetchedCandidates);
+                        console.log("Fetched Candidates Data:", fetchedCandidates); // Log to check API response
                     } else {
                         setError("No candidate data available.");
                     }
@@ -142,18 +144,32 @@ export default function CandidateInfo() {
 
     /* Dropdown candidates info*/
     const CandidatePreview: React.FC<{ candidate: Candidate }> = ({ candidate }) => {
-        const [expanded, setExpanded] = useState(false);
-        const toggleExpanded = (e: React.MouseEvent) => {
-          // Prevent any parent handlers from being triggered
-          e.stopPropagation();
-          setExpanded((prev) => !prev);
-        };
-
         // Ensure Party is treated as string for display
         const partyToDisplay = typeof candidate.attributes.Party === 'string' ? candidate.attributes.Party : candidate.attributes.Party?.data?.attributes?.PartyName;
 
+        // Function to format the ElectionDate
+        const formatDate = (dateString: string | undefined): string => {
+            if (!dateString) {
+                return 'N/A'; // Or handle null/undefined as needed
+            }
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { // Format date for US locale (adjust as needed)
+                    month: 'long', // e.g., "June"
+                    day: 'numeric', // e.g., "21"
+                    year: 'numeric', // e.g., "2024"
+                });
+            } catch (error) {
+                console.error("Error formatting date:", error);
+                return 'N/A'; // Return N/A if date parsing fails
+            }
+        };
+
+        const formattedElectionDate = formatDate(candidate.attributes.ElectionDate);
+
+
         return (
-            <div onClick={toggleExpanded} style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: expanded ? '0px 4px 8px rgba(0, 0, 0, 0.2)' : '0px 2px 4px rgba(0, 0, 0, 0.1)', }}>
+            <div style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
             {/* Header Section */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -168,13 +184,9 @@ export default function CandidateInfo() {
                             </h3>
                         </div>
                     </div>
-
-              {/* Expand/Collapse Indicator */}
-              <span style={{ fontSize: '20px', color: '#888' }}>{expanded ? '▲' : '▼'}</span>
             </div>
-            {/* Expanded Section */}
-            {expanded && (
-              <div style={{ marginTop: '10px', paddingTop: '40px', borderTop: '1px solid #ddd', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center', }} >
+            {/* Expanded Section - Always Visible Now */}
+            <div style={{ marginTop: '10px', paddingTop: '40px', borderTop: '1px solid #ddd', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center', }} >
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Office</p>
                   <strong style={{ fontSize: '14px' }}>{candidate.attributes.Office}</strong>
@@ -189,14 +201,13 @@ export default function CandidateInfo() {
                 </div>
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Date</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.ElectionDate || 'N/A'}</strong>
+                  <strong style={{ fontSize: '14px' }}>{formattedElectionDate}</strong> {/* Use formatted date here */}
                 </div>
               </div>
-            )}
+
 
             {/* More Info Button */}
-            {expanded && (
-              <div style={{ textAlign: 'right', marginTop: '10px' }}>
+            <div style={{ textAlign: 'right', marginTop: '10px' }}>
                 <button
                   style={{
                     backgroundColor: 'transparent',
@@ -213,7 +224,6 @@ export default function CandidateInfo() {
                   More Info
                 </button>
               </div>
-            )}
           </div>
         );
       };
