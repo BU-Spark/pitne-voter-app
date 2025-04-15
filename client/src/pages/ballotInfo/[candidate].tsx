@@ -149,7 +149,7 @@ export default function Candidate() {
         <>
             <header className="flex border-b border-solid border-b-white px-10 py-3"></header>
             {/* Actual candidate data */}
-            <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center bg-sky-100">
+            <div className="relative flex min-h-screen flex-col bg-[#d1e4fa] overflow-x-hidden justify-center bg-[#F5F5F5]">
             <div className="mt-20 m-10">
                  {/* Go Back button */}
                 <button
@@ -163,7 +163,7 @@ export default function Candidate() {
             </div>
             {candidateData ? (
                 <div className="lg:px-36 md:px-10 sm:px-10 px-6 flex flex-1 justify-center pb-5 ">
-                   <div className="layout-content-container flex flex-col max-w-[960px] flex-1 bg-sky-50 rounded">
+                   <div className="layout-content-container flex flex-col max-w-[960px] flex-1 bg-[#F5F5F5] rounded">
                         <div className="grid grid-cols-1 py-4">
                             <div className="flex justify-center lg:p-4 md:p-4 sm:p-4 md:col-span-3">
 

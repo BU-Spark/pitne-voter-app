@@ -7,7 +7,7 @@ const VotingOptions = () => {
     return (
         <div>
                  {/* Header */}
-            <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
+            <div className='flex flex-col items-left p-20 pt-40 text-left bg-[#F5F5F5]'>
             <div className='flex items-center'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text'> Voting Options</h1>
             </div>
@@ -24,7 +24,7 @@ const VotingOptions = () => {
             </div>
 
             {/* Contact info of Boston Elections Department */}
-            <div className="p-10 text-center text-xl bg-sky-100">
+            <div className="p-10 text-center text-xl bg-[#F5F5F5]">
                 <p>Need more information?</p>
                 <p>Contact Boston Elections Department:</p>
                 <strong>
