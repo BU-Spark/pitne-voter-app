@@ -4,12 +4,10 @@ import Cookies from 'js-cookie';
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { ExpressURL } from '@/common';
 
-// Set base URL for Axios
 const api = axios.create({
-    baseURL: ExpressURL, // Point this to server URL
+    baseURL: ExpressURL,
 });
 
-// PollingInfo data type
 interface PollingInfo {
     location: string | null;
     street: string | null;
@@ -18,10 +16,8 @@ interface PollingInfo {
     zip: string | null;
     room: string | null;
     instructions: string | null;
-
     ward: number | null;
     precinct: number | null;
-
 }
 
 interface AddressFormProps {
@@ -33,10 +29,8 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     const [street, setStreet] = useState('');
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
-    const [saveAddress, setSaveAddress] = useState(false); // Track checkbox state
+    const [saveAddress, setSaveAddress] = useState(false);
 
-
-    // load saved data from cookies into the component's state variables
     const loadSavedCookieData = () => {
         const savedAddress = Cookies.get('address');
         const savedPollingInfo = Cookies.get('pollingInfo');
@@ -46,7 +40,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             setStreet(street);
             setCity(city);
             setZip(zip);
-            setSaveAddress(true); // Set checkbox to checked if an address is saved
+            setSaveAddress(true);
         }
 
         if (savedPollingInfo) {
@@ -54,28 +48,20 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         }
     };
 
-    // Save component state variables into cookies
     const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
         const consent = Cookies.get('cookieConsent');
-        if (consent === 'accepted') {  // Only save if consent is given
-
+        if (consent === 'accepted') {
             if (saveAddress) {
-                // Save address to cookie only if successful response (valid address)
                 Cookies.set('address', JSON.stringify({ street, city, zip }));
             } else {
                 Cookies.remove('address');
             }
 
-            // Save polling information to cookie (expires in 7 days)
             Cookies.set('pollingInfo', JSON.stringify(pollingInfo), { expires: 7 });
-
             Cookies.set('zipCode', zip, { expires: 7 });
-
         }
     };
 
-
-    // Load saved address and pollingInfo from cookies if available
     useEffect(() => {
         loadSavedCookieData();
     }, []);
@@ -84,32 +70,13 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         const isChecked = event.target.checked;
         setSaveAddress(isChecked);
 
-        // If checkbox is unchecked, remove the saved address from cookies
         if (!isChecked) {
             Cookies.remove('address');
         }
     };
 
-
-    // Call API when address is submitted
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-
-        // Reset past data
-        /*
-        setPollingInformation({
-            location: null,
-            street: null,
-            city: null,
-            state: null,
-            zip: null,
-            room: null,
-            instructions: null,
-
-            ward: null,
-            precinct: null,
-        });
-        */
         setError(null);
 
         const address = `${street}, ${city}, ${zip}`;
@@ -118,9 +85,10 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             const response = await api.get('/api/precinct_info', {
                 params: { address },
             });
+
             const data = response.data.properties;
 
-            if (data.USER_Ward != null && data.USER_Precinct != null) { // server responded
+            if (data.USER_Ward != null && data.USER_Precinct != null) {
                 const pollingInfo: PollingInfo = {
                     location: data.USER_Location2,
                     street: data.USER_Location3,
@@ -130,42 +98,36 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                     room: data.USER_Voting_Roo,
                     instructions: data.USER_HP_Entrance,
                     ward: data.USER_Ward,
-                    precinct: data.USER_Precinct
+                    precinct: data.USER_Precinct,
                 };
 
-                // Update state with polling information
                 setPollingInformation(pollingInfo);
-
-                // save data to cookies
                 saveCookieData(street, city, zip, pollingInfo);
-
             } else {
                 setError('Invalid Address or Address Format or Unsupported Location');
             }
-         } catch (error) {
-                // Save the address even if polling location is not found
-                saveCookieData(street, city, zip, {
-                    location: null,
-                    street: street,
-                    city: city,
-                    state: null,
-                    zip: zip,
-                    room: null,
-                    instructions: null,
-                    ward: null,
-                    precinct: null,
-                });
-            
-                loadSavedCookieData();
-                setError("No polling location found for this address yet. Please check back later or re-enter the address to try again.");
-            }
-            
+        } catch (error) {
+            saveCookieData(street, city, zip, {
+                location: null,
+                street: street,
+                city: city,
+                state: null,
+                zip: zip,
+                room: null,
+                instructions: null,
+                ward: null,
+                precinct: null,
+            });
+
+            loadSavedCookieData();
+            setError("No polling location found for this address yet. Please check back later or re-enter the address to try again.");
+        }
     };
 
     return (
-        <div className='flex flex-col justify-center items-center p-4 my-0 flex-wrap'>
-            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 600 }}>
-                <Grid container spacing={1}>
+        <div className="flex flex-col justify-center p-4 my-0 flex-wrap">
+            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 820 }}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
                             label="Street"
@@ -175,10 +137,21 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             onChange={(e) => setStreet(e.target.value)}
                             required
                             type="text"
-                            sx={{ mb: 2, backgroundColor: 'white' }}
+                            InputProps={{ style: { backgroundColor: 'white' } }}
+                            sx={{
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                            }}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <TextField
                             label="City"
                             variant="outlined"
@@ -186,10 +159,21 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             type="text"
-                            sx={{ mb: 2, backgroundColor: 'white' }}
+                            InputProps={{ style: { backgroundColor: 'white' } }}
+                            sx={{
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                            }}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <TextField
                             label="Zip Code"
                             variant="outlined"
@@ -198,7 +182,18 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             onChange={(e) => setZip(e.target.value)}
                             required
                             type="number"
-                            sx={{ mb: 2, backgroundColor: 'white' }}
+                            InputProps={{ style: { backgroundColor: 'white' } }}
+                            sx={{
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'black',
+                                },
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -208,14 +203,28 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                                     checked={saveAddress}
                                     onChange={handleCheckboxChange}
                                     color="primary"
+                                    sx={{
+                                        color: 'primary',
+                                        '&.Mui-checked': {
+                                            color: 'red',
+                                        },
+                                        '& .MuiSvgIcon-root': { // Target the SVG icon inside Checkbox
+                                            color: 'black',      // Default color of the checkbox outline
+                                        },
+                                    }}
                                 />
                             }
                             label="Remember Address"
                         />
                     </Grid>
                 </Grid>
+
                 <div className="flex justify-center">
-                    <Button type="submit" variant="outlined" className='p-3 mt-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-blue-100'>
+                    <Button
+                        type="submit"
+                        variant="outlined"
+                        className="p-3 mt-4 rounded-full bg-white text-black border-black hover:bg-red-600"
+                    >
                         Submit Address
                     </Button>
                 </div>

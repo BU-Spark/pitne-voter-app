@@ -4,7 +4,6 @@ import { AppBar, Box, Button, Toolbar, IconButton, Container, Menu } from '@mui/
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
@@ -17,7 +16,6 @@ const links: Record<string, string> = {
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [zipCode, setZipCode] = React.useState<string>('');
   const [hasMounted, setHasMounted] = React.useState(false);
 
   const router = useRouter();
@@ -25,8 +23,6 @@ const NavBar = () => {
 
   React.useEffect(() => {
     setHasMounted(true);
-    const savedZipCode = Cookies.get('zipCode') || '';
-    setZipCode(savedZipCode);
   }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

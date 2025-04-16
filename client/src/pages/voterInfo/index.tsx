@@ -1,13 +1,9 @@
-/* Page for voter's polling location and other relevant voter info
- * Using BostonOpenData and GEOCODE Address API for retrieving polling locations
-*/
-
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import '@/app/globals.css';
-import ButtonFill from '@/components/button/ButtonFill';
-import AddressForm from './addressForm';
 import { Typography } from '@mui/material';
-import CustomCard from '@/components/button/CustomCard';
+import AddressForm from './addressForm';
+import ElectionDates from './electionDates'; // Import the ElectionDates component
 
 interface PollingInfo {
     location: string | null;
@@ -17,9 +13,8 @@ interface PollingInfo {
     zip: string | null;
     room: string | null;
     instructions: string | null;
-
-    ward: number | null,
-    precinct: number | null,
+    ward: number | null;
+    precinct: number | null;
 }
 
 export default function VoterInfo() {
@@ -31,54 +26,70 @@ export default function VoterInfo() {
         setError(null);
     };
 
+    // Function to handle smooth scrolling (similar to UpcomingElections)
+    const scrollToElectionDates = () => {
+        const electionDatesSection = document.getElementById('election-dates');
+        if (electionDatesSection) {
+            electionDatesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <div>
-            {/* Header */}
-            <div className='text-left bg-[#F5F5F5] p-20 pt-40 pb-0'>
-                <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'>
-                    Your Voter Info
-                </h1>
-            </div>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+            {/* Side-by-side containers with 30/70 split */}
+            <div className="flex flex-col md:flex-row gap-8 mb-12">
+                {/* Left Container - Voter Information (30% width) */}
+                <div className="bg-white p-6 rounded-lg w-full md:w-[30%]"> {/* Changed bg-blue-50 to bg-white */}
+                    {/* Upcoming Dates Section with ElectionDates component */}
+                    <div id="election-dates" className="mb-6 bg-white p-4 rounded-lg border-white"> {/* Changed bg-sky-100 to bg-white */}
+                        <h2 className="text-xl font-semibold text-black-800 pt-10">VOTER INFO</h2>
+                        <hr className="border-t-6 border-black mb-4"/> {/* Added horizontal line here */}
+                        <div className="flex flex-col border-white px-3 py-3">
+                            <ElectionDates />
+                        </div>
+                    </div>
 
-            {/* Left and Right Paragraphs */}
-            <div className='flex flex-row'>
-                {/* Left Column */}
-                <div className='flex flex-col items-left px-20 py-8 text-left bg-[#F5F5F5] w-1/2'>
-                    <p className='font-semibold text-2xl'>
-                        Here is everything you need to know about your
-                        <br />
-                        voter status and personal voting logistics!
-                    </p>
-                </div>
+                    <div className="space-y-4">
+                        <Typography variant="body1" className="mb-3 text-sm pl-3">
+                            Here is everything you need to know about your voter status and personal voting logistics!
+                        </Typography>
 
-                {/* Right Column */}
-                <div className='flex flex-col items-left px-20 py-8 text-left bg-[#F5F5F5] w-1/2'>
-                    <p className='font-semibold text-2xl'>
-                        Enter your address below to view a personalized
-                        <br />
-                        voting ballot and polling location!
-                    </p>
-                </div>
-            </div>
+                        <div>
+                            <h2 className="text-lg font-semibold mb-1 text-red-600 pl-3">Your County:</h2>
+                            <p className="text-xs md:text-sm mb-2 pl-3">
+                                <em>
+                                Your county determines your specific polling location, the local candidates you can vote for,
+                                and the ballot measures specific to your area.
+                                </em>
+                            </p>
+                        </div>
 
-
-            {/* Polling location address form */}
-            <div className='m-20 flex flex-col lg:flex-row'>
-                <div className='inline-block w-full lg:w-1/2 mr-10'>
-                    <h1 className='font-semibold text-left mb-2 text-blue-700 text-3xl'>Your County: Suffolk</h1>
-                    <p className='mb-10 text-xl my-2 italic'>
-                        Your county determines your specific polling location, the local candidates you can vote for, and the ballot measures specific to your area.
-                    </p>
-
-                    <div className='inline-block'>
-                        <h1 className='font-semibold text-blue-700 text-left text-3xl'>Polling Location</h1>
-                        <p className='text-xl my-2 italic'>
-                            Reminder: You can vote at any polling location during the early voting period, but you <strong>MUST</strong> vote at the location below during election day based on your address.
-                        </p>
+                        <div>
+                            <h2 className="text-lg font-semibold mb-1 text-red-600 pl-3">Polling Location:</h2>
+                            <p className="text-xs md:text-sm pl-3">
+                                <em>
+                                Reminder: You can vote at any polling location during the early voting period,
+                                but you <strong className="font-bold">MUST</strong> vote at the location on the right during election day
+                                based on your address.
+                                </em>
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div className="justify-center items-center">
-                    <AddressForm setPollingInformation={setPollingInformation} setError={setError} />
+
+                {/* Right Container - Address Form (70% width) */}
+                <div className="bg-white p-6 rounded-lg w-full md:w-[70%]"> {/* Changed bg-blue-50 to bg-white */}
+                    <div className="mb-6">
+                        <h2 className="text-6xl font-bold text-red-600 mb-2 pt-40 pl-4">GET STARTED</h2>
+                        <p className="text-sm md:text-base pl-4">
+                            Enter your address below to view a personalized voting ballot and polling location!
+                        </p>
+                    </div>
+
+                    <AddressForm
+                        setPollingInformation={setPollingInformation}
+                        setError={setError}
+                    />
                 </div>
             </div>
 
@@ -136,42 +147,6 @@ export default function VoterInfo() {
                     <div className="md:col-span-1 hidden md:block"></div>
                 </div>
             )}
-
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <div className='p-4 pt-20 bg-[#F5F5F5]'>
-                {/* Cards */}
-                <div className='flex flex-col md:flex-row justify-center items-center p-4'>
-                    <CustomCard
-                        image="pattern5.png"
-                        disableTitle={true}
-                        description="Curious about your voting status? Check it here!"
-                        className='p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200'
-                        buttonText="Registration Status"
-                        buttonLink="https://www.sec.state.ma.us/voterregistrationsearch/"
-                    />
-                    <div className="m-10"></div>
-                    <CustomCard
-                        image="pattern4.png"
-                        disableTitle={true}
-                        description="Can&#39;t vote in person or want to vote early?"
-                        className="p-4 m-4 rounded-full bg-white text-blue-700 border-blue-800 hover:bg-gray-200"
-                        buttonText="Early Voting Options"
-                        buttonLink="/votingOptions"
-                    />
-                </div>
-
-                {/* Footer */}
-                {/* <div className='flex flex-col justify-center items-center p-4 text-center my-6'>
-                    <h1 className='font-semibold text-xl w-full sm:w-1/2 md:w-1/2 lg:w-1/2'>
-                        Now that you know where you can vote, let&#39;s explore exactly who and what you are voting for.
-                    </h1>
-                    <ButtonFill name='Ballot Info' link='/ballotInfo' className='p-4 m-4 rounded-full bg-blue-700 text-white hover:bg-blue-800' />
-                </div> */}
-            </div>
         </div>
     );
 }
