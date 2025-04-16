@@ -8,6 +8,7 @@ interface ElectionDateObject {
         ElectionDate: Date;
         ElectionName: string;
     };
+    customElectionName?: string;
 }
 
 export default function ElectionDates() {
@@ -82,7 +83,7 @@ export default function ElectionDates() {
                     {sortedElectionDates.map((election, index) => (
                         <ElectionCard
                             key={index}
-                            electionName={election.customElectionName}
+                            electionName={election.customElectionName || election.attributes.ElectionName}
                             electionDate={election.attributes.ElectionDate}
                         />
                     ))}

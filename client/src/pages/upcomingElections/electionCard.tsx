@@ -61,20 +61,20 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
 
             setDisplayElectionDate(formattedElectionDate);
 
-            const registrationDateObj = new Date(registrationDate);
-            registrationDateObj.setUTCHours(0, 0, 0, 0);
+            if (registrationDate) {
+                const registrationDateObj = new Date(registrationDate);
+                registrationDateObj.setUTCHours(0, 0, 0, 0);
 
-            const formattedRegistrationDate = registrationDateObj.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-                timeZone: 'UTC'
-            });
-
-            setDisplayRegistrationDate(formattedRegistrationDate);
-
-            const calculatedDays = daysLeft(registrationDateObj);
-            setDaysRemaining(calculatedDays);
+                const formattedRegistrationDate = registrationDateObj.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                });
+                setDisplayRegistrationDate(formattedRegistrationDate);
+                
+                const calculatedDays = daysLeft(registrationDateObj);
+                setDaysRemaining(calculatedDays);
+            }
         }
     }, [electionDate, registrationDate, electionName]);
 

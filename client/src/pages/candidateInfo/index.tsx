@@ -323,7 +323,7 @@ export default function CandidateInfo() {
                     <span className="text-black">OVERVIEW</span>
                 </h1>
                 <p className="text-lg mt-4 font-medium text-gray-700 pb-10">
-                    Review each candidate's background and priorities for <br />
+                    Review each candidate&apos;s background and priorities for <br />
                     Boston to make an informed decision this election cycle.
                 </p>
                 {filteredCandidates.length > 0 ? (

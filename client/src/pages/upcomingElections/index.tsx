@@ -169,7 +169,7 @@ export default function UpcomingElections() {
       <div id="election-dates" className="bg-[#F5F5F5] p-4 md:p-6 lg:p-8 mt-12 md:mt-16 lg:mt-20">
         <div className="text-center pb-6 md:pb-8 lg:pb-10"> {/* Added padding-bottom here */}
           <h2 className="font-semibold text-2xl md:text-3xl">
-            Boston's Upcoming Election Dates
+            Boston&apos;s Upcoming Election Dates
           </h2>
         </div>
         <div className="flex items-center justify-center flex-wrap">
@@ -180,8 +180,8 @@ export default function UpcomingElections() {
       {/* Footer */}
       <div className='flex flex-col justify-center items-center p-4 text-center bg-[#F5F5F5]'>
         <h1 className='font-semibold text-lg text-black mt-16 m-4'>You may be wondering...</h1>
-        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E]' style={{ borderRadius: '0' }} />
-        <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E]' style={{ borderRadius: '0' }} />
+        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-none' />
+        <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-none' />
       </div>
     </div>
   );
