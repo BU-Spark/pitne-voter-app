@@ -129,28 +129,6 @@ const NavBar = () => {
             ))}
           </Box>
 
-          {/* Zip Code display */}
-          <Button
-            disabled
-            sx={{
-              color: 'black',
-              '&.Mui-disabled': {
-                color: 'rgba(0, 0, 0, 0.6)',
-              },
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              },
-              mx: 2,
-              minWidth: 'auto',
-              cursor: 'default',
-              textTransform: 'none',
-              '& span': {
-                color: 'rgba(0, 0, 0, 0.6)',
-              }
-            }}
-          >
-            ZIP CODE: <span>{zipCode || ' N/A'}</span>
-          </Button>
         </Toolbar>
       </Container>
     </AppBar>
