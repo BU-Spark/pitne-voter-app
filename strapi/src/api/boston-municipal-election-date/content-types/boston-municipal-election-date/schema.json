@@ -17,6 +17,9 @@
     },
     "ElectionDate": {
       "type": "date"
+    },
+    "RegistrationDate": {
+      "type": "date"
     }
   }
 }

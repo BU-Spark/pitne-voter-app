@@ -8,7 +8,7 @@ body {
     background-color: "white";
     margin: 0;
     padding: 0;
-    color:#172554;
+    color:#000; /* default text color */
     font-family: 'Inter', sans-serif; /* Set Inter as default */
   }
 
@@ -77,7 +77,7 @@ body {
 
 
 .bg-gradient-custom {
-  background: #f0f9ff;
+  background: #F5F5F5;
   transition: box-shadow 0.3s; /* Smooth transition effect */
 }
 

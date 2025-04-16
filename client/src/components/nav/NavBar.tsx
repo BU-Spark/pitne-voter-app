@@ -1,20 +1,9 @@
 'use client';
 import * as React from 'react';
-import { AppBar, Box, Button, Toolbar, Container } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, IconButton, Container, Menu } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/navigation';
-import { keyframes } from '@mui/system';
 import { usePathname } from 'next/navigation';
-
-const slideIn = keyframes`
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`;
 
 const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Drop Box Locations'];
 const links: Record<string, string> = {
@@ -36,33 +25,132 @@ const NavBar = () => {
     setHasMounted(true);
   }, []);
 
-  if (!hasMounted) {
-    return null;
-  }
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const handleClick = (page: string) => {
     router.push(links[page]);
+    handleCloseNavMenu();
   };
 
-  const isActive = (path: string | null) => {
+  const isActive = (path: string) => {
     return currentPath === path;
   };
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, mr: 0 }}>
-            <img src="/LogoTest.svg" alt="Boston Voter Logo" style={{ height: '60px', cursor: 'pointer', padding: 10 }} onClick={() => handleClick('Upcoming Elections')} />
+          {/* Mobile menu button and menu */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="menu"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              sx={{ color: 'black' }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="mobile-menu"
+              anchorEl={anchorElNav}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              keepMounted
+              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', lg: 'none' } }}
+            >
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={() => handleClick(page)}
+                  sx={{
+                    color: isActive(links[page]) ? '#d81624' : 'black',
+                    display: 'block',
+                    textAlign: 'left',
+                    width: '100%',
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)'
+                    }
+                  }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'none', lg: 'flex' }, justifyContent: 'right' }}>
+          {/* Logo with added padding on top */}
+          <Box sx={{ 
+            display: 'flex', 
+            mr: 1,
+            paddingTop: '12px' // Added padding here
+          }}>
+            <img 
+              src="/BVLogo.svg" 
+              alt="Boston Voter Logo" 
+              style={{ 
+                height: '60px', 
+                cursor: 'pointer',
+              }} 
+              onClick={() => handleClick('Upcoming Elections')} 
+            />
+          </Box>
+
+          {/* Desktop menu items */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' }, justifyContent: 'flex-end' }}>
             {pages.map((page) => (
-              <Button key={page} onClick={() => handleClick(page)} className={`m-4 ${isActive(links[page]) ? 'border-b-4 border-red-600 text-blue-950 px-2 ' : ''}`}>
+              <Button
+                key={page}
+                onClick={() => handleClick(page)}
+                sx={{
+                  color: isActive(links[page]) ? '#d81624' : 'black',
+                  mx: 2,
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    borderBottom: isActive(links[page]) ? '4px solid #d81624' : 'none'
+                  },
+                  borderBottom: isActive(links[page]) ? '4px solid #d81624' : 'none'
+                }}
+              >
                 {page}
               </Button>
             ))}
           </Box>
+
+          {/* Zip Code display */}
+          <Button
+            disabled
+            sx={{
+              color: 'black',
+              '&.Mui-disabled': {
+                color: 'rgba(0, 0, 0, 0.6)',
+              },
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              },
+              mx: 2,
+              minWidth: 'auto',
+              cursor: 'default',
+              textTransform: 'none',
+              '& span': {
+                color: 'rgba(0, 0, 0, 0.6)',
+              }
+            }}
+          >
+            ZIP CODE: <span>{zipCode || ' N/A'}</span>
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>

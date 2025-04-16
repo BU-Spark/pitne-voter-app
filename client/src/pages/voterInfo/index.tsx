@@ -93,37 +93,58 @@ export default function VoterInfo() {
                 </div>
             </div>
 
-            {/* Results Section */}
-            {pollingInfo && (
-                <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200"> {/* Already bg-white, keeping it for clarity if needed */}
-                    <h2 className="text-xl font-bold mb-4 text-center">Your Voting Location</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <p className="mb-1 text-sm"><span className="font-semibold">Location:</span> {pollingInfo.location}</p>
-                            <p className="mb-1 text-sm"><span className="font-semibold">Address:</span> {pollingInfo.street}, {pollingInfo.city}, {pollingInfo.state} {pollingInfo.zip}</p>
-                            <p className="mb-1 text-sm"><span className="font-semibold">Ward:</span> {pollingInfo.ward}</p>
-                            <p className="mb-1 text-sm"><span className="font-semibold">Precinct:</span> {pollingInfo.precinct}</p>
-                            {pollingInfo.room && <p className="mb-1 text-sm"><span className="font-semibold">Room:</span> {pollingInfo.room}</p>}
-                            {pollingInfo.instructions && <p className="mb-1 text-sm"><span className="font-semibold">Instructions:</span> {pollingInfo.instructions}</p>}
-                        </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <a
-                                href={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingInfo.ward}/${pollingInfo.precinct}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mb-3 inline-block"
-                            >
-                                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-4 rounded text-sm transition-colors">
-                                    View Your Ballot
-                                </button>
-                            </a>
-                            <img
-                                src="/sample_ballot.png"
-                                alt="Ballot Preview"
-                                className="max-w-full h-auto rounded border border-gray-300"
-                            />
+            {/* Polling location if found, error if not */}
+            {(pollingInfo || error) && (
+                <div className="grid grid-cols-6 mt-8">
+                    <div className="md:col-span-1 hidden md:block"></div>
+                    <div className="space-y-4 lg:mx-6 md:mx-10 px-8 py-10 rounded-2xl shadow-2xl border border-gray-200 col-span-6 lg:col-span-4 bg-white">
+                        <div className="space-y-4 w-full px-6">
+                            {/* Main Content Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                {/* First Column Content */}
+                                <div className="text-left text-2xl">
+                                    {pollingInfo && (
+                                        <div>
+                                            <p className="text-3xl font-bold">Your Voting Location:</p>
+                                            <br />
+                                            <p>Your Ward: {pollingInfo.ward}</p>
+                                            <p>Your Precinct: {pollingInfo.precinct}</p>
+                                            <br></br>
+                                            <p>{pollingInfo.location}</p>
+                                            <p>{pollingInfo.street}</p>
+                                            <p>{pollingInfo.city}, {pollingInfo.state} {pollingInfo.zip}</p>
+                                            <br /><p><strong>Polling Instructions:</strong></p>
+                                            <br /><p><strong>{pollingInfo.room}</strong></p>
+                                            <p><strong>{pollingInfo.instructions}</strong></p>
+                                        </div>
+                                    )}
+                                    {error && (
+                                        <Typography variant="h6" color="error">{error}</Typography>
+                                    )}
+                                </div>
+
+                                {/* Second Column Content */}
+                                <div className="space-y-2 text-center">
+                                {pollingInfo && (
+                                        <a
+                                            href={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingInfo.ward}/${pollingInfo.precinct}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 underline text-xl"
+                                        >
+                                            View Your Ballot
+                                            <img
+                                                src="/sample_ballot.png" // Replace with the actual image path
+                                                alt="Preview of the ballot website"
+                                                className="w-full rounded-lg shadow-lg"
+                                            />
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div className="md:col-span-1 hidden md:block"></div>
                 </div>
             )}
         </div>

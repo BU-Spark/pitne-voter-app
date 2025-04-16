@@ -31,7 +31,7 @@ export default function BallotInfo() {
     return (
         <div className="flex flex-col justify-center ">
              {/* Header */}
-             <div className='flex flex-col items-left p-20 pt-40 text-left bg-sky-50'>
+             <div className='flex flex-col items-left p-20 pt-40 text-left bg-[#F5F5F5]'>
             <div className='flex items-center'>
                 <h1 className='text-blue-700 font-bold text-6xl bg-blue-700 bg-clip-text text-transparent'> LEARN. PLAN.</h1>
 
@@ -52,7 +52,7 @@ export default function BallotInfo() {
             </div>
 
 
-        <div className = "bg-sky-100 p-20">
+        <div className = "bg-[#F5F5F5] p-20">
             <h1 className='ml-20 font-bold text-4xl'> What&apos;s on the Ballot? </h1>
            <p className='ml-20  pt-5 text-xl text-left '>This sample ballot provides essential information on the races in upcoming elections.
            Once you&apos;ve confirmed your district, toggle between elections below to view the candidates and a detailed overview of their policies and goals. Our content is carefully curated and managed by our team,
@@ -84,7 +84,7 @@ export default function BallotInfo() {
 
         </div>
             {/* Footer */}
-            <div className='flex flex-col justify-center items-center p-4 text-center bg-sky-100 '>
+            <div className='flex flex-col justify-center items-center p-4 text-center bg-[#F5F5F5] '>
                 <h1 className='font-semibold text-lg'>You may be wondering...</h1>
                 <ButtonFill name='What are my Voting Options' link='/votingOptions' className='p-4 m-4 rounded-full bg-blue-700 text-white hover:bg-blue-800' />
                 <ButtonFill name='Basic Election Info' link='/upcomingElections' className='p-4 m-4 rounded-full  bg-blue-700 text-white hover:bg-blue-800' />
