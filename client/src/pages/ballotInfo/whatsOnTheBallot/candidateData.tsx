@@ -84,7 +84,7 @@ export default function CandidateData() {
     useEffect(() => {
         setDistrictNum(globalDistrictNum);
         setSelectedElection(globalCurrElection);
-    }, [globalDistrictNum, globalCurrElection]);
+    }, []);
 
 
     /* Query data, store data to new variable as nested hashtable based on the election date and district.

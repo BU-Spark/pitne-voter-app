@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
@@ -31,7 +31,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     const [zip, setZip] = useState('');
     const [saveAddress, setSaveAddress] = useState(false);
 
-    const loadSavedCookieData = () => {
+    const loadSavedCookieData = useCallback(() => {
         const savedAddress = Cookies.get('address');
         const savedPollingInfo = Cookies.get('pollingInfo');
 
@@ -46,7 +46,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         if (savedPollingInfo) {
             setPollingInformation(JSON.parse(savedPollingInfo));
         }
-    };
+    }, [setPollingInformation]);
 
     const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
         const consent = Cookies.get('cookieConsent');
@@ -64,7 +64,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
 
     useEffect(() => {
         loadSavedCookieData();
-    }, []);
+    }, [loadSavedCookieData]);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const isChecked = event.target.checked;
