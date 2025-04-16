@@ -95,7 +95,8 @@ const NavBar = () => {
           <Box sx={{ 
             display: 'flex', 
             mr: 1,
-            paddingTop: '12px' // Added padding here
+            paddingTop: '12px', // Added padding here
+            paddingBottom: '10px'
           }}>
             <img 
               src="/BVLogo.svg" 
