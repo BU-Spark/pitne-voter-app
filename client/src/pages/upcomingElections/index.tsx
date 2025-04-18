@@ -91,7 +91,7 @@ export default function UpcomingElections() {
             right: '4rem'
           }}>
             <img 
-              src="/grayHouse.png" 
+              src="/grayhouse.png" 
               alt="Massachusetts State House"
               className="w-full h-auto object-contain"
               loading="lazy"

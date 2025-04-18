@@ -78,9 +78,9 @@ const FooterLayout: React.FC = () => {
   };
 
   const navigationItems = [
-    { name: 'Home', icon: '/home.svg', path: '/upcomingElections', action: scrollToTop },
+    { name: 'Home', icon: '/Home.svg', path: '/upcomingElections', action: scrollToTop },
     { name: 'Upcoming Elections', icon: '/Calendar.svg', path: '/upcomingElections', action: scrollToElectionDates },
-    { name: 'Voter Info', icon: '/info.svg', path: '/Info' },
+    { name: 'Voter Info', icon: '/Info.svg', path: '/Info' },
     { name: 'Voting Options', icon: '/patch-question-fill.svg', path: '/votingOptions' },
     { name: 'Candidate Info', icon: '/person.svg', path: '/candidateInfo' },
     { name: 'Dropbox Locations', icon: '/location_on.svg', path: '/dropBoxLocations' }
@@ -242,7 +242,7 @@ const FooterLayout: React.FC = () => {
         {/* Yawu + Social Icons */}
         <Box mt={2} display="flex" alignItems="center" justifyContent="start">
           <img
-            src="/yawu.png"
+            src="/Yawu.png"
             alt="Yawu Miller"
             style={{ width: 56, height: 56, borderRadius: '50%', marginRight: 8 }}
           />
@@ -380,7 +380,7 @@ const FooterLayout: React.FC = () => {
             Feedback?
           </Typography>
           <Box display="flex" alignItems="center" gap={1}>
-            <img src="/paperclip.svg" alt="Paperclip" style={{ width: 24 }} />
+            <img src="/Paperclip.svg" alt="Paperclip" style={{ width: 24 }} />
             <Typography variant="body2" sx={{ fontFamily: 'Inter' }}>
               Fill out usability testing form{' '}
               <Link
