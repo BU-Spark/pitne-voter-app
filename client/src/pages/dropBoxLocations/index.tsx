@@ -45,7 +45,7 @@ export default function DropBoxLocations() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center mt-3">
                     <div className="flex flex-col items-center">
-                        <img src="/location_on.svg" alt="Location Icon" className="w-20 h-20 p-2 box-border" />
+                        <img src="/location_on_black.svg" alt="Location Icon" className="w-20 h-20 p-2 box-border" />
                         <ButtonFill
                         name="Early Voting Locations"
                         link="https://www.boston.gov/departments/elections/early-voting-boston#map--737516"
@@ -63,7 +63,7 @@ export default function DropBoxLocations() {
                         <ButtonFill name="What&#39;s on the Ballot" link="/voterInfo" className="bg-red-600 text-white text-xs hover:bg-red-700 rounded-lg py-3 px-3 flex items-center w-48 justify-center" />
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="/info.svg" alt="Info Icon" className="w-14 h-14 p-2 box-border" />
+                        <img src="/Info_black.svg" alt="Info Icon" className="w-14 h-14 p-2 box-border" />
                         <ButtonFill name="Basic Election Info" link="/upcomingElections" className="bg-red-600 text-white text-xs hover:bg-red-700 rounded-lg py-3 px-3 flex items-center w-48 justify-center" />
                     </div>
                 </div>
