@@ -42,7 +42,6 @@ interface CandidateAttributes {
     Answer4: string | null;
     Question5: string | null;
     Answer5: string | null;
-    Biography: string | null;
     Headshot: {
         data: {
             attributes: {
@@ -191,9 +190,9 @@ export default function Candidate() {
                                     </div>
                                 </div>
                             </div>
-                            {/* Questions, Bio, Links Container */}
+                            {/* Questions, Links Container */}
                             <div className="flex flex-row pb-20">
-                                {/* Links and Bio/Questions 25/75 Split*/}
+                                {/* Links and Questions 25/75 Split*/}
                                 <div className="w-full md:w-[25%]">
                                     {/* Links */}
                                     <div className="flex flex-col justify-center items-center lg:justify-normal md:justify-normal mr-4 text-center">
@@ -215,16 +214,7 @@ export default function Candidate() {
                                 </div>
                                 {/* Questions and Answers if filled out */}
                                 <div className="md:w-[75%]">
-                                    {/* Bio and Questions Container */}
-                                    <div className="pt-2">
-                                        {/* bio */}
-                                        {candidateData.Biography && (
-                                            <div className="mb-4">
-                                                <h2 className="text-2xl font-bold text-blue-950">BIOGRAPHY</h2>
-                                                <p className="text-lg">{candidateData.Biography}</p>
-                                            </div>
-                                        )}
-                                    </div>
+                                    {/* Questions Container */}
                                     <div>
                                         {Object.entries(questionsAndAnswers) &&
                                             <div className="flex flex-col py-8 my-2 w-full">

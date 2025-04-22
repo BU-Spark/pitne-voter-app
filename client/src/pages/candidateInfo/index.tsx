@@ -13,7 +13,6 @@ interface Candidate {
         elections?: { data: [{ attributes: { ElectionName: string } }] }; // ElectionName can be nested in elections
         Office: string;
         Role?: string; // Role might be the office
-        Biography: string;
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
@@ -199,7 +198,7 @@ export default function CandidateInfo() {
                   <strong style={{ fontSize: '14px' }}>{candidate.attributes.ElectionName}</strong>
                 </div>
                 <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Date</p>
+                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election Date</p>
                   <strong style={{ fontSize: '14px' }}>{formattedElectionDate}</strong> {/* Use formatted date here */}
                 </div>
               </div>
@@ -207,17 +206,8 @@ export default function CandidateInfo() {
 
             {/* More Info Button */}
             <div style={{ textAlign: 'right', marginTop: '10px' }}>
-                <button
-                  style={{
-                    backgroundColor: 'transparent',
-                    border: '1px solid #F00',
-                    color: '#F00',
-                    padding: '6px 12px',
-                    borderRadius: '20px',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                  }}
+                <button className = 'bg-transparent border border-red-600 text-red-600 px-3 py-1.5 rounded-full text-sm font-bold hover:bg-red-600 hover:text-white transition-colors duration-200'
+                  
                   onClick={() => handleCandidateClick(candidate.attributes.Name)}
                 >
                   More Info
