@@ -139,25 +139,35 @@ export default function UpcomingElections() {
           title: "YOUR VOTER INFO",
           link: "/voterInfo",
           description: "Everything you need to navigate."
-        }].map((card, index) => (
-          <div key={index} className="flex flex-col items-center p-4 w-full max-w-sm">
-            <img 
-              src={card.icon} 
-              alt="" 
-              className="h-24 md:h-32 lg:h-40 w-auto mb-4 md:mb-6" 
-            />
-            <div className="w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4 h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md">
-              {card.link.startsWith('http') ? (
-                <a href={card.link} target="_blank" rel="noopener noreferrer">{card.title}</a>
-              ) : (
-                <Link href={card.link}>{card.title}</Link>
-              )}
+        }].map((card, index) => {
+          const CardContent = (
+            <div className="w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4 h-12 px-6 rounded-md hover:bg-red-700 shadow-md flex items-center justify-center transition-all cursor-pointer">
+              {card.title}
             </div>
-            <p className="text-black text-base md:text-lg text-center">
-              {card.description}
-            </p>
-          </div>
-        ))}
+          );
+        
+          return (
+            <div key={index} className="flex flex-col items-center p-4 w-full max-w-sm">
+              <img 
+                src={card.icon} 
+                alt="" 
+                className="h-24 md:h-32 lg:h-40 w-auto mb-4 md:mb-6" 
+              />
+              {card.link.startsWith('http') ? (
+                <a href={card.link} target="_blank" rel="noopener noreferrer" className="w-full no-underline">
+                  {CardContent}
+                </a>
+              ) : (
+                <Link href={card.link} className="w-full no-underline">
+                  {CardContent}
+                </Link>
+              )}
+              <p className="text-black text-base md:text-lg text-center">
+                {card.description}
+              </p>
+            </div>
+          );
+        })}
       </div>
 
       {/* Deadline to Register Section */}
