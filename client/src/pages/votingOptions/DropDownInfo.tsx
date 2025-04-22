@@ -202,7 +202,6 @@ const DropDownInfo: React.FC<DropDownInfoProps> = ({ activeTab }) => {
       </Typography>
     )}
     
-    <img src='/red-star.png' alt='red star'   className='absolute -bottom-8 -right-8 w-50 h-40' />
 
   </div>
   );

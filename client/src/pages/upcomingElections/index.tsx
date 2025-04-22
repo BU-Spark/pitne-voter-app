@@ -126,7 +126,7 @@ export default function UpcomingElections() {
       <div className='flex flex-col lg:flex-row justify-center items-center mx-4 md:mx-8 lg:mx-12 p-4 mt-8 md:mt-12 lg:mt-16 gap-6 md:gap-8'>
         {[{
           icon: "/early_vote.svg",
-          title: "Early Voting Options",
+          title: "Early Voting",
           link: "/votingOptions",
           description: "Can't vote in person or want to vote early?"
         }, {
@@ -146,7 +146,7 @@ export default function UpcomingElections() {
               alt="" 
               className="h-24 md:h-32 lg:h-40 w-auto mb-4 md:mb-6" 
             />
-            <div className="w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4">
+            <div className="rounded-md max-w-[220px] w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4">
               {card.link.startsWith('http') ? (
                 <a href={card.link} target="_blank" rel="noopener noreferrer">{card.title}</a>
               ) : (
@@ -180,8 +180,8 @@ export default function UpcomingElections() {
       {/* Footer */}
       <div className='flex flex-col justify-center items-center p-4 text-center bg-[#F5F5F5]'>
         <h1 className='font-semibold text-lg text-black mt-16 m-4'>You may be wondering...</h1>
-        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-none' />
-        <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-none' />
+        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-md' />
+        <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-md' />
       </div>
     </div>
   );

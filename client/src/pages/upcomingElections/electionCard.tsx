@@ -82,7 +82,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
         return null;
     } else {
         return (
-            <div className="w-full max-w-[1240px] h-auto relative bg-white rounded-[20px] p-6 shadow-md mb-4 mx-auto">
+            <div className="w-full max-w-[975px] h-auto relative bg-white rounded-[20px] p-6 shadow-md mb-4 mx-auto">
                 {daysRemaining !== null && daysRemaining > 0 && daysRemaining <= 10 && (
                     <div className="text-[#D81624] text-2xl font-semibold mb-4">
                         {daysRemaining} days left to register!
