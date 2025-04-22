@@ -190,8 +190,18 @@ export default function UpcomingElections() {
       {/* Footer */}
       <div className='flex flex-col justify-center items-center p-4 text-center bg-[#F5F5F5]'>
         <h1 className='font-semibold text-lg text-black mt-16 m-4'>You may be wondering...</h1>
-        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md mb-4' />
-        <ButtonFill name='What are my voting options' link='/votingOptions' className='h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md' />
+        <div className="w-64"> {/* Shared fixed width for both buttons */}
+          <ButtonFill
+            name="What&apos;s on the Ballot"
+            link='/voterInfo'
+            className='w-full h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md mb-4'
+          />
+          <ButtonFill
+            name='What are my voting options'
+            link='/votingOptions'
+            className='w-full h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md'
+          />
+        </div>
       </div>
     </div>
   );
