@@ -36,7 +36,61 @@ const otherOffices = ['Party State Committee Man', 'Party State Committee Woman'
     'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission',
     'Register of Deeds', 'Sheriff', 'County Treasurer', 'Probate Judge', 'Register of Probate', 'Council of Governments Executive Committee'
 ]
-
+// Mapping ofice to district
+const officeToDistrictMap: Record<string, string[]> = {
+    // Federal
+    'President and Vice President': ['All District'],
+    'U.S. Senators': ['All District'],
+    'U.S. House Representatives': ['District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9'],
+  
+    // State
+    'Governor': ['All District'],
+    'Lieutenant Governor': ['All District'],
+    'Attorney General': ['All District'],
+    'Secretary of the Commonwealth': ['All District'],
+    'Treasurer and Receiver-General': ['All District'],
+    'Auditor': ['All District'],
+    "Governor's Countcil": ['All District'],
+    'State Senators': [
+      'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District',
+      'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District',
+      'Suffolk and Middlesex District', 'Middlesex and Suffolk District', 'Norfolk and Suffolk District',
+    ],
+    'State Representatives': [
+      'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District',
+      'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District',
+      'Tenth Suffolk District', 'Eleventh Suffolk District', 'Twelfth Suffolk District', 'Thirteenth Suffolk District',
+      'Fourteenth Suffolk District', 'Fifteenth Suffolk District', 'Sixteenth Suffolk District', 'Seventeenth Suffolk District',
+      'Eighteenth Suffolk District', 'Nineteenth Suffolk District',
+    ],
+  
+    // Municipal
+    'Mayor': ['All District'],
+    'City Councilors': ['District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9'],
+    'School Committee Members': ['All District'],
+  
+    // Other Offices (apply All District or County-specific logic as appropriate)
+    'Party State Committee Man': ['All District'],
+    'Party State Committee Woman': ['All District'],
+    'Delegate to the National Convention': ['All District'],
+    'Alternate Delegate to the National Convention': ['All District'],
+    'District Attorney': ['All District'],
+    'Clerk of Courts': ['All District'],
+    'Clerk of Superior Court (Civil)': ['All District'],
+    'Clerk of Superior Court (Criminal)': ['All District'],
+    'Clerk of Supreme Judicial Court': ['All District'],
+    'County Charter Commission': ['All District'],
+    'Register of Deeds': ['All District'],
+    'Sheriff': ['All District'],
+    'County Treasurer': ['All District'],
+    'Probate Judge': ['All District'],
+    'Register of Probate': ['All District'],
+    'Council of Governments Executive Committee': ['All District'],
+  
+    // Fallback
+    default: districts,
+  };
+  
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -53,6 +107,10 @@ export default function CandidateInfo() {
 
     const router = useRouter();
     const { electionType } = router.query;
+
+    const availableDistricts = filters.office && officeToDistrictMap[filters.office]
+    ? officeToDistrictMap[filters.office]
+    : districts;
 
     useEffect(() => {
         if (electionType) {
@@ -280,12 +338,7 @@ export default function CandidateInfo() {
 
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="district-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: '#172554', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>District:</label>
-                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
-                        <option value="">All</option>
-                        {districts.map(district => (
-                            <option key={district} value={district}>{district}</option>
-                        ))}
-                    </select>
+                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> {availableDistricts.map((district) => ( <option key={district} value={district}>{district}</option> ))} </select>
                 </div>
 
                 {/* Reset Filters Button */}
