@@ -123,41 +123,51 @@ export default function UpcomingElections() {
       </div>
 
       {/* Cards Section */}
-      <div className='flex flex-col lg:flex-row justify-center items-center mx-4 md:mx-8 lg:mx-12 p-4 mt-8 md:mt-12 lg:mt-16 gap-6 md:gap-8'>
+      <div className='flex flex-col lg:flex-row justify-center items-center mx-4 md:mx-8 lg:mx-12 p-4 mt-8 md:mt-12 lg:mt-16 gap-6 md:gap-8 '>
         {[{
           icon: "/early_vote.svg",
-          title: "Early Voting",
+          title: "EARLY VOTING OPTIONS",
           link: "/votingOptions",
           description: "Can't vote in person or want to vote early?"
         }, {
           icon: "/register_check.svg",
-          title: "How to Register",
+          title: "HOW TO REGISTER",
           link: "https://www.boston.gov/departments/elections/how-register-vote",
           description: "Unsure if you are registered to vote?"
         }, {
           icon: "/voter_info.svg",
-          title: "Your Voter Info",
+          title: "YOUR VOTER INFO",
           link: "/voterInfo",
           description: "Everything you need to navigate."
-        }].map((card, index) => (
-          <div key={index} className="flex flex-col items-center p-4 w-full max-w-sm">
-            <img 
-              src={card.icon} 
-              alt="" 
-              className="h-24 md:h-32 lg:h-40 w-auto mb-4 md:mb-6" 
-            />
-            <div className="rounded-md max-w-[220px] w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4">
-              {card.link.startsWith('http') ? (
-                <a href={card.link} target="_blank" rel="noopener noreferrer">{card.title}</a>
-              ) : (
-                <Link href={card.link}>{card.title}</Link>
-              )}
+        }].map((card, index) => {
+          const CardContent = (
+            <div className="w-full bg-[#D81624] py-3 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4 h-12 px-6 rounded-md hover:bg-red-700 shadow-md flex items-center justify-center transition-all cursor-pointer">
+              {card.title}
             </div>
-            <p className="text-black text-base md:text-lg text-center">
-              {card.description}
-            </p>
-          </div>
-        ))}
+          );
+        
+          return (
+            <div key={index} className="flex flex-col items-center p-4 w-full max-w-sm">
+              <img 
+                src={card.icon} 
+                alt="" 
+                className="h-24 md:h-32 lg:h-40 w-auto mb-4 md:mb-6" 
+              />
+              {card.link.startsWith('http') ? (
+                <a href={card.link} target="_blank" rel="noopener noreferrer" className="w-full no-underline">
+                  {CardContent}
+                </a>
+              ) : (
+                <Link href={card.link} className="w-full no-underline">
+                  {CardContent}
+                </Link>
+              )}
+              <p className="text-black text-base md:text-lg text-center">
+                {card.description}
+              </p>
+            </div>
+          );
+        })}
       </div>
 
       {/* Deadline to Register Section */}
@@ -180,8 +190,18 @@ export default function UpcomingElections() {
       {/* Footer */}
       <div className='flex flex-col justify-center items-center p-4 text-center bg-[#F5F5F5]'>
         <h1 className='font-semibold text-lg text-black mt-16 m-4'>You may be wondering...</h1>
-        <ButtonFill name="What&apos;s on the Ballot" link='/voterInfo' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-md' />
-        <ButtonFill name='What are my voting options' link='/votingOptions' className='p-4 m-4 text-white bg-[#D81624] hover:bg-[#B5151E] rounded-md' />
+        <div className="w-64"> {/* Shared fixed width for both buttons */}
+          <ButtonFill
+            name="What&apos;s on the Ballot"
+            link='/voterInfo'
+            className='w-full h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md mb-4'
+          />
+          <ButtonFill
+            name='What are my voting options'
+            link='/votingOptions'
+            className='w-full h-12 px-6 rounded-md bg-red-600 text-white font-semibold hover:bg-red-700 shadow-md'
+          />
+        </div>
       </div>
     </div>
   );
