@@ -1,251 +1,305 @@
-/* candidate profiles that appear when their icon is clicked on candidate info page.
- Pulls data from strapi "Candidates" content.
-*/
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { CandidateAPI } from '@/common';
-import ButtonFillEx from '@/components/button/ButtonFillEx';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface PartyAttributes {
-    PartyName: string;
-    createdAt: string;
-    publishedAt: string;
-    updatedAt: string;
+  PartyName: string;
+  createdAt: string;
+  publishedAt: string;
+  updatedAt: string;
 }
 
 interface CandidateAttributes {
-    CampaignSiteLink: string | null;
-    District: string;
-    ElectionName: string;
-    LinkedinLink: string | null;
-    Name: string;
-    party: {
-        data: {
-            attributes: PartyAttributes;
-        } | null;
-    };
-    Role: string;
-    createdAt: string;
-    publishedAt: string;
-    updatedAt: string;
-    Question1: string | null;
-    Answer1: string | null;
-    Question2: string | null;
-    Answer2: string | null;
-    Question3: string | null;
-    Answer3: string | null;
-    Question4: string | null;
-    Answer4: string | null;
-    Question5: string | null;
-    Answer5: string | null;
-    Headshot: {
-        data: {
-            attributes: {
-                url: string;
-            };
-        };
-    };
+  CampaignSiteLink: string | null;
+  District: string;
+  ElectionName: string;
+  LinkedinLink: string | null;
+  Name: string;
+  party: {
+    data: {
+      attributes: PartyAttributes;
+    } | null;
+  };
+  Role: string;
+  createdAt: string;
+  publishedAt: string;
+  updatedAt: string;
+  Question1: string | null;
+  Answer1: string | null;
+  Question2: string | null;
+  Answer2: string | null;
+  Question3: string | null;
+  Answer3: string | null;
+  Question4: string | null;
+  Answer4: string | null;
+  Question5: string | null;
+  Answer5: string | null;
+  Headshot: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    } | null;
+  };
 }
 
 interface CandidateDataObject {
-    id: number;
-    attributes: CandidateAttributes;
+  id: number;
+  attributes: CandidateAttributes;
 }
 
 interface QuestionsAndAnswers {
-    [key: string]: { question: string | null, answer: string | null };
+  [key: string]: { question: string | null, answer: string | null };
 }
 
+const getStrapiMedia = (url: string | undefined | null) => {
+  if (!url) return null;
+  if (url.startsWith('http')) return url;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'https://pitne-voter-app-production.up.railway.app';
+  return `${baseUrl}${url}`;
+};
+
 export default function Candidate() {
-    const router = useRouter();
-    const [candidateName, setCandidateName] = useState<string>('');
-    const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([]);
-    const [candidateData, setCandidateData] = useState<CandidateAttributes | null>(null);
-    const [questionsAndAnswers, setQuestionsAndAnswers] = useState<QuestionsAndAnswers>({});
+  const router = useRouter();
+  const [candidateName, setCandidateName] = useState<string>('');
+  const [allCandidateData, setAllCandidateData] = useState<CandidateDataObject[]>([]);
+  const [candidateData, setCandidateData] = useState<CandidateAttributes | null>(null);
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState<QuestionsAndAnswers>({});
+  const [headshotUrl, setHeadshotUrl] = useState<string | null>(null);
 
-    // Get candidate name from URL
-    useEffect(() => {
-        if (!router.isReady) return;
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { candidate } = router.query;
+    candidate && setCandidateName(candidate as string);
+  }, [router.isReady, router.query]);
 
-        const { candidate } = router.query;
-        candidate && setCandidateName(candidate as string);
-    }, [router.isReady, router.query]);
-
-    // Get candidate data from strapi
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await fetch(CandidateAPI + '?populate=*', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (response.ok) {
-                    const data = (await response.json()).data;
-                    setAllCandidateData(data);
-                }
-            } catch (e) {
-                console.log(e);
-            }
-        };
-
-        getData();
-    }, []);
-
-    // Set the candidate data
-    useEffect(() => {
-        if (candidateName && allCandidateData) {
-            const normalizedInput = (input: string) => input.replace(/\s+/g, '').toLowerCase();
-            const foundCandidateData = allCandidateData.find((candidateData: any) =>
-                normalizedInput(candidateData.attributes.Name) === normalizedInput(candidateName)
-            );
-            if (foundCandidateData) {
-                setCandidateData(foundCandidateData.attributes);
-            } else {
-                setCandidateData(null);
-            }
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(CandidateAPI + '?populate[party][fields][0]=PartyName&populate[Headshot][fields][0]=url', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (response.ok) {
+          const data = (await response.json()).data;
+          setAllCandidateData(data);
+        } else {
+          console.error("Failed to fetch candidate data:", response.statusText);
         }
-    }, [allCandidateData, candidateName]);
+      } catch (e) {
+        console.error("Error fetching candidate data:", e);
+      }
+    };
+    getData();
+  }, []);
 
-    // Get filled out questions and answers
-    useEffect(() => {
-        if (candidateData) {
-            const qaMap = Object.entries(candidateData)
-                .filter(([key, value]) => key.startsWith('Question') || key.startsWith('Answer'))
-                .reduce<QuestionsAndAnswers>((acc, [key, value]) => {
-                    const questionIndex = key.match(/\d+/)?.[0];
-                    if (questionIndex) {
-                        if (!acc[questionIndex]) {
-                            acc[questionIndex] = { question: null, answer: null };
-                        }
-                        acc[questionIndex][key.includes('Question') ? 'question' : 'answer'] = value;
-                    }
-                    return acc;
-                }, {});
-            setQuestionsAndAnswers(qaMap);
-        }
-    }, [candidateData]);
+  useEffect(() => {
+    if (candidateName && allCandidateData.length > 0) {
+      const normalizedInput = (input: string) => input.replace(/\s+/g, '').toLowerCase();
+      const foundCandidateData = allCandidateData.find(candidate =>
+        normalizedInput(candidate.attributes.Name) === normalizedInput(candidateName)
+      );
+      setCandidateData(foundCandidateData ? foundCandidateData.attributes : null);
+    }
+  }, [allCandidateData, candidateName]);
 
-    return (
-        <>
-            <header className="flex border-b border-solid border-b-white px-10 py-3"></header>
-            {/* Actual candidate data */}
-            <div className="relative flex flex-col bg-white">
-                <div className="mt-20 m-10">
-                    {/* Go Back button */}
-                    <button
-                        type="button"
-                        onClick={() => router.back()}
-                        className="rounded-full bg-white text-blue-700 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-10 px-4 text-sm font-bold leading-normal tracking-[0.015em] max-w-[480px] lg:w-auto bg-transparent hover:bg-blue-200"
-                    >
-                        <ArrowBackIcon className="mr-4" />
-                    </button>
+  useEffect(() => {
+    if (candidateData) {
+      const qaMap = Object.entries(candidateData)
+        .filter(([key]) => key.startsWith('Question') || key.startsWith('Answer'))
+        .reduce<QuestionsAndAnswers>((acc, [key, value]) => {
+          const questionIndex = key.match(/\d+/)?.[0];
+          if (questionIndex) {
+            if (!acc[questionIndex]) {
+              acc[questionIndex] = { question: null, answer: null };
+            }
+            acc[questionIndex][key.includes('Question') ? 'question' : 'answer'] = value;
+          }
+          return acc;
+        }, {});
+      setQuestionsAndAnswers(qaMap);
+
+      const rawUrl = candidateData.Headshot?.data?.attributes?.url;
+      setHeadshotUrl(getStrapiMedia(rawUrl));
+    } else {
+      setQuestionsAndAnswers({});
+      setHeadshotUrl(null);
+    }
+  }, [candidateData]);
+
+  const getNameParts = (name: string | undefined | null): string[] => {
+    return name ? name.split(' ') : [];
+  };
+
+  const nameParts = getNameParts(candidateData?.Name);
+
+  return (
+    <div className="relative flex flex-col bg-white min-h-screen pt-20">
+      <div className="absolute top-20 left-5 z-10">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700"
+          aria-label="Go back"
+        >
+          <ArrowBackIcon />
+        </button>
+      </div>
+
+      {candidateData ? (
+        <div className="flex flex-col flex-grow p-6 md:p-10 lg:p-16">
+          <div className="flex flex-col md:flex-row items-center md:items-start mb-12 md:mb-16">
+            {/* Headshot */}
+            <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-10 lg:mr-16">
+              {headshotUrl ? (
+                <div
+                  className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 border border-gray-200"
+                  style={{ backgroundImage: `url(${headshotUrl})` }}
+                  role="img"
+                  aria-label={`Headshot of ${candidateData?.Name || 'candidate'}`}
+                />
+              ) : (
+                <div className="bg-gray-300 rounded-full h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 flex items-center justify-center text-gray-500">
+                  No Image
                 </div>
-                {candidateData ? (
-                    <div className="layout-content-container flex flex-col flex-1 bg-white rounded">
-                        <div className="grid grid-cols-1">
-                            {/* Candidate Image, Name, and Office Container */}
-                            <div className="flex justify-start lg:p-4 md:p-4 sm:p-4 md:col-span-3">
-                                {/* Candidate Info and Image Container*/}
-                                <div className="flex gap-4 flex-col md:flex-row justify-between items-start w-full">
-                                    {/* Name, role, party - Left side */}
-                                    <div className="flex flex-col md:w-[40%] ml-20">
-                                        <h1 className="pb-2 pt-20 text-4xl md:text-5xl lg:text-7xl font-bold mb-4 bg-blue-950 bg-clip-text text-transparent">
-                                            {candidateData?.Name?.split(' ').map((part, i) => (
-                                                <span key={i}>
-                                                    {i > 0 && <br />}
-                                                    {part}
-                                                </span>
-                                            ))}
-                                        </h1>
-                                        <div className="flex flex-row items-baseline gap-8">
-                                            <div className="flex flex-row">
-                                                <div className="flex items-baseline flex-col">
-                                                    <p className="text-red-600 text-xl font-semibold mr-20">OFFICE:</p>
-                                                    <p className="text-red-600 text-xl font-semibold">PARTY:</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-xl">{candidateData?.Role}</p>
-                                                    <p className="text-xl">
-                                                        {candidateData?.party?.data?.attributes?.PartyName || 'No party affiliation'}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Candidate image - Right side */}
-                                    <div className="flex md:w-[60%] justify-start">
-                                        <div
-                                            className="bg-center bg-no-repeat bg-cover rounded-full h-80 w-80 ml-10"
-                                            style={{
-                                                backgroundImage: `url(https://pitne-voter-app-production.up.railway.app${candidateData?.Headshot.data.attributes.url})`,
-                                            }}
-                                        ></div>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Questions, Links Container */}
-                            <div className="flex flex-row pb-20">
-                                {/* Links and Questions 25/75 Split*/}
-                                <div className="w-full md:w-[25%]">
-                                    {/* Links */}
-                                    <div className="flex flex-col justify-center items-center lg:justify-normal md:justify-normal mr-4 text-center">
-                                        {candidateData.CampaignSiteLink && (
-                                            <ButtonFillEx
-                                                name="Campaign Site"
-                                                link={candidateData.CampaignSiteLink}
-                                                className="text-xs w-40 p-2 xl:my-2 rounded-full bg-white text-red-600 border-red-600 hover:bg-gray-200 hover:border-red-600"
-                                            />
-                                        )}
-                                        {candidateData.LinkedinLink && (
-                                            <ButtonFillEx
-                                                name="Linkedin"
-                                                link={candidateData.LinkedinLink}
-                                                className="text-xs w-40 p-2 xl:my-2 rounded-full bg-white text-red-600 border-red-600 hover:bg-gray-200 hover:border-red-600"
-                                            />
-                                        )}
-                                    </div>
-                                </div>
-                                {/* Questions and Answers if filled out */}
-                                <div className="md:w-[75%]">
-                                    {/* Questions Container */}
-                                    <div>
-                                        {Object.entries(questionsAndAnswers) &&
-                                            <div className="flex flex-col py-8 my-2 w-full">
-                                                <p className="font-semibold mb-4 text-xl">Questions curated by the founder, journalist Yawu Miller.</p>
-                                                {Object.entries(questionsAndAnswers).map(([index, qa]) => (
-                                                    qa.question && qa.answer ? (
-                                                        <Accordion key={index} className='bg-white w-full lg:w-3/4 md:w-3/4 mb-3 rounded-md border-black-800'>
-                                                            {/* Question */}
-                                                            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}-content`} id={`panel${index}-header`}>
-                                                                <Typography className='text-red-600 text-xl'>{qa.question}</Typography>
-                                                            </AccordionSummary>
-                                                            {/* Answer */}
-                                                            <AccordionDetails>
-                                                                <Typography className='mb-4 text-xl'>{qa.answer}</Typography>
-                                                            </AccordionDetails>
-                                                        </Accordion>
-                                                    ) : null
-                                                ))}
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="flex justify-center items-center h-64">
-                        <p className="text-xl">Candidate not found</p>
-                    </div>
-                )}
+              )}
             </div>
-        </>
-    );
+
+            {/* Info Block */}
+            <div className="flex-grow text-center md:text-left">
+              {/* Candidate Name + Social Buttons */}
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-5">
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-black leading-tight">
+                  {nameParts[0]}
+                  {nameParts.length > 1 && <br />}
+                  {nameParts.slice(1).join(' ')}
+                </h1>
+
+                <div className="flex items-center pt-40 space-x-4">
+                  {candidateData?.CampaignSiteLink && (
+                    <a
+                      href={candidateData.CampaignSiteLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Campaign Site"
+                      className="text-gray-600 hover:text-black transition duration-200 pl-5 pr-5"
+                    >
+                      <Image
+                        src="/Link.svg"
+                        alt="Campaign Site Link"
+                        width={32}
+                        height={32}
+                      />
+                    </a>
+                  )}
+                  {candidateData?.LinkedinLink && (
+                    <a
+                      href={candidateData.LinkedinLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="LinkedIn Profile"
+                      className="text-gray-600 hover:text-black transition duration-200 bg-black rounded-md"
+                    >
+                      <Image
+                        src="/Linkedin.svg"
+                        alt="LinkedIn Link"
+                        width={32}
+                        height={32}
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Office and Party Info */}
+              <div className="mb-6 flex flex-row">
+                <div className="mb-3">
+                  <p className="text-xl font-medium text-black border-b-2 border-black tracking-wide mb-1">
+                    OFFICE RUNNING FOR:
+                  </p>
+                  <p className="text-xl font-medium text-red-600 tracking-wide mb-1">
+                    Affiliated Party:
+                  </p>
+                </div>
+                <div className="pl-20">
+                  <p className="text-xl font-semibold text-black pb-1 inline-block pr-4">
+                    {candidateData?.Role || 'N/A'}
+                  </p>
+                  <br />
+                  <p className="text-xl font-semibold text-black pb-1 inline-block pr-4 uppercase">
+                    {candidateData?.party?.data?.attributes?.PartyName || 'N/A'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Questions and Answers Section */}
+          {Object.keys(questionsAndAnswers).length > 0 && (
+            <div className="w-full max-w-[1000px] mt-10 pl-40">
+              <p className="text-lg md:text-xl font-semibold text-gray-800 mb-6">
+                Questions curated by the Greater Boston News Bureau
+              </p>
+              <div className="space-y-3">
+                {Object.entries(questionsAndAnswers).map(([index, qa]) =>
+                  qa.question ? (
+                    <Accordion
+                      key={index}
+                      elevation={0}
+                      disableGutters
+                      sx={{
+                        backgroundColor: '#F3F0FF',
+                        borderRadius: '8px',
+                        '&:before': { display: 'none' },
+                        '&.Mui-expanded': { margin: 0, marginBottom: '12px' },
+                        marginBottom: '12px',
+                      }}
+                    >
+                      <AccordionSummary
+                        expandIcon={<PlayArrowIcon sx={{ fontSize: '1.4rem', color: '#3B82F6' }} />}
+                        aria-controls={`panel${index}-content`}
+                        id={`panel${index}-header`}
+                        sx={{
+                          paddingX: '16px',
+                          paddingY: '12px',
+                          minHeight: '48px',
+                          '& .MuiAccordionSummary-content': { margin: 0 },
+                          '&.Mui-expanded': { minHeight: '48px' },
+                        }}
+                      >
+                        <Typography sx={{ fontWeight: 500, color: '#333', fontSize: '1rem' }}>
+                          {qa.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails sx={{ padding: '16px', backgroundColor: '#F9F7FF' }}>
+                        {qa.answer ? (
+                          <Typography sx={{ color: '#444', fontSize: '1rem' }}>
+                            {qa.answer}
+                          </Typography>
+                        ) : (
+                          <Typography sx={{ color: '#777', fontStyle: 'italic', fontSize: '1rem' }}>
+                            No answer provided.
+                          </Typography>
+                        )}
+                      </AccordionDetails>
+                    </Accordion>
+                  ) : null
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-grow justify-center items-center h-64">
+          <p className="text-xl text-gray-500">
+            {candidateName ? 'Loading candidate data...' : 'Candidate not specified'}
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }

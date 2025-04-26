@@ -207,9 +207,7 @@ export default function CandidateInfo() {
             {/* More Info Button */}
             <div style={{ textAlign: 'right', marginTop: '10px' }}>
                 <button className = 'bg-transparent border border-red-600 text-red-600 px-3 py-1.5 rounded-full text-sm font-bold hover:bg-red-600 hover:text-white transition-colors duration-200'
-                  
-                  onClick={() => handleCandidateClick(candidate.attributes.Name)}
-                >
+                  onClick={() => handleCandidateClick(candidate.attributes.Name)}>
                   More Info
                 </button>
               </div>
