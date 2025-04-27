@@ -104,11 +104,18 @@ export default function UpcomingElections() {
               <span className="text-black font-bold text-lg md:text-xl lg:text-2xl">
                 Presented by
               </span>
-              <img
-                src="/flipside.png"
-                alt="Flipside"
-                className="ml-2 w-24 md:w-32 lg:w-40"
-              />
+              <a 
+                href="https://flipsidenews.net/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2"
+              >
+                <img
+                  src="/flipside.png"
+                  alt="Flipside"
+                  className="w-24 md:w-32 lg:w-40"
+                />
+              </a>
             </div>
           </div>
 
