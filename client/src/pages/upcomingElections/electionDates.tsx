@@ -41,18 +41,15 @@ export default function ElectionDates() {
                         }
                     }));
                     setElectionDates(processedData);
-                    setIsLoading(false);
-
                 } else {
-                    alert('Error fetching election dates')
-                    setIsLoading(false)
+                    alert('Error fetching election dates');
                 }
-
             } catch (e) {
                 console.log(e);
-                setIsLoading(false)
+            } finally {
+                setIsLoading(false);
             }
-        }
+        };
         fetchElectionDates();
     }, [])
 
