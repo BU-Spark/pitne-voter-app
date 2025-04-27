@@ -30,7 +30,7 @@ const districts = [ 'District 1', 'District 2', 'District 3', 'District 4', 'Dis
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
 const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth',
     'Treasurer and Receiver-General', 'Auditor', "Governor's Countcil", 'State Senators', 'State Representatives', ];
-const municipalOffices = [ 'Mayor', 'City Councilors', 'School Committee Members'];
+const municipalOffices = [ 'Mayor', 'City Councilors', 'City Councilor At Large', 'School Committee Members'];
 const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention',
     'Alternate Delegate to the National Convention', 'District Attorney', 'Clerk of Courts', 'Clerk of Superior Court (Civil)',
     'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission',
