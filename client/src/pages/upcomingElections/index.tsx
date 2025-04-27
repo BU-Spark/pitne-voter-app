@@ -52,7 +52,7 @@ export default function UpcomingElections() {
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const filtered = allElections.filter(election =>
       election.attributes.ElectionName.toLowerCase().includes(searchQuery.toLowerCase())
