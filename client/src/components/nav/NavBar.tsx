@@ -50,17 +50,38 @@ const NavBar = () => {
     <AppBar position="fixed" className="bg-gradient-custom shadow-none text-gray-800 my-0" style={{ zIndex: 1000, top: 0, width: '100%' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* Mobile menu button and menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
             <IconButton
               size="large"
               aria-label="menu"
               onClick={handleOpenNavMenu}
               color="inherit"
-              sx={{ color: 'black' }}
+              sx={{ color: 'black', mr: 2, display: { xs: 'flex', lg: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
+            
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                flexGrow: 0,
+                paddingTop: '10px',
+                paddingBottom: '10px',
+              }}
+            >
+              <img
+                src="/BVLogo.svg"
+                alt="Boston Voter Logo"
+                style={{
+                  height: '50px',
+                  cursor: 'pointer',
+                }}
+                onClick={() => handleClick('Upcoming Elections')}
+              />
+            </Box>
+
             <Menu
               id="mobile-menu"
               anchorEl={anchorElNav}
@@ -89,24 +110,6 @@ const NavBar = () => {
                 </Button>
               ))}
             </Menu>
-          </Box>
-
-          {/* Logo with added padding on top */}
-          <Box sx={{ 
-            display: 'flex', 
-            mr: 1,
-            paddingTop: '10px', // Added padding here
-            paddingBottom: '10px'
-          }}>
-            <img 
-              src="/BVLogo.svg" 
-              alt="Boston Voter Logo" 
-              style={{ 
-                height: '60px', 
-                cursor: 'pointer',
-              }} 
-              onClick={() => handleClick('Upcoming Elections')} 
-            />
           </Box>
 
           {/* Desktop menu items */}
