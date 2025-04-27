@@ -30,7 +30,7 @@ const districts = [ 'District 1', 'District 2', 'District 3', 'District 4', 'Dis
 const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
 const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth',
     'Treasurer and Receiver-General', 'Auditor', "Governor's Countcil", 'State Senators', 'State Representatives', ];
-const municipalOffices = [ 'Mayor', 'City Councilors', 'School Committee Members'];
+const municipalOffices = [ 'Mayor', 'City Councilors', 'City Councilor At Large', 'School Committee Members'];
 const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention',
     'Alternate Delegate to the National Convention', 'District Attorney', 'Clerk of Courts', 'Clerk of Superior Court (Civil)',
     'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission',
@@ -304,9 +304,9 @@ export default function CandidateInfo() {
     if (error) return <p>{error}</p>;
 
     return (
-        <div style={{ display: 'flex', paddingTop: '120px', paddingLeft: '60px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', paddingTop: '100px', paddingLeft: '30px', paddingRight: '30px', gap: '20px' }}>
             {/* Sidebar for Filters */}
-            <div style={{ width: '25%', padding: '20px', backgroundColor: 'transparent' }}>
+            <div style={{ flex: '1 1 300px', maxWidth: '400px', padding: '20px', backgroundColor: 'transparent', width: '100%' }}>
                 <h2 style={{ color: '#F00', fontFamily: 'Inter', fontSize: '24px', fontStyle: 'normal', fontWeight: '700', lineHeight: '28px', letterSpacing: '0.1px', width: '390px', height: '28px', flexShrink: '0' }}>CANDIDATE INFO</h2>
                 <hr className="border-t-6 border-black mb-4"/> {/* Added horizontal line here */}
                 {/* Search Bar */}
@@ -360,7 +360,7 @@ export default function CandidateInfo() {
             </div>
 
             {/* Main Content */}
-            <div style={{ width: '75%', padding: '20px' }}>
+            <div style={{ flex: '2 1 600px', padding: '20px', width: '100%' }}>
                 <h1 className="text-5xl font-extrabold">
                     <span className="text-red-600">CANDIDATE </span>
                     <span className="text-black">OVERVIEW</span>
