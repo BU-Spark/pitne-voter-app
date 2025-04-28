@@ -5,13 +5,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
-const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Drop Box Locations'];
+const pages = ['Upcoming Elections', 'Your Voter Info', 'Voting Options', 'Candidate Info', 'Drop Box Locations', 'About Us'];
 const links: Record<string, string> = {
   'Upcoming Elections': '/upcomingElections',
   'Your Voter Info': '/voterInfo',
   'Voting Options': '/votingOptions',
   'Candidate Info': '/candidateInfo',
-  'Drop Box Locations': '/dropBoxLocations'
+  'Drop Box Locations': '/dropBoxLocations',
+  'About Us': '/aboutUs'
 };
 
 const NavBar = () => {
@@ -113,14 +114,14 @@ const NavBar = () => {
           </Box>
 
           {/* Desktop menu items */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' }, justifyContent: 'flex-end' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' }, justifyContent: 'space-evenly' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => handleClick(page)}
                 sx={{
                   color: isActive(links[page]) ? '#d81624' : 'black',
-                  mx: 2,
+                  mx: 1,
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.04)',
                     borderBottom: isActive(links[page]) ? '4px solid #d81624' : 'none'

@@ -258,15 +258,17 @@ const FooterLayout: React.FC = () => {
           </Box>
 
           {/* Yawu + Social Icons */}
-          <Box mt={2} display="flex" alignItems="center" justifyContent="start">
-            <img
-              src="/Yawu.png"
-              alt="Yawu Miller"
-              style={{ width: 48, height: 48, borderRadius: '50%', marginRight: 8 }}
-            />
-            <Typography variant="body2" sx={{ fontSize: '16px', fontFamily: 'Inter' }}>
-              Yawu Miller
-            </Typography>
+          <Box mt={2} display="flex" alignItems="center" justifyContent="start" gap={1}>
+            <Link href="/aboutUs" underline="none" sx={{ display: 'flex', alignItems: 'center', color: 'inherit', textDecoration: 'none' }}>
+              <img
+                src="/Yawu.png"
+                alt="Yawu Miller"
+                style={{ width: 48, height: 48, borderRadius: '50%', marginRight: 8 }}
+              />
+              <Typography variant="body2" sx={{ fontSize: '16px', fontFamily: 'Inter' }}>
+                Yawu Miller
+              </Typography>
+            </Link>
             <Box ml={2} display="flex" alignItems="center" gap={1.5}>
               <a href="https://bsky.app/profile/did:plc:qwrxbyotsv7zhgdmnp47q7ym" target="_blank" rel="noreferrer">
                 <img src="/Blue-Sky.png" alt="Blue Sky" style={{ width: 32 }} />
