@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, startTransition } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
@@ -44,7 +44,10 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         }
 
         if (savedPollingInfo) {
-            setPollingInformation(JSON.parse(savedPollingInfo));
+            const parsedPollingInfo: PollingInfo = JSON.parse(savedPollingInfo);
+            startTransition(() => {
+                setPollingInformation(parsedPollingInfo);
+            });
         }
     }, [setPollingInformation]);
 
@@ -52,7 +55,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         const consent = Cookies.get('cookieConsent');
         if (consent === 'accepted') {
             if (saveAddress) {
-                Cookies.set('address', JSON.stringify({ street, city, zip }));
+                Cookies.set('address', JSON.stringify({ street, city, zip }), { expires: 7 });
             } else {
                 Cookies.remove('address');
             }
@@ -101,13 +104,16 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                     precinct: data.USER_Precinct,
                 };
 
-                setPollingInformation(pollingInfo);
+                startTransition(() => {
+                    setPollingInformation(pollingInfo);
+                });
                 saveCookieData(street, city, zip, pollingInfo);
             } else {
-                setError('Invalid Address or Address Format or Unsupported Location');
+                setError('Invalid address format or unsupported location.');
             }
         } catch (error) {
-            saveCookieData(street, city, zip, {
+            // Save fallback data
+            const fallbackPollingInfo: PollingInfo = {
                 location: null,
                 street: street,
                 city: city,
@@ -117,10 +123,11 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                 instructions: null,
                 ward: null,
                 precinct: null,
-            });
+            };
 
-            loadSavedCookieData();
-            setError("No polling location found for this address yet. Please check back later or re-enter the address to try again.");
+            saveCookieData(street, city, zip, fallbackPollingInfo);
+
+            setError('No polling location found for this address yet. Please check back later or re-enter the address.');
         }
     };
 
@@ -208,8 +215,8 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                                         '&.Mui-checked': {
                                             color: 'red',
                                         },
-                                        '& .MuiSvgIcon-root': { // Target the SVG icon inside Checkbox
-                                            color: 'black',      // Default color of the checkbox outline
+                                        '& .MuiSvgIcon-root': {
+                                            color: 'black',
                                         },
                                     }}
                                 />
