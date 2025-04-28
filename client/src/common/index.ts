@@ -30,6 +30,9 @@ export const CandidateRoleAPI = StrapiURL + 'candidate-roles';
 
 export const BallotInitiativeAPI = StrapiURL + 'ballot-initiatives';
 
+// URL for the about us API
+export const AboutUsAPI = StrapiURL + 'about-uses';
+
 
 
 

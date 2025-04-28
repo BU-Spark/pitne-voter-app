@@ -84,7 +84,15 @@ const DropDownInfo: React.FC<DropDownInfoProps> = ({ activeTab }) => {
   return (
   <div className='relative bg-stone-300 rounded-2xl w-full max-w-[1000px] px-8 py-10 mx-auto my-10 space-y-6 text-center shadow-md min-h-[450px]'>
     
-    <Typography variant='h5' sx={{ color: '#1e1b4b' }}>{item.title}</Typography>
+    <Typography
+      variant='h5'
+      sx={{
+        color: item.title === 'Election Day Voting' ? 'black' : '#1e1b4b',
+        fontWeight: item.title === 'Election Day Voting' ? 'bold' : 'normal',
+      }}
+    >
+      {item.title}
+    </Typography>
 
     {item.content?.paragraph1 && (
       <Typography sx={{ fontSize: '18px' }}>{item.content.paragraph1}</Typography>
