@@ -80,7 +80,7 @@ const FooterLayout: React.FC = () => {
   const navigationItems = [
     { name: 'Home', icon: '/Home.svg', path: '/upcomingElections', action: scrollToTop },
     { name: 'Upcoming Elections', icon: '/Calendar.svg', path: '/upcomingElections', action: scrollToElectionDates },
-    { name: 'Voter Info', icon: '/Info.svg', path: '/Info' },
+    { name: 'Voter Info', icon: '/Info.svg', path: '/voterInfo' },
     { name: 'Voting Options', icon: '/patch-question-fill.svg', path: '/votingOptions' },
     { name: 'Candidate Info', icon: '/person.svg', path: '/candidateInfo' },
     { name: 'Dropbox Locations', icon: '/location_on.svg', path: '/dropBoxLocations' }
