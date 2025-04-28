@@ -161,7 +161,7 @@ export default function UpcomingElections() {
                 </div>
                 
                 <div className="space-y-3 flex-grow">
-                  {filteredElections.map((election, index) => {
+                  {filteredElections.slice(0, 3).map((election, index) => {
                     const electionDate = election.attributes.ElectionDate instanceof Date
                       ? election.attributes.ElectionDate
                       : new Date(election.attributes.ElectionDate);
