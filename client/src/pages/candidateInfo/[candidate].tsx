@@ -157,7 +157,7 @@ export default function Candidate() {
             <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-10 lg:mr-16">
               {headshotUrl ? (
                 <div
-                  className="bg-center bg-no-repeat bg-cover rounded-full h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 border border-gray-200"
+                  className="ml-40 bg-center bg-no-repeat bg-cover rounded-full items-center h-64 w-64 md:h-80 md:w-80 lg:h-80 lg:w-80 border border-gray-200"
                   style={{ backgroundImage: `url(${headshotUrl})` }}
                   role="img"
                   aria-label={`Headshot of ${candidateData?.Name || 'candidate'}`}
@@ -173,7 +173,7 @@ export default function Candidate() {
             <div className="flex-grow text-center md:text-left">
               {/* Candidate Name + Social Buttons */}
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-5">
-                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-black leading-tight">
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-black leading-tight pt-10">
                   {nameParts[0]}
                   {nameParts.length > 1 && <br />}
                   {nameParts.slice(1).join(' ')}
@@ -252,7 +252,7 @@ export default function Candidate() {
                       elevation={0}
                       disableGutters
                       sx={{
-                        backgroundColor: '#F3F0FF',
+                        backgroundColor: '#eeeeee',
                         borderRadius: '8px',
                         '&:before': { display: 'none' },
                         '&.Mui-expanded': { margin: 0, marginBottom: '12px' },
@@ -260,7 +260,7 @@ export default function Candidate() {
                       }}
                     >
                       <AccordionSummary
-                        expandIcon={<PlayArrowIcon sx={{ fontSize: '1.4rem', color: '#3B82F6' }} />}
+                        expandIcon={<PlayArrowIcon sx={{ fontSize: '1.4rem', color: '#aaaaaa' }} />}
                         aria-controls={`panel${index}-content`}
                         id={`panel${index}-header`}
                         sx={{
