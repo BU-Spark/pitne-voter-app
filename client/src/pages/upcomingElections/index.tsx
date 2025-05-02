@@ -53,7 +53,9 @@ export default function UpcomingElections() {
   const scrollToElectionDates = () => {
     const electionDatesSection = document.getElementById('election-dates');
     if (electionDatesSection) {
-      electionDatesSection.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -80; // adjust offset
+      const y = electionDatesSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -118,7 +120,7 @@ export default function UpcomingElections() {
                 <img
                   src="/flipside.png"
                   alt="Flipside"
-                  className="w-24 md:w-32 lg:w-40"
+                  className="w-24 md:w-32 lg:w-40 transition-transform duration-200 hover:scale-105"
                 />
               </a>
             </div>
@@ -186,7 +188,7 @@ export default function UpcomingElections() {
                       timeZone: 'UTC'
                     });
                     return (
-                      <div key={index} className="bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow relative z-10">
+                      <div key={index} className="bg-white p-3 rounded-md shadow-sm relative z-10">
                         <div className="flex items-center">
                           <div className="bg-[#D81624] text-white rounded-md p-2 text-center w-16 mr-4">
                             <div className="font-bold text-lg">{electionDate.getUTCDate()}</div>
@@ -245,26 +247,38 @@ export default function UpcomingElections() {
           <span className="text-black font-medium text-lg md:text-xl lg:text-xl tracking-widest">
             FIND OUT MORE
           </span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 19 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            className="text-black"
+          <button
+            onClick={() => {
+              const section = document.getElementById('cards-section');
+              if (section) {
+                const yOffset = -80;
+                const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }}
+            className="mt-2"
           >
-            <path
-              d="M8.5 0.5L8.5 12.67L2.91 7.08L1.5 8.5L9.5 16.5L17.5 8.5L16.09 7.09L10.5 12.67L10.5 0.5L8.5 0.5Z"
-              fill="currentColor"
-              stroke="currentColor"
-            />
-          </svg>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 19 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              className="text-black"
+            >
+              <path
+                d="M8.5 0.5L8.5 12.67L2.91 7.08L1.5 8.5L9.5 16.5L17.5 8.5L16.09 7.09L10.5 12.67L10.5 0.5L8.5 0.5Z"
+                fill="currentColor"
+                stroke="currentColor"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* Cards Section */}
-      <div className='flex flex-col lg:flex-row justify-center items-center mx-4 md:mx-8 lg:mx-12 p-4 mt-8 md:mt-12 lg:mt-16 gap-4 md:gap-6'>
+      <div id="cards-section" className='flex flex-col lg:flex-row justify-center items-center mx-4 md:mx-8 lg:mx-12 p-4 mt-8 md:mt-12 lg:mt-16 gap-4 md:gap-6'>
         {[{
           icon: "/early_vote.svg",
           title: "EARLY VOTING OPTIONS",
