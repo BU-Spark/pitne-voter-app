@@ -263,6 +263,9 @@ This page pulls candidates and candidate information from a Strapi API endpoint.
 ### Drop Box Locations:
 This page contains static links to voting locations, as well as an iframe to an ArcGIS map containing ballot drop-off station locations. The url for the iframe is located in the index.tsx page.
 
+### About Us
+This page contains information regarding Yawu Miller, his other website The FlipSide, and the role of Spark! in this project.
+
 ### Subscribe Popup and Newsletter Form:
 These are two forms, the popup appears only on the Candidate Info page while the Newsletter Form is a persistent footer on every page. Entering an email adds it to the Mailchimp audience collection through next.js serverless functions.
 
@@ -355,10 +358,12 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 
 
 # Known Bugs and Issues
-* Candidate Information page candidate card will not drop down when clicked
-* Mobile view is subpar on many pages but particularly broken on the Candidate Information page
-* upcomingElections page cards are off-center and improperly sized
-* Website is slow (probably due to large .png files and slow Strapi server)
+* Mobile view is subpar on many pages, some features so not work such as adding calendar dates
+* Ward/polling number not displayed when address is submitted
+* Miniature "Upcoming Elections" window on landing page displays
+* Candidate page "Election Date" section doesn't display anything
+* On "Upcoming Elections" window, the 3 side by side icons are not the same size
+* On "Dropbox Locations" window, the 3 icons under the map aren't uniform in size either
 
 ***SEO Optimizations + Accessibility Issues***
 * Links should be hypnenated instead of camel case
@@ -372,8 +377,6 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 
 # Future Work
 * Fix bugs/issues above
-* Modify the candidate model to relate to candidate questionnaires, enabling automated survey responses for candidates
-* Fix/complete the candidate information page, currently missing correct filter implementation
 * Add logic to the newsletter sign-up popup so it does not show up again if a user enters their email address
 * Add prettier error messages for invalid email/already on mailing list
 * Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server
@@ -384,6 +387,11 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * main - contains the latest deployed work for the web server, updated with a pull request from dev at the end of the semester.
 * dev - changes to the codebase are first pushed to dev and after it is verified to work, it is pushed to main.
 * DeployedStrapiBranch - this branch reflects the state of Strapi in its latest deployed configuration.
+
+# SE Team (Spring 2025)
+* Freya Zhu
+* Yu Chen
+* Moses Chen
 
 # SE Team (Fall 2024)
 * Remus Harris - Github: @remus287 - email: remus@bu.edu
@@ -400,6 +408,8 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 Our website's frontend, backend, and Strapi CMS are all hosted on Netlify.
 
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
+
+Access our deployed dev branch website: https://dev--bostonvoter.up.railway.app/
   
 # Snapshots
 
