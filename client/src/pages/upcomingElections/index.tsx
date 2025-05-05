@@ -59,13 +59,6 @@ export default function UpcomingElections() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const filtered = allElections.filter(election =>
-      election.attributes.ElectionName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredElections(filtered);
-  };
 
   return (
     <div>
@@ -147,24 +140,30 @@ export default function UpcomingElections() {
               <div className="w-full flex flex-col relative z-10">
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-lg font-bold text-black">Upcoming Elections</h3>
-                  <form onSubmit={handleSearch} className="relative w-48">
+                  <div className="relative w-48">
                     <input
                       type="text"
                       placeholder="Search elections..."
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setSearchQuery(value);
+                        const filtered = allElections.filter(election =>
+                          election.attributes.ElectionName.toLowerCase().includes(value.toLowerCase())
+                        );
+                        setFilteredElections(filtered);
+                      }}
                       className="w-full bg-white rounded-md px-3 py-1 pr-8 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#D81624]"
                     />
-                    <button 
-                      type="submit"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                    <span 
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#D81624" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M21 21L16.65 16.65" stroke="#D81624" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </button>
-                  </form>
+                    </span>
+                  </div>
                 </div>
                 
                 <div className="space-y-3 flex-grow">
