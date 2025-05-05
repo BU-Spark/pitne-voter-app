@@ -45,11 +45,11 @@ export default function ElectionDates() {
     useEffect(() => {
         if (electionDates.length > 0) {
             const sortedDates = [...electionDates]
-                .filter((election) => new Date(election.attributes.ElectionDate) > new Date())
+                .filter((election) => new Date(election.attributes.ElectionDate + 'T00:00:00Z') > new Date())
                 .sort(
                     (a, b) =>
-                        new Date(a.attributes.ElectionDate).getTime() -
-                        new Date(b.attributes.ElectionDate).getTime()
+                        new Date(a.attributes.ElectionDate + 'T00:00:00Z').getTime() -
+                        new Date(b.attributes.ElectionDate + 'T00:00:00Z').getTime()
                 )
                 .slice(0, 2); // Get only the top 2 closest future elections
 
@@ -84,7 +84,7 @@ export default function ElectionDates() {
                         <ElectionCard
                             key={index}
                             electionName={election.customElectionName || election.attributes.ElectionName}
-                            electionDate={election.attributes.ElectionDate}
+                            electionDate={new Date(election.attributes.ElectionDate + 'T00:00:00Z')}
                         />
                     ))}
                 </div>

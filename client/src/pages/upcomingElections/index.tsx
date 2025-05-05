@@ -31,7 +31,12 @@ export default function UpcomingElections() {
             attributes: {
               ...item.attributes,
               ElectionDate: new Date(item.attributes.ElectionDate + 'T00:00:00Z'),
-              RegistrationDate: item.attributes.RegistrationDate ? new Date(item.attributes.RegistrationDate + 'T00:00:00Z') : undefined,
+              RegistrationDate: item.attributes.RegistrationDate
+                ? (() => {
+                    const [year, month, day] = item.attributes.RegistrationDate.split('-').map(Number);
+                    return new Date(Date.UTC(year, month - 1, day));
+                  })()
+                : undefined,
             }
           })).sort((a: any, b: any) => new Date(a.attributes.ElectionDate).getTime() - new Date(b.attributes.ElectionDate).getTime());
           
@@ -173,6 +178,15 @@ export default function UpcomingElections() {
                       year: 'numeric',
                       timeZone: 'UTC'
                     });
+                    const registrationDate = election.attributes.RegistrationDate instanceof Date
+                      ? election.attributes.RegistrationDate
+                      : new Date(election.attributes.RegistrationDate);
+                    const formattedRegDate = registrationDate.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                      timeZone: 'UTC'
+                    });
                     return (
                       <div key={index} className="bg-white p-3 rounded-md shadow-sm relative z-10">
                         <div className="flex items-center">
@@ -184,7 +198,7 @@ export default function UpcomingElections() {
                           </div>
                           <div className="flex-grow">
                             <h4 className="font-semibold text-md text-black">{election.attributes.ElectionName}</h4>
-                            <p className="text-xs text-gray-600">{formattedDate}</p>
+                            <p className="text-xs text-gray-600">{formattedRegDate}</p>
                           </div>
                         </div>
                       </div>

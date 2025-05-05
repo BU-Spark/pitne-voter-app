@@ -69,6 +69,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                     month: 'long',
                     day: 'numeric',
                     year: 'numeric',
+                    timeZone: 'UTC'
                 });
                 setDisplayRegistrationDate(formattedRegistrationDate);
                 
