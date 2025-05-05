@@ -1,8 +1,12 @@
 # Boston Voter App
 Throughout Fall 2024, our team has been developing the Boston Voter App. It's mission is to provide a central platform for voting information and logistics, with the goal of boosting BIPOC (Black, Indigenous, People of Color) voter turnout in Boston Municipal Elections.
 
+
 # Description
 The Boston Voter App addresses the lack of accessible information about voting logistics and candidates in municipal elections in Boston. This progressive web application centralizes all vital voting information to increase voter turnout, particularly focusing on BIPOC voters who face significant barriers to voting in local elections. 
+
+# About the Project Supporters
+This project is made possible through the support of journalist Yawu Miller and the civic news platform [The FlipSide](https://flipsidenews.net/), whose mission is to empower democratic engagement through accessible information and community-driven reporting.
 
 # Problem Statement
 Many news organizations provide articles or voting guides around the election, but they are often difficult to find, last minute, and represent a narrow perspective around candidates. Additionally, most election resources are around larger races with little coverage or few resources available for local elections, where candidates have the potential to impact people’s lives more directly. BIPOC voters often have the lowest voting rates, especially in municipal elections, for a variety of reasons including lack of information and logistical barriers such as work hours and family duties. This project aims to remedy that for BIPOC voters in Boston.
@@ -40,10 +44,9 @@ Before Starting, ensure the following is installed:
 * Node.js
 
 # Running the Application Locally
-1. Clone the repository and naviage to the git respository:
+1. Clone the repository and navigate to the git repository root. Make sure Node.js (v18 or later) is installed:
     ```bash
     git clone https://github.com/BU-Spark/pitne-voter-app.git
-
     cd pitne-voter-app 
     ```
 
@@ -73,6 +76,7 @@ Before Starting, ensure the following is installed:
     npm run dev
     ```
    
+Note: You must run `client`, `server`, and `strapi` in separate terminal windows concurrently for full functionality.
 ## Environment Variables
 Create a `.env` file in the `server` directory (`cd server`) and add the following environment variables:
 
@@ -358,12 +362,10 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 
 
 # Known Bugs and Issues
-* Mobile view is subpar on many pages, some features so not work such as adding calendar dates
-* Ward/polling number not displayed when address is submitted
-* Miniature "Upcoming Elections" window on landing page displays
-* Candidate page "Election Date" section doesn't display anything
-* On "Upcoming Elections" window, the 3 side by side icons are not the same size
-* On "Dropbox Locations" window, the 3 icons under the map aren't uniform in size either
+* Mobile view is improved but some formatting is subpar in comparison to desktop view
+* Website is slow (probably due to large .png files and slow Strapi server)
+* Ward and precinct do not display on the "Your Voter Info" page
+* Candidate page "Election Date" section displays "N/A" instead of date info
 
 ***SEO Optimizations + Accessibility Issues***
 * Links should be hypnenated instead of camel case
@@ -395,7 +397,6 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Yu Chen
 * Moses Chen
 
-
 # SE Team (Fall 2024)
 * Remus Harris - Github: @remus287 - email: remus@bu.edu
 * Celine Boudaie - Github: @celineboudaie
@@ -413,7 +414,6 @@ Our website's frontend, backend, and Strapi CMS are all hosted on Netlify.
 Access our deployed website [here](https://bostonvoter.com/) or https://bostonvoter.com/.
 
 Access our deployed dev branch website: https://dev--bostonvoter.up.railway.app/
-  
 # Snapshots
 
 **Ability to see Upcoming Elections from Strapi CMS input**
