@@ -252,7 +252,7 @@ export default function Candidate() {
                       elevation={0}
                       disableGutters
                       sx={{
-                        backgroundColor: '#eeeeee',
+                        backgroundColor: '#F2F2F2',
                         borderRadius: '8px',
                         '&:before': { display: 'none' },
                         '&.Mui-expanded': { margin: 0, marginBottom: '12px' },
@@ -275,7 +275,7 @@ export default function Candidate() {
                           {qa.question}
                         </Typography>
                       </AccordionSummary>
-                      <AccordionDetails sx={{ padding: '16px', backgroundColor: '#F9F7FF' }}>
+                      <AccordionDetails sx={{ padding: '16px', backgroundColor: '#F7F7F7' }}>
                         {qa.answer ? (
                           <Typography sx={{ color: '#444', fontSize: '1rem' }}>
                             {qa.answer}

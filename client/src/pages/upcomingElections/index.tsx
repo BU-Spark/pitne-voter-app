@@ -59,13 +59,6 @@ export default function UpcomingElections() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const filtered = allElections.filter(election =>
-      election.attributes.ElectionName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredElections(filtered);
-  };
 
   return (
     <div>
@@ -127,9 +120,9 @@ export default function UpcomingElections() {
           </div>
 
           {/* Right Column */}
-          <div className="hidden lg:flex flex-col w-2/5 ml-8">
+          <div className="flex flex-col w-full lg:w-2/5 lg:ml-8 mt-8 lg:mt-0 items-center lg:items-stretch">
             {/* Election Preview Card */}
-            <div className="bg-[#D9D9D9] rounded-xl p-4 shadow-lg relative z-10 h-fit min-h-[320px]">
+            <div className="bg-[#D9D9D9] rounded-xl p-4 shadow-lg relative z-10 h-fit min-h-[320px] w-full max-w-md">
               {/* Gray State House background */}
               <div className="absolute right-0 bottom-0 opacity-30" style={{ 
                 width: '70%',
@@ -147,24 +140,30 @@ export default function UpcomingElections() {
               <div className="w-full flex flex-col relative z-10">
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-lg font-bold text-black">Upcoming Elections</h3>
-                  <form onSubmit={handleSearch} className="relative w-48">
+                  <div className="relative w-48">
                     <input
                       type="text"
                       placeholder="Search elections..."
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setSearchQuery(value);
+                        const filtered = allElections.filter(election =>
+                          election.attributes.ElectionName.toLowerCase().includes(value.toLowerCase())
+                        );
+                        setFilteredElections(filtered);
+                      }}
                       className="w-full bg-white rounded-md px-3 py-1 pr-8 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#D81624]"
                     />
-                    <button 
-                      type="submit"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                    <span 
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#D81624" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M21 21L16.65 16.65" stroke="#D81624" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </button>
-                  </form>
+                    </span>
+                  </div>
                 </div>
                 
                 <div className="space-y-3 flex-grow">
@@ -216,7 +215,7 @@ export default function UpcomingElections() {
             </div>
 
             {/* Register to Vote and View Candidates Buttons */}
-            <div className="flex justify-center mt-4 gap-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center mt-4 gap-4 w-full max-w-md">
               <a 
                 href="https://www.sec.state.ma.us/ovr/" 
                 target="_blank" 
@@ -256,7 +255,7 @@ export default function UpcomingElections() {
                 window.scrollTo({ top: y, behavior: 'smooth' });
               }
             }}
-            className="mt-2"
+            className="mt-2 hover:translate-y-1 transition-transform duration-300"
           >
             <svg
               width="24"
@@ -296,19 +295,35 @@ export default function UpcomingElections() {
           description: "Everything you need to navigate."
         }].map((card, index) => (
           <div key={index} className="flex flex-col items-center p-3 w-full max-w-xs">
-            <img 
-              src={card.icon} 
-              alt="" 
-              className="h-20 md:h-24 lg:h-28 w-auto mb-4 md:mb-5" 
-            />
+            {card.icon === "/register_check.svg" ? (
+              <img
+                src={card.icon}
+                alt=""
+                className="h-14 md:h-18 lg:h-20 w-auto mt-3 mb-5 md:mt-4 md:mb-3"
+              />
+            ) : (
+              <img
+                src={card.icon}
+                alt=""
+                className="h-20 md:h-24 lg:h-28 w-auto mb-4 md:mb-5"
+              />
+            )}
             {card.link.startsWith('http') ? (
-              <a href={card.link} target="_blank" rel="noopener noreferrer" className="w-full no-underline">
+              <a
+                href={card.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full no-underline ${card.icon === "/register_check.svg" ? 'mt-6' : ''}`}
+              >
                 <div className="w-full bg-[#D81624] py-2 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4 h-10 px-4 rounded-md hover:bg-red-700 shadow-md flex items-center justify-center transition-all cursor-pointer">
                   {card.title}
                 </div>
               </a>
             ) : (
-              <Link href={card.link} className="w-full no-underline">
+              <Link
+                href={card.link}
+                className={`w-full no-underline ${card.icon === "/register_check.svg" ? 'mt-8' : ''}`}
+              >
                 <div className="w-full bg-[#D81624] py-2 text-center text-white text-lg md:text-xl font-medium mb-3 md:mb-4 h-10 px-4 rounded-md hover:bg-red-700 shadow-md flex items-center justify-center transition-all cursor-pointer">
                   {card.title}
                 </div>
