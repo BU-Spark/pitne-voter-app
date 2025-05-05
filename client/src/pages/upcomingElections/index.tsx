@@ -242,7 +242,7 @@ export default function UpcomingElections() {
                 window.scrollTo({ top: y, behavior: 'smooth' });
               }
             }}
-            className="mt-2"
+            className="mt-2 hover:translate-y-1 transition-transform duration-300"
           >
             <svg
               width="24"
