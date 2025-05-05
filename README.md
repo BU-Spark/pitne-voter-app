@@ -1,5 +1,9 @@
+![License](https://img.shields.io/badge/license-MIT-green)
+![Netlify](https://img.shields.io/badge/deployed-Netlify-blue)
+![Made with Next.js](https://img.shields.io/badge/made%20with-Next.js-black)
+
 # Boston Voter App
-Throughout Fall 2024, our team has been developing the Boston Voter App. It's mission is to provide a central platform for voting information and logistics, with the goal of boosting BIPOC (Black, Indigenous, People of Color) voter turnout in Boston Municipal Elections.
+Throughout Fall 2024, our team has been developing the Boston Voter App. Its mission is to provide a central platform for voting information and logistics, with the goal of boosting BIPOC (Black, Indigenous, People of Color) voter turnout in Boston Municipal Elections.
 
 
 # Description
@@ -76,7 +80,7 @@ Before Starting, ensure the following is installed:
     npm run dev
     ```
    
-Note: You must run `client`, `server`, and `strapi` in separate terminal windows concurrently for full functionality.
+Note: You must run `client`, `server`, and `strapi` in separate terminal windows concurrently for full local functionality.
 ## Environment Variables
 Create a `.env` file in the `server` directory (`cd server`) and add the following environment variables:
 
@@ -121,7 +125,7 @@ npm install -D @playwright/test
 npx playwright install
 ```
 Most of the current test coverage comes from the end-to-end tests. these can be run from the base repository directory with ```npx playwright test```
-These tests will validate the functionallity of the client, server, and Strapi
+These tests will validate the functionality of the client, server, and Strapi
 
 **Testing Options**
 
@@ -271,7 +275,7 @@ This page contains static links to voting locations, as well as an iframe to an 
 This page contains information regarding Yawu Miller, his other website The FlipSide, and the role of Spark! in this project.
 
 ### Subscribe Popup and Newsletter Form:
-These are two forms, the popup appears only on the Candidate Info page while the Newsletter Form is a persistent footer on every page. Entering an email adds it to the Mailchimp audience collection through next.js serverless functions.
+These are two forms, the popup appears only on the Candidate Info page while the Newsletter Form is a persistent footer on every page. Emails are collected via Next.js serverless functions and added to a Mailchimp audience list for newsletters.
 
 ### common/index.tsx:
 This page contains all the Strapi URL links as well as the express server link
@@ -283,10 +287,10 @@ This page contains all the Strapi URL links as well as the express server link
 For resolving an address to latitude and longitude coordinates, we use https://geocode.maps.co/ API service. The free plan supports 1 request per second and 5000 requests per day. This can be upgraded if needed to multiple low-cost monthly paid plans.
 
 ### Mailchimp API:
-Mailchimp us used to collect emails from site users. This is to allow a site admin/owner to identify users that are interested in receiving a newsletter. To use this feature, a Mailchimp API key needs to be set up.
+Mailchimp is used to collect emails from site users. This is to allow a site admin/owner to identify users that are interested in receiving a newsletter. To use this feature, a Mailchimp API key needs to be set up.
 
 ### Strapi CMS:
-Strapi is a headless content management system. It is designed such that a site administratior can add content to Strapi which is reflected in the deployed website, this allows for modifying the website content without needing to redeploy the site. The Strapi documentation can be found [here](https://docs.strapi.io/).
+Strapi is a headless content management system. It is designed such that a site administrator can add content to Strapi which is reflected in the deployed website, this allows for modifying the website content without needing to redeploy the site. The Strapi documentation can be found [here](https://docs.strapi.io/).
 
 # Setting Up a Mailchimp Account, API Key, and Audience ID for Website Integration
 
@@ -368,7 +372,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Candidate page "Election Date" section displays "N/A" instead of date info
 
 ***SEO Optimizations + Accessibility Issues***
-* Links should be hypnenated instead of camel case
+* Links should be hyphenated instead of camel case
 * Images should be vector files instead of .png files
 * Needs a meta-title and meta-description
 * Images need alt tags (accessibility)
@@ -384,7 +388,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Add logic to the newsletter sign-up popup so it does not show up again if a user enters their email address
 * Add prettier error messages for invalid email/already on mailing list
 * Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server
-* Add more unit tests for site functionallity
+* Add more unit tests for site functionality
 * Move Strapi + Express links into a Next.js serverless function and make a generic API call to them from the frontend
 
 # GitHub Branches
@@ -392,7 +396,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * dev - changes to the codebase are first pushed to dev and after it is verified to work, it is pushed to main.
 * DeployedStrapiBranch - this branch reflects the state of Strapi in its latest deployed configuration.
 
-* # SE Team (Spring 2025)
+# SE Team (Spring 2025)
 * Freya Zhu
 * Yu Chen
 * Moses Chen
