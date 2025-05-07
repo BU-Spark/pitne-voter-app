@@ -422,30 +422,25 @@ Access our deployed dev branch website: https://dev--bostonvoter.up.railway.app/
 
 **Ability to see Upcoming Elections from Strapi CMS input**
 
-<img width="1268" alt="image" src="https://github.com/user-attachments/assets/28769051-0f02-4511-a07a-d69e8c125a0a">
-
-<!--- <img width="1440" alt="Screenshot 2024-06-28 at 12 12 58 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/95c25d88-d41a-4964-975a-efd1a68adaa4"> -->
+<img width="1440" alt="upcomingElections" src="https://github.com/user-attachments/assets/678ddf4e-d7c9-40ca-96a4-fc4609c44f0e" />
 
 **Comprehensive List of all possible Voting Options**, including direct links from government websites
 
-<img width="1440" alt="Screenshot 2024-06-28 at 12 14 22 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/82d8f3ff-138e-4063-91b1-08c5ae4bd76d">
+<img width="1440" alt="votingOptions" src="https://github.com/user-attachments/assets/2c576c53-14b7-4176-9af8-03e9062b37c1" />
 
 **Ability to see a custom preview voting ballot and voting location based on entered address**
 
-<img width="1268" alt="image" src="https://github.com/user-attachments/assets/b52bd812-390f-49f0-a707-f3813088ae98">
+<img width="1440" alt="voterInfo" src="https://github.com/user-attachments/assets/3446700c-c347-4db7-bda2-861fa8fadae7" />
 
-<img width="1267" alt="image" src="https://github.com/user-attachments/assets/28557ecb-0134-4a6f-869b-ddc7f337c5c7">
+**Ability to see information about candidates for a selected election and district number**
 
-<!--- **Ability to see information about candidates for a selected election and district number**
-
-<img width="1440" alt="Screenshot 2024-06-28 at 12 15 53 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/14e4c319-a8d7-4b38-bc06-2ee1644e0e44">
-
-<img width="1440" alt="Screenshot 2024-06-28 at 12 16 07 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/11e78484-7ec8-40c2-a44d-45799712b9ed">
-
-<img width="1440" alt="Screenshot 2024-06-28 at 12 16 31 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/56e64008-8bcc-40b5-8cbd-ae4ba9896f7b"> -->
+<img width="1440" alt="candidates" src="https://github.com/user-attachments/assets/2f352cf7-27bf-43e4-87fa-f00aa664969a" />
 
 **Ability to information for all polling locations in Boston and nearest ones for a given address**
 
-<img width="1440" alt="Screenshot 2024-06-28 at 12 17 49 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/70f92823-08cc-4a2b-a539-2fb253b3be82">
+<img width="1440" alt="dropbox" src="https://github.com/user-attachments/assets/9b525aed-e263-4e3e-9500-466f8cc8a7ad" />
 
-<img width="1440" alt="Screenshot 2024-06-28 at 12 19 35 PM" src="https://github.com/BU-Spark/pitne-voter-app/assets/69778744/6f1b3dc5-fb7e-44e7-a357-74d6e084fcc3">
+**About Us page**
+
+<img width="1440" alt="aboutUs" src="https://github.com/user-attachments/assets/452eef2b-2382-4c47-ba96-5a51d4bc0ec7" />
+
