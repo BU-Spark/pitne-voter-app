@@ -6,6 +6,7 @@ test.beforeEach(async ({ page }) => {
 
     // Navigate to the voting options page
     const navButton = page.getByRole('banner').getByRole('button', { name: 'Voting Options' });
+    await page.pause()
     await navButton.click();
     await page.waitForURL(url + 'votingOptions');
 });
@@ -31,15 +32,23 @@ test.beforeEach(async ({ page }) => {
 
 [
     { name: 'Election Day voting', buttonName: 'Your Polling Location', url: url + 'votingOptions' },
-    { name: 'Drop-Off Ballot', buttonName: 'Drop Box Locations', url: url + 'dropBoxLocations' },
+    { name: 'Ballot Drop-Off', buttonName: 'Drop Box Locations', url: url + 'dropBoxLocations' },
 ].forEach((votingOption) => {
     test(`Voting option: ${votingOption.name}`, async ({ page }) => {
-        await page.getByRole('button', { name: votingOption.name }).click();
-        const button = await page.getByRole('region').getByRole('button', { name: votingOption.buttonName });
-        await expect(button).toBeVisible();
-        await button.click();
-        page.waitForLoadState();
-        await expect(page).toHaveURL(votingOption.url);
+        console.log(`Testing Voting option navigation: ${votingOption.name} -> ${votingOption.buttonName}`);
+        try {
+            // Click the section header or link by its visible text
+            await page.click(`text=${votingOption.name}`, { timeout: 5000 });
+            // Click the navigation button by its visible text
+            await page.click(`text=${votingOption.buttonName}`, { timeout: 5000 });
+            // Wait for the URL to update
+            await page.waitForURL(votingOption.url, { timeout: 5000 });
+        } catch (error) {
+            console.error(`Error navigating voting option ${votingOption.name}:`, error);
+            // Snapshot full page HTML for debugging
+            const fullHTML = await page.content().catch(() => '<no content>');
+            console.error('Full page HTML snapshot:', fullHTML);
+            throw error;
+        }
     });
 });
-
