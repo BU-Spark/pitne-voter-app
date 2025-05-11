@@ -146,8 +146,8 @@ Example Command for running test file: 'votingOptions.test.js' in the UI chromiu
 
 ### candidateInfo.test.js
 - Candidate More Info - checks that the 'more info' button on each candidate card links to the correct candidate details page
-- Filter Democrat null null Candidates - checks that filtering by 'party: democrat' lists only all democrat candidates on the page
-- Filter Republican null null Candidates - checks that filtering by 'party: republican' lists only all republican candidates on the page 
+- Filter Democrat Candidates - checks that filtering by 'party: democrat' lists only all democrat candidates on the page
+- Filter Republican Candidates - checks that filtering by 'party: republican' lists only all republican candidates on the page 
 
 ### dropBoxLocations.test.js
 - Early Voting Locations Link - checks that the early voting locations button links to the city of boston early voting page
@@ -369,6 +369,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * Mobile view is improved but some formatting is subpar in comparison to desktop view
 * Website is slow (probably due to large .png files and slow Strapi server)
 * Ward and precinct do not display on the "Your Voter Info" page
+* The end-to-end test for "Your Voter Info" currently fails because it does not correctly search for ward and precinct; this test needs to be updated.
 * Candidate page "Election Date" section displays "N/A" instead of date info
 
 ***SEO Optimizations + Accessibility Issues***
@@ -383,13 +384,9 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 
 # Future Work
 * Fix bugs/issues above
-* Modify the candidate model to relate to candidate questionnaires, enabling automated survey responses for candidates
-* Fix/complete the candidate information page, currently missing correct filter implementation
-* Add logic to the newsletter sign-up popup so it does not show up again if a user enters their email address
-* Add prettier error messages for invalid email/already on mailing list
-* Move ArcGIS GeoJSON files into Strapi and do processing in next.js serverless function folder instead of express server
-* Add more unit tests for site functionality
-* Move Strapi + Express links into a Next.js serverless function and make a generic API call to them from the frontend
+* Fix and stabilize the “Your Voter Info” end-to-end test for ward & precinct lookup
+* Improve mobile responsiveness and overall usability on small screens
+* Add a dark/night mode theme option for better accessibility and low-light environments
 
 # GitHub Branches
 * main - contains the latest deployed work for the web server, updated with a pull request from dev at the end of the semester.
@@ -397,7 +394,7 @@ This guide provides step-by-step instructions for creating a Mailchimp account, 
 * DeployedStrapiBranch - this branch reflects the state of Strapi in its latest deployed configuration.
 
 # SE Team (Spring 2025)
-* Freya Zhu
+* Freya Zhu - Github: @freyaazhu
 * Yu Chen
 * Moses Chen
 
