@@ -3,27 +3,34 @@ const { test, expect } = require('@playwright/test');
 const url = 'http://localhost:3000/';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto(url);
+  await page.goto(url + 'upcomingElections');
+  // Wait for at least one election card to render
+  const eventCards = page.locator('div.w-full.max-w-\\[800px\\]');
+  await eventCards.first().waitFor({ state: 'visible', timeout: 15000 });
 });
 
-
-[
-    { electionType: 'State Election', dateType: 'Registration Deadline' },
-    { electionType: 'State Election', dateType: 'Election Day' },
-    { electionType: 'General Election', dateType: 'Registration Deadline' },
-    { electionType: 'General Election', dateType: 'Election Day' },
-    { electionType: 'Governors Council', dateType: 'Registration Deadline' },
-    { electionType: 'Governors Council', dateType: 'Election Day' }
-].forEach(({ electionType, dateType }) => {
-    test(`Add ${electionType} ${dateType} to Google Calendar`, async ({ page }) => {
-        await page.waitForSelector('.event-card');
-        const stateElectionCard = page.locator('.event-card').filter({ hasText: electionType });
-        const stateElectionDate = await stateElectionCard.locator('>div>div').filter({ hasText: dateType });
-
-        const googleCalendarPromise =  page.waitForEvent("popup");
-        await stateElectionDate.getByRole('button').click();
-        const googleCalendarTab = await googleCalendarPromise;
-        await expect(googleCalendarTab).toHaveURL("https://workspace.google.com/intl/en-US/products/calendar/");
-        await googleCalendarTab.close();
-    });
+test('All upcoming elections Add to Calendar buttons work', async ({ page }) => {
+  // Locate all election cards
+  const eventCards = page.locator('div.w-full.max-w-\\[800px\\]');
+  const count = await eventCards.count();
+  expect(count).toBeGreaterThan(0);
+  
+  for (let i = 0; i < count; ++i) {
+    const card = eventCards.nth(i);
+    // Extract election name from its distinctive styling
+    const electionName = (await card.locator('div.text-\\[\\#D81624\\]').innerText()).trim();
+    console.log(`Testing Add to Calendar for: ${electionName}`);
+    
+    // Click Add to Calendar button and await popup
+    const [popup] = await Promise.all([
+      page.waitForEvent('popup'),
+      card.getByRole('button', { name: /Add to Calendar/ }).click(),
+    ]);
+    // Log and loosely validate the popup URL, allowing for sign-in redirects
+    const popupUrl = popup.url();
+    console.log(`Popup URL: ${popupUrl}`);
+    // Expect either the calendar render URL or a Google sign-in page with a continue to calendar
+    expect(popupUrl).toMatch(/calendar\.google\.com|accounts\.google\.com/);
+    await popup.close();
+  }
 });
