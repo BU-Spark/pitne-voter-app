@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useCallback, startTransition } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, Grid, TextField, Autocomplete, Typography, Alert } from '@mui/material';
 import { ExpressURL } from '@/common';
 
 const api = axios.create({
     baseURL: ExpressURL,
 });
+
+// Common Boston neighborhoods and areas to help with autocomplete
+const bostonNeighborhoods = [
+    'Allston', 'Back Bay', 'Beacon Hill', 'Brighton', 'Charlestown', 
+    'Chinatown', 'Dorchester', 'Downtown', 'East Boston', 'Fenway',
+    'Financial District', 'Hyde Park', 'Jamaica Plain', 'Mattapan',
+    'Mission Hill', 'North End', 'Roslindale', 'Roxbury', 'South Boston',
+    'South End', 'West End', 'West Roxbury'
+];
 
 interface PollingInfo {
     location: string | null;
@@ -30,6 +39,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
     const [saveAddress, setSaveAddress] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const loadSavedCookieData = useCallback(() => {
         const savedAddress = Cookies.get('address');
@@ -85,11 +95,18 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         const address = `${street}, ${city}, ${zip}`;
 
         try {
+            console.log("address from addressForm.tsx:", address);
+            console.log("ExpressURL being used:", ExpressURL);
+            
             const response = await api.get('/api/precinct_info', {
                 params: { address },
             });
 
+            console.log("Full API response:", response);
+            console.log("Response data:", response.data);
+            
             const data = response.data.properties;
+            console.log("Properties data:", data);
 
             if (data.USER_Ward != null && data.USER_Precinct != null) {
                 const pollingInfo: PollingInfo = {
@@ -104,46 +121,89 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                     precinct: data.USER_Precinct,
                 };
 
+                console.log("Processed polling info:", pollingInfo);
+                setFormError(null);
+                
                 startTransition(() => {
                     setPollingInformation(pollingInfo);
                 });
                 saveCookieData(street, city, zip, pollingInfo);
             } else {
+                console.log("Ward or Precinct is null:", { ward: data.USER_Ward, precinct: data.USER_Precinct });
                 setError('Invalid address format or unsupported location.');
             }
-        } catch (error) {
-            // Save fallback data
-            const fallbackPollingInfo: PollingInfo = {
-                location: null,
-                street: street,
-                city: city,
-                state: null,
-                zip: zip,
-                room: null,
-                instructions: null,
-                ward: null,
-                precinct: null,
-            };
+        } catch (err) {
+            console.error("API call error:", err);
+            setError('Unable to process this address. Please check the address format and try again.');
+            setFormError('Unable to process this address. Please check the address format and try again.');
+            // Debug the error structure
+            // if (axios.isAxiosError(err)) {
+            //     console.log("Error response:", err.response);
+            //     console.log("Error response data:", err.response?.data);
+            //     console.log("Error status:", err.response?.status);
+            //     console.log("Error code:", err.code);
+            // }
+            
+            // // Save fallback data
+            // const fallbackPollingInfo: PollingInfo = {
+            //     location: null,
+            //     street: street,
+            //     city: city,
+            //     state: null,
+            //     zip: zip,
+            //     room: null,
+            //     instructions: null,
+            //     ward: null,
+            //     precinct: null,
+            // };
 
-            saveCookieData(street, city, zip, fallbackPollingInfo);
+            // saveCookieData(street, city, zip, fallbackPollingInfo);
 
-            setError('No polling location found for this address yet. Please check back later or re-enter the address.');
+            // // Provide specific error messages based on the error type
+            // if (axios.isAxiosError(err)) {
+            //     if (err.response?.status === 500) {
+            //         const errorMessage = err.response?.data?.error || 'Server error occurred';
+            //         console.log("Extracted error message:", errorMessage);
+                    
+            //         if (errorMessage.includes('outside Boston city limits') || errorMessage.includes('No polling location found')) {
+            //             setError('This address appears to be outside Boston city limits. This tool only works for Boston residents. Please verify you entered a Boston address.');
+            //         } else if (errorMessage.includes('Failed to retrieve polling location')) {
+            //             setError('Unable to find polling information for this address. Please check that the address is correct and try again.');
+            //         } else {
+            //             setError('Unable to process this address. Please check the address format and try again.');
+            //         }
+            //     } else if (err.code === 'ERR_NETWORK') {
+            //         setError('Network error: Unable to connect to the server. Please check your internet connection and try again.');
+            //     } else {
+            //         setError('No polling location found for this address. Please verify the address is correct and is located within Boston city limits.');
+            //     }
+            // } else {
+            //     setError('An unexpected error occurred. Please try again.');
+            // }
         }
     };
 
     return (
         <div className="flex flex-col justify-center p-4 my-0 flex-wrap">
+            <Alert severity="info" sx={{ mb: 2 }}>
+                <Typography variant="body2">
+                    <strong>Boston Residents Only:</strong> This tool only works for addresses within Boston city limits. 
+                    If you live in Brookline, Cambridge, Somerville, or other surrounding cities, please use your local city's voting information resources.
+                </Typography>
+            </Alert>
+            
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 820 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
-                            label="Street"
+                            label="Street Address"
                             variant="outlined"
                             fullWidth
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
                             required
                             type="text"
+                            placeholder="e.g., 700 Commonwealth Ave"
                             InputProps={{ style: { backgroundColor: 'white' } }}
                             sx={{
                                 '& .MuiOutlinedInput-notchedOutline': {
@@ -159,25 +219,37 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField
-                            label="City"
-                            variant="outlined"
-                            fullWidth
+                        <Autocomplete
+                            freeSolo
+                            options={['Boston', ...bostonNeighborhoods]}
                             value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            type="text"
-                            InputProps={{ style: { backgroundColor: 'white' } }}
-                            sx={{
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: 'black',
-                                },
-                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: 'black',
-                                },
-                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: 'black',
-                                },
+                            onInputChange={(event, newValue) => {
+                                setCity(newValue || '');
                             }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="City/Neighborhood"
+                                    variant="outlined"
+                                    fullWidth
+                                    placeholder="Boston or neighborhood"
+                                    InputProps={{ 
+                                        ...params.InputProps,
+                                        style: { backgroundColor: 'white' } 
+                                    }}
+                                    sx={{
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: 'black',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: 'black',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: 'black',
+                                        },
+                                    }}
+                                />
+                            )}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -189,6 +261,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             onChange={(e) => setZip(e.target.value)}
                             required
                             type="number"
+                            placeholder="e.g., 02215"
                             InputProps={{ style: { backgroundColor: 'white' } }}
                             sx={{
                                 '& .MuiOutlinedInput-notchedOutline': {
@@ -225,7 +298,11 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                         />
                     </Grid>
                 </Grid>
-
+                {formError && (
+                    <Alert severity="error" sx={{ mt: 2 }}>
+                        {formError}
+                    </Alert>
+                )}
                 <div className="flex justify-center">
                     <Button
                         type="submit"

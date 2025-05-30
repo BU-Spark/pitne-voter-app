@@ -33,7 +33,8 @@ app.get('/api/precinct_info', async (req, res) => {
         return res.status(200).json(precinct_info);
 
     } catch (error) {
-        return res.status(500).json({ error: 'Error fetching polling location' });
+        console.error('Error in /api/precinct_info:', error.message);
+        return res.status(500).json({ error: error.message || 'Error fetching polling location' });
     }
 });
 
