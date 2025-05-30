@@ -134,52 +134,63 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             }
         } catch (err) {
             console.error("API call error:", err);
-            setError('Unable to process this address. Please check the address format and try again.');
-            setFormError('Unable to process this address. Please check the address format and try again.');
-            // Debug the error structure
-            // if (axios.isAxiosError(err)) {
-            //     console.log("Error response:", err.response);
-            //     console.log("Error response data:", err.response?.data);
-            //     console.log("Error status:", err.response?.status);
-            //     console.log("Error code:", err.code);
-            // }
             
-            // // Save fallback data
-            // const fallbackPollingInfo: PollingInfo = {
-            //     location: null,
-            //     street: street,
-            //     city: city,
-            //     state: null,
-            //     zip: zip,
-            //     room: null,
-            //     instructions: null,
-            //     ward: null,
-            //     precinct: null,
-            // };
+            // Debug the error structure
+            if (axios.isAxiosError(err)) {
+                console.log("Error response:", err.response);
+                console.log("Error response data:", err.response?.data);
+                console.log("Error status:", err.response?.status);
+                console.log("Error code:", err.code);
+            }
+            
+            // Save fallback data
+            const fallbackPollingInfo: PollingInfo = {
+                location: null,
+                street: street,
+                city: city,
+                state: null,
+                zip: zip,
+                room: null,
+                instructions: null,
+                ward: null,
+                precinct: null,
+            };
 
-            // saveCookieData(street, city, zip, fallbackPollingInfo);
+            saveCookieData(street, city, zip, fallbackPollingInfo);
 
-            // // Provide specific error messages based on the error type
-            // if (axios.isAxiosError(err)) {
-            //     if (err.response?.status === 500) {
-            //         const errorMessage = err.response?.data?.error || 'Server error occurred';
-            //         console.log("Extracted error message:", errorMessage);
+            // Provide specific error messages based on the error type
+            if (axios.isAxiosError(err)) {
+                if (err.response?.status === 500) {
+                    const errorMessage = err.response?.data?.error || 'Server error occurred';
+                    console.log("Extracted error message:", errorMessage);
                     
-            //         if (errorMessage.includes('outside Boston city limits') || errorMessage.includes('No polling location found')) {
-            //             setError('This address appears to be outside Boston city limits. This tool only works for Boston residents. Please verify you entered a Boston address.');
-            //         } else if (errorMessage.includes('Failed to retrieve polling location')) {
-            //             setError('Unable to find polling information for this address. Please check that the address is correct and try again.');
-            //         } else {
-            //             setError('Unable to process this address. Please check the address format and try again.');
-            //         }
-            //     } else if (err.code === 'ERR_NETWORK') {
-            //         setError('Network error: Unable to connect to the server. Please check your internet connection and try again.');
-            //     } else {
-            //         setError('No polling location found for this address. Please verify the address is correct and is located within Boston city limits.');
-            //     }
-            // } else {
-            //     setError('An unexpected error occurred. Please try again.');
-            // }
+                    if (errorMessage.includes('outside Boston city limits') || errorMessage.includes('No polling location found')) {
+                        const message = 'This address appears to be outside Boston city limits. This tool only works for Boston residents. Please verify you entered a Boston address.';
+                        setError(message);
+                        setFormError(message);
+                    } else if (errorMessage.includes('Failed to retrieve polling location')) {
+                        const message = 'Unable to find polling information for this address. Please check that the address is correct and try again.';
+                        setError(message);
+                        setFormError(message);
+                    } else {
+                        const message = 'Unable to process this address. Please check the address format and try again.';
+                        setError(message);
+                        setFormError(message);
+                    }
+                } else if (err.code === 'ERR_NETWORK') {
+                    const message = 'Network error: Unable to connect to the server. Please check your internet connection and try again.';
+                    setError(message);
+                    setFormError(message);
+                } else {
+                    const message = 'No polling location found for this address. Please verify the address is correct and is located within Boston city limits.';
+                    setError(message);
+                    setFormError(message);
+                }
+            } else {
+                const message = 'An unexpected error occurred. Please try again.';
+                setError(message);
+                setFormError(message);
+            }
         }
     };
 
@@ -188,7 +199,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             <Alert severity="info" sx={{ mb: 2 }}>
                 <Typography variant="body2">
                     <strong>Boston Residents Only:</strong> This tool only works for addresses within Boston city limits. 
-                    If you live in Brookline, Cambridge, Somerville, or other surrounding cities, please use your local city's voting information resources.
+                    If you live in Brookline, Cambridge, Somerville, or other surrounding cities, please use your local city&apos;s voting information resources.
                 </Typography>
             </Alert>
             
