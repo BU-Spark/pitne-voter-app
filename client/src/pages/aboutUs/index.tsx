@@ -135,7 +135,7 @@ export default function AboutUs() {
         {loading ? (
           <p className="text-center">Loading content...</p>
         ) : error ? (
-          <p className="text-red-600 text-center">Error loading content: {error}</p>
+          <p className="text-red-600 text-center">Learn More About The FlipSide</p>
         ) : (
           <>
             <section>

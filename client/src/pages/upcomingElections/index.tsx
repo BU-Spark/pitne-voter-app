@@ -63,24 +63,14 @@ export default function UpcomingElections() {
   return (
     <div>
       {/* Header */}
-      <div className='flex flex-col items-left p-6 md:p-12 lg:p-20 pt-20 md:pt-24 lg:pt-28 text-left bg-[#F5F5F5] relative overflow-x-hidden min-h-[80vh]'>
+      <div className='flex flex-col items-left p-6 md:p-12 lg:p-20 pt-20 md:pt-24 lg:pt-28 text-left bg-[#F5F5F5] relative overflow-x-hidden'>
         <div className="flex flex-col lg:flex-row items-start justify-between relative z-10 h-full">
           {/* Left Content */}
           <div className="relative z-10 w-full lg:w-1/2">
             {/* Combined Gray Shape and Text Container */}
             <div className="relative" style={{ marginTop: "-2rem", left: "-2rem" }}>
               {/* Gray shape with responsive sizing */}
-              <img
-                src="/gray_shape.svg"
-                alt="Decorative background shape"
-                className="absolute top-0 left-0"
-                style={{
-                  width: 'min(500px, 80vw)',
-                  height: 'auto',
-                  maxWidth: 'none',
-                  marginLeft:'-50px'
-                }}
-              />
+              
               {/* Boston Voter text */}
               <div
                 className="relative text-left ml-10 md:ml-16 pt-16 md:pt-15"
@@ -129,12 +119,7 @@ export default function UpcomingElections() {
                 height: 'auto',
                 zIndex: 0
               }}>
-                <img 
-                  src="/grayhouse.png" 
-                  alt="Massachusetts State House"
-                  className="w-full h-auto object-contain"
-                  loading="lazy"
-                />
+               
               </div>
 
               <div className="w-full flex flex-col relative z-10">
@@ -197,7 +182,6 @@ export default function UpcomingElections() {
                           </div>
                           <div className="flex-grow">
                             <h4 className="font-semibold text-md text-black">{election.attributes.ElectionName}</h4>
-                            <p className="text-xs text-gray-600">{formattedRegDate}</p>
                           </div>
                         </div>
                       </div>
@@ -243,9 +227,7 @@ export default function UpcomingElections() {
 
         {/* Find Out More Section */}
         <div className="w-full flex flex-col items-center justify-center gap-1">
-          <span className="text-black font-medium text-lg md:text-xl lg:text-xl tracking-widest">
-            FIND OUT MORE
-          </span>
+          
           <button
             onClick={() => {
               const section = document.getElementById('cards-section');

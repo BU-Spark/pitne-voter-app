@@ -84,7 +84,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
     } else {
         return (
             <div className="w-full max-w-[800px] p-2 h-auto relative mx-auto">
-                <div className="outline outline-2 outline-black rounded-[20px]">
+                <div className="outline outline-2 outline-white rounded-[20px]">
                     <div className="bg-white rounded-[16px] p-4 shadow-md mb-4">
                         {daysRemaining !== null && daysRemaining > 0 && daysRemaining <= 10 && (
                             <div className="text-[#D81624] text-2xl font-semibold mb-4">
@@ -108,7 +108,7 @@ export default function ElectionCard({ electionName = 'Preliminary Municipal Ele
                                     </div>
                                 </div>
 
-                                <div className="flex-grow flex flex-col justify-start">
+                                <div className="flex-grow flex flex-col justify-center items-center">
                                     <div className="text-[#D81624] text-2xl font-medium leading-tight mb-4 mt-4">
                                         {electionName}
                                     </div>
