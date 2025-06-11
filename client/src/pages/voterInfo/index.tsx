@@ -100,9 +100,9 @@ export default function VoterInfo() {
                     <div className="space-y-4 lg:mx-6 md:mx-10 px-8 py-10 rounded-2xl shadow-2xl border border-gray-200 col-span-6 lg:col-span-4 bg-white">
                         <div className="space-y-4 w-full px-6">
                             {/* Main Content Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                            <div className="text-center">
                                 {/* First Column Content */}
-                                <div className="text-left text-2xl">
+                                <div className="text-center text-2xl">
                                     {pollingInfo && (
                                         <div>
                                             <p className="text-3xl font-bold">Your Voting Location:</p>
@@ -124,7 +124,7 @@ export default function VoterInfo() {
                                 </div>
 
                                 {/* Second Column Content */}
-                                <div className="space-y-2 text-center">
+                                {/* <div className="space-y-2 text-center">
                                 {pollingInfo && (
                                         <a
                                             href={`https://www.sec.state.ma.us/WhereDoIVoteMA/ShowBallot/ViewMyBallot/BallotOut/ST/35/${pollingInfo.ward}/${pollingInfo.precinct}`}
@@ -140,7 +140,7 @@ export default function VoterInfo() {
                                             />
                                         </a>
                                     )}
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

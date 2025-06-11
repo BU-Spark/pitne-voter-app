@@ -19,7 +19,16 @@ const ButtonFill = ({ name, link, variant = "contained", className }: Props) => 
 
     const router = useRouter();
     const handleClick = (page: string) => {
-        router.push(page);
+        // Check if the URL is external (contains protocol or starts with //)
+        const isExternal = /^(https?:\/\/|\/\/)/.test(page) && !page.includes(window.location.hostname);
+        
+        if (isExternal) {
+            // Open external links in a new tab
+            window.open(page, '_blank', 'noopener,noreferrer');
+        } else {
+            // Navigate to internal links in the same tab
+            router.push(page);
+        }
     }
 
 
