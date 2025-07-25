@@ -2,94 +2,54 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import SubscribePopup from '../../components/subscribePopup/SubscribePopup';
+import { DistrictsAPI, OfficesAPI, PoliticalAffiliationsAPI, ElectionTypesAPI } from '../../common';
 
 interface Candidate {
     id: number;
     attributes: {
         Name: string;
         District: string;
-        Party?: { data: { attributes: { PartyName: string } } } | string; // Party can be nested or direct string
-        ElectionName?: string; // ElectionName can be directly in attributes
-        elections?: { data: [{ attributes: { ElectionName: string } }] }; // ElectionName can be nested in elections
-        Office: string;
-        Role?: string; // Role might be the office
+        Role?: string; // Legacy field
+        Office?: string; // Legacy field
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
-        [key: string]: any; // Allow other attributes, important for nested structures
         ElectionDate?: string;
-
+        // New relational fields
+        election_types?: { data: { attributes: { type: string } }[] };
+        office?: { data: { attributes: { office: string } } };
+        political_affiliation?: { data: { attributes: { affiliation: string } } };
+        district_relation?: { data: { attributes: { district: string } } };
+        // Legacy fields for backward compatibility
+        Party?: { data: { attributes: { PartyName: string } } } | string;
+        ElectionName?: string;
+        elections?: { data: [{ attributes: { ElectionName: string } }] };
+        [key: string]: any;
     };
 }
 
-const parties = ['Democrat', 'Republican', 'Libertarian', 'Independent', 'Non Partisan', 'Other'];
-const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
-const districts = [ 'District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9', 'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District', 'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District', 'Tenth Suffolk District', 'Eleventh Suffolk District', 'Twelfth Suffolk District', 'Thirteenth Suffolk District', 'Fourteenth Suffolk District', 'Fifteenth Suffolk District', 'Sixteenth Suffolk District', 'Seventeenth Suffolk District', 'Eighteenth Suffolk District', 'Nineteenth Suffolk District', 'Suffolk and Middlesex District', 'Middlesex and Suffolk District', 'Norfolk and Suffolk District', 'All District' ];
-   // Example districts, replace with actual
-/* Office Filters */
-const federalOffices = [ 'President and Vice President', 'U.S. Senators', 'U.S. House Representatives' ];
-const stateOffices = [ 'Governor', 'Lieutenant Governor', 'Attorney General', 'Secretary of the Commonwealth',
-    'Treasurer and Receiver-General', 'Auditor', "Governor's Countcil", 'State Senators', 'State Representatives', ];
-const municipalOffices = [ 'Mayor', 'City Councilors', 'City Councilor At Large', 'School Committee Members'];
-const otherOffices = ['Party State Committee Man', 'Party State Committee Woman', 'Delegate to the National Convention',
-    'Alternate Delegate to the National Convention', 'District Attorney', 'Clerk of Courts', 'Clerk of Superior Court (Civil)',
-    'Clerk of Superior Court (Criminal)', 'Clerk of Supreme Judicial Court', 'County Charter Commission',
-    'Register of Deeds', 'Sheriff', 'County Treasurer', 'Probate Judge', 'Register of Probate', 'Council of Governments Executive Committee'
-]
-// Mapping ofice to district
-const officeToDistrictMap: Record<string, string[]> = {
-    // Federal
-    'President and Vice President': ['All District'],
-    'U.S. Senators': ['All District'],
-    'U.S. House Representatives': ['District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9'],
-  
-    // State
-    'Governor': ['All District'],
-    'Lieutenant Governor': ['All District'],
-    'Attorney General': ['All District'],
-    'Secretary of the Commonwealth': ['All District'],
-    'Treasurer and Receiver-General': ['All District'],
-    'Auditor': ['All District'],
-    "Governor's Countcil": ['All District'],
-    'State Senators': [
-      'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District',
-      'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District',
-      'Suffolk and Middlesex District', 'Middlesex and Suffolk District', 'Norfolk and Suffolk District',
-    ],
-    'State Representatives': [
-      'First Suffolk District', 'Second Suffolk District', 'Third Suffolk District', 'Fourth Suffolk District', 'Fifth Suffolk District',
-      'Sixth Suffolk District', 'Seventh Suffolk District', 'Eighth Suffolk District', 'Ninth Suffolk District',
-      'Tenth Suffolk District', 'Eleventh Suffolk District', 'Twelfth Suffolk District', 'Thirteenth Suffolk District',
-      'Fourteenth Suffolk District', 'Fifteenth Suffolk District', 'Sixteenth Suffolk District', 'Seventeenth Suffolk District',
-      'Eighteenth Suffolk District', 'Nineteenth Suffolk District',
-    ],
-  
-    // Municipal
-    'Mayor': ['All District'],
-    'City Councilors': ['District 1', 'District 2', 'District 3', 'District 4', 'District 5', 'District 6', 'District 7', 'District 8', 'District 9'],
-    'School Committee Members': ['All District'],
-  
-    // Other Offices (apply All District or County-specific logic as appropriate)
-    'Party State Committee Man': ['All District'],
-    'Party State Committee Woman': ['All District'],
-    'Delegate to the National Convention': ['All District'],
-    'Alternate Delegate to the National Convention': ['All District'],
-    'District Attorney': ['All District'],
-    'Clerk of Courts': ['All District'],
-    'Clerk of Superior Court (Civil)': ['All District'],
-    'Clerk of Superior Court (Criminal)': ['All District'],
-    'Clerk of Supreme Judicial Court': ['All District'],
-    'County Charter Commission': ['All District'],
-    'Register of Deeds': ['All District'],
-    'Sheriff': ['All District'],
-    'County Treasurer': ['All District'],
-    'Probate Judge': ['All District'],
-    'Register of Probate': ['All District'],
-    'Council of Governments Executive Committee': ['All District'],
-  
-    // Fallback
-    default: districts,
-  };
+// Filter option interfaces
+interface FilterOption {
+    id: number;
+    attributes: {
+        district?: string;
+        office?: string;
+        affiliation?: string;
+        type?: string;
+    };
+}
+
+// Remove hardcoded arrays - these will be fetched from database
+// const parties = ['Democrat', 'Republican', 'Libertarian', 'Independent', 'Non Partisan', 'Green Party', 'Other'];
+// const electionTypes = ['Federal Election', 'State Election', 'Municipal Election', 'Special Election', 'Primary Election', 'Ballot Questions/Referendum'];
+// const districts = [ 'District 1', 'District 2', ... ];
+// const federalOffices = [ ... ];
+// const stateOffices = [ ... ];
+// const municipalOffices = [ ... ];
+// const otherOffices = [ ... ];
+
+// Remove hardcoded office to district mapping - this will be handled by database relations
+// const officeToDistrictMap: Record<string, string[]> = { ... };
   
 export default function CandidateInfo() {
     const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -97,6 +57,15 @@ export default function CandidateInfo() {
     const [error, setError] = useState<string | null>(null);
     const [filteredCandidates, setFilteredCandidates] = useState<Candidate[]>([]);
     const [showPopup, setShowPopup] = useState(false);
+    
+    // New state for filter options
+    const [filterOptions, setFilterOptions] = useState({
+        districts: [] as FilterOption[],
+        offices: [] as FilterOption[],
+        politicalAffiliations: [] as FilterOption[],
+        electionTypes: [] as FilterOption[],
+    });
+    
     const [filters, setFilters] = useState({
         party: '',
         electionType: '',
@@ -108,9 +77,38 @@ export default function CandidateInfo() {
     const router = useRouter();
     const { electionType } = router.query;
 
-    const availableDistricts = filters.office && officeToDistrictMap[filters.office]
-    ? officeToDistrictMap[filters.office]
-    : districts;
+    // Fetch filter options from database
+    const fetchFilterOptions = async () => {
+        try {
+            const [districtsRes, officesRes, politicalAffiliationsRes, electionTypesRes] = await Promise.all([
+                fetch(DistrictsAPI),
+                fetch(OfficesAPI),
+                fetch(PoliticalAffiliationsAPI),
+                fetch(ElectionTypesAPI)
+            ]);
+
+            const [districtsData, officesData, politicalAffiliationsData, electionTypesData] = await Promise.all([
+                districtsRes.json(),
+                officesRes.json(),
+                politicalAffiliationsRes.json(),
+                electionTypesRes.json()
+            ]);
+
+            setFilterOptions({
+                districts: districtsData.data || [],
+                offices: officesData.data || [],
+                politicalAffiliations: politicalAffiliationsData.data || [],
+                electionTypes: electionTypesData.data || [],
+            });
+        } catch (error) {
+            console.error('Error fetching filter options:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Fetch filter options on component mount
+        fetchFilterOptions();
+    }, []);
 
     useEffect(() => {
         if (electionType) {
@@ -123,7 +121,7 @@ export default function CandidateInfo() {
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
-                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections');
+                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections,election_types,office,political_affiliation,district_relation');
 
                 if (response.ok) {
                     const data = await response.json();
@@ -133,10 +131,21 @@ export default function CandidateInfo() {
                                 ? `https://pitne-voter-app-production.up.railway.app${candidate.attributes.Headshot.data.attributes.url}`
                                 : undefined;
 
-                            // Correctly extract Party, ElectionName and Office based on API response structure
-                            const partyName = candidate.attributes.party?.data?.attributes?.PartyName || candidate.attributes.Party; // Handle both nested and direct party
-                            const electionName = candidate.attributes.elections?.data?.[0]?.attributes?.ElectionName || candidate.attributes.ElectionName; // Handle both nested and direct election
-                            const office = candidate.attributes.Role || candidate.attributes.Office; // Use Role if Office is not present
+                            // Extract data from new relational fields with fallback to legacy fields
+                            const partyName = candidate.attributes.political_affiliation?.data?.attributes?.affiliation 
+                                || candidate.attributes.party?.data?.attributes?.PartyName 
+                                || candidate.attributes.Party;
+                            
+                            const electionName = candidate.attributes.election_types?.data?.[0]?.attributes?.type
+                                || candidate.attributes.elections?.data?.[0]?.attributes?.ElectionName 
+                                || candidate.attributes.ElectionName;
+                            
+                            const office = candidate.attributes.office?.data?.attributes?.office
+                                || candidate.attributes.Role 
+                                || candidate.attributes.Office;
+                            
+                            const district = candidate.attributes.district_relation?.data?.attributes?.district
+                                || candidate.attributes.District;
 
                             return {
                                 ...candidate,
@@ -146,7 +155,8 @@ export default function CandidateInfo() {
                                     Party: partyName,
                                     ElectionName: electionName,
                                     Office: office,
-                                    ElectionDate: candidate.attributes.ElectionDate // Make sure ElectionDate is mapped
+                                    District: district,
+                                    ElectionDate: candidate.attributes.ElectionDate
                                 },
                             };
                         });
@@ -333,13 +343,19 @@ export default function CandidateInfo() {
 
     useEffect(() => {
         const filtered = candidates.filter(candidate => {
-            const partyName = typeof candidate.attributes.Party === 'string' ? candidate.attributes.Party : candidate.attributes.Party?.data?.attributes?.PartyName;
+            // Extract values from mapped attributes (handles both new relational and legacy data)
+            const partyName = candidate.attributes.Party;
+            const electionName = candidate.attributes.ElectionName;
+            const office = candidate.attributes.Office;
+            const district = candidate.attributes.District;
+            const candidateName = candidate.attributes.Name;
 
+            // Apply filters
             const matchesParty = filters.party ? partyName === filters.party : true;
-            const matchesElection = filters.electionType ? candidate.attributes.ElectionName === filters.electionType : true;
-            const matchesDistrict = filters.district ? candidate.attributes.District === filters.district : true;
-            const matchesSearch = filters.search ? candidate.attributes.Name.toLowerCase().includes(filters.search.toLowerCase()): true;    // New Seach filter for candidates
-            const matchesOffice = filters.office ? candidate.attributes.Office === filters.office : true;                                   // New Office filter
+            const matchesElection = filters.electionType ? electionName === filters.electionType : true;
+            const matchesDistrict = filters.district ? district === filters.district : true;
+            const matchesSearch = filters.search ? candidateName.toLowerCase().includes(filters.search.toLowerCase()) : true;
+            const matchesOffice = filters.office ? office === filters.office : true;
 
             return matchesParty && matchesElection && matchesDistrict && matchesSearch && matchesOffice;
         });
@@ -363,15 +379,24 @@ export default function CandidateInfo() {
 
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="party-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Political Affiliation:</label>
-                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}><option value="">All</option>{parties.map(party => (<option key={party} value={party}>{party}</option>))}</select>
+                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
+                        <option value="">All</option>
+                        {filterOptions.politicalAffiliations.map(affiliation => (
+                            <option key={affiliation.id} value={affiliation.attributes.affiliation}>
+                                {affiliation.attributes.affiliation}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="election-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Election Type:</label>
                     <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
                         <option value="">All</option>
-                        {electionTypes.map(type => (
-                            <option key={type} value={type}>{type}</option>
+                        {filterOptions.electionTypes.map(type => (
+                            <option key={type.id} value={type.attributes.type}>
+                                {type.attributes.type}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -379,12 +404,26 @@ export default function CandidateInfo() {
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="office-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', }} > Office: </label>
-                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> <optgroup label="Federal Offices"> {federalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="State Offices"> {stateOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup> <optgroup label="Municipal Offices"> {municipalOffices.map((office) => ( <option key={office} value={office}> {office} </option> ))} </optgroup><optgroup label="Other Offices"> {otherOffices.map((office) => (<option key={office} value={office}> {office} </option> ))}</optgroup> </select>
+                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} >
+                        <option value="">All</option>
+                        {filterOptions.offices.map((office) => (
+                            <option key={office.id} value={office.attributes.office}>
+                                {office.attributes.office}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
                     <label htmlFor="district-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>District:</label>
-                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} > <option value="">All</option> {availableDistricts.map((district) => ( <option key={district} value={district}>{district}</option> ))} </select>
+                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} >
+                        <option value="">All</option>
+                        {filterOptions.districts.map((district) => (
+                            <option key={district.id} value={district.attributes.district}>
+                                {district.attributes.district}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* Reset Filters Button */}

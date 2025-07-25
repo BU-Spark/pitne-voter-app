@@ -33,7 +33,11 @@ export const BallotInitiativeAPI = StrapiURL + 'ballot-initiatives';
 // URL for the about us API
 export const AboutUsAPI = StrapiURL + 'about-us';
 
-
+// URLs for filter endpoints
+export const DistrictsAPI = StrapiURL + 'districts';
+export const OfficesAPI = StrapiURL + 'offices';
+export const PoliticalAffiliationsAPI = StrapiURL + 'political-affiliations';
+export const ElectionTypesAPI = StrapiURL + 'election-types';
 
 
 // Global variables and their setting functions for district number and selected election

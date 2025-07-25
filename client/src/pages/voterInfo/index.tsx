@@ -123,6 +123,9 @@ export default function VoterInfo() {
                                     )}
                                 </div>
 
+                                <div>
+                                </div>
+
                                 {/* Second Column Content */}
                                 {/* <div className="space-y-2 text-center">
                                 {pollingInfo && (
