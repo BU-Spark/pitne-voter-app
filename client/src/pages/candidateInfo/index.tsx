@@ -14,15 +14,18 @@ interface Candidate {
         CampaignSiteLink?: string;
         LinkedInLink?: string;
         PhotoURL?: string;
-        ElectionDate?: string;
+        ElectionDate?: string; // Legacy single election date
         // New relational fields
-        election_types?: { data: { attributes: { type: string } }[] };
+        election_types?: { data: { attributes: { type: string; date?: string } }[] }; // Now supports multiple election types with dates
         office?: { data: { attributes: { office: string } } };
         political_affiliation?: { data: { attributes: { affiliation: string } } };
         district_relation?: { data: { attributes: { district: string } } };
         // Legacy fields for backward compatibility
         Party?: { data: { attributes: { PartyName: string } } } | string;
         ElectionName?: string;
+        ElectionNames?: string[]; // New field to handle multiple election types
+        ElectionDates?: string[]; // New field to handle multiple election dates
+        ElectionTypesWithDates?: { type: string; date?: string }[]; // Combined election types and dates
         elections?: { data: [{ attributes: { ElectionName: string } }] };
         [key: string]: any;
     };
@@ -136,9 +139,21 @@ export default function CandidateInfo() {
                                 || candidate.attributes.party?.data?.attributes?.PartyName 
                                 || candidate.attributes.Party;
                             
-                            const electionName = candidate.attributes.election_types?.data?.[0]?.attributes?.type
+                            // Handle multiple election types with dates
+                            const electionTypesWithDates = candidate.attributes.election_types?.data?.map((et: any) => ({
+                                type: et.attributes.type,
+                                date: et.attributes.date
+                            })) || [];
+                            
+                            const electionTypes = electionTypesWithDates.map((etd: any) => etd.type);
+                            const electionDates = electionTypesWithDates.map((etd: any) => etd.date).filter((date: any) => date);
+                            
+                            const electionName = electionTypes[0] // Use first election type for legacy ElectionName field
                                 || candidate.attributes.elections?.data?.[0]?.attributes?.ElectionName 
                                 || candidate.attributes.ElectionName;
+                            
+                            // Use first election date from relational data, fallback to legacy field
+                            const primaryElectionDate = electionDates[0] || candidate.attributes.ElectionDate;
                             
                             const office = candidate.attributes.office?.data?.attributes?.office
                                 || candidate.attributes.Role 
@@ -154,9 +169,12 @@ export default function CandidateInfo() {
                                     PhotoURL: headshotUrl,
                                     Party: partyName,
                                     ElectionName: electionName,
+                                    ElectionNames: electionTypes, // Array of all election types
+                                    ElectionDates: electionDates, // Array of all election dates
+                                    ElectionTypesWithDates: electionTypesWithDates, // Combined election types and dates
                                     Office: office,
                                     District: district,
-                                    ElectionDate: candidate.attributes.ElectionDate
+                                    ElectionDate: primaryElectionDate // Primary election date from relational data or legacy field
                                 },
                             };
                         });
@@ -250,8 +268,24 @@ export default function CandidateInfo() {
             }
         };
 
-        const formattedElectionDate = formatDate(candidate.attributes.ElectionDate);
+        // Format election dates from relational data
+        const formatElectionDates = (): string => {
+            // If we have multiple election dates from relational data, format them
+            if (candidate.attributes.ElectionDates && candidate.attributes.ElectionDates.length > 0) {
+                const formattedDates = candidate.attributes.ElectionDates.map(date => formatDate(date)).filter(date => date !== 'N/A');
+                if (formattedDates.length > 0) {
+                    return formattedDates.join(', ');
+                }
+            }
+            // Fallback to legacy ElectionDate field
+            return formatDate(candidate.attributes.ElectionDate);
+        };
 
+        const formattedElectionDate = formatElectionDates();
+
+
+
+        
 
         return (
             <div style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
@@ -310,8 +344,13 @@ export default function CandidateInfo() {
                   <strong style={{ fontSize: '14px' }}>{candidate.attributes.District}</strong>
                 </div>
                 <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.ElectionName}</strong>
+                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election{candidate.attributes.ElectionNames && candidate.attributes.ElectionNames.length > 1 ? 's' : ''}</p>
+                  <strong style={{ fontSize: '14px' }}>
+                    {candidate.attributes.ElectionNames && candidate.attributes.ElectionNames.length > 0 
+                      ? candidate.attributes.ElectionNames.join(', ') 
+                      : candidate.attributes.ElectionName
+                    }
+                  </strong>
                 </div>
                 <div>
                   <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election Date</p>
@@ -345,14 +384,19 @@ export default function CandidateInfo() {
         const filtered = candidates.filter(candidate => {
             // Extract values from mapped attributes (handles both new relational and legacy data)
             const partyName = candidate.attributes.Party;
-            const electionName = candidate.attributes.ElectionName;
+            const electionNames = candidate.attributes.ElectionNames || []; // Array of election types
+            const electionName = candidate.attributes.ElectionName; // Legacy single election name
             const office = candidate.attributes.Office;
             const district = candidate.attributes.District;
             const candidateName = candidate.attributes.Name;
 
             // Apply filters
             const matchesParty = filters.party ? partyName === filters.party : true;
-            const matchesElection = filters.electionType ? electionName === filters.electionType : true;
+            
+            // Check if candidate matches election type filter (check both array and legacy field)
+            const matchesElection = filters.electionType ? 
+                (electionNames.includes(filters.electionType) || electionName === filters.electionType) : true;
+            
             const matchesDistrict = filters.district ? district === filters.district : true;
             const matchesSearch = filters.search ? candidateName.toLowerCase().includes(filters.search.toLowerCase()) : true;
             const matchesOffice = filters.office ? office === filters.office : true;

@@ -45,6 +45,18 @@ interface CandidateAttributes {
       };
     } | null;
   };
+  // New relational fields
+  election_types?: { data: { attributes: { type: string; date?: string } }[] }; // Now includes dates
+  office?: { data: { attributes: { office: string } } };
+  political_affiliation?: { data: { attributes: { affiliation: string } } };
+  district_relation?: { data: { attributes: { district: string } } };
+  // Computed fields for display
+  ElectionNames?: string[]; // Array of all election types
+  ElectionDates?: string[]; // Array of all election dates
+  ElectionTypesWithDates?: { type: string; date?: string }[]; // Combined election types and dates
+  OfficeDisplay?: string; // Computed office display value
+  PartyDisplay?: string; // Computed party display value
+  DistrictDisplay?: string; // Computed district display value
 }
 
 interface CandidateDataObject {
@@ -80,7 +92,7 @@ export default function Candidate() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(CandidateAPI + '?populate[party][fields][0]=PartyName&populate[Headshot][fields][0]=url', {
+        const response = await fetch(CandidateAPI + '?populate=party,Headshot,election_types,office,political_affiliation,district_relation', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -103,7 +115,39 @@ export default function Candidate() {
       const foundCandidateData = allCandidateData.find(candidate =>
         normalizedInput(candidate.attributes.Name) === normalizedInput(candidateName)
       );
-      setCandidateData(foundCandidateData ? foundCandidateData.attributes : null);
+      
+      if (foundCandidateData) {
+        const candidate = foundCandidateData.attributes;
+        
+        // Process new relational data for display
+        const electionTypesWithDates = candidate.election_types?.data?.map((et: any) => ({
+          type: et.attributes.type,
+          date: et.attributes.date
+        })) || [];
+        
+        const electionTypes = electionTypesWithDates.map(etd => etd.type);
+        const electionDates = electionTypesWithDates.map(etd => etd.date).filter(date => date);
+        
+        const officeDisplay = candidate.office?.data?.attributes?.office || candidate.Role || 'N/A';
+        const partyDisplay = candidate.political_affiliation?.data?.attributes?.affiliation 
+          || candidate.party?.data?.attributes?.PartyName || 'N/A';
+        const districtDisplay = candidate.district_relation?.data?.attributes?.district || candidate.District || 'N/A';
+        
+        // Create enhanced candidate data with computed fields
+        const enhancedCandidateData = {
+          ...candidate,
+          ElectionNames: electionTypes,
+          ElectionDates: electionDates,
+          ElectionTypesWithDates: electionTypesWithDates,
+          OfficeDisplay: officeDisplay,
+          PartyDisplay: partyDisplay,
+          DistrictDisplay: districtDisplay
+        };
+        
+        setCandidateData(enhancedCandidateData);
+      } else {
+        setCandidateData(null);
+      }
     }
   }, [allCandidateData, candidateName]);
 
@@ -215,24 +259,68 @@ export default function Candidate() {
                 </div>
               </div>
 
-              {/* Office and Party Info */}
-              <div className="mb-6 flex flex-row">
-                <div className="mb-3">
-                  <p className="text-xl font-medium text-black border-b-2 border-black tracking-wide mb-1">
+              {/* Office, Party, District, and Election Info */}
+              <div className="mb-6">
+                <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-x-8 gap-y-4 items-start max-w-4xl">
+                  
+                  {/* Office */}
+                  <div className="text-xl font-medium text-black border-b-2 border-black tracking-wide whitespace-nowrap">
                     OFFICE RUNNING FOR:
-                  </p>
-                  <p className="text-xl font-medium text-red-600 tracking-wide mb-1">
+                  </div>
+                  <div className="text-xl font-semibold text-black">
+                    {candidateData?.OfficeDisplay}
+                  </div>
+
+                  {/* Party */}
+                  <div className="text-xl font-medium text-red-600 tracking-wide whitespace-nowrap">
                     Affiliated Party:
-                  </p>
-                </div>
-                <div className="pl-20">
-                  <p className="text-xl font-semibold text-black pb-1 inline-block pr-4">
-                    {candidateData?.Role || 'N/A'}
-                  </p>
-                  <br />
-                  <p className="text-xl font-semibold text-black pb-1 inline-block pr-4 uppercase">
-                    {candidateData?.party?.data?.attributes?.PartyName || 'N/A'}
-                  </p>
+                  </div>
+                  <div className="text-xl font-semibold text-black uppercase">
+                    {candidateData?.PartyDisplay}
+                  </div>
+
+                  {/* District */}
+                  <div className="text-xl font-medium text-black tracking-wide whitespace-nowrap">
+                    District:
+                  </div>
+                  <div className="text-xl font-semibold text-black">
+                    {candidateData?.DistrictDisplay}
+                  </div>
+
+                  {/* Election Types */}
+                  <div className="text-xl font-medium text-red-600 tracking-wide whitespace-nowrap">
+                    Election Type{candidateData?.ElectionNames && candidateData?.ElectionNames.length > 1 ? 's' : ''}:
+                  </div>
+                  <div className="text-xl font-semibold text-black">
+                    {candidateData?.ElectionNames && candidateData?.ElectionNames.length > 0 
+                      ? candidateData.ElectionNames.join(', ') 
+                      : candidateData?.ElectionName || 'N/A'
+                    }
+                  </div>
+
+                  {/* Election Dates */}
+                  <div className="text-xl font-medium text-black tracking-wide whitespace-nowrap">
+                    Election Date{candidateData?.ElectionDates && candidateData?.ElectionDates.length > 1 ? 's' : ''}:
+                  </div>
+                  <div className="text-xl font-semibold text-black">
+                    {candidateData?.ElectionDates && candidateData?.ElectionDates.length > 0 
+                      ? candidateData.ElectionDates.map(date => {
+                          if (!date) return 'N/A';
+                          try {
+                            const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                              month: 'long',
+                              day: 'numeric', 
+                              year: 'numeric'
+                            });
+                            return formattedDate;
+                          } catch (error) {
+                            return 'N/A';
+                          }
+                        }).join(', ')
+                      : 'N/A'
+                    }
+                  </div>
+
                 </div>
               </div>
             </div>
