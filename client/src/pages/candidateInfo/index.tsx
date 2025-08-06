@@ -77,6 +77,10 @@ export default function CandidateInfo() {
         office: '', // New office filter
     });
 
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const candidatesPerPage = 12;
+
     const router = useRouter();
     const { electionType } = router.query;
 
@@ -84,10 +88,10 @@ export default function CandidateInfo() {
     const fetchFilterOptions = async () => {
         try {
             const [districtsRes, officesRes, politicalAffiliationsRes, electionTypesRes] = await Promise.all([
-                fetch(DistrictsAPI),
-                fetch(OfficesAPI),
-                fetch(PoliticalAffiliationsAPI),
-                fetch(ElectionTypesAPI)
+                fetch(DistrictsAPI + '?pagination[limit]=-1'),
+                fetch(OfficesAPI + '?pagination[limit]=-1'),
+                fetch(PoliticalAffiliationsAPI + '?pagination[limit]=-1'),
+                fetch(ElectionTypesAPI + '?pagination[limit]=-1')
             ]);
 
             const [districtsData, officesData, politicalAffiliationsData, electionTypesData] = await Promise.all([
@@ -124,7 +128,7 @@ export default function CandidateInfo() {
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
-                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections,election_types,office,political_affiliation,district_relation');
+                const response = await fetch('https://pitne-voter-app-production.up.railway.app/api/candidates?populate=Headshot,party,elections,election_types,office,political_affiliation,district_relation&pagination[limit]=-1');
 
                 if (response.ok) {
                     const data = await response.json();
@@ -223,6 +227,19 @@ export default function CandidateInfo() {
             ...prevFilters,
             search: value,
         }));
+        setCurrentPage(1); // Reset to first page when searching
+    };
+
+    // Pagination calculations
+    const totalPages = Math.ceil(filteredCandidates.length / candidatesPerPage);
+    const startIndex = (currentPage - 1) * candidatesPerPage;
+    const endIndex = startIndex + candidatesPerPage;
+    const currentPageCandidates = filteredCandidates.slice(startIndex, endIndex);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        // Scroll to top of candidates section
+        window.scrollTo({ top: 100, behavior: 'smooth' });
     };
 
     /* Dropdown candidates info*/
@@ -381,6 +398,7 @@ export default function CandidateInfo() {
             search: '', // New search bar for candidate name
             office: '', // New office filter
         });
+        setCurrentPage(1);
     };
 
     useEffect(() => {
@@ -407,6 +425,7 @@ export default function CandidateInfo() {
             return matchesParty && matchesElection && matchesDistrict && matchesSearch && matchesOffice;
         });
         setFilteredCandidates(filtered);
+        setCurrentPage(1); // Reset to first page when filters change
     }, [filters, candidates]);
 
     if (isLoading) return <p>Loading...</p>;
@@ -424,7 +443,7 @@ export default function CandidateInfo() {
                     <input type="text" id="search-filter" name="search" placeholder="Enter candidate name here" value={filters.search} onChange={handleSearchChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', borderRadius: '10px', background: '#FBFDFF', width: '100%', padding: '10px', border: '1px solid #ccc', }} />
                 </div>
 
-
+                
 
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
@@ -442,6 +461,7 @@ export default function CandidateInfo() {
                                             ...prev,
                                             office: isSelected ? '' : office.attributes.office || ''
                                         }));
+                                        setCurrentPage(1);
                                     }}
                                     style={{
                                         display: 'flex',
@@ -513,6 +533,7 @@ export default function CandidateInfo() {
                                             ...prev,
                                             district: isSelected ? '' : district.attributes.district || ''
                                         }));
+                                        setCurrentPage(1);
                                     }}
                                     style={{
                                         display: 'flex',
@@ -584,6 +605,7 @@ export default function CandidateInfo() {
                                             ...prev,
                                             party: isSelected ? '' : affiliation.attributes.affiliation || ''
                                         }));
+                                        setCurrentPage(1);
                                     }}
                                     style={{
                                         display: 'flex',
@@ -664,21 +686,99 @@ export default function CandidateInfo() {
                     <span className="text-red-600">CANDIDATE </span>
                     <span className="text-black">OVERVIEW</span>
                 </h1>
-                <p className="text-lg mt-4 font-medium text-gray-700 pb-10">
+                <p className="text-lg mt-4 font-medium text-gray-700 pb-6">
                     Review each candidate&apos;s background and priorities for <br />
                     Boston to make an informed decision this election cycle.
                 </p>
+                
                 {filteredCandidates.length > 0 ? (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                        gap: '20px',
-                        width: '100%'
-                    }}>
-                        {filteredCandidates.map(candidate => (
-                            <CandidatePreview key={candidate.id} candidate={candidate} />
-                        ))}
-                    </div>
+                    <>
+                        {/* Results count and pagination info */}
+                        <div style={{ marginBottom: '20px', color: '#666', fontSize: '16px' }}>
+                            Showing {startIndex + 1}-{Math.min(endIndex, filteredCandidates.length)} of {filteredCandidates.length} candidates
+                        </div>
+                        
+                        {/* Candidates grid */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                            gap: '20px',
+                            width: '100%',
+                            maxWidth: '1020px', // 320px * 3 + 20px * 2 = 1000px + some padding
+                            justifyContent: 'start', // Left align the grid
+                            marginBottom: '40px'
+                        }}>
+                            {currentPageCandidates.map(candidate => (
+                                <CandidatePreview key={candidate.id} candidate={candidate} />
+                            ))}
+                        </div>
+                        
+                        {/* Pagination controls */}
+                        {totalPages > 1 && (
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '10px',
+                                marginTop: '30px',
+                                flexWrap: 'wrap'
+                            }}>
+                                {/* Previous button */}
+                                <button
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    style={{
+                                        padding: '8px 16px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '5px',
+                                        backgroundColor: currentPage === 1 ? '#f5f5f5' : '#fff',
+                                        color: currentPage === 1 ? '#999' : '#333',
+                                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                                        fontSize: '14px'
+                                    }}
+                                >
+                                    Previous
+                                </button>
+                                
+                                {/* Page numbers */}
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                    <button
+                                        key={page}
+                                        onClick={() => handlePageChange(page)}
+                                        style={{
+                                            padding: '8px 12px',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '5px',
+                                            backgroundColor: currentPage === page ? '#F00' : '#fff',
+                                            color: currentPage === page ? '#fff' : '#333',
+                                            cursor: 'pointer',
+                                            fontSize: '14px',
+                                            fontWeight: currentPage === page ? '600' : '400'
+                                        }}
+                                    >
+                                        {page}
+                                    </button>
+                                ))}
+                                
+                                {/* Next button */}
+                                <button
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                    style={{
+                                        padding: '8px 16px',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '5px',
+                                        backgroundColor: currentPage === totalPages ? '#f5f5f5' : '#fff',
+                                        color: currentPage === totalPages ? '#999' : '#333',
+                                        cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                                        fontSize: '14px'
+                                    }}
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <p>No candidates match the selected filters.</p>
                 )}
