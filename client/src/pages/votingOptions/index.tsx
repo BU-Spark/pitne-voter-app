@@ -22,8 +22,8 @@ const VotingOptions = () => {
                     <span className='text-red-600'>VOTING</span> <span className='text-black'>OPTIONS</span>
                     </h1>
                 </div>
-                <p className='font-medium text-lg sm:text-xl mt-4'>Everything you need to know about your voting options</p>
-                <img src='/made-simple.png' alt='Made simple' className='w-[160px] sm:w-[220px] mt-4' />
+                <p className='font-medium text-lg sm:text-xl mt-4'>Everything you need to know about your voting options made simple!</p>
+                {/* <img src='/made-simple.png' alt='Made simple' className='w-[160px] sm:w-[220px] mt-4' /> */}
             </div>
 
 

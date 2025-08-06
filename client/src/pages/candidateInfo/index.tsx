@@ -288,8 +288,17 @@ export default function CandidateInfo() {
         
 
         return (
-            <div style={{ marginRight: '60px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '20px', padding: '15px', cursor: 'pointer', width: '90%',  backgroundColor: '#fff', transition: '0.3s', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}>
-            {/* Header Section */}
+            <div style={{ 
+                border: '1px solid #ccc', 
+                borderRadius: '20px', 
+                padding: '15px', 
+                cursor: 'pointer', 
+                backgroundColor: '#fff', 
+                transition: '0.3s', 
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+                height: 'fit-content'
+            }}>
+                {/* Header Section */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ width: '60px', height: '60px', marginRight: '10px', borderRadius: '5px', overflow: 'hidden' }}>
@@ -326,47 +335,42 @@ export default function CandidateInfo() {
                         </div>
                         <div>
                             {/* Display Party ABOVE the Name */}
-                            <span style={{ color: 'red', fontSize: '14px', display: 'block' }}>{partyToDisplay}</span> {/* Party text is now red */}
+                            <span style={{ color: 'red', fontSize: '14px', display: 'block' }}>{partyToDisplay}</span>
                             <h3 style={{ margin: '5px 0', fontSize: '18px', fontWeight: 'bold' }}>
                                 {candidate.attributes.Name}
                             </h3>
                         </div>
                     </div>
+                </div>
+                
+                {/* Expanded Section - Now with 2 columns since 2 items were removed */}
+                <div style={{ 
+                    marginTop: '10px', 
+                    paddingTop: '20px', 
+                    borderTop: '1px solid #ddd', 
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(2, 1fr)', 
+                    gap: '15px', 
+                    textAlign: 'center' 
+                }}>
+                    <div>
+                        <p style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Office</p>
+                        <strong style={{ fontSize: '16px' }}>{candidate.attributes.Office}</strong>
+                    </div>
+                    <div>
+                        <p style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>District</p>
+                        <strong style={{ fontSize: '16px' }}>{candidate.attributes.District}</strong>
+                    </div>
+                </div>
+
+                {/* More Info Button */}
+                <div style={{ textAlign: 'right', marginTop: '15px' }}>
+                    <button className='bg-transparent border border-red-600 text-red-600 px-3 py-1.5 rounded-full text-sm font-bold hover:bg-red-600 hover:text-white transition-colors duration-200'
+                        onClick={() => handleCandidateClick(candidate.attributes.Name)}>
+                        More Info
+                    </button>
+                </div>
             </div>
-            {/* Expanded Section - Always Visible Now */}
-            <div style={{ marginTop: '10px', paddingTop: '40px', borderTop: '1px solid #ddd', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center', }} >
-                <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Office</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.Office}</strong>
-                </div>
-                <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>District</p>
-                  <strong style={{ fontSize: '14px' }}>{candidate.attributes.District}</strong>
-                </div>
-                <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election{candidate.attributes.ElectionNames && candidate.attributes.ElectionNames.length > 1 ? 's' : ''}</p>
-                  <strong style={{ fontSize: '14px' }}>
-                    {candidate.attributes.ElectionNames && candidate.attributes.ElectionNames.length > 0 
-                      ? candidate.attributes.ElectionNames.join(', ') 
-                      : candidate.attributes.ElectionName
-                    }
-                  </strong>
-                </div>
-                <div>
-                  <p style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Election Date</p>
-                  <strong style={{ fontSize: '14px' }}>{formattedElectionDate}</strong> {/* Use formatted date here */}
-                </div>
-              </div>
-
-
-            {/* More Info Button */}
-            <div style={{ textAlign: 'right', marginTop: '10px' }}>
-                <button className = 'bg-transparent border border-red-600 text-red-600 px-3 py-1.5 rounded-full text-sm font-bold hover:bg-red-600 hover:text-white transition-colors duration-200'
-                  onClick={() => handleCandidateClick(candidate.attributes.Name)}>
-                  More Info
-                </button>
-              </div>
-          </div>
         );
       };
 
@@ -421,19 +425,7 @@ export default function CandidateInfo() {
                     <input type="text" id="search-filter" name="search" placeholder="Enter candidate name here" value={filters.search} onChange={handleFilterChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', borderRadius: '10px', background: '#FBFDFF', width: '100%', padding: '10px', border: '1px solid #ccc', }} />
                 </div>
 
-                <div style={{ marginTop: '20px' }}>
-                    <label htmlFor="party-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Political Affiliation:</label>
-                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
-                        <option value="">All</option>
-                        {filterOptions.politicalAffiliations.map(affiliation => (
-                            <option key={affiliation.id} value={affiliation.attributes.affiliation}>
-                                {affiliation.attributes.affiliation}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div style={{ marginTop: '20px' }}>
+                {/* <div style={{ marginTop: '20px' }}>
                     <label htmlFor="election-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Election Type:</label>
                     <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
                         <option value="">All</option>
@@ -443,7 +435,7 @@ export default function CandidateInfo() {
                             </option>
                         ))}
                     </select>
-                </div>
+                </div> */}
 
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
@@ -465,6 +457,18 @@ export default function CandidateInfo() {
                         {filterOptions.districts.map((district) => (
                             <option key={district.id} value={district.attributes.district}>
                                 {district.attributes.district}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div style={{ marginTop: '20px' }}>
+                    <label htmlFor="party-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Political Affiliation:</label>
+                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
+                        <option value="">All</option>
+                        {filterOptions.politicalAffiliations.map(affiliation => (
+                            <option key={affiliation.id} value={affiliation.attributes.affiliation}>
+                                {affiliation.attributes.affiliation}
                             </option>
                         ))}
                     </select>
@@ -499,9 +503,16 @@ export default function CandidateInfo() {
                     Boston to make an informed decision this election cycle.
                 </p>
                 {filteredCandidates.length > 0 ? (
-                    filteredCandidates.map(candidate => (
-                    <CandidatePreview key={candidate.id} candidate={candidate} />
-                    ))
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                        gap: '20px',
+                        width: '100%'
+                    }}>
+                        {filteredCandidates.map(candidate => (
+                            <CandidatePreview key={candidate.id} candidate={candidate} />
+                        ))}
+                    </div>
                 ) : (
                     <p>No candidates match the selected filters.</p>
                 )}

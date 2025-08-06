@@ -1,21 +1,12 @@
 import React, { useState, useEffect, useCallback, startTransition } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Button, Checkbox, FormControlLabel, Grid, TextField, Autocomplete, Typography, Alert } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, Grid, TextField, Typography, Alert } from '@mui/material';
 import { ExpressURL } from '@/common';
 
 const api = axios.create({
     baseURL: ExpressURL,
 });
-
-// Common Boston neighborhoods and areas to help with autocomplete
-const bostonNeighborhoods = [
-    'Allston', 'Back Bay', 'Beacon Hill', 'Brighton', 'Charlestown', 
-    'Chinatown', 'Dorchester', 'Downtown', 'East Boston', 'Fenway',
-    'Financial District', 'Hyde Park', 'Jamaica Plain', 'Mattapan',
-    'Mission Hill', 'North End', 'Roslindale', 'Roxbury', 'South Boston',
-    'South End', 'West End', 'West Roxbury'
-];
 
 interface PollingInfo {
     location: string | null;
@@ -36,7 +27,6 @@ interface AddressFormProps {
 
 const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setError }) => {
     const [street, setStreet] = useState('');
-    const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
     const [saveAddress, setSaveAddress] = useState(false);
     const [formError, setFormError] = useState<string | null>(null);
@@ -46,9 +36,8 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         const savedPollingInfo = Cookies.get('pollingInfo');
 
         if (savedAddress) {
-            const { street, city, zip } = JSON.parse(savedAddress);
+            const { street, zip } = JSON.parse(savedAddress);
             setStreet(street);
-            setCity(city);
             setZip(zip);
             setSaveAddress(true);
         }
@@ -61,11 +50,11 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         }
     }, [setPollingInformation]);
 
-    const saveCookieData = (street: string, city: string, zip: string, pollingInfo: PollingInfo) => {
+    const saveCookieData = (street: string, zip: string, pollingInfo: PollingInfo) => {
         const consent = Cookies.get('cookieConsent');
         if (consent === 'accepted') {
             if (saveAddress) {
-                Cookies.set('address', JSON.stringify({ street, city, zip }), { expires: 7 });
+                Cookies.set('address', JSON.stringify({ street, zip }), { expires: 7 });
             } else {
                 Cookies.remove('address');
             }
@@ -92,7 +81,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
         event.preventDefault();
         setError(null);
 
-        const address = `${street}, ${city}, ${zip}`;
+        const address = `${street}, Boston, ${zip}`;
 
         try {
             console.log("address from addressForm.tsx:", address);
@@ -127,7 +116,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                 startTransition(() => {
                     setPollingInformation(pollingInfo);
                 });
-                saveCookieData(street, city, zip, pollingInfo);
+                saveCookieData(street, zip, pollingInfo);
             } else {
                 console.log("Ward or Precinct is null:", { ward: data.USER_Ward, precinct: data.USER_Precinct });
                 setError('Invalid address format or unsupported location.');
@@ -147,7 +136,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
             const fallbackPollingInfo: PollingInfo = {
                 location: null,
                 street: street,
-                city: city,
+                city: 'Boston',
                 state: null,
                 zip: zip,
                 room: null,
@@ -156,7 +145,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                 precinct: null,
             };
 
-            saveCookieData(street, city, zip, fallbackPollingInfo);
+            saveCookieData(street, zip, fallbackPollingInfo);
 
             // Provide specific error messages based on the error type
             if (axios.isAxiosError(err)) {
@@ -229,41 +218,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ setPollingInformation, setErr
                             }}
                         />
                     </Grid>
-                    <Grid item xs={6}>
-                        <Autocomplete
-                            freeSolo
-                            options={['Boston', ...bostonNeighborhoods]}
-                            value={city}
-                            onInputChange={(event, newValue) => {
-                                setCity(newValue || '');
-                            }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="City/Neighborhood"
-                                    variant="outlined"
-                                    fullWidth
-                                    placeholder="Boston or neighborhood"
-                                    InputProps={{ 
-                                        ...params.InputProps,
-                                        style: { backgroundColor: 'white' } 
-                                    }}
-                                    sx={{
-                                        '& .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: 'black',
-                                        },
-                                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: 'black',
-                                        },
-                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                            borderColor: 'black',
-                                        },
-                                    }}
-                                />
-                            )}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <TextField
                             label="Zip Code"
                             variant="outlined"

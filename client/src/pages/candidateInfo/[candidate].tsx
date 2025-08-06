@@ -223,7 +223,7 @@ export default function Candidate() {
                   {nameParts.slice(1).join(' ')}
                 </h1>
 
-                <div className="flex items-center pt-40 space-x-4">
+                <div className="flex items-center pt-40 space-x-4 underline italic">
                   {candidateData?.CampaignSiteLink && (
                     <a
                       href={candidateData.CampaignSiteLink}
@@ -232,12 +232,13 @@ export default function Candidate() {
                       title="Campaign Site"
                       className="text-gray-600 hover:text-black transition duration-200 pl-5 pr-5"
                     >
-                      <Image
+                      {/* <Image
                         src="/Link.svg"
                         alt="Campaign Site Link"
                         width={32}
                         height={32}
-                      />
+                      /> */}
+                      Campaign Site
                     </a>
                   )}
                   {candidateData?.LinkedinLink && (
@@ -288,7 +289,7 @@ export default function Candidate() {
                   </div>
 
                   {/* Election Types */}
-                  <div className="text-xl font-medium text-red-600 tracking-wide whitespace-nowrap">
+                  {/* <div className="text-xl font-medium text-red-600 tracking-wide whitespace-nowrap">
                     Election Type{candidateData?.ElectionNames && candidateData?.ElectionNames.length > 1 ? 's' : ''}:
                   </div>
                   <div className="text-xl font-semibold text-black">
@@ -296,10 +297,10 @@ export default function Candidate() {
                       ? candidateData.ElectionNames.join(', ') 
                       : candidateData?.ElectionName || 'N/A'
                     }
-                  </div>
+                  </div> */}
 
                   {/* Election Dates */}
-                  <div className="text-xl font-medium text-black tracking-wide whitespace-nowrap">
+                  {/* <div className="text-xl font-medium text-black tracking-wide whitespace-nowrap">
                     Election Date{candidateData?.ElectionDates && candidateData?.ElectionDates.length > 1 ? 's' : ''}:
                   </div>
                   <div className="text-xl font-semibold text-black">
@@ -319,7 +320,7 @@ export default function Candidate() {
                         }).join(', ')
                       : 'N/A'
                     }
-                  </div>
+                  </div> */}
 
                 </div>
               </div>
