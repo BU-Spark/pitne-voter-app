@@ -217,12 +217,11 @@ export default function CandidateInfo() {
         router.push(`/candidateInfo/${formattedName}`); // Navigate to the candidate's profile page
     };
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        console.log(name, value);
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
         setFilters(prevFilters => ({
             ...prevFilters,
-            [name]: value,
+            search: value,
         }));
     };
 
@@ -422,56 +421,223 @@ export default function CandidateInfo() {
                 {/* Search Bar */}
                 <div style={{ marginTop: '40px' }}>
                     <label htmlFor="search-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }} >Search Candidates: </label>
-                    <input type="text" id="search-filter" name="search" placeholder="Enter candidate name here" value={filters.search} onChange={handleFilterChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', borderRadius: '10px', background: '#FBFDFF', width: '100%', padding: '10px', border: '1px solid #ccc', }} />
+                    <input type="text" id="search-filter" name="search" placeholder="Enter candidate name here" value={filters.search} onChange={handleSearchChange} style={{ display: 'flex', height: '60px', alignItems: 'center', gap: '10px', borderRadius: '10px', background: '#FBFDFF', width: '100%', padding: '10px', border: '1px solid #ccc', }} />
                 </div>
 
-                {/* <div style={{ marginTop: '20px' }}>
-                    <label htmlFor="election-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Election Type:</label>
-                    <select id="election-filter" name="electionType" value={filters.electionType} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
-                        <option value="">All</option>
-                        {filterOptions.electionTypes.map(type => (
-                            <option key={type.id} value={type.attributes.type}>
-                                {type.attributes.type}
-                            </option>
-                        ))}
-                    </select>
-                </div> */}
+
 
                 {/* Office Filter */}
                 <div style={{ marginTop: '20px' }}>
-                    <label htmlFor="office-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', }} > Office: </label>
-                    <select id="office-filter" name="office" value={filters.office} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} >
-                        <option value="">All</option>
-                        {filterOptions.offices.map((office) => (
-                            <option key={office.id} value={office.attributes.office}>
-                                {office.attributes.office}
-                            </option>
-                        ))}
-                    </select>
+                    <label style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', marginBottom: '10px' }}>
+                        Office:
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {filterOptions.offices.map((office) => {
+                            const isSelected = filters.office === office.attributes.office;
+                            return (
+                                <div
+                                    key={office.id}
+                                    onClick={() => {
+                                        setFilters(prev => ({
+                                            ...prev,
+                                            office: isSelected ? '' : office.attributes.office || ''
+                                        }));
+                                    }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '8px 12px',
+                                        borderRadius: '20px',
+                                        border: isSelected ? '2px solid #F00' : '1px solid #ccc',
+                                        backgroundColor: isSelected ? '#FFF5F5' : '#FBFDFF',
+                                        color: isSelected ? '#F00' : '#333',
+                                        cursor: 'pointer',
+                                        fontSize: '14px',
+                                        fontWeight: isSelected ? '600' : '400',
+                                        transition: 'all 0.2s ease',
+                                        userSelect: 'none'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#f0f0f0';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#FBFDFF';
+                                        }
+                                    }}
+                                >
+                                    <span>{office.attributes.office}</span>
+                                    {isSelected && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFilters(prev => ({ ...prev, office: '' }));
+                                            }}
+                                            style={{
+                                                marginLeft: '8px',
+                                                background: 'none',
+                                                border: 'none',
+                                                color: '#F00',
+                                                cursor: 'pointer',
+                                                fontSize: '16px',
+                                                lineHeight: '1',
+                                                padding: '0',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            ×
+                                        </button>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
-                    <label htmlFor="district-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>District:</label>
-                    <select id="district-filter" name="district" value={filters.district} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF', }} >
-                        <option value="">All</option>
-                        {filterOptions.districts.map((district) => (
-                            <option key={district.id} value={district.attributes.district}>
-                                {district.attributes.district}
-                            </option>
-                        ))}
-                    </select>
+                    <label style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', marginBottom: '10px' }}>
+                        District:
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {filterOptions.districts.map((district) => {
+                            const isSelected = filters.district === district.attributes.district;
+                            return (
+                                <div
+                                    key={district.id}
+                                    onClick={() => {
+                                        setFilters(prev => ({
+                                            ...prev,
+                                            district: isSelected ? '' : district.attributes.district || ''
+                                        }));
+                                    }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '8px 12px',
+                                        borderRadius: '20px',
+                                        border: isSelected ? '2px solid #F00' : '1px solid #ccc',
+                                        backgroundColor: isSelected ? '#FFF5F5' : '#FBFDFF',
+                                        color: isSelected ? '#F00' : '#333',
+                                        cursor: 'pointer',
+                                        fontSize: '14px',
+                                        fontWeight: isSelected ? '600' : '400',
+                                        transition: 'all 0.2s ease',
+                                        userSelect: 'none'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#f0f0f0';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#FBFDFF';
+                                        }
+                                    }}
+                                >
+                                    <span>{district.attributes.district}</span>
+                                    {isSelected && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFilters(prev => ({ ...prev, district: '' }));
+                                            }}
+                                            style={{
+                                                marginLeft: '8px',
+                                                background: 'none',
+                                                border: 'none',
+                                                color: '#F00',
+                                                cursor: 'pointer',
+                                                fontSize: '16px',
+                                                lineHeight: '1',
+                                                padding: '0',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            ×
+                                        </button>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 <div style={{ marginTop: '20px' }}>
-                    <label htmlFor="party-filter" style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px' }}>Political Affiliation:</label>
-                    <select id="party-filter" name="party" value={filters.party} onChange={handleFilterChange} style={{ width: '100%', display: 'flex', height: '60px', padding: '10px', alignItems: 'center', gap: '10px', alignSelf: 'stretch', borderRadius: '10px', background: '#FBFDFF' }}>
-                        <option value="">All</option>
-                        {filterOptions.politicalAffiliations.map(affiliation => (
-                            <option key={affiliation.id} value={affiliation.attributes.affiliation}>
-                                {affiliation.attributes.affiliation}
-                            </option>
-                        ))}
-                    </select>
+                    <label style={{ display: 'flex', height: '26px', flexDirection: 'column', justifyContent: 'center', alignSelf: 'stretch', color: 'black', fontFamily: 'Inter', fontSize: '20px', fontStyle: 'normal', fontWeight: '700', lineHeight: '24px', letterSpacing: '0.15px', marginBottom: '10px' }}>
+                        Political Affiliation:
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {filterOptions.politicalAffiliations.map((affiliation) => {
+                            const isSelected = filters.party === affiliation.attributes.affiliation;
+                            return (
+                                <div
+                                    key={affiliation.id}
+                                    onClick={() => {
+                                        setFilters(prev => ({
+                                            ...prev,
+                                            party: isSelected ? '' : affiliation.attributes.affiliation || ''
+                                        }));
+                                    }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '8px 12px',
+                                        borderRadius: '20px',
+                                        border: isSelected ? '2px solid #F00' : '1px solid #ccc',
+                                        backgroundColor: isSelected ? '#FFF5F5' : '#FBFDFF',
+                                        color: isSelected ? '#F00' : '#333',
+                                        cursor: 'pointer',
+                                        fontSize: '14px',
+                                        fontWeight: isSelected ? '600' : '400',
+                                        transition: 'all 0.2s ease',
+                                        userSelect: 'none'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#f0f0f0';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isSelected) {
+                                            e.currentTarget.style.backgroundColor = '#FBFDFF';
+                                        }
+                                    }}
+                                >
+                                    <span>{affiliation.attributes.affiliation}</span>
+                                    {isSelected && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setFilters(prev => ({ ...prev, party: '' }));
+                                            }}
+                                            style={{
+                                                marginLeft: '8px',
+                                                background: 'none',
+                                                border: 'none',
+                                                color: '#F00',
+                                                cursor: 'pointer',
+                                                fontSize: '16px',
+                                                lineHeight: '1',
+                                                padding: '0',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            ×
+                                        </button>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 {/* Reset Filters Button */}
