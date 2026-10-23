@@ -16,40 +16,11 @@
       "type": "string",
       "required": true
     },
-    "District": {
-      "type": "enumeration",
-      "enum": [
-        "District 1 ",
-        "District 2",
-        "District 3",
-        "District 4",
-        "District 5",
-        "District 6 ",
-        "District 7",
-        "District 8",
-        "District 9 ",
-        "All Districts"
-      ],
-      "required": true,
-      "default": "All Districts"
-    },
-    "Role": {
-      "type": "string",
-      "required": true
-    },
     "CampaignSiteLink": {
       "type": "string"
     },
     "LinkedinLink": {
       "type": "string"
-    },
-    "Party": {
-      "type": "string",
-      "required": true
-    },
-    "ElectionName": {
-      "type": "string",
-      "required": true
     },
     "Question1": {
       "type": "string"
@@ -118,6 +89,27 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "office": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::office.office"
+    },
+    "political_affiliation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::political-affiliation.political-affiliation"
+    },
+    "district_relation": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::district.district"
+    },
+    "election_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::election-type.election-type",
+      "mappedBy": "candidates"
     }
   }
 }
