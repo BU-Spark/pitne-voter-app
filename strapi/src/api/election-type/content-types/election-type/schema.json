@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "election_types",
+  "info": {
+    "singularName": "election-type",
+    "pluralName": "election-types",
+    "displayName": "Election Type",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "candidates": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::candidate.candidate",
+      "inversedBy": "election_types"
+    },
+    "date": {
+      "type": "date"
+    }
+  }
+}

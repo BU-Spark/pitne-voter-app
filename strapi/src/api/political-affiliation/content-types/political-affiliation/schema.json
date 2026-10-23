@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "political_affiliations",
+  "info": {
+    "singularName": "political-affiliation",
+    "pluralName": "political-affiliations",
+    "displayName": "Political Affiliation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "affiliation": {
+      "type": "string"
+    }
+  }
+}
